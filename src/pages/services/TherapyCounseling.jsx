@@ -90,7 +90,7 @@ const TherapyCounseling = () => {
             </div>
         </DetailSection>
 
-        <div className="mt-10 bg-green-50 border-l-4 border-green-500 text-green-800 p-6 rounded-r-lg">
+        <div className="mt-10 mb-16 bg-green-50 border-l-4 border-green-500 text-green-800 p-6 rounded-r-lg">
           <h4 className="font-bold text-xl">Psychoeducation: The Foundation of Care</h4>
           <p className="mt-1">A key part of all our therapy is providing clear, practical information about your condition, triggers, and treatment options. This empowers you to make informed decisions and actively participate in your healing journey.</p>
         </div>

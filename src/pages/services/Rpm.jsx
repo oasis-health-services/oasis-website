@@ -94,7 +94,7 @@ const Rpm = () => {
           </div>
         </DetailSection>
 
-        <div className="mt-10 bg-green-50 border-l-4 border-green-500 text-green-800 p-6 rounded-r-lg">
+        <div className="mt-10 mb-16 bg-green-50 border-l-4 border-green-500 text-green-800 p-6 rounded-r-lg">
           <h4 className="font-bold text-xl">Your Privacy is Protected</h4>
           <p className="mt-1">We use a fully HIPAA-compliant platform, and only authorized clinical staff can view your data. Your privacy and security are paramount.</p>
         </div>

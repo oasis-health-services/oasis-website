@@ -85,7 +85,7 @@ const Telehealth = () => {
             </div>
         </DetailSection>
 
-        <div className="mt-10 bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-6 rounded-r-lg">
+        <div className="mt-10 mb-16 bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-6 rounded-r-lg">
           <div className="flex items-start">
             <Shield className="h-8 w-8 mr-4 text-blue-600 flex-shrink-0" />
             <div>

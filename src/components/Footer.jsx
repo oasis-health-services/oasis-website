@@ -88,6 +88,21 @@ const Footer = () => {
                   <li><p>Phone: (509) 381-6035</p></li>
                   <li><p>Hours: Mon - Sat 8:30 AM - 5:30 PM EST</p></li>
                 </ul>
+                <div className="mt-4">
+                  <a
+                    title="Verify LegitScript Approval for www.oasishealthservices.com"
+                    href="https://www.legitscript.com/websites/?checker_keywords=oasishealthservices.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src="https://static.legitscript.com/seals/15660777.png"
+                      alt="Verify Approval for www.oasishealthservices.com"
+                      width="73"
+                      height="79"
+                    />
+                  </a>
+                </div>
               </div>
                <div>
                 <p className="font-semibold text-white mb-4">Locations Served</p>

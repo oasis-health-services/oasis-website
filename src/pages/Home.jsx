@@ -315,17 +315,20 @@ At Oasis Health Services, we walk alongside you with personalized care and guida
             const Icon = condition.icon;
             return <motion.div key={condition.name} initial={{
               opacity: 0,
-              y: 20
+              y: 10
             }} whileInView={{
               opacity: 1,
               y: 0
             }} viewport={{
-              once: true
+              once: true,
+              margin: "-50px"
             }} transition={{
-              delay: index * 0.05
+              duration: 0.4,
+              delay: index * 0.03,
+              ease: "easeOut"
             }}>
                   <Link to={condition.href} className="h-full flex">
-                    <div className="p-6 bg-white rounded-lg shadow-sm hover:shadow-lg transition-all hover:-translate-y-1 group flex flex-col items-center justify-center text-center h-full w-full">
+                    <div className="p-6 bg-white rounded-lg shadow-sm hover:shadow-lg transition-all hover:-translate-y-1 group flex flex-col items-center justify-center text-center h-full w-full will-change-transform">
                       <Icon className="h-10 w-10 text-[#2D6762] mb-4 group-hover:text-[#6D519D] transition-colors" />
                       <h3 className="text-lg font-semibold text-[#2D6762] group-hover:text-[#6D519D] transition-colors">
                         {condition.name}

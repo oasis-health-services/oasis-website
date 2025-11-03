@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 /**
  * OptimizedImage Component
@@ -17,9 +17,15 @@ const OptimizedImage = ({
   objectFit = 'cover',
   ...props
 }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
   if (!src) {
     return null;
   }
+
+  const handleLoad = () => {
+    setIsLoaded(true);
+  };
 
   // If src is external URL, just use it directly
   if (src.startsWith('http')) {
@@ -27,11 +33,12 @@ const OptimizedImage = ({
       <img
         src={src}
         alt={alt}
-        className={className}
+        className={`${className} ${isLoaded ? 'loaded' : ''}`}
         width={width}
         height={height}
         loading={priority ? 'eager' : loading}
         decoding="async"
+        onLoad={handleLoad}
         style={objectFit ? { objectFit } : undefined}
         {...props}
       />
@@ -46,6 +53,12 @@ const OptimizedImage = ({
   };
 
   const webpSrc = getWebPSrc(src);
+
+  // Combine styles to prevent layout shift
+  const imgStyle = {
+    ...(objectFit ? { objectFit } : {}),
+    ...(width && height ? { aspectRatio: `${width} / ${height}` } : {}),
+  };
 
   return (
     <picture className={className}>
@@ -62,12 +75,13 @@ const OptimizedImage = ({
       <img
         src={src}
         alt={alt}
-        className={className}
+        className={`${className} ${isLoaded ? 'loaded' : ''}`}
         width={width}
         height={height}
         loading={priority ? 'eager' : loading}
         decoding="async"
-        style={objectFit ? { objectFit } : undefined}
+        onLoad={handleLoad}
+        style={imgStyle}
         {...props}
       />
     </picture>

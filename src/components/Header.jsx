@@ -240,12 +240,12 @@ import React, { useState, useRef, useEffect } from 'react';
                   exit={{ opacity: 0, height: 0 }}
                   className="lg:hidden overflow-hidden"
                 >
-                  <div className="py-4 divide-y divide-gray-200">
+                  <div className="py-4 space-y-1">
                     <Accordion type="multiple" className="w-full">
                       {navigation.map((item) => {
                         if (item.sublinks) {
                           return (
-                            <AccordionItem value={item.name} key={item.name} className="border-b-0">
+                            <AccordionItem value={item.name} key={item.name} className="border-b-0 py-0">
                               <AccordionTrigger className={`py-3 text-base font-medium hover:no-underline ${getActiveState(item) ? 'text-[#2D6762]' : 'text-[#4A5455]'}`}>
                                 {item.name}
                               </AccordionTrigger>

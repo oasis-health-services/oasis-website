@@ -40,7 +40,7 @@ function cleanContent(content) {
 
 function cleanText(text) {
   if (!text) return text;
-  
+
   return text
     .replace(CLEAN_CONTENT_REGEX.jsxExpressions, '')
     .replace(CLEAN_CONTENT_REGEX.htmlEntities.quot, '"')
@@ -58,23 +58,23 @@ function extractRoutes(appJsxPath) {
     const content = fs.readFileSync(appJsxPath, 'utf8');
     const routes = new Map();
     const routeMatches = [...content.matchAll(EXTRACTION_REGEX.route)];
-    
+
     for (const match of routeMatches) {
       const routeTag = match[0];
       const pathMatch = routeTag.match(EXTRACTION_REGEX.path);
       const elementMatch = routeTag.match(EXTRACTION_REGEX.element);
       const isIndex = routeTag.includes('index');
-      
+
       if (elementMatch) {
         const componentName = elementMatch[1];
         let routePath;
-        
+
         if (isIndex) {
           routePath = '/';
         } else if (pathMatch) {
           routePath = pathMatch[1].startsWith('/') ? pathMatch[1] : `/${pathMatch[1]}`;
         }
-        
+
         routes.set(componentName, routePath);
       }
     }
@@ -117,16 +117,16 @@ function extractHelmetData(content, filePath, routes) {
 
       // Extract title prop
       const titlePropMatch = seoProps.match(/title=["']([^"']*)["']/) ||
-                            seoProps.match(/title=\{["']([^"']*)["']\}/) ||
-                            seoProps.match(/title=\{([^}]*)\}/);
+        seoProps.match(/title=\{["']([^"']*)["']\}/) ||
+        seoProps.match(/title=\{([^}]*)\}/);
       if (titlePropMatch) {
         title = cleanText(titlePropMatch[1]);
       }
 
       // Extract description prop
       const descPropMatch = seoProps.match(/description=["']([^"']*)["']/) ||
-                           seoProps.match(/description=\{["']([^"']*)["']\}/) ||
-                           seoProps.match(/description=\{([^}]*)\}/);
+        seoProps.match(/description=\{["']([^"']*)["']\}/) ||
+        seoProps.match(/description=\{([^}]*)\}/);
       if (descPropMatch) {
         description = cleanText(descPropMatch[1]);
       }
@@ -202,8 +202,8 @@ function processPageFile(filePath, routes) {
 async function fetchBlogPosts() {
   try {
     const ghostAPI = new GhostContentAPI({
-      url: 'https://oasis.marketingcarcontent.com',
-      key: 'dac5098ae92e739703c202ce3e',
+      url: process.env.VITE_GHOST_API_URL,
+      key: process.env.VITE_GHOST_API_KEY,
       version: 'v5'
     });
 

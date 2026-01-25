@@ -2,8 +2,8 @@ import GhostContentAPI from '@tryghost/content-api';
 
 // Create API instance with your Ghost site credentials
 const api = new GhostContentAPI({
-  url: 'https://oasis.marketingcarcontent.com',
-  key: 'dac5098ae92e739703c202ce3e',
+  url: import.meta.env.VITE_GHOST_API_URL,
+  key: import.meta.env.VITE_GHOST_API_KEY,
   version: 'v5'
 });
 

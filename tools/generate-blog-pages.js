@@ -6,8 +6,8 @@ import GhostContentAPI from '@tryghost/content-api';
 
 // Initialize Ghost API
 const ghostAPI = new GhostContentAPI({
-  url: 'https://oasis.marketingcarcontent.com',
-  key: 'dac5098ae92e739703c202ce3e',
+  url: process.env.VITE_GHOST_API_URL,
+  key: process.env.VITE_GHOST_API_KEY,
   version: 'v5'
 });
 

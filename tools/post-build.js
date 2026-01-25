@@ -11,8 +11,7 @@ import { promisify } from 'util';
 const execAsync = promisify(exec);
 
 const postBuildTasks = [
-  { name: 'Static Pages', script: 'node --env-file=.env tools/generate-static-pages.js' },
-  { name: 'Blog Pages', script: 'node --env-file=.env tools/generate-blog-pages.js' },
+  { name: 'Prerendering', script: 'node --env-file=.env tools/prerender.js' },
 ];
 
 async function runScript(name, script) {

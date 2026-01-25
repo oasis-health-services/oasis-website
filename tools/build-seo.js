@@ -12,10 +12,10 @@ import path from 'path';
 const execAsync = promisify(exec);
 
 const tools = [
-  { name: 'Blog Data', script: 'node tools/generate-blog-data.js' },
-  { name: 'Robots.txt', script: 'node tools/generate-robots.js' },
-  { name: 'Sitemap', script: 'node tools/generate-sitemap.js' },
-  { name: 'LLMs.txt', script: 'node tools/generate-llms.js' },
+  { name: 'Blog Data', script: 'node --env-file=.env tools/generate-blog-data.js' },
+  { name: 'Robots.txt', script: 'node --env-file=.env tools/generate-robots.js' },
+  { name: 'Sitemap', script: 'node --env-file=.env tools/generate-sitemap.js' },
+  { name: 'LLMs.txt', script: 'node --env-file=.env tools/generate-llms.js' },
 ];
 
 async function runScript(name, script) {
@@ -34,7 +34,7 @@ async function runScript(name, script) {
 
 async function main() {
   console.log('🚀 Starting SEO Build Process...\n');
-  console.log('=' .repeat(50));
+  console.log('='.repeat(50));
 
   let allSuccess = true;
 

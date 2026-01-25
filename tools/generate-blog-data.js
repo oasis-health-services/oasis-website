@@ -9,7 +9,7 @@ import { optimizeImageFromUrl } from './optimize-images.js';
 const ghostAPI = new GhostContentAPI({
   url: process.env.VITE_GHOST_API_URL,
   key: process.env.VITE_GHOST_API_KEY,
-  version: 'v5'
+  version: 'v5.0'
 });
 
 async function fetchBlogPosts() {

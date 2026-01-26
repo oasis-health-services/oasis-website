@@ -68,11 +68,6 @@ const Referrals = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Submit a Referral - Oasis Health Services</title>
-        <meta name="description" content="Submit a patient referral to Oasis Health Services. We collaborate closely with referring providers to ensure coordinated, comprehensive care." />
-      </Helmet>
-
       <section className="relative bg-gradient-to-br from-[#6D519D] to-[#2D6762] text-white py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -97,22 +92,20 @@ const Referrals = () => {
             <div className="flex justify-center gap-4 mb-8">
               <Button
                 onClick={() => setActiveTab('refer')}
-                className={`flex items-center gap-2 ${
-                  activeTab === 'refer'
-                    ? 'bg-[#6D519D] hover:bg-[#6D519D]/90'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                }`}
+                className={`flex items-center gap-2 ${activeTab === 'refer'
+                  ? 'bg-[#6D519D] hover:bg-[#6D519D]/90'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  }`}
               >
                 <FileText className="h-5 w-5" />
                 Submit a Referral
               </Button>
               <Button
                 onClick={() => setActiveTab('collaborate')}
-                className={`flex items-center gap-2 ${
-                  activeTab === 'collaborate'
-                    ? 'bg-[#6D519D] hover:bg-[#6D519D]/90'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                }`}
+                className={`flex items-center gap-2 ${activeTab === 'collaborate'
+                  ? 'bg-[#6D519D] hover:bg-[#6D519D]/90'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  }`}
               >
                 <UserPlus className="h-5 w-5" />
                 Request Collaboration Agreement
@@ -125,11 +118,14 @@ const Referrals = () => {
                 animate={{ opacity: 1, y: 0 }}
                 className="h-[1000px]"
               >
-                <iframe
-                  src="https://vpm-portal.web.app/providers/refer-a-patient"
-                  className="w-full h-full rounded-2xl border-0"
-                  title="Referral Form"
-                />
+                <div className="h-full p-8 md:p-12 rounded-2xl">
+                  <iframe
+                    src="https://vpm-portal.web.app/providers/refer-a-patient"
+                    className="mx-auto h-full w-full rounded-2xl"
+                    title="Referral Form"
+                  />
+                </div>
+
               </motion.div>
             ) : (
               <motion.div

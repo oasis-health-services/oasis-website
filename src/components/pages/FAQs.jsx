@@ -34,11 +34,6 @@ const FAQs = () => {
 
   return (
     <>
-      <Helmet>
-        <title>FAQs - Oasis Health Services</title>
-        <meta name="description" content="Find answers to frequently asked questions about our services, insurance, how to get started, and more at Oasis Health Services." />
-      </Helmet>
-
       <section className="relative bg-gradient-to-br from-[#2D6762] to-[#69A08B] text-white py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -65,7 +60,7 @@ const FAQs = () => {
             viewport={{ once: true }}
             className="max-w-4xl mx-auto"
           >
-                 
+
             <Accordion type="single" collapsible className="w-full space-y-4">
               {faqItems.map((item, index) => (
                 <motion.div
@@ -75,8 +70,8 @@ const FAQs = () => {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.01 }}
                 >
-                  <AccordionItem 
-                    value={`item-${index}`} 
+                  <AccordionItem
+                    value={`item-${index}`}
                     className="bg-gradient-to-br from-[#90AB98]/10 to-[#69A08B]/10 rounded-xl px-6 border-b-0"
                   >
                     <AccordionTrigger className="text-lg font-semibold text-left text-[#2D6762] hover:no-underline">

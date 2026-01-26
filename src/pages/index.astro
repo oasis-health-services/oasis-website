@@ -10,11 +10,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 // For now, let's keep the Home component as a .jsx file but REFACOR it to remove react-router-dom
 // and then import it here.
 import HomePage from '@/components/pages/Home';
+import { getOrganizationSchema } from '@/utils/schema';
 ---
 
 <Layout 
-  title="Oasis Health Services - Virtual Mental Health Care"
+  title="Oasis Health Services | Mental Health Care"
   description="Expert mental health care tailored for you, combining psychiatric and primary care for whole-person healing. Covered by insurance."
+  keywords="mental health, psychiatric care, therapy, medication management, specialized treatments, Georgia, Atlanta, Roswell"
+  schema={getOrganizationSchema()}
+  type="website"
 >
   <HomePage client:load /> 
 </Layout>

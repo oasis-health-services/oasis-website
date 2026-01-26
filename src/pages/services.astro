@@ -2,11 +2,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ServicesPage from '@/components/pages/Services';
+import { getOrganizationSchema } from '@/utils/schema';
 ---
 
 <Layout 
-  title="Our Services - Oasis Health Services"
-  description="Explore our comprehensive mental health services, including psychiatric assessments, therapy, medication management, and specialized treatments like Spravato® and ADHD testing."
+  title="Services | Oasis Health Services"
+  description="Explore our comprehensive mental health services, including psychiatric assessments, therapy, medication management, ADHD and autism assessment, Spravato® therapy, telehealth, and remote patient monitoring."
+  keywords="mental health services, psychiatric assessments, therapy, medication management, Spravato, ADHD testing"
+  schema={getOrganizationSchema()}
 >
   <ServicesPage client:load /> 
 </Layout>

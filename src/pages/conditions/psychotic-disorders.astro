@@ -1,11 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import PsychoticDisordersPage from '@/components/pages/conditions/PsychoticDisorders';
+import { getOrganizationSchema } from '@/utils/schema';
 ---
 
 <Layout 
-  title="Psychotic Disorders - Oasis Health Services"
-  description="Breaks from reality with hallucinations or delusions; includes schizophrenia, schizoaffective disorder, and brief psychosis."
+  title="Psychotic Disorders | Oasis Health Services"
+  description="Learn about psychotic disorders including schizophrenia and schizoaffective disorder. Review symptoms, evaluation, treatment options, and when to seek urgent help."
+  keywords="psychotic disorders treatment, schizophrenia treatment, psychosis symptoms help"
+  schema={getOrganizationSchema()}
 >
   <PsychoticDisordersPage client:load /> 
 </Layout>

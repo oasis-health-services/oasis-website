@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
 import Layout from '../../layouts/Layout.astro';
+import { getOrganizationSchema } from '@/utils/schema';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -28,6 +29,7 @@ const readingTime = Math.ceil(post.body.split(' ').length / 200);
 <Layout 
   title={`${post.data.title} - Oasis Health Services`}
   description={post.data.description}
+  schema={getOrganizationSchema()}
 >
   <div class="bg-white">
     <!-- Hero Section -->

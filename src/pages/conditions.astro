@@ -2,11 +2,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ConditionsPage from '@/components/pages/Conditions';
+import { getOrganizationSchema } from '@/utils/schema';
 ---
 
 <Layout 
-  title="Conditions We Treat - Oasis Health Services"
-  description="Learn about the wide range of mental health conditions we treat at Oasis Health Services, including anxiety, depression, ADHD, and more."
+  title="Conditions We Treat | Oasis Health Services"
+  description="Explore the mental health conditions we treat, including anxiety, depression, bipolar disorder, ADHD, OCD, PTSD, personality disorders, and psychotic disorders. Learn about care options and next steps."
+  keywords="mental health conditions we treat, psychiatric conditions"
+  schema={getOrganizationSchema()}
 >
   <ConditionsPage client:load /> 
 </Layout>

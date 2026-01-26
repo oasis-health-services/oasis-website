@@ -1,11 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import MoodDisordersPage from '@/components/pages/conditions/MoodDisorders';
+import { getOrganizationSchema } from '@/utils/schema';
 ---
 
 <Layout 
-  title="Mood Disorders - Oasis Health Services"
-  description="Persistent low mood or mood swings that impair function; includes major depression, bipolar disorders, and dysthymia."
+  title="Mood Disorders | Oasis Health Services"
+  description="Learn about mood disorders such as depression, bipolar disorder, and dysthymia. Understand symptoms, evaluation, and treatment options including medication management."
+  keywords="mood disorders treatment, depression treatment, bipolar disorder treatment"
+  schema={getOrganizationSchema()}
 >
   <MoodDisordersPage client:load /> 
 </Layout>

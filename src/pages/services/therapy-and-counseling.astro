@@ -1,11 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import TherapyCounselingPage from '@/components/pages/services/TherapyCounseling';
+import TherapyCounselingPage from '@/components/pages/services/TherapyCounseling';  
+import { getOrganizationSchema } from '@/utils/schema';
 ---
 
 <Layout 
-  title="Therapy & Counseling - Oasis Health Services"
+  title="Therapy & Counseling | Oasis Health Services"
   description="Evidence-based talk therapies designed to reduce symptoms, build skills, and improve daily functioning."
+  keywords="therapy, counseling, talk therapy, evidence-based therapy"
+  schema={getOrganizationSchema()}
 >
   <TherapyCounselingPage client:load /> 
 </Layout>

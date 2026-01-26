@@ -1,11 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import AutismAssessmentPage from '@/components/pages/services/AutismAssessment';
+import { getOrganizationSchema } from '@/utils/schema';
 ---
 
 <Layout 
-  title="Autism Assessment & Management - Oasis Health Services"
+  title="Autism Assessment & Management | Oasis Health Services"
   description="Confirm or rule out ASD, map strengths and support needs, and create a practical plan for home, school, and work."
+  keywords="autism assessment, autism management, ASD, autism evaluation"
+  schema={getOrganizationSchema()}
 >
   <AutismAssessmentPage client:load /> 
 </Layout>

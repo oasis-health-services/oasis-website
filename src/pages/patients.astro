@@ -2,11 +2,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PatientsPage from '@/components/pages/Patients';
+import { getOrganizationSchema } from '@/utils/schema';
 ---
 
 <Layout 
-  title="For Patients - Oasis Health Services"
+  title="For Patients | Oasis Health Services"
   description="Get started with Oasis Health Services. Complete our secure assessment, schedule your visit, and access patient resources."
+  schema={getOrganizationSchema()}
 >
   <PatientsPage client:load /> 
 </Layout>

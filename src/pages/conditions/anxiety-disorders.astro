@@ -1,11 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import AnxietyDisordersPage from '@/components/pages/conditions/AnxietyDisorders';
+import { getOrganizationSchema } from '@/utils/schema';
 ---
 
 <Layout 
-  title="Anxiety Disorders - Oasis Health Services"
-  description="Excessive fear or worry that disrupts work, school or relationships; includes GAD, social anxiety, panic, and specific phobias."
+  title="Anxiety Disorders | Oasis Health Services"
+  description="Get support for anxiety disorders including GAD, social anxiety, panic disorder, and phobias. Learn symptoms, treatment options, and how to schedule care"
+  keywords="anxiety disorders treatment, generalized anxiety disorder (GAD) treatment, social anxiety treatment, panic disorder treatment, phobia treatment
+  schema={getOrganizationSchema()}
 >
   <AnxietyDisordersPage client:load /> 
 </Layout>

@@ -1,11 +1,15 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import TelehealthPage from '@/components/pages/services/Telehealth';
+import { getOrganizationSchema } from '@/utils/schema';
 ---
 
 <Layout 
-  title="Telehealth & Digital Care - Oasis Health Services"
-  description="Secure virtual psychiatric care with continuous, data-driven follow-up, offering flexible access and faster monitoring."
+  title="Telehealth & Digital Care | Oasis Health Services"
+  description="Secure virtual psychiatric care with flexible access and structured digital follow-up between appointments."
+  keywords="telehealth, virtual psychiatry, digital mental health, remote care"
+  schema={getOrganizationSchema()}
+>
 >
   <TelehealthPage client:load /> 
 </Layout>

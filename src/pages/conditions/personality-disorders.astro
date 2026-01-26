@@ -1,11 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import PersonalityDisordersPage from '@/components/pages/conditions/PersonalityDisorders';
+import { getOrganizationSchema } from '@/utils/schema';
 ---
 
 <Layout 
-  title="Personality Disorders - Oasis Health Services"
-  description="Rigid patterns in thinking and relating that cause distress and instability; includes borderline, obsessive-compulsive personality, and antisocial."
+  title="Personality Disorders | Oasis Health Services"
+  description="Understand personality disorders and how they impact relationships and daily life. Learn about symptoms, evaluation, and treatment approaches."
+  keywords="personality disorders treatment, BPD treatment, OCPD treatment, antisocial personality disorder information"
+  schema={getOrganizationSchema()}
 >
   <PersonalityDisordersPage client:load /> 
 </Layout>

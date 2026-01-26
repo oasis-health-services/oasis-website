@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import { getOrganizationSchema } from '@/utils/schema';
 
 const posts = await getCollection('blog');
 const sortedPosts = posts.sort((a, b) => 
@@ -17,8 +18,9 @@ const formatDate = (date: Date) => {
 ---
 
 <Layout 
-  title="Blog - Oasis Health Services"
+  title="Blog | Oasis Health Services"
   description="Explore articles on mental health, wellness, and personal growth from the experts at Oasis Health Services."
+  schema={getOrganizationSchema()}
 >
   <section class="relative bg-gradient-to-br from-[#6D519D] via-[#2D6762] to-[#69A08B] text-white py-16 overflow-hidden">
     <div class="absolute inset-0 opacity-10">

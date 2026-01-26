@@ -1,11 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import TraumaStressDisordersPage from '@/components/pages/conditions/TraumaStressDisorders';
+import { getOrganizationSchema } from '@/utils/schema';
 ---
 
 <Layout 
-  title="Trauma and Stress-Related Disorders - Oasis Health Services"
-  description="Distress after trauma or major stressors; includes acute stress, adjustment disorders, and PTSD."
+  title="Trauma and Stress-Related Disorders | Oasis Health Services"
+  description="Learn about trauma- and stress-related disorders including PTSD, acute stress disorder, and adjustment disorders. Understand symptoms and treatment options."
+  keywords="PTSD treatment, trauma and stressor-related disorders treatment, acute stress disorder treatment, adjustment disorder treatment"
+  schema={getOrganizationSchema()}
 >
   <TraumaStressDisordersPage client:load /> 
 </Layout>

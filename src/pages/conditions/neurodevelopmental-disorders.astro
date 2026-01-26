@@ -1,11 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import NeurodevelopmentalDisordersPage from '@/components/pages/conditions/NeurodevelopmentalDisorders';
+import { getOrganizationSchema } from '@/utils/schema';
 ---
 
 <Layout 
-  title="Neurodevelopmental Disorders - Oasis Health Services"
-  description="Lifelong patterns affecting attention, learning, and social communication; includes ADHD and autism spectrum disorder."
+  title="Neurodevelopmental Disorders | Oasis Health Services"
+  description="Learn about ADHD and neurodevelopmental conditions affecting attention, learning, and social communication. Explore evaluation and treatment options for teens and adults."
+  keywords="ADHD treatment, adult ADHD assessment, attention difficulties, autism spectrum disorder (ASD) support"
+  schema={getOrganizationSchema()}
 >
   <NeurodevelopmentalDisordersPage client:load /> 
 </Layout>

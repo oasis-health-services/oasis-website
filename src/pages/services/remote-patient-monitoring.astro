@@ -1,11 +1,15 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import RpmPage from '@/components/pages/services/Rpm';
+import { getOrganizationSchema } from '@/utils/schema';
 ---
 
 <Layout 
-  title="Remote Patient Monitoring (RPM) - Oasis Health Services"
-  description="Secure digital tools to track your blood pressure between appointments, allowing for proactive care adjustments."
+  title="Remote Patient Monitoring (RPM) | Oasis Health Services"
+  description="Secure digital monitoring (e.g., blood pressure) between visits to support proactive care adjustments and follow-up."
+  keywords="remote patient monitoring, RPM, blood pressure monitoring, telehealth"
+  schema={getOrganizationSchema()}
+>
 >
   <RpmPage client:load /> 
 </Layout>

@@ -12,9 +12,7 @@ import path from 'path';
 const execAsync = promisify(exec);
 
 const tools = [
-  { name: 'Blog Data', script: 'node --env-file=.env tools/generate-blog-data.js' },
   { name: 'Robots.txt', script: 'node --env-file=.env tools/generate-robots.js' },
-  { name: 'Sitemap', script: 'node --env-file=.env tools/generate-sitemap.js' },
   { name: 'LLMs.txt', script: 'node --env-file=.env tools/generate-llms.js' },
 ];
 
@@ -48,7 +46,7 @@ async function main() {
 
   if (allSuccess) {
     console.log('✅ All pre-build SEO tasks completed successfully!');
-    console.log('\n📦 Now running Vite build...\n');
+    console.log('\n📦 Now running Astro build...\n');
   } else {
     console.log('⚠️  Some tasks failed, but continuing with build...');
   }

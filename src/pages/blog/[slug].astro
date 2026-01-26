@@ -1,0 +1,147 @@
+---
+import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const formatDate = (date: Date) => {
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(date);
+};
+
+const readingTime = Math.ceil(post.body.split(' ').length / 200);
+---
+
+<Layout 
+  title={`${post.data.title} - Oasis Health Services`}
+  description={post.data.description}
+>
+  <div class="bg-white">
+    <!-- Hero Section -->
+    <div class="relative overflow-hidden">
+      {post.data.image ? (
+        <div class="w-full h-[250px] md:h-[300px] relative">
+          <img 
+            src={post.data.image} 
+            alt={post.data.title}
+            class="w-full h-full object-cover"
+            loading="eager"
+          />
+          <div class="absolute inset-0 bg-gradient-to-br from-[#6D519D]/90 via-[#2D6762]/85 to-[#69A08B]/80"></div>
+        </div>
+      ) : (
+        <div class="w-full h-[250px] md:h-[300px] bg-gradient-to-br from-[#6D519D] via-[#2D6762] to-[#69A08B]"></div>
+      )}
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="text-center text-white p-6 max-w-4xl">
+          <div class="flex items-center justify-center gap-4 mb-6">
+            <time class="text-sm font-semibold bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
+              {formatDate(post.data.publishedAt)}
+            </time>
+            <span class="text-sm font-semibold bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
+              {readingTime} min read
+            </span>
+          </div>
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4">{post.data.title}</h1>
+          <p class="text-lg md:text-xl text-white/95 max-w-2xl mx-auto leading-relaxed">
+            {post.data.description}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Article Content -->
+    <div class="bg-gradient-to-b from-white to-gray-50">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+        <div class="max-w-4xl mx-auto">
+          <!-- Tags -->
+          {post.data.tags && post.data.tags.length > 0 && (
+            <div class="flex flex-wrap gap-2 mb-8">
+              {post.data.tags.map((tag) => (
+                <span class="inline-block text-sm font-medium text-[#6D519D] bg-[#6D519D]/10 px-4 py-2 rounded-full">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <!-- Article Body -->
+          <article class="prose prose-lg md:prose-xl max-w-none
+            prose-headings:font-bold
+            prose-headings:tracking-tight
+            prose-h2:text-[#2D6762]
+            prose-h2:text-3xl prose-h2:md:text-4xl prose-h2:mt-16 prose-h2:mb-6 prose-h2:pb-3 prose-h2:border-b-2 prose-h2:border-[#6D519D]/20
+            prose-h3:text-[#2D6762]
+            prose-h3:text-2xl prose-h3:md:text-2xl prose-h3:mt-10 prose-h3:mb-4
+            prose-p:text-[#4A5455] prose-p:leading-relaxed prose-p:mb-6 prose-p:text-lg
+            prose-a:text-[#6D519D] prose-a:font-medium prose-a:no-underline prose-a:border-b-2 prose-a:border-[#6D519D]/30 hover:prose-a:border-[#6D519D] prose-a:transition-colors
+            prose-strong:text-[#2D6762] prose-strong:font-bold
+            prose-ul:my-8 prose-ul:space-y-3
+            prose-ol:my-8 prose-ol:space-y-3
+            prose-li:text-[#4A5455] prose-li:text-lg prose-li:leading-relaxed
+            prose-li::marker:text-[#6D519D] prose-li::marker:font-bold
+            prose-blockquote:border-l-4 prose-blockquote:border-[#2D6762] 
+            prose-blockquote:bg-[#2D6762]/5 prose-blockquote:pl-6 prose-blockquote:pr-6 prose-blockquote:py-4 prose-blockquote:rounded-r-lg
+            prose-blockquote:not-italic prose-blockquote:text-[#2D6762] prose-blockquote:my-8
+            prose-code:text-[#6D519D] prose-code:bg-[#6D519D]/10 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:font-semibold prose-code:text-base
+            prose-pre:bg-[#2D6762] prose-pre:text-white
+            prose-img:rounded-xl prose-img:shadow-lg
+            prose-hr:border-gray-200 prose-hr:my-8
+          ">
+            <Content />
+          </article>
+
+          <!-- Author Info -->
+          <div class="mt-16 p-8 bg-gradient-to-br from-[#6D519D]/5 to-[#2D6762]/5 rounded-2xl border border-[#6D519D]/10">
+            <div class="flex items-center gap-4">
+              <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#6D519D] to-[#2D6762] flex items-center justify-center text-white text-2xl font-bold">
+                O
+              </div>
+              <div>
+                <p class="font-bold text-lg text-[#2D6762]">{post.data.author}</p>
+                <p class="text-[#4A5455]">Mental Health Experts</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation -->
+          <div class="mt-12 pt-8 border-t-2 border-gray-200 flex items-center justify-between">
+            <a 
+              href="/blog" 
+              class="inline-flex items-center gap-2 text-[#2D6762] font-semibold hover:text-[#6D519D] transition-colors group"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 group-hover:-translate-x-1 transition-transform">
+                <path d="m12 19-7-7 7-7"></path>
+                <path d="M19 12H5"></path>
+              </svg>
+              <span>Back to All Articles</span>
+            </a>
+            <a 
+              href="/start" 
+              class="inline-flex items-center gap-2 bg-gradient-to-r from-[#6D519D] to-[#2D6762] text-white font-semibold px-6 py-3 rounded-lg hover:shadow-lg transition-all hover:-translate-y-0.5"
+            >
+              <span>Get Started</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

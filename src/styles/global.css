@@ -1,0 +1,321 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 180 100% 1%;
+    --card: 0 0% 100%;
+    --card-foreground: 180 100% 1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 180 100% 1%;
+    --primary: 176 46% 29%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 267 37% 51%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 156 18% 64%;
+    --muted-foreground: 180 8% 35%;
+    --accent: 40 81% 56%;
+    --accent-foreground: 180 100% 1%;
+    --destructive: 7 79% 64%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 156 18% 64%;
+    --input: 156 18% 64%;
+    --ring: 176 46% 29%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-white text-foreground;
+    font-family: 'Inter', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  h3 {
+    @apply text-2xl md:text-3xl font-bold;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .animated-underline {
+    @apply relative inline-block;
+  }
+
+  .animated-underline::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-[2px] bg-current origin-left scale-x-0 transition-transform duration-300 ease-out;
+  }
+
+  .animated-underline:hover::after {
+    @apply scale-x-100;
+  }
+
+  .gradient-button {
+    @apply bg-gradient-to-r from-[#624399] to-[#7355A2] text-white relative overflow-hidden;
+  }
+  
+  .gradient-button::before {
+    content: "";
+    position: absolute;
+    /* expand slightly to avoid hairline gaps at the edges while animating */
+    inset: -2px;
+    z-index: 0;
+  /* Purple fill to match site accent */
+  background-image: linear-gradient(90deg, #624399 0%, #7355A2 100%);
+    transition: transform 500ms ease-in-out;
+    transform: scaleX(0);
+    transform-origin: left center;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .gradient-button:hover::before {
+    transform: scaleX(1);
+  }
+  
+  .gradient-button > * {
+    position: relative;
+    z-index: 10;
+  }
+
+  /* Yellow variant of the dramatic gradient fill used for primary CTAs */
+  .gradient-button-yellow {
+    @apply bg-[#EFAB2E] text-white relative overflow-hidden;
+  }
+
+  .gradient-button-yellow::before {
+    content: "";
+    position: absolute;
+    /* expand slightly to avoid hairline gaps at the edges while animating */
+    inset: -2px;
+    z-index: 0;
+  /* Purple fill on hover to match primary accent */
+  background-image: linear-gradient(90deg, #624399 0%, #7355A2 100%);
+    transition: transform 500ms ease-in-out;
+    transform: scaleX(0);
+    transform-origin: left center;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .gradient-button-yellow:hover::before {
+    transform: scaleX(1);
+  }
+
+  .gradient-button-yellow > * {
+    position: relative;
+    z-index: 20;
+  }
+
+  /* Safer underline animation that doesn't change display type or add pseudo-element layout effects */
+  .animated-underline-2 {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 2px;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    transition: background-size 200ms ease-out;
+  }
+
+  .animated-underline-2:hover {
+    background-size: 100% 2px;
+  }
+
+  /* Stronger sidebar hover visual: subtle gradient + shadow */
+  .sidebar-hover-strong {
+    @apply transition-all duration-200 ease-in-out;
+    background-image: linear-gradient(90deg, rgba(45,103,98,0.08), rgba(105,160,139,0.04));
+    box-shadow: 0 6px 18px rgba(17,78,72,0.06);
+  }
+
+  /* Header/nav focus handling
+     - Hide the focus outline for non-keyboard (mouse/touch) interactions
+     - Preserve a clear :focus-visible ring for keyboard users to remain accessible
+  */
+  header a:focus:not(:focus-visible),
+  header button:focus:not(:focus-visible),
+  .site-header a:focus:not(:focus-visible),
+  .site-header button:focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+  }
+
+  header a:focus-visible,
+  header button:focus-visible,
+  .site-header a:focus-visible,
+  .site-header button:focus-visible {
+    outline: 3px solid rgba(115,85,162,0.9); /* subtle purple focus ring */
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  /* Blog Post Content Styling */
+  .blog-content {
+    @apply text-[#4A5455] text-lg leading-relaxed;
+  }
+
+  .blog-content p {
+    @apply mb-6 text-lg leading-relaxed;
+  }
+
+  .blog-content h1 {
+    @apply text-4xl font-bold text-[#2D6762] mt-12 mb-6;
+  }
+
+  .blog-content h2 {
+    @apply text-3xl font-bold text-[#2D6762] mt-10 mb-5;
+  }
+
+  .blog-content h3 {
+    @apply text-2xl font-bold text-[#2D6762] mt-8 mb-4;
+  }
+
+  .blog-content h4 {
+    @apply text-xl font-semibold text-[#2D6762] mt-6 mb-3;
+  }
+
+  .blog-content ul,
+  .blog-content ol {
+    @apply mb-6 pl-8 space-y-2;
+  }
+
+  .blog-content ul {
+    @apply list-disc;
+  }
+
+  .blog-content ol {
+    @apply list-decimal;
+  }
+
+  .blog-content li {
+    @apply text-lg leading-relaxed mb-2;
+  }
+
+  .blog-content strong {
+    @apply font-bold text-[#2D6762];
+  }
+
+  .blog-content em {
+    @apply italic;
+  }
+
+  .blog-content a {
+    @apply text-[#2D6762] underline hover:text-[#6D519D] transition-colors;
+  }
+
+  .blog-content blockquote {
+    @apply border-l-4 border-[#69A08B] pl-6 py-2 my-6 italic text-[#2D6762] bg-gray-50 rounded-r;
+  }
+
+  .blog-content code {
+    @apply bg-gray-100 px-2 py-1 rounded text-sm font-mono;
+  }
+
+  .blog-content pre {
+    @apply bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto my-6;
+  }
+
+  .blog-content pre code {
+    @apply bg-transparent p-0 text-gray-100;
+  }
+
+  .blog-content img {
+    @apply rounded-lg my-8 w-full;
+  }
+
+  .blog-content hr {
+    @apply my-8 border-gray-300;
+  }
+
+  .blog-content table {
+    @apply w-full my-6 border-collapse;
+  }
+
+  .blog-content th,
+  .blog-content td {
+    @apply border border-gray-300 px-4 py-2;
+  }
+
+  .blog-content th {
+    @apply bg-[#2D6762] text-white font-semibold;
+  }
+
+  /* Smooth image loading - prevent flicker */
+  img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  img[loading="lazy"].loaded,
+  img[loading="lazy"][src] {
+    opacity: 1;
+  }
+
+  /* Prevent layout shift during image load */
+  picture {
+    display: block;
+    overflow: hidden;
+  }
+
+  picture img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Add subtle background during image load */
+  img[loading="lazy"]:not(.loaded) {
+    background-color: #f3f4f6;
+    background-image: linear-gradient(90deg, #f3f4f6 0%, #e5e7eb 20%, #f3f4f6 40%, #f3f4f6 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  /* Prevent SVG icon flicker during animations */
+  svg {
+    display: block;
+    shape-rendering: geometricPrecision;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+
+  /* Optimize elements with will-change for smoother animations */
+  .will-change-transform {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+
+    img[loading="lazy"] {
+      opacity: 1;
+    }
+  }
+}

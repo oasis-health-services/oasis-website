@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom'; // REMOVED
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, ArrowRight } from 'lucide-react';
@@ -143,12 +143,12 @@ const SUD = () => {
           <p className="text-xl mb-8 text-white/90 max-w-2xl mx-auto">
             Take the first step toward lasting recovery with expert care and compassionate support.
           </p>
-          <Link to="/start">
+          <a href="/start">
             <Button size="lg" className="bg-white text-[#2D6762] hover:bg-white/90 text-lg px-8 py-6">
               Start Now
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-          </Link>
+          </a>
         </motion.div>
       </section>
     </ServiceDetailLayout>

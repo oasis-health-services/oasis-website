@@ -1,0 +1,66 @@
+
+---
+import '../styles/global.css'; // Import the global styles we moved
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import EmergencyBanner from '@/components/EmergencyBanner';
+
+interface Props {
+	title?: string;
+    description?: string;
+}
+
+const { 
+    title = "Oasis Health Services - Virtual Mental Health Care | Oasis Health Services",
+    description = "Expert mental health care tailored for you, combining psychiatric and primary care for whole-person healing. Covered by insurance."
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+        <!-- Google Tag Manager -->
+        <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-8TCL37DQ6W&amp;cx=c&amp;gtm=4e61m0"></script>
+        <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-LRQ33V32XH&amp;cx=c&amp;gtm=4e61m0"></script>
+        <script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-MTTSNH5Z"></script>
+        <script is:inline>
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-MTTSNH5Z');
+        </script>
+        <!-- End Google Tag Manager -->
+
+		<meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content={description} />
+        <title>{title}</title>
+        <meta name="theme-color" content="#2D6762">
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" sizes="32x32" href="https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/6e6e756733b6ed03692ed1bc66bf9526.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/6e6e756733b6ed03692ed1bc66bf9526.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/6e6e756733b6ed03692ed1bc66bf9526.png">
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;family=Source+Sans+Pro:wght@400;600;700&amp;display=swap" rel="stylesheet">
+	</head>
+	<body class="bg-white text-foreground font-sans">
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MTTSNH5Z"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+
+        <div class="min-h-screen flex flex-col bg-white">
+            <Header client:load />  <!-- Hydrating Header for mobile menu interactions -->
+            <main class="flex-grow">
+                <slot />
+            </main>
+            <Footer />
+            <EmergencyBanner />
+        </div>
+	</body>
+</html>

@@ -1,9 +1,33 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link, NavLink } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, ChevronsRight } from 'lucide-react';
+
+const NavLink = ({ to, children, className }) => {
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setIsActive(window.location.pathname === to || window.location.pathname === to + '/');
+    }
+  }, [to]);
+
+  const resolvedClassName = typeof className === 'function' ? className({ isActive }) : className;
+
+  return (
+    <a href={to} className={resolvedClassName}>
+      {children}
+    </a>
+  );
+};
+
+const Link = ({ to, children, className }) => (
+  <a href={to} className={className}>
+    {children}
+  </a>
+);
+
 
 const TwoColumnLayout = ({ title, subtitle, children, navLinks, navTitle, pageType }) => {
   return (
@@ -29,10 +53,9 @@ const TwoColumnLayout = ({ title, subtitle, children, navLinks, navTitle, pageTy
                       <NavLink
                         to={link.href}
                         className={({ isActive }) =>
-                          `block px-4 py-2 rounded-lg text-base transition-colors duration-200 ${
-                            isActive
-                              ? 'bg-[#2D6762] text-white font-semibold shadow-md'
-                : 'text-gray-700 hover:bg-[#2D6762]/12 hover:text-[#265e58] hover:shadow-sm hover:bg-gradient-to-r hover:from-[#f0fbfa] hover:to-transparent'
+                          `block px-4 py-2 rounded-lg text-base transition-colors duration-200 ${isActive
+                            ? 'bg-[#2D6762] text-white font-semibold shadow-md'
+                            : 'text-gray-700 hover:bg-[#2D6762]/12 hover:text-[#265e58] hover:shadow-sm hover:bg-gradient-to-r hover:from-[#f0fbfa] hover:to-transparent'
                           }`
                         }
                       >
@@ -62,13 +85,13 @@ const TwoColumnLayout = ({ title, subtitle, children, navLinks, navTitle, pageTy
                       {subtitle}
                     </p>
                   )}
-                      <div className="mt-8 flex flex-col sm:flex-row sm:flex-nowrap justify-center items-center gap-4 md:gap-6 min-w-0">
-                        <Button size="lg" className="gradient-button-yellow text-white w-full sm:w-auto whitespace-nowrap flex-shrink-0 shadow-lg" asChild>
-                          <Link to="/start" className="inline-flex items-center gap-1 sm:gap-2 whitespace-nowrap leading-none">
-                            <span className="relative z-20">Get Started Today</span>
-                            <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0 align-middle relative z-20" />
-                          </Link>
-                        </Button>
+                  <div className="mt-8 flex flex-col sm:flex-row sm:flex-nowrap justify-center items-center gap-4 md:gap-6 min-w-0">
+                    <Button size="lg" className="gradient-button-yellow text-white w-full sm:w-auto whitespace-nowrap flex-shrink-0 shadow-lg" asChild>
+                      <Link to="/start" className="inline-flex items-center gap-1 sm:gap-2 whitespace-nowrap leading-none">
+                        <span className="relative z-20">Get Started Today</span>
+                        <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0 align-middle relative z-20" />
+                      </Link>
+                    </Button>
                     {pageType === 'conditions' && (
                       <Link to="/services" className="text-white/80 hover:text-white transition-colors duration-200 inline-flex items-center group animated-underline-2 gap-1 sm:gap-2 whitespace-nowrap flex-shrink-0">
                         Explore all treatments
@@ -85,7 +108,7 @@ const TwoColumnLayout = ({ title, subtitle, children, navLinks, navTitle, pageTy
                 </div>
               </section>
             </motion.div>
-            
+
             {children}
           </main>
         </div>

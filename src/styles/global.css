@@ -31,10 +31,12 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-white text-foreground;
     font-family: 'Inter', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
+
   h3 {
     @apply text-2xl md:text-3xl font-bold;
   }
@@ -44,7 +46,7 @@
   .text-balance {
     text-wrap: balance;
   }
-  
+
   .animated-underline {
     @apply relative inline-block;
   }
@@ -61,15 +63,15 @@
   .gradient-button {
     @apply bg-gradient-to-r from-[#624399] to-[#7355A2] text-white relative overflow-hidden;
   }
-  
+
   .gradient-button::before {
     content: "";
     position: absolute;
     /* expand slightly to avoid hairline gaps at the edges while animating */
     inset: -2px;
     z-index: 0;
-  /* Purple fill to match site accent */
-  background-image: linear-gradient(90deg, #624399 0%, #7355A2 100%);
+    /* Purple fill to match site accent */
+    background-image: linear-gradient(90deg, #624399 0%, #7355A2 100%);
     transition: transform 500ms ease-in-out;
     transform: scaleX(0);
     transform-origin: left center;
@@ -80,8 +82,8 @@
   .gradient-button:hover::before {
     transform: scaleX(1);
   }
-  
-  .gradient-button > * {
+
+  .gradient-button>* {
     position: relative;
     z-index: 10;
   }
@@ -97,8 +99,8 @@
     /* expand slightly to avoid hairline gaps at the edges while animating */
     inset: -2px;
     z-index: 0;
-  /* Purple fill on hover to match primary accent */
-  background-image: linear-gradient(90deg, #624399 0%, #7355A2 100%);
+    /* Purple fill on hover to match primary accent */
+    background-image: linear-gradient(90deg, #624399 0%, #7355A2 100%);
     transition: transform 500ms ease-in-out;
     transform: scaleX(0);
     transform-origin: left center;
@@ -110,7 +112,7 @@
     transform: scaleX(1);
   }
 
-  .gradient-button-yellow > * {
+  .gradient-button-yellow>* {
     position: relative;
     z-index: 20;
   }
@@ -131,8 +133,8 @@
   /* Stronger sidebar hover visual: subtle gradient + shadow */
   .sidebar-hover-strong {
     @apply transition-all duration-200 ease-in-out;
-    background-image: linear-gradient(90deg, rgba(45,103,98,0.08), rgba(105,160,139,0.04));
-    box-shadow: 0 6px 18px rgba(17,78,72,0.06);
+    background-image: linear-gradient(90deg, rgba(45, 103, 98, 0.08), rgba(105, 160, 139, 0.04));
+    box-shadow: 0 6px 18px rgba(17, 78, 72, 0.06);
   }
 
   /* Header/nav focus handling
@@ -151,7 +153,8 @@
   header button:focus-visible,
   .site-header a:focus-visible,
   .site-header button:focus-visible {
-    outline: 3px solid rgba(115,85,162,0.9); /* subtle purple focus ring */
+    outline: 3px solid rgba(115, 85, 162, 0.9);
+    /* subtle purple focus ring */
     outline-offset: 3px;
     border-radius: 6px;
   }
@@ -282,6 +285,7 @@
     0% {
       background-position: -200% 0;
     }
+
     100% {
       background-position: 200% 0;
     }
@@ -306,6 +310,7 @@
 
   /* Reduce motion for users who prefer it */
   @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {

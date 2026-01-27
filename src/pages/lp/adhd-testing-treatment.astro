@@ -1,0 +1,127 @@
+---
+import LandingLayout from '../../layouts/LandingLayout.astro';
+import { Header } from '../../components/lp/Header';
+import { Hero } from '../../components/lp/Hero';
+import { Features } from '../../components/lp/Features';
+import { HowItWorks } from '../../components/lp/HowItWorks';
+import { FAQ } from '../../components/lp/FAQ';
+import { CTA } from '../../components/lp/CTA';
+import { Footer } from '../../components/lp/Footer';
+import { InsuranceLogos } from '../../components/lp/InsuranceLogos';
+import { Brain, ClipboardList, Target, Pill, Heart, GraduationCap } from 'lucide-react';
+
+const features = [
+  {
+    icon: Brain,
+    title: "Comprehensive ADHD Testing",
+    description: "Structured clinical interviews and standardized rating scales to accurately diagnose ADHD in adults and differentiate from similar conditions."
+  },
+  {
+    icon: ClipboardList,
+    title: "Thorough Assessment",
+    description: "We review your developmental history, current symptoms, and functional impairments across work, relationships, and daily life."
+  },
+  {
+    icon: Target,
+    title: "Personalized Treatment Plans",
+    description: "Evidence-based treatment tailored to your specific ADHD presentation, goals, and lifestyle needs."
+  },
+  {
+    icon: Pill,
+    title: "Medication Management",
+    description: "When appropriate, carefully monitored stimulant and non-stimulant medications to improve focus, organization, and daily functioning."
+  },
+  {
+    icon: Heart,
+    title: "Skills-Based Therapy",
+    description: "Cognitive behavioral strategies to build organizational skills, manage time, and develop coping mechanisms for ADHD challenges."
+  },
+  {
+    icon: GraduationCap,
+    title: "Ongoing Support",
+    description: "Regular follow-ups, progress monitoring, and adjustments to ensure your treatment continues to meet your evolving needs."
+  }
+];
+
+const steps = [
+  {
+    number: "1",
+    title: "Online Screening",
+    description: "Complete our initial ADHD screening questionnaire to help us understand your symptoms and concerns."
+  },
+  {
+    number: "2",
+    title: "Clinical Interview",
+    description: "Meet with a specialist for a comprehensive interview covering your history, symptoms, and functional impacts."
+  },
+  {
+    number: "3",
+    title: "Diagnostic Assessment",
+    description: "Complete standardized ADHD rating scales and cognitive assessments as indicated for accurate diagnosis."
+  },
+  {
+    number: "4",
+    title: "Treatment Planning",
+    description: "Receive a personalized treatment plan combining therapy, medication management, and skill-building strategies."
+  }
+];
+
+const faqs = [
+  {
+    question: "Is it possible to have both ADHD and Autism?",
+    answer: "Yes, ADHD and Autism Spectrum Disorder (ASD) frequently co-occur. Many individuals have both conditions, and our comprehensive assessment is designed to identify all neurodevelopmental differences to create the most effective treatment plan."
+  },
+  {
+    question: "I'm an adult, can I still be diagnosed with ADHD?",
+    answer: "Absolutely. Many adults weren't diagnosed as children, especially women and those with primarily inattentive symptoms. ADHD is a lifelong condition, and getting a proper diagnosis at any age can be life-changing for understanding yourself and accessing effective treatment."
+  },
+  {
+    question: "What kind of support is available besides medication?",
+    answer: "We offer a multi-faceted approach including cognitive behavioral therapy for ADHD, skills coaching for organization and time management, and strategies for managing common challenges. Many patients benefit from a combination of medication and these non-medication approaches."
+  },
+  {
+    question: "How long does the ADHD assessment take?",
+    answer: "The comprehensive assessment typically involves an initial screening, followed by a detailed clinical interview (60-90 minutes), and completion of standardized rating scales. The entire process usually takes 1-2 appointments to complete thoroughly."
+  },
+  {
+    question: "Will you prescribe stimulant medications?",
+    answer: "When clinically appropriate, we do prescribe stimulant medications as they are highly effective for many people with ADHD. We also offer non-stimulant alternatives. All prescriptions follow strict safety protocols with regular monitoring."
+  }
+];
+---
+
+<LandingLayout 
+  title="ADHD Testing & Treatment | Oasis Health Services" 
+  description="Comprehensive ADHD testing and treatment for adults. Expert diagnosis, personalized medication management, and therapy support. Virtual appointments, insurance accepted."
+>
+  <Header client:load />
+  <Hero
+    client:load
+    badge="Adult ADHD Specialists"
+    title="Finally Understand Your ADHD and Get Effective Treatment"
+    subtitle="Comprehensive testing and personalized treatment plans for adults with ADHD. Our specialists help you gain clarity, improve focus, and thrive in work and life."
+    ctaText="Start Your Assessment"
+    image="/images/lp/adhd-hero.jpg"
+    imageAlt="ADHD Testing & Treatment"
+  />
+  <InsuranceLogos client:load />
+  <Features
+    client:load
+    title="Comprehensive ADHD Care"
+    subtitle="From accurate diagnosis to effective treatment and ongoing support"
+    features={features}
+  />
+  <HowItWorks
+    client:load
+    title="Your ADHD Assessment Journey"
+    subtitle="A thorough, compassionate approach to understanding your brain"
+    steps={steps}
+  />
+  <FAQ client:load items={faqs} />
+  <CTA
+    client:load
+    title="Learn How Personalized Support Can Help You Thrive"
+    subtitle="Get the comprehensive evaluation and tailored treatment you deserve for ADHD."
+  />
+  <Footer client:load />
+</LandingLayout>

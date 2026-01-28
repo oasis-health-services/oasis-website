@@ -57,7 +57,7 @@ export function SearchBox({ categories }: SearchBoxProps) {
   function handleKeyDown(e: React.KeyboardEvent) {
     if (!isOpen || results.length === 0) {
       if (e.key === "Enter" && query.length >= 2) {
-        window.location.href = `/search?q=${encodeURIComponent(query)}`;
+        window.location.href = `/blog/search?q=${encodeURIComponent(query)}`;
       }
       return;
     }
@@ -76,7 +76,7 @@ export function SearchBox({ categories }: SearchBoxProps) {
         if (selectedIndex >= 0 && results[selectedIndex]) {
           window.location.href = results[selectedIndex].url;
         } else {
-          window.location.href = `/search?q=${encodeURIComponent(query)}`;
+          window.location.href = `/blog/search?q=${encodeURIComponent(query)}`;
         }
         break;
       case "Escape":
@@ -89,9 +89,9 @@ export function SearchBox({ categories }: SearchBoxProps) {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (query.trim().length > 0) {
-      window.location.href = `/search?q=${encodeURIComponent(query.trim())}`;
+      window.location.href = `/blog/search?q=${encodeURIComponent(query.trim())}`;
     } else {
-      window.location.href = "/search";
+      window.location.href = "/blog/search";
     }
   }
 
@@ -176,7 +176,7 @@ export function SearchBox({ categories }: SearchBoxProps) {
             })}
           </div>
           <a
-            href={`/search?q=${encodeURIComponent(query)}`}
+            href={`/blog/search?q=${encodeURIComponent(query)}`}
             className="flex items-center justify-center gap-2 px-4 py-3 border-t border-border text-sm text-primary hover:bg-muted/50 transition-colors"
           >
             View all results for "{query}"

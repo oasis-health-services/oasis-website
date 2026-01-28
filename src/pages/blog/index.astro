@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BlogLayout from "../../layouts/BlogLayout.astro";
-import Header from "../../components/blog/react/Header";
+import Header from "../../components/Header";
 import HeroSection from "../../components/blog/HeroSection.astro";
 import { SearchBox } from "../../components/blog/react/SearchBox";
 import CategoriesSection from "../../components/blog/react/CategoriesSection";
@@ -15,7 +15,7 @@ const categories = categoriesEntries.map(c => c.data);
 ---
 
 <BlogLayout title="Oasis Support & Resource Center | Mental Health Blog">
-  <Header categories={categories} client:load />
+  <Header client:load />
   <main class="flex-1">
     <HeroSection>
       <SearchBox slot="search" categories={categories} client:load />

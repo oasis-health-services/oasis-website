@@ -44,7 +44,7 @@ export function searchContent(query: string, categories: Category[], limit = 10)
                 type: "category",
                 title: category.title,
                 description: category.description,
-                url: `/category/${category.slug}`,
+                url: `/blog/category/${category.slug}`,
             });
         }
 
@@ -58,7 +58,7 @@ export function searchContent(query: string, categories: Category[], limit = 10)
                     type: "subcategory",
                     title: sub.name,
                     description: sub.description,
-                    url: `/category/${category.slug}/${sub.slug}`,
+                    url: `/blog/category/${category.slug}/${sub.slug}`,
                     category: category.title,
                 });
             }

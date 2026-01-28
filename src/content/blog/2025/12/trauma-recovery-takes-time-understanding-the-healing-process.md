@@ -1,9 +1,14 @@
 ---
+slug: "trauma-recovery-takes-time-understanding-the-healing-process"
 title: "Trauma Recovery Takes Time: Understanding the Healing Process"
-description: "Trauma isn't defined by the event itself. It's defined by how your nervous system had to cope with something overwhelming, frightening, or deeply unsafe."
+excerpt: "Trauma isn't defined by the event itself. It's defined by how your nervous system had to cope with something overwhelming, frightening, or deeply unsafe."
+categorySlug: "understanding-feelings"
+subCategorySlug: "trauma-ptsd"
+readTime: "5 minutes"
+tags: ["trauma", "PTSD", "mental-health", "recovery"]
 publishedAt: 2025-12-22
 image: "/images/blog/trauma-recovery-takes-time-understanding-the-healing-process.jpg"
-tags: ["trauma", "PTSD", "mental-health", "recovery"]
+authorSlug: "dr-ola-akinyele-DNP"
 ---
 
 Trauma isn't defined by the event itself. It's defined by how your nervous system had to cope with something overwhelming, frightening, or deeply unsafe. Afterward, your body holds on to that experience in ways you can feel long after the moment is over.

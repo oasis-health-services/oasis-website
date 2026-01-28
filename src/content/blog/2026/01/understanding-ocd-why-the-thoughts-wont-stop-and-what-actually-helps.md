@@ -1,9 +1,14 @@
 ---
+slug: "understanding-ocd-why-the-thoughts-wont-stop-and-what-actually-helps"
 title: "Understanding OCD: Why the Thoughts Won't Stop and What Actually Helps"
-description: "Obsessive-Compulsive Disorder isn't about being organized, neat, or 'a little particular.' It's a mental health condition where intrusive thoughts trigger intense anxiety, and compulsions temporarily relieve that anxiety."
+excerpt: "Obsessive-Compulsive Disorder isn't about being organized, neat, or 'a little particular.' It's a mental health condition where intrusive thoughts trigger intense anxiety, and compulsions temporarily relieve that anxiety."
+categorySlug: "understanding-feelings"
+subCategorySlug: "ocd-intrusive-thoughts"
+readTime: "5 minutes"
+tags: ["OCD", "mental-health", "anxiety"]
 publishedAt: 2026-01-05
 image: "/images/blog/understanding-ocd-why-the-thoughts-wont-stop-and-what-actually-helps.jpg"
-tags: ["OCD", "mental-health", "anxiety"]
+authorSlug: "dr-ola-akinyele-DNP"
 ---
 
 Obsessive-Compulsive Disorder isn't about being organized, neat, or "a little particular." It's a mental health condition where intrusive thoughts trigger intense anxiety, and compulsions temporarily relieve that anxiety.

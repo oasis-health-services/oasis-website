@@ -1,9 +1,14 @@
 ---
+slug: "the-link-between-physical-health-and-mental-wellness"
 title: "The Link Between Physical Health and Mental Wellness"
-description: "Your mind and body aren't separate systems. What affects one affects the other, and understanding this connection can transform your approach to health."
-publishedAt: 2025-10-15
-image: "/images/blog/the-link-between-physical-health-and-mental-wellness.jpg"
-tags: ["mental-health", "physical-health", "wellness"]
+excerpt: "Your mind and body aren't separate systems. What affects one affects the other, and understanding this connection can transform your approach to health."
+categorySlug: "understanding-feelings"
+subCategorySlug: "anxiety-worry"
+readTime: "5 minutes"
+tags: ["feeling-anxious", "coping-skills", "self-care"]
+publishedAt: 2025-11-10
+image: "/images/blog/when-anxiety-feels-physical-understanding-the-mind-body-loop.jpg"
+authorSlug: "dr-ola-akinyele-DNP"
 ---
 
 Your mind and body aren't separate systems. What affects one affects the other, and understanding this connection can transform your approach to health.

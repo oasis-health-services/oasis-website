@@ -1,9 +1,14 @@
 ---
+slug: "the-hidden-side-of-depression-when-motivation-disappears"
 title: "The Hidden Side of Depression: When Motivation Disappears"
-description: "Depression rarely looks the same for everyone. For some, it shows up as sadness or tears. For others, it's quiet—just a constant lack of energy, interest, or drive."
+excerpt: "Depression rarely looks the same for everyone. For some, it shows up as sadness or tears. For others, it's quiet—just a constant lack of energy, interest, or drive."
+categorySlug: "understanding-feelings"
+subCategorySlug: "depression-low-mood"
+readTime: "5 minutes"
+tags: ["depression", "mental-health", "motivation"]
 publishedAt: 2025-12-15
 image: "/images/blog/the-hidden-side-of-depression-when-motivation-disappears.jpg"
-tags: ["depression", "mental-health", "motivation"]
+authorSlug: "dr-ola-akinyele-DNP"
 ---
 
 Depression rarely looks the same for everyone. For some, it shows up as sadness or tears. For others, it's quiet—just a constant lack of energy, interest, or drive. Everyday tasks start to feel impossible, even when nothing looks wrong from the outside.

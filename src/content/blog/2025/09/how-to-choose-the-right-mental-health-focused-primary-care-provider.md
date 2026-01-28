@@ -1,9 +1,14 @@
 ---
+slug: "how-to-choose-the-right-mental-health-focused-primary-care-provider"
 title: "How to Choose the Right Mental Health-Focused Primary Care Provider"
-description: "Finding a provider who understands both your mental and physical health needs can make all the difference. Here's what to look for."
-publishedAt: 2025-09-20
-image: "/images/blog/how-to-choose-the-right-mental-health-focused-primary-care-provider.jpg"
-tags: ["mental-health", "primary-care", "healthcare"]
+excerpt: "Finding a provider who understands both your mental and physical health needs can make all the difference. Here's what to look for."
+categorySlug: "getting-help"
+subCategorySlug: "starting-care"
+readTime: "5 minutes"
+tags: ["first-appointment", "self-care", "coping-skills"]
+publishedAt: 2025-11-10
+image: "/images/blog/when-anxiety-feels-physical-understanding-the-mind-body-loop.jpg"
+authorSlug: "dr-ola-akinyele-DNP"
 ---
 
 Finding a provider who understands both your mental and physical health needs can make all the difference. Here's what to look for when choosing a mental health-focused primary care provider.

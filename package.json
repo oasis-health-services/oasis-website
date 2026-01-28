@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev --host :: --port 3000",
-    "build": "npm run build:seo && npm run astro:build && npm run build:post",
+    "build": "npm run build:seo && npm run astro:build",
     "preview": "astro preview --host :: --port 3000",
     "astro": "astro",
     "astro:dev": "astro dev",
@@ -17,6 +17,7 @@
     "generate:robots": "node --env-file=.env tools/generate-robots.js"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.6",
     "@astrojs/react": "^4.4.2",
     "@astrojs/sitemap": "^3.7.0",
     "@emotion/is-prop-valid": "^1.3.1",
@@ -37,13 +38,14 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "framer-motion": "^10.16.4",
-    "lucide-react": "^0.285.0",
+    "lucide-react": "^0.454.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-router-dom": "^6.16.0",
     "sharp": "^0.34.4",
-    "tailwind-merge": "^1.14.0"
+    "tailwind-merge": "^1.14.0",
+    "typescript": "^5.9.3"
   },
   "devDependencies": {
     "@babel/generator": "^7.27.0",
@@ -54,6 +56,7 @@
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "autoprefixer": "^10.4.16",
+    "baseline-browser-mapping": "^2.9.18",
     "eslint": "^8.57.1",
     "eslint-config-react-app": "^7.0.1",
     "postcss": "^8.4.31",

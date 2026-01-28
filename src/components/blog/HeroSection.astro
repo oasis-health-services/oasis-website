@@ -1,0 +1,60 @@
+---
+const popularTags = [
+  { name: "Anxiety", slug: "feeling-anxious" },
+  { name: "Coping Skills", slug: "coping-skills" },
+  { name: "Therapy", slug: "therapy" },
+  { name: "Sleep", slug: "sleep" },
+  { name: "Self-Care", slug: "self-care" },
+];
+---
+
+<section class="relative overflow-hidden bg-secondary/30 py-16 md:py-24 lg:py-32">
+  <!-- Decorative background elements -->
+  <div class="absolute inset-0 overflow-hidden">
+    <div class="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-primary/5 blur-3xl"></div>
+    <div class="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-accent/20 blur-3xl"></div>
+  </div>
+
+  <div class="relative mx-auto max-w-7xl px-4 lg:px-8">
+    <div class="mx-auto max-w-3xl text-center">
+      <!-- Badge -->
+      <div class="mb-6 inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5">
+        <span class="text-sm font-medium text-primary">
+          You are not alone in this journey
+        </span>
+      </div>
+
+      <!-- Headline -->
+      <h1 class="font-serif text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl text-balance">
+        Find Your Calm.
+        <br />
+        <span class="text-primary">Build Your Strength.</span>
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="mt-6 text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto text-pretty">
+        Welcome to Oasis — a warm, supportive space where you can explore
+        mental health topics, discover helpful resources, and find the tools
+        you need to feel better, one step at a time.
+      </p>
+
+      <!-- Interactive Search bar slot -->
+      <div class="mt-10">
+        <slot name="search" />
+      </div>
+
+      <!-- Popular searches -->
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-2">
+        <span class="text-sm text-muted-foreground">Popular:</span>
+        {popularTags.map((tag) => (
+          <a
+            href={`/tag/${tag.slug}`}
+            class="h-7 rounded-full bg-card px-3 text-sm font-medium text-foreground hover:bg-muted transition-colors inline-flex items-center"
+          >
+            {tag.name}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,9 +1,14 @@
 ---
+slug: "what-whole-person-care-really-means"
 title: "What Whole-Person Care Really Means"
-description: "Whole-person care treats you as a complete human being—not just a diagnosis. It considers your mental health, physical health, relationships, and life circumstances together."
+excerpt: "Whole-person care treats you as a complete human being—not just a diagnosis. It considers your mental health, physical health, relationships, and life circumstances together."
+categorySlug: "getting-help"
+subCategorySlug: "starting-care"
+readTime: "5 minutes"
+tags: ["first-appointment", "self-care", "coping-skills"]
 publishedAt: 2025-10-28
 image: "/images/blog/what-whole-person-care-really-means.jpg"
-tags: ["whole-person-care", "mental-health", "integrated-care"]
+authorSlug: "dr-ola-akinyele-DNP"
 ---
 
 Whole-person care treats you as a complete human being—not just a diagnosis. It considers your mental health, physical health, relationships, and life circumstances together.

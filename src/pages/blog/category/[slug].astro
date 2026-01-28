@@ -1,0 +1,136 @@
+---
+import BlogLayout from "../../../layouts/BlogLayout.astro";
+import Header from "../../../components/blog/react/Header";
+import Footer from "../../../components/blog/Footer.astro";
+import BreadcrumbNav from "../../../components/blog/BreadcrumbNav.astro";
+import ArticleCard from "../../../components/blog/ArticleCard.astro";
+import { 
+  getCategories, 
+  getArticlesByCategory 
+} from "../../../content/config";
+import { cn } from "../../../lib/utils";
+
+export async function getStaticPaths() {
+  const categories = await getCategories();
+  return categories.map((category) => ({
+    params: { slug: category.data.slug },
+    props: { category },
+  }));
+}
+
+const { category } = Astro.props;
+const articles = await getArticlesByCategory(category.data.id);
+const allCategoriesEntries = await getCategories();
+const allCategories = allCategoriesEntries.map(c => c.data);
+
+// Icon SVG paths mapping (simplified, using generic if not found)
+const iconPaths = {
+  Heart: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z",
+  HandHelping: "M7 11v8a1 1 0 01-1 1H4a1 1 0 01-1-1v-7a1 1 0 011-1h3zm0 0V8a4 4 0 014-4h1a3 3 0 013 3v1h4a2 2 0 012 2v3a8 8 0 01-8 8h-2a4 4 0 01-4-4z",
+  Sparkles: "M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z",
+  Users: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z",
+} as const;
+
+const iconPath = iconPaths[category.data.iconName as keyof typeof iconPaths] || iconPaths.Heart;
+---
+
+<BlogLayout title={`${category.data.title} | Oasis Support & Resource Center`} description={category.data.description}>
+  <Header categories={allCategories} client:load />
+  <main class="flex-1">
+    <!-- Hero section -->
+    <section class={cn("py-12 md:py-16 border-b border-border", category.data.bgColor)}>
+      <div class="mx-auto max-w-7xl px-4 lg:px-8">
+        <BreadcrumbNav items={[{ label: category.data.title }]} />
+        
+        <div class="flex items-start gap-6">
+          <div class={cn("hidden sm:flex rounded-2xl bg-white/80 p-4", category.data.color)}>
+            <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d={iconPath} />
+            </svg>
+          </div>
+          <div>
+            <h1 class="font-serif text-3xl font-semibold text-foreground sm:text-4xl lg:text-5xl text-balance">
+              {category.data.title}
+            </h1>
+            <p class="mt-4 text-lg text-muted-foreground max-w-2xl text-pretty leading-relaxed">
+              {category.data.description}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Subcategories -->
+    <section class="py-12 md:py-16">
+      <div class="mx-auto max-w-7xl px-4 lg:px-8">
+        <h2 class="font-serif text-2xl font-semibold text-foreground mb-8">
+          Browse Topics
+        </h2>
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {category.data.items.map((item) => (
+            <a
+              href={`/blog/category/${category.data.slug}/${item.slug}`}
+              class="group flex flex-col rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/30 hover:shadow-lg"
+            >
+              <h3 class="font-medium text-foreground group-hover:text-primary transition-colors flex items-center justify-between">
+                {item.name}
+                <svg class="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </h3>
+              <p class="mt-2 text-sm text-muted-foreground leading-relaxed">
+                {item.description}
+              </p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Articles in this category -->
+    {articles.length > 0 && (
+      <section class="py-12 md:py-16 bg-muted/50">
+        <div class="mx-auto max-w-7xl px-4 lg:px-8">
+          <div class="flex items-center justify-between mb-8">
+            <h2 class="font-serif text-2xl font-semibold text-foreground">
+              Latest Articles
+            </h2>
+          </div>
+          <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {articles.slice(0, 6).map((article) => (
+              <ArticleCard article={article} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Other categories -->
+    <section class="py-12 md:py-16">
+      <div class="mx-auto max-w-7xl px-4 lg:px-8">
+        <h2 class="font-serif text-2xl font-semibold text-foreground mb-8">
+          Explore Other Topics
+        </h2>
+        <div class="flex gap-3 overflow-x-auto pb-4 -mx-4 px-4 lg:mx-0 lg:px-0 lg:flex-wrap">
+          {allCategories
+            .filter((c) => c.slug !== category.data.slug)
+            .map((cat) => {
+              const catIconPath = iconPaths[cat.iconName as keyof typeof iconPaths] || iconPaths.Heart;
+              return (
+                <a
+                  href={`/blog/category/${cat.slug}`}
+                  class="flex items-center gap-2 whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-all shrink-0 border bg-card text-foreground hover:bg-muted border-border"
+                >
+                  <svg class={cn("h-4 w-4", cat.color)} fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d={catIconPath} />
+                  </svg>
+                  {cat.title.split(" ").slice(0, 2).join(" ")}
+                </a>
+              );
+            })}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BlogLayout>

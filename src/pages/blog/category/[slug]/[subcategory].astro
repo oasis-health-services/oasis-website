@@ -1,0 +1,162 @@
+---
+import BlogLayout from "../../../../layouts/BlogLayout.astro";
+import Header from "../../../../components/blog/react/Header";
+import Footer from "../../../../components/blog/Footer.astro";
+import BreadcrumbNav from "../../../../components/blog/BreadcrumbNav.astro";
+import ArticleCard from "../../../../components/blog/ArticleCard.astro";
+import { 
+  getCategories, 
+  getSubcategoryBySlug, 
+  getArticlesBySubcategory 
+} from "../../../../content/config";
+import { cn } from "../../../../lib/utils";
+
+export async function getStaticPaths() {
+  const categories = await getCategories();
+  const paths = [];
+  
+  for (const category of categories) {
+    for (const item of category.data.items) {
+      paths.push({
+        params: {
+          slug: category.data.slug,
+          subcategory: item.slug,
+        },
+      });
+    }
+  }
+  
+  return paths;
+}
+
+const { slug, subcategory } = Astro.params;
+const result = await getSubcategoryBySlug(slug!, subcategory!);
+
+if (!result) return Astro.redirect(`/404`);
+
+const { category, subcategory: subcat } = result;
+const articles = await getArticlesBySubcategory(subcat.slug);
+const allCategoriesEntries = await getCategories();
+const allCategories = allCategoriesEntries.map(c => c.data);
+
+const iconPaths = {
+  Heart: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z",
+  HandHelping: "M7 11v8a1 1 0 01-1 1H4a1 1 0 01-1-1v-7a1 1 0 011-1h3zm0 0V8a4 4 0 014-4h1a3 3 0 013 3v1h4a2 2 0 012 2v3a8 8 0 01-8 8h-2a4 4 0 01-4-4z",
+  Sparkles: "M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z",
+  Users: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z",
+  FileText: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z",
+  Megaphone: "M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z",
+} as const;
+
+const iconPath = iconPaths[category.data.iconName as keyof typeof iconPaths] || iconPaths.Heart;
+---
+
+<BlogLayout title={`${subcat.name} | ${category.data.title} | Oasis`} description={subcat.description}>
+  <Header categories={allCategories} client:load />
+  <main class="flex-1">
+    <!-- Hero section -->
+    <section class={cn("py-12 md:py-16 border-b border-border", category.data.bgColor)}>
+      <div class="mx-auto max-w-7xl px-4 lg:px-8">
+        <BreadcrumbNav
+          items={[
+            { label: category.data.title.split(" ").slice(0, 2).join(" "), href: `/blog/category/${category.data.slug}` },
+            { label: subcat.name },
+          ]}
+        />
+        
+        <div class="flex items-start gap-6">
+          <div class={cn("hidden sm:flex rounded-2xl bg-white/80 p-4", category.data.color)}>
+            <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d={iconPath} />
+            </svg>
+          </div>
+          <div>
+            <p class="text-sm font-medium text-muted-foreground mb-2">
+              {category.data.title}
+            </p>
+            <h1 class="font-serif text-3xl font-semibold text-foreground sm:text-4xl lg:text-5xl text-balance">
+              {subcat.name}
+            </h1>
+            <p class="mt-4 text-lg text-muted-foreground max-w-2xl text-pretty leading-relaxed">
+              {subcat.description}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Articles -->
+    <section class="py-12 md:py-16">
+      <div class="mx-auto max-w-7xl px-4 lg:px-8">
+        {articles.length > 0 ? (
+          <>
+            <div class="flex items-center justify-between mb-8">
+              <h2 class="font-serif text-2xl font-semibold text-foreground">
+                Articles ({articles.length})
+              </h2>
+            </div>
+            <div class="grid gap-6">
+              {articles.map((article) => (
+                <ArticleCard article={article} variant="horizontal" />
+              ))}
+            </div>
+          </>
+        ) : (
+          <div class="text-center py-16">
+            <div class="mx-auto w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4">
+              <svg class="h-8 w-8 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2z" />
+                <path d="M14 2v6h6" />
+                <path d="M12 11v6" />
+                <path d="M9 14h6" />
+              </svg>
+            </div>
+            <h2 class="font-serif text-2xl font-semibold text-foreground mb-2">
+              Coming Soon
+            </h2>
+            <p class="text-muted-foreground max-w-md mx-auto mb-6">
+              We're working on creating helpful content for this topic. Check back soon or explore our other resources.
+            </p>
+            <a
+              href={`/blog/category/${category.data.slug}`}
+              class="inline-flex items-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+            >
+              Browse {category.data.title.split(" ").slice(0, 2).join(" ")}
+              <svg class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        )}
+      </div>
+    </section>
+
+    <!-- Related topics -->
+    <section class="py-12 md:py-16 bg-muted/50">
+      <div class="mx-auto max-w-7xl px-4 lg:px-8">
+        <h2 class="font-serif text-2xl font-semibold text-foreground mb-8">
+          Related Topics
+        </h2>
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {category.data.items
+            .filter((item) => item.slug !== subcategory)
+            .slice(0, 6)
+            .map((item) => (
+              <a
+                href={`/blog/category/${category.data.slug}/${item.slug}`}
+                class="group flex flex-col rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/30 hover:shadow-lg"
+              >
+                <h3 class="font-medium text-foreground group-hover:text-primary transition-colors">
+                  {item.name}
+                </h3>
+                <p class="mt-2 text-sm text-muted-foreground leading-relaxed line-clamp-2">
+                  {item.description}
+                </p>
+              </a>
+            ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BlogLayout>

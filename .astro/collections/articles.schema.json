@@ -1,22 +1,22 @@
 {
-  "$ref": "#/definitions/blog",
+  "$ref": "#/definitions/articles",
   "definitions": {
-    "blog": {
+    "articles": {
       "type": "object",
       "properties": {
-        "title": {
-          "type": "string"
-        },
         "excerpt": {
           "type": "string"
         },
-        "image": {
+        "category": {
           "type": "string"
         },
         "categorySlug": {
           "type": "string"
         },
-        "subCategorySlug": {
+        "subcategory": {
+          "type": "string"
+        },
+        "subcategorySlug": {
           "type": "string"
         },
         "readTime": {
@@ -25,7 +25,20 @@
         "tags": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "slug"
+            ],
+            "additionalProperties": false
           }
         },
         "publishedAt": {
@@ -44,7 +57,30 @@
             }
           ]
         },
-        "authorSlug": {
+        "updatedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "integer",
+              "format": "unix-time"
+            }
+          ]
+        },
+        "author": {
+          "type": "string",
+          "default": "Oasis Health Services"
+        },
+        "image": {
+          "type": "string"
+        },
+        "title": {
           "type": "string"
         },
         "featured": {
@@ -55,14 +91,14 @@
         }
       },
       "required": [
-        "title",
         "excerpt",
+        "category",
         "categorySlug",
-        "subCategorySlug",
+        "subcategory",
+        "subcategorySlug",
         "readTime",
-        "tags",
         "publishedAt",
-        "authorSlug"
+        "title"
       ],
       "additionalProperties": false
     }

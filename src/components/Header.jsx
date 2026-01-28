@@ -2,20 +2,20 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Button } from '@/components/ui/button';
+import { Button } from './ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "./ui/dropdown-menu"
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
-import OptimizedImage from '@/components/OptimizedImage';
+} from "./ui/accordion"
+import OptimizedImage from './OptimizedImage';
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -110,23 +110,34 @@ const Header = () => {
   }, []);
 
   const scheduleOpen = (name) => {
-    if (isTouch) return; // don't use hover timers on touch devices
+    // Note: Removed isTouch check here to allow hover on devices that report touch 
+    // but also have a mouse (like MacBooks). The delay helps prevent accidental opens.
+
     if (hoverCloseTimer.current) {
       clearTimeout(hoverCloseTimer.current);
       hoverCloseTimer.current = null;
     }
+
+    if (openMenu === name) return;
+
     if (hoverOpenTimer.current) clearTimeout(hoverOpenTimer.current);
-    hoverOpenTimer.current = setTimeout(() => setOpenMenu(name), 100);
+    hoverOpenTimer.current = setTimeout(() => {
+      setOpenMenu(name);
+      hoverOpenTimer.current = null;
+    }, 100);
   };
 
   const scheduleClose = () => {
-    if (isTouch) return;
+    // Note: Removed isTouch check here to keep hover & touch logic consistent
     if (hoverOpenTimer.current) {
       clearTimeout(hoverOpenTimer.current);
       hoverOpenTimer.current = null;
     }
     if (hoverCloseTimer.current) clearTimeout(hoverCloseTimer.current);
-    hoverCloseTimer.current = setTimeout(() => setOpenMenu(null), 180);
+    hoverCloseTimer.current = setTimeout(() => {
+      setOpenMenu(null);
+      hoverCloseTimer.current = null;
+    }, 200);
   };
 
   return (
@@ -148,16 +159,17 @@ const Header = () => {
               if (item.sublinks) {
                 return (
                   <div key={item.name} onMouseEnter={() => scheduleOpen(item.name)} onMouseLeave={() => scheduleClose()}>
-                    <DropdownMenu open={openMenu === item.name} onOpenChange={(isOpen) => setOpenMenu(isOpen ? item.name : null)}>
+                    <DropdownMenu
+                      open={openMenu === item.name}
+                      onOpenChange={(isOpen) => setOpenMenu(isOpen ? item.name : null)}
+                    >
                       <DropdownMenuTrigger asChild>
                         <Button
                           variant="ghost"
                           onClick={(e) => {
-                            // On touch devices, toggle the menu on tap
-                            if (isTouch) {
-                              e.preventDefault();
-                              setOpenMenu(openMenu === item.name ? null : item.name);
-                            }
+                            // Toggle on click for all devices to ensure accessibility
+                            e.preventDefault();
+                            setOpenMenu(openMenu === item.name ? null : item.name);
                           }}
                           className={`flex items-center text-sm font-medium transition-colors hover:bg-gray-100 hover:text-[#2D6762] px-3 py-2 ${getActiveState(item) ? 'text-[#2D6762]' : 'text-[#4A5455]'}`}
                         >
@@ -165,7 +177,14 @@ const Header = () => {
                           <ChevronDown className="ml-1 h-4 w-4" />
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent>
+                      <DropdownMenuContent
+                        onMouseEnter={() => scheduleOpen(item.name)}
+                        onMouseLeave={() => scheduleClose()}
+                        onCloseAutoFocus={(e) => e.preventDefault()}
+                        align="start"
+                        sideOffset={4}
+                        className="mt-1"
+                      >
                         {(item.name === 'Services' || item.name === 'Conditions') && (
                           <DropdownMenuItem asChild>
                             <a href={item.href}>All {item.name}</a>

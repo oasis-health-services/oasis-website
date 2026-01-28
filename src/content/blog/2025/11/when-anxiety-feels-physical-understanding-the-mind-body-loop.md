@@ -1,9 +1,14 @@
 ---
+slug: "when-anxiety-feels-physical-understanding-the-mind-body-loop"
 title: "When Anxiety Feels Physical: Understanding the Mind-Body Loop"
-description: "Anxiety doesn't just live in your thoughts. It shows up in your chest, your stomach, your breath. Understanding this connection is the first step to breaking the cycle."
+excerpt: "Anxiety doesn't just live in your thoughts. It shows up in your chest, your stomach, your breath. Understanding this connection is the first step to breaking the cycle."
+categorySlug: "understanding-feelings"
+subCategorySlug: "anxiety-worry"
+readTime: "5 minutes"
+tags: ["feeling-anxious", "coping-skills", "self-care"]
 publishedAt: 2025-11-10
 image: "/images/blog/when-anxiety-feels-physical-understanding-the-mind-body-loop.jpg"
-tags: ["anxiety", "mental-health", "physical-symptoms"]
+authorSlug: "dr-ola-akinyele-DNP"
 ---
 
 Anxiety doesn't just live in your thoughts. It shows up in your chest, your stomach, your breath. For many people, the physical symptoms of anxiety are more distressing than the mental ones—and they can feel completely out of control.

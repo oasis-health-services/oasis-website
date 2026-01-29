@@ -7,6 +7,9 @@ import { Heart, Brain, Users, Shield, CheckCircle, ArrowRight } from 'lucide-rea
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 // import SEO, { getOrganizationSchema } from '@/components/SEO'; // REMOVED, handled by Astro layout
 import OptimizedImage from '@/components/OptimizedImage';
+import { InsurancePartners } from '../InsurancePartners';
+import { HowItWorks } from '../HowItWorks';
+import { ConditionsWeTreat } from '../ConditionsWeTreat';
 
 const Home = () => {
     const heroImages = [{
@@ -168,7 +171,9 @@ const Home = () => {
             </div>
         </section>
 
-        <section className="py-16 bg-white">
+        <InsurancePartners />
+
+        {/* <section className="py-16 bg-white">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <motion.div initial={{
                     opacity: 0,
@@ -228,7 +233,7 @@ const Home = () => {
                     </Sheet>
                 </div>
             </div>
-        </section>
+        </section> */}
 
         <section className="py-20 bg-gradient-to-br from-[#2D6762]/20 to-[#69A08B]/20">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -290,6 +295,8 @@ const Home = () => {
             </div>
         </section>
 
+        <ConditionsWeTreat className="py-20 bg-gradient-to-br from-[#2D6762]/30 to-[#6D519D]/30" />
+
         <section className="py-20 bg-gradient-to-br from-[#2D6762]/30 to-[#6D519D]/30">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <motion.div initial={{
@@ -334,6 +341,8 @@ const Home = () => {
                 </div>
             </div>
         </section>
+
+        <HowItWorks className="py-20 bg-white" />
 
         <section className="py-20 bg-white">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">

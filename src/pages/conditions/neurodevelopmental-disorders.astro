@@ -1,14 +1,30 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import NeurodevelopmentalDisordersPage from '@/components/pages/conditions/NeurodevelopmentalDisorders';
-import { getOrganizationSchema } from '@/utils/schema';
+import { getBreadcrumbSchema } from '@/components/SEO';
 ---
 
 <Layout 
   title="Neurodevelopmental Disorders"
   description="Learn about ADHD and neurodevelopmental conditions affecting attention, learning, and social communication. Explore evaluation and treatment options for teens and adults."
   keywords="ADHD treatment, adult ADHD assessment, attention difficulties, autism spectrum disorder (ASD) support"
-  schema={getOrganizationSchema()}
+  schema={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'MedicalCondition',
+            name: 'Neurodevelopmental Disorders',
+            description: 'Comprehensive care for ADHD and Autism Spectrum Disorder including assessment, therapy, and medication management.',
+            possibleTreatment: {
+              '@type': 'MedicalTherapy',
+              name: 'Psychiatric Treatment and Therapy'
+            }
+          },
+          getBreadcrumbSchema([
+            { name: 'Home', url: '/' },
+            { name: 'Conditions', url: '/conditions' },
+            { name: 'Neurodevelopmental Disorders', url: '/conditions/neurodevelopmental-disorders' }
+          ])
+        ]}
 >
   <NeurodevelopmentalDisordersPage client:load /> 
 </Layout>

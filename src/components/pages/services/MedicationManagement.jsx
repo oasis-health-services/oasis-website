@@ -1,8 +1,5 @@
 
-import React from 'react';
-import SEO, { getServiceSchema, getBreadcrumbSchema } from '@/components/SEO';
 import { motion } from 'framer-motion';
-// import { Link } from 'react-router-dom'; // REMOVED
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Shield, Activity, Brain } from 'lucide-react';
 import TwoColumnLayout from '@/components/TwoColumnLayout';
@@ -50,22 +47,6 @@ const MedicationManagement = () => {
       navTitle="Our Services"
       pageType="services"
     >
-      <SEO
-        title="Medication Management"
-        description="Personalized psychiatric medication management for depression, anxiety, ADHD, and mood disorders. Evidence-based treatment with regular monitoring and safety protocols."
-        url="/services/medication-management"
-        schema={[
-          getServiceSchema(
-            'Medication Management',
-            'Our providers offer personalized psychiatric medication management for a range of conditions including depression, anxiety, ADHD, and mood disorders. Treatment decisions are always based on a comprehensive evaluation and shared decision-making, with regular follow-up to ensure safety and effectiveness.'
-          ),
-          getBreadcrumbSchema([
-            { name: 'Home', url: '/' },
-            { name: 'Services', url: '/services' },
-            { name: 'Medication Management', url: '/services/medication-management' }
-          ])
-        ]}
-      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
         <DetailSection title="Our Approach">
           <p>Our providers offer personalized psychiatric medication management for a range of conditions including depression, anxiety, ADHD, and mood disorders. Treatment decisions are always based on a comprehensive evaluation and shared decision-making, with regular follow-up to ensure safety and effectiveness. When appropriate, this may include the careful use of controlled medications, always in accordance with state and federal guidelines.</p>
@@ -81,9 +62,9 @@ const MedicationManagement = () => {
             <li><strong>Coordinated Care:</strong> We collaborate with your therapist, primary care provider, and other specialists.</li>
           </ul>
         </DetailSection>
-        
+
         <DetailSection title="Antidepressant and Mood Stabilizer Management">
-            <p>This service focuses on treating depression, anxiety disorders, the bipolar spectrum, and related conditions. We conduct baseline and periodic labs/vitals as indicated, perform suicide risk checks during medication changes, and carefully review drug-drug interactions at each visit to ensure your safety.</p>
+          <p>This service focuses on treating depression, anxiety disorders, the bipolar spectrum, and related conditions. We conduct baseline and periodic labs/vitals as indicated, perform suicide risk checks during medication changes, and carefully review drug-drug interactions at each visit to ensure your safety.</p>
         </DetailSection>
 
         <DetailSection title="When We Recommend for Specialized Care">
@@ -149,4 +130,3 @@ const MedicationManagement = () => {
 };
 
 export default MedicationManagement;
-  

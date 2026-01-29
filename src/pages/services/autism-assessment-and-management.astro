@@ -1,14 +1,24 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import AutismAssessmentPage from '@/components/pages/services/AutismAssessment';
-import { getOrganizationSchema } from '@/utils/schema';
+import { getServiceSchema, getBreadcrumbSchema } from '@/components/SEO';
 ---
 
 <Layout 
   title="Autism Assessment & Management"
   description="Confirm or rule out ASD, map strengths and support needs, and create a practical plan for home, school, and work."
   keywords="autism assessment, autism management, ASD, autism evaluation"
-  schema={getOrganizationSchema()}
+  schema={[
+          getServiceSchema(
+            'Autism Assessment & Management',
+            'Our goal is to confirm or rule out autism spectrum disorder (ASD), map an individual\'s unique strengths and support needs, and identify any co-occurring conditions. We then translate these findings into a practical, actionable plan for home, school, work, and clinical care.'
+          ),
+          getBreadcrumbSchema([
+            { name: 'Home', url: '/' },
+            { name: 'Services', url: '/services' },
+            { name: 'Autism Assessment', url: '/services/autism-assessment' }
+          ])
+        ]}
 >
   <AutismAssessmentPage client:load /> 
 </Layout>

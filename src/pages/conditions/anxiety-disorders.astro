@@ -1,14 +1,30 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import AnxietyDisordersPage from '@/components/pages/conditions/AnxietyDisorders';
-import { getOrganizationSchema } from '@/utils/schema';
+import { getBreadcrumbSchema } from '@/utils/schema';
 ---
 
 <Layout 
   title="Anxiety Disorders"
   description="Get support for anxiety disorders including GAD, social anxiety, panic disorder, and phobias. Learn symptoms, treatment options, and how to schedule care"
   keywords="anxiety disorders treatment, generalized anxiety disorder (GAD) treatment, social anxiety treatment, panic disorder treatment, phobia treatment"
-  schema={getOrganizationSchema()}
+  schema={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'MedicalCondition',
+            name: 'Anxiety Disorders',
+            description: 'Comprehensive treatment for anxiety disorders including generalized anxiety, panic disorder, social anxiety, and phobias.',
+            possibleTreatment: {
+              '@type': 'MedicalTherapy',
+              name: 'Psychiatric Treatment and Therapy'
+            }
+          },
+          getBreadcrumbSchema([
+            { name: 'Home', url: '/' },
+            { name: 'Conditions', url: '/conditions' },
+            { name: 'Anxiety Disorders', url: '/conditions/anxiety-disorders' }
+          ])
+        ]}
 >
   <AnxietyDisordersPage client:load /> 
 </Layout>

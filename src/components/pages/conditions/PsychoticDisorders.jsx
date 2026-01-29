@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 // import { Link } from 'react-router-dom'; // REMOVED
 import { Button } from '@/components/ui/button';
@@ -13,7 +12,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { conditionsLinks } from '@/lib/navLinks';
-import SEO, { getBreadcrumbSchema } from '@/components/SEO';
 
 const DetailSection = ({ title, children }) => (
   <div className="mb-10">
@@ -23,7 +21,7 @@ const DetailSection = ({ title, children }) => (
 );
 
 const PsychoticDisorders = () => {
-    const faqs = [
+  const faqs = [
     {
       question: "What is the difference between hallucinations and delusions?",
       answer: "A hallucination is a sensory experience that isn't real, such as hearing voices or seeing things that aren't there. A delusion is a fixed, false belief that a person holds despite evidence to the contrary, such as believing they are being spied on or have special powers."
@@ -46,28 +44,6 @@ const PsychoticDisorders = () => {
       navTitle="Conditions We Treat"
       pageType="conditions"
     >
-      <SEO
-        title="Psychotic Disorders Treatment"
-        description="Integrated care for psychotic disorders including schizophrenia and schizoaffective disorder. Expert medication management and therapy."
-        url="/conditions/psychotic-disorders"
-        schema={[
-          {
-            '@context': 'https://schema.org',
-            '@type': 'MedicalCondition',
-            name: 'Psychotic Disorders',
-            description: 'Integrated care for psychotic disorders including schizophrenia and schizoaffective disorder with medication and therapy.',
-            possibleTreatment: {
-              '@type': 'MedicalTherapy',
-              name: 'Psychiatric Treatment and Therapy'
-            }
-          },
-          getBreadcrumbSchema([
-            { name: 'Home', url: '/' },
-            { name: 'Conditions', url: '/conditions' },
-            { name: 'Psychotic Disorders', url: '/conditions/psychotic-disorders' }
-          ])
-        ]}
-      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
         <DetailSection title="Overview">
           <p>These are serious mental health conditions characterized by a disconnect from reality (psychosis). They can involve hallucinations, delusions, disorganized thought and behavior, as well as "negative" symptoms like a lack of motivation or emotional expression, leading to a significant decline in functioning.</p>
@@ -147,4 +123,3 @@ const PsychoticDisorders = () => {
 };
 
 export default PsychoticDisorders;
-  

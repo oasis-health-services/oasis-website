@@ -1,14 +1,24 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import RpmPage from '@/components/pages/services/Rpm';
-import { getOrganizationSchema } from '@/utils/schema';
+import { getServiceSchema, getBreadcrumbSchema } from '@/components/SEO';
 ---
 
 <Layout 
   title="Remote Patient Monitoring (RPM)"
   description="Secure digital monitoring (e.g., blood pressure) between visits to support proactive care adjustments and follow-up."
   keywords="remote patient monitoring, RPM, blood pressure monitoring, telehealth"
-  schema={getOrganizationSchema()}
+  schema={[
+          getServiceSchema(
+            'Remote Patient Monitoring (RPM)',
+            'Remote Patient Monitoring (RPM) uses secure digital tools to track key health data, like blood pressure, between your appointments. This allows your provider to tighten safety protocols, adjust your care plan proactively, and support your progress in real time, enhancing the effectiveness of your treatment.'
+          ),
+          getBreadcrumbSchema([
+            { name: 'Home', url: '/' },
+            { name: 'Services', url: '/services' },
+            { name: 'Remote Patient Monitoring', url: '/services/remote-patient-monitoring' }
+          ])
+        ]}
 >
 >
   <RpmPage client:load /> 

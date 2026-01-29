@@ -1,14 +1,24 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import GeneticTestingPage from '@/components/pages/services/GeneticTesting';
-import { getOrganizationSchema } from '@/utils/schema';
+import { getServiceSchema, getBreadcrumbSchema } from '@/components/SEO';
 ---
 
 <Layout 
   title="Genetic Testing"
   description="Utilizing validated genetic insights to inform safer and more effective medication choices for your treatment."
   keywords="genetic testing, pharmacogenomics, psychiatric genetics"
-  schema={getOrganizationSchema()}
+  schema={[
+          getServiceSchema(
+            'Pharmacogenomic Genetic Testing (PGx)',
+            'We use validated pharmacogenomic (PGx) insights to help inform safer and more effective medication choices. By understanding your unique genetic profile, we can personalize your care plan, potentially reducing trial-and-error with medications.'
+          ),
+          getBreadcrumbSchema([
+            { name: 'Home', url: '/' },
+            { name: 'Services', url: '/services' },
+            { name: 'Genetic Testing', url: '/services/genetic-testing' }
+          ])
+        ]}
 >
   <GeneticTestingPage client:load /> 
 </Layout>

@@ -1,8 +1,5 @@
 
-import React from 'react';
-import SEO, { getServiceSchema, getBreadcrumbSchema } from '@/components/SEO';
 import { motion } from 'framer-motion';
-// import { Link } from 'react-router-dom'; // REMOVED
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Shield, Video, BarChart2, AlertTriangle } from 'lucide-react';
 import TwoColumnLayout from '@/components/TwoColumnLayout';
@@ -50,39 +47,23 @@ const Telehealth = () => {
       navTitle="Our Services"
       pageType="services"
     >
-      <SEO
-        title="Telehealth & Telepsychiatry"
-        description="Secure virtual psychiatric care with HIPAA-compliant platform. Access mental health services from anywhere with state-licensed providers."
-        url="/services/telehealth"
-        schema={[
-          getServiceSchema(
-            'Telehealth & Telepsychiatry Services',
-            'We provide secure virtual psychiatric care that meets the same high clinical standards as our in-person services. Our HIPAA-compliant platform allows for flexible access, faster follow-ups, and tighter, data-driven monitoring of your progress.'
-          ),
-          getBreadcrumbSchema([
-            { name: 'Home', url: '/' },
-            { name: 'Services', url: '/services' },
-            { name: 'Telehealth & Telepsychiatry', url: '/services/telehealth' }
-          ])
-        ]}
-      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
         <DetailSection title="What It Is">
           <p>We provide secure virtual psychiatric care that meets the same high clinical standards as our in-person services. Our HIPAA-compliant platform allows for flexible access, faster follow-ups, and tighter, data-driven monitoring of your progress. All care is provided by state-licensed providers.</p>
         </DetailSection>
-        
+
         <DetailSection title="Our Digital Care Services">
-            <div className="grid md:grid-cols-3 gap-8">
-                {services.map((item, index) => (
-                     <div key={index} className="p-6 bg-gray-50 rounded-lg text-center">
-                        <div className="inline-block bg-gradient-to-br from-indigo-500 to-purple-500 p-3 rounded-full mb-4">
-                            <item.icon className="h-8 w-8 text-white" />
-                        </div>
-                        <h4 className="text-xl font-semibold text-[#2D6762] mb-2">{item.title}</h4>
-                        <p>{item.description}</p>
-                    </div>
-                ))}
-            </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {services.map((item, index) => (
+              <div key={index} className="p-6 bg-gray-50 rounded-lg text-center">
+                <div className="inline-block bg-gradient-to-br from-indigo-500 to-purple-500 p-3 rounded-full mb-4">
+                  <item.icon className="h-8 w-8 text-white" />
+                </div>
+                <h4 className="text-xl font-semibold text-[#2D6762] mb-2">{item.title}</h4>
+                <p>{item.description}</p>
+              </div>
+            ))}
+          </div>
         </DetailSection>
 
         <div className="mt-10 mb-16 bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-6 rounded-r-lg">
@@ -136,4 +117,3 @@ const Telehealth = () => {
 };
 
 export default Telehealth;
-  

@@ -1,10 +1,7 @@
 
-import React from 'react';
-import SEO, { getServiceSchema, getBreadcrumbSchema } from '@/components/SEO';
 import { motion } from 'framer-motion';
-// import { Link } from 'react-router-dom'; // REMOVED
 import { Button } from '@/components/ui/button';
-import { ArrowRight, CheckCircle, Shield, FileText, Users } from 'lucide-react';
+import { ArrowRight, FileText, Users } from 'lucide-react';
 import TwoColumnLayout from '@/components/TwoColumnLayout';
 import {
   Accordion,
@@ -50,47 +47,31 @@ const AutismAssessment = () => {
       navTitle="Our Services"
       pageType="services"
     >
-      <SEO
-        title="Autism Assessment & Management"
-        description="Comprehensive autism spectrum disorder evaluation for children, teens, and adults. Professional ASD assessment with detailed reports and accommodation letters."
-        url="/services/autism-assessment"
-        schema={[
-          getServiceSchema(
-            'Autism Assessment & Management',
-            'Our goal is to confirm or rule out autism spectrum disorder (ASD), map an individual\'s unique strengths and support needs, and identify any co-occurring conditions. We then translate these findings into a practical, actionable plan for home, school, work, and clinical care.'
-          ),
-          getBreadcrumbSchema([
-            { name: 'Home', url: '/' },
-            { name: 'Services', url: '/services' },
-            { name: 'Autism Assessment', url: '/services/autism-assessment' }
-          ])
-        ]}
-      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
         <DetailSection title="Purpose">
           <p>Our goal is to confirm or rule out autism spectrum disorder (ASD), map an individual's unique strengths and support needs, and identify any co-occurring conditions. We then translate these findings into a practical, actionable plan for home, school, work, and clinical care.</p>
         </DetailSection>
-        
+
         <DetailSection title="Who It’s For">
           <p>This service is for children, teens, and adults who experience differences in social communication, have restricted or repetitive behaviors, sensory sensitivities, or feel a long-standing sense of "social mismatch."</p>
         </DetailSection>
 
         <DetailSection title="What We Assess">
-            <p>Our comprehensive evaluation looks at the whole person. We assess developmental, medical, and psychiatric history, early milestones, social patterns, sensory profiles, and co-occurring conditions like ADHD, anxiety, or depression. We offer both in-person (required for ADOS-2) and online formats.</p>
+          <p>Our comprehensive evaluation looks at the whole person. We assess developmental, medical, and psychiatric history, early milestones, social patterns, sensory profiles, and co-occurring conditions like ADHD, anxiety, or depression. We offer both in-person (required for ADOS-2) and online formats.</p>
         </DetailSection>
 
         <DetailSection title="Deliverables">
-            <div className="grid md:grid-cols-3 gap-8">
-                {deliverables.map((item, index) => (
-                     <div key={index} className="p-6 bg-gray-50 rounded-lg text-center">
-                        <div className="inline-block bg-gradient-to-br from-blue-500 to-cyan-500 p-3 rounded-full mb-4">
-                            <item.icon className="h-8 w-8 text-white" />
-                        </div>
-                        <h4 className="text-xl font-semibold text-[#2D6762] mb-2">{item.title}</h4>
-                        <p>{item.description}</p>
-                    </div>
-                ))}
-            </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {deliverables.map((item, index) => (
+              <div key={index} className="p-6 bg-gray-50 rounded-lg text-center">
+                <div className="inline-block bg-gradient-to-br from-blue-500 to-cyan-500 p-3 rounded-full mb-4">
+                  <item.icon className="h-8 w-8 text-white" />
+                </div>
+                <h4 className="text-xl font-semibold text-[#2D6762] mb-2">{item.title}</h4>
+                <p>{item.description}</p>
+              </div>
+            ))}
+          </div>
         </DetailSection>
 
         <DetailSection title="Frequently Asked Questions">
@@ -134,4 +115,3 @@ const AutismAssessment = () => {
 };
 
 export default AutismAssessment;
-  

@@ -1,14 +1,30 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import OcdRelatedDisordersPage from '@/components/pages/conditions/OcdRelatedDisorders';
-import { getOrganizationSchema } from '@/utils/schema';
+import { getBreadcrumbSchema } from '@/components/SEO';
 ---
 
 <Layout 
   title="Obsessive-Compulsive and Related Disorders"
   description="Learn about OCD and related disorders including intrusive thoughts, compulsions, body dysmorphic disorder, and hoarding disorder. Explore treatment options and next steps."
   keywords="OCD treatment, intrusive thoughts treatment, BDD treatment, hoarding disorder treatment"
-  schema={getOrganizationSchema()}
+  schema={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'MedicalCondition',
+            name: 'Obsessive-Compulsive & Related Disorders',
+            description: 'Specialized treatment for OCD, Body Dysmorphic Disorder, and Hoarding Disorder including ERP therapy and medication management.',
+            possibleTreatment: {
+              '@type': 'MedicalTherapy',
+              name: 'Psychiatric Treatment and Therapy'
+            }
+          },
+          getBreadcrumbSchema([
+            { name: 'Home', url: '/' },
+            { name: 'Conditions', url: '/conditions' },
+            { name: 'OCD & Related Disorders', url: '/conditions/ocd-related-disorders' }
+          ])
+        ]}
 >
   <OcdRelatedDisordersPage client:load /> 
 </Layout>

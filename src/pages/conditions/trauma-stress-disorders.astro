@@ -1,14 +1,30 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import TraumaStressDisordersPage from '@/components/pages/conditions/TraumaStressDisorders';
-import { getOrganizationSchema } from '@/utils/schema';
+import { getBreadcrumbSchema } from '@/components/SEO';
 ---
 
 <Layout 
   title="Trauma and Stress-Related Disorders"
   description="Learn about trauma- and stress-related disorders including PTSD, acute stress disorder, and adjustment disorders. Understand symptoms and treatment options."
   keywords="PTSD treatment, trauma and stressor-related disorders treatment, acute stress disorder treatment, adjustment disorder treatment"
-  schema={getOrganizationSchema()}
+  schema={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'MedicalCondition',
+            name: 'Trauma & Stress-Related Disorders',
+            description: 'Trauma-informed care for PTSD, acute stress, and adjustment disorders with specialized therapy and support.',
+            possibleTreatment: {
+              '@type': 'MedicalTherapy',
+              name: 'Psychiatric Treatment and Therapy'
+            }
+          },
+          getBreadcrumbSchema([
+            { name: 'Home', url: '/' },
+            { name: 'Conditions', url: '/conditions' },
+            { name: 'Trauma & Stress Disorders', url: '/conditions/trauma-stress-disorders' }
+          ])
+        ]}
 >
   <TraumaStressDisordersPage client:load /> 
 </Layout>

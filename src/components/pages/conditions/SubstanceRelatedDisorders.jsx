@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 // import { Link } from 'react-router-dom'; // REMOVED
 import { Button } from '@/components/ui/button';
@@ -13,7 +12,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { conditionsLinks } from '@/lib/navLinks';
-import SEO, { getBreadcrumbSchema } from '@/components/SEO';
 
 const DetailSection = ({ title, children }) => (
   <div className="mb-10">
@@ -23,7 +21,7 @@ const DetailSection = ({ title, children }) => (
 );
 
 const SubstanceRelatedDisorders = () => {
-    const faqs = [
+  const faqs = [
     {
       question: "What is 'harm reduction'?",
       answer: "Harm reduction is a practical and compassionate approach that aims to reduce the negative consequences associated with substance use. Instead of demanding immediate abstinence, it focuses on meeting people where they are and supporting any positive change. This can include strategies like reducing use, using more safely, and preventing overdose."
@@ -46,28 +44,6 @@ const SubstanceRelatedDisorders = () => {
       navTitle="Conditions We Treat"
       pageType="conditions"
     >
-      <SEO
-        title="Substance Use Disorder Treatment"
-        description="Compassionate treatment for substance use and addictive disorders. Harm reduction approach with MAT, therapy, and comprehensive support."
-        url="/conditions/substance-related-disorders"
-        schema={[
-          {
-            '@context': 'https://schema.org',
-            '@type': 'MedicalCondition',
-            name: 'Substance-Related & Addictive Disorders',
-            description: 'Compassionate treatment for substance use and addictive disorders with harm reduction, MAT, and therapy.',
-            possibleTreatment: {
-              '@type': 'MedicalTherapy',
-              name: 'Psychiatric Treatment and Therapy'
-            }
-          },
-          getBreadcrumbSchema([
-            { name: 'Home', url: '/' },
-            { name: 'Conditions', url: '/conditions' },
-            { name: 'Substance-Related Disorders', url: '/conditions/substance-related-disorders' }
-          ])
-        ]}
-      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
         <DetailSection title="Overview">
           <p>These disorders involve the compulsive use of a substance or engagement in a behavior (like gambling) despite significant harm to one's health, relationships, and life roles. Key features include intense cravings, loss of control, and often tolerance and withdrawal.</p>
@@ -95,8 +71,8 @@ const SubstanceRelatedDisorders = () => {
             <li><strong>Medication Management:</strong> Including Medication-Assisted Treatment (MAT) to manage cravings and withdrawal for certain substance use disorders.</li>
           </ul>
           <a href="/services/substance-use-disorder-treatment" className="text-[#2D6762] hover:text-[#6D519D] font-bold inline-flex items-center mt-4">
-              Learn more about our SUD Treatment services <ArrowRight className="ml-2 h-4 w-4" />
-            </a>
+            Learn more about our SUD Treatment services <ArrowRight className="ml-2 h-4 w-4" />
+          </a>
         </DetailSection>
 
         <div className="bg-red-50 border-l-4 border-red-500 text-red-800 p-6 rounded-r-lg mb-10">
@@ -150,4 +126,3 @@ const SubstanceRelatedDisorders = () => {
 };
 
 export default SubstanceRelatedDisorders;
-  

@@ -1,8 +1,5 @@
 
-import React from 'react';
-import SEO, { getServiceSchema, getBreadcrumbSchema } from '@/components/SEO';
 import { motion } from 'framer-motion';
-// import { Link } from 'react-router-dom'; // REMOVED
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, User, FilePlus, MessageSquare } from 'lucide-react';
 import TwoColumnLayout from '@/components/TwoColumnLayout';
@@ -62,22 +59,6 @@ const ComprehensiveAssessment = () => {
       navTitle="Our Services"
       pageType="services"
     >
-      <SEO
-        title="Comprehensive Psychiatric Assessment"
-        description="Professional psychiatric evaluation for mood, anxiety, trauma, ADHD, and other mental health concerns. Get a thorough assessment and personalized treatment plan."
-        url="/services/comprehensive-assessment"
-        schema={[
-          getServiceSchema(
-            'Comprehensive Psychiatric Assessment & Diagnosis',
-            'Our comprehensive assessment is the crucial first step in your mental wellness journey. This thorough initial appointment is designed to deeply understand your symptoms, history, risks, strengths, and goals. The outcome is a collaborative working diagnosis and a personalized initial care plan tailored just for you.'
-          ),
-          getBreadcrumbSchema([
-            { name: 'Home', url: '/' },
-            { name: 'Services', url: '/services' },
-            { name: 'Comprehensive Assessment', url: '/services/comprehensive-assessment' }
-          ])
-        ]}
-      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
         <DetailSection title="Purpose">
           <p>Our comprehensive assessment is the crucial first step in your mental wellness journey. This thorough initial appointment is designed to deeply understand your symptoms, history, risks, strengths, and goals. The outcome is a collaborative working diagnosis and a personalized initial care plan tailored just for you.</p>
@@ -97,21 +78,21 @@ const ComprehensiveAssessment = () => {
         </DetailSection>
 
         <DetailSection title="How It Works">
-            <div className="grid md:grid-cols-3 gap-8">
-                {steps.map((step, index) => (
-                    <div key={index} className="text-center">
-                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-[#2D6762] to-[#69A08B] text-white mb-4">
-                            <step.icon className="h-8 w-8" />
-                        </div>
-                        <h4 className="text-xl font-semibold text-[#2D6762] mb-2">{step.title}</h4>
-                        <p>{step.description}</p>
-                    </div>
-                ))}
-            </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {steps.map((step, index) => (
+              <div key={index} className="text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-[#2D6762] to-[#69A08B] text-white mb-4">
+                  <step.icon className="h-8 w-8" />
+                </div>
+                <h4 className="text-xl font-semibold text-[#2D6762] mb-2">{step.title}</h4>
+                <p>{step.description}</p>
+              </div>
+            ))}
+          </div>
         </DetailSection>
-        
+
         <DetailSection title="Format">
-            <p>We offer flexible formats to meet your needs, including HIPAA-compliant telehealth sessions with state-licensed providers. For those in Georgia, in-person appointments are also available.</p>
+          <p>We offer flexible formats to meet your needs, including HIPAA-compliant telehealth sessions with state-licensed providers. For those in Georgia, in-person appointments are also available.</p>
         </DetailSection>
 
         <DetailSection title="Frequently Asked Questions">
@@ -155,4 +136,3 @@ const ComprehensiveAssessment = () => {
 };
 
 export default ComprehensiveAssessment;
-  

@@ -1,8 +1,5 @@
 
-import React from 'react';
-import SEO, { getServiceSchema, getBreadcrumbSchema } from '@/components/SEO';
 import { motion } from 'framer-motion';
-// import { Link } from 'react-router-dom'; // REMOVED
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Smartphone, UploadCloud, UserCheck } from 'lucide-react';
 import TwoColumnLayout from '@/components/TwoColumnLayout';
@@ -50,22 +47,6 @@ const Rpm = () => {
       navTitle="Our Services"
       pageType="services"
     >
-      <SEO
-        title="Remote Patient Monitoring (RPM)"
-        description="Secure digital health monitoring with automated data tracking. Monitor blood pressure and vital signs between appointments for proactive psychiatric care."
-        url="/services/remote-patient-monitoring"
-        schema={[
-          getServiceSchema(
-            'Remote Patient Monitoring (RPM)',
-            'Remote Patient Monitoring (RPM) uses secure digital tools to track key health data, like blood pressure, between your appointments. This allows your provider to tighten safety protocols, adjust your care plan proactively, and support your progress in real time, enhancing the effectiveness of your treatment.'
-          ),
-          getBreadcrumbSchema([
-            { name: 'Home', url: '/' },
-            { name: 'Services', url: '/services' },
-            { name: 'Remote Patient Monitoring', url: '/services/remote-patient-monitoring' }
-          ])
-        ]}
-      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
         <DetailSection title="Purpose">
           <p>Remote Patient Monitoring (RPM) uses secure digital tools to track key health data, like blood pressure, between your appointments. This allows your provider to tighten safety protocols, adjust your care plan proactively, and support your progress in real time, enhancing the effectiveness of your treatment.</p>
@@ -139,4 +120,3 @@ const Rpm = () => {
 };
 
 export default Rpm;
-  

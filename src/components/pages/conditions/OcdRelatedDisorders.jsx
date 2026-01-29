@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 // import { Link } from 'react-router-dom'; // REMOVED
 import { Button } from '@/components/ui/button';
@@ -13,7 +12,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { conditionsLinks } from '@/lib/navLinks';
-import SEO, { getBreadcrumbSchema } from '@/components/SEO';
 
 const DetailSection = ({ title, children }) => (
   <div className="mb-10">
@@ -23,7 +21,7 @@ const DetailSection = ({ title, children }) => (
 );
 
 const OcdRelatedDisorders = () => {
-    const faqs = [
+  const faqs = [
     {
       question: "What is Exposure and Response Prevention (ERP) therapy?",
       answer: "ERP is a type of Cognitive Behavioral Therapy (CBT) that is considered the gold-standard treatment for OCD. It involves gradually exposing you to your feared thoughts or situations (exposure) while refraining from engaging in compulsive behaviors (response prevention). This process helps your brain learn that the anxiety will decrease on its own, without needing the compulsion."
@@ -46,28 +44,6 @@ const OcdRelatedDisorders = () => {
       navTitle="Conditions We Treat"
       pageType="conditions"
     >
-      <SEO
-        title="OCD & Related Disorders Treatment"
-        description="Specialized treatment for OCD, Body Dysmorphic Disorder, and Hoarding Disorder. Expert therapy including ERP and medication management."
-        url="/conditions/ocd-related-disorders"
-        schema={[
-          {
-            '@context': 'https://schema.org',
-            '@type': 'MedicalCondition',
-            name: 'Obsessive-Compulsive & Related Disorders',
-            description: 'Specialized treatment for OCD, Body Dysmorphic Disorder, and Hoarding Disorder including ERP therapy and medication management.',
-            possibleTreatment: {
-              '@type': 'MedicalTherapy',
-              name: 'Psychiatric Treatment and Therapy'
-            }
-          },
-          getBreadcrumbSchema([
-            { name: 'Home', url: '/' },
-            { name: 'Conditions', url: '/conditions' },
-            { name: 'OCD & Related Disorders', url: '/conditions/ocd-related-disorders' }
-          ])
-        ]}
-      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
         <DetailSection title="Overview">
           <p>This group of disorders involves intrusive thoughts (obsessions) or preoccupations, which lead to repetitive behaviors (compulsions) or mental acts. While these compulsions provide short-term relief, they ultimately sustain and worsen the impairment over time.</p>
@@ -143,4 +119,3 @@ const OcdRelatedDisorders = () => {
 };
 
 export default OcdRelatedDisorders;
-  

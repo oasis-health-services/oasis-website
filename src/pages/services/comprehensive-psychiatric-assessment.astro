@@ -1,14 +1,24 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ComprehensiveAssessmentPage from '@/components/pages/services/ComprehensiveAssessment';
-import { getOrganizationSchema } from '@/utils/schema';
+import { getServiceSchema, getBreadcrumbSchema } from '@/components/SEO';
 ---
 
 <Layout 
   title="Comprehensive Psychiatric Assessment & Diagnosis"
   description="A thorough first appointment to understand your symptoms, history, and goals, leading to a diagnosis and initial care plan."
   keywords="comprehensive psychiatric assessment, psychiatric assessment, psychiatric diagnosis"
-  schema={getOrganizationSchema()}
+  schema={[
+          getServiceSchema(
+            'Comprehensive Psychiatric Assessment & Diagnosis',
+            'Our comprehensive assessment is the crucial first step in your mental wellness journey. This thorough initial appointment is designed to deeply understand your symptoms, history, risks, strengths, and goals. The outcome is a collaborative working diagnosis and a personalized initial care plan tailored just for you.'
+          ),
+          getBreadcrumbSchema([
+            { name: 'Home', url: '/' },
+            { name: 'Services', url: '/services' },
+            { name: 'Comprehensive Assessment', url: '/services/comprehensive-assessment' }
+          ])
+        ]}
 >
   <ComprehensiveAssessmentPage client:load /> 
 </Layout>

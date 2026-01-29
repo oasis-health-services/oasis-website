@@ -1,8 +1,5 @@
 
-import React from 'react';
-import SEO, { getServiceSchema, getBreadcrumbSchema } from '@/components/SEO';
 import { motion } from 'framer-motion';
-// import { Link } from 'react-router-dom'; // REMOVED
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, XCircle } from 'lucide-react';
 import TwoColumnLayout from '@/components/TwoColumnLayout';
@@ -50,56 +47,40 @@ const GeneticTesting = () => {
       navTitle="Our Services"
       pageType="services"
     >
-      <SEO
-        title="Pharmacogenomic Genetic Testing"
-        description="Personalized medication management with pharmacogenomic (PGx) testing. Optimize psychiatric medication choices based on your unique genetic profile."
-        url="/services/genetic-testing"
-        schema={[
-          getServiceSchema(
-            'Pharmacogenomic Genetic Testing (PGx)',
-            'We use validated pharmacogenomic (PGx) insights to help inform safer and more effective medication choices. By understanding your unique genetic profile, we can personalize your care plan, potentially reducing trial-and-error with medications.'
-          ),
-          getBreadcrumbSchema([
-            { name: 'Home', url: '/' },
-            { name: 'Services', url: '/services' },
-            { name: 'Genetic Testing', url: '/services/genetic-testing' }
-          ])
-        ]}
-      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
         <DetailSection title="Purpose">
           <p>We use validated pharmacogenomic (PGx) insights to help inform safer and more effective medication choices. By understanding your unique genetic profile, we can personalize your care plan, potentially reducing trial-and-error with medications.</p>
         </DetailSection>
-        
+
         <DetailSection title="Scope & Process">
           <p>Our role is to facilitate and interpret. We assess if PGx testing is a good fit for you, obtain your consent, and refer you to a trusted, CLIA-certified external lab. The lab collects your sample (usually a simple cheek swab) and runs the test. We then review the detailed report with you, explain the findings, and use that information to update your treatment plan.</p>
         </DetailSection>
 
         <div className="grid md:grid-cols-2 gap-8 mb-10">
-            <div>
-                <h3 className="text-2xl font-bold text-[#2D6762] mb-4">What It Informs</h3>
-                <ul className="space-y-3">
-                    <li className="flex items-start"><CheckCircle className="h-6 w-6 mr-3 text-green-600 flex-shrink-0 mt-1" /><span>Your likely metabolizer status for key psychiatric medications.</span></li>
-                    <li className="flex items-start"><CheckCircle className="h-6 w-6 mr-3 text-green-600 flex-shrink-0 mt-1" /><span>Optimal dose ranges, titration speed, and potential interaction risks.</span></li>
-                    <li className="flex items-start"><CheckCircle className="h-6 w-6 mr-3 text-green-600 flex-shrink-0 mt-1" /><span>Guidance on when to avoid or prefer specific medications based on your genetics.</span></li>
-                </ul>
-            </div>
-            <div>
-                <h3 className="text-2xl font-bold text-[#2D6762] mb-4">What It Does NOT Do</h3>
-                <ul className="space-y-3">
-                    <li className="flex items-start"><XCircle className="h-6 w-6 mr-3 text-red-600 flex-shrink-0 mt-1" /><span>It does not diagnose a mental illness.</span></li>
-                    <li className="flex items-start"><XCircle className="h-6 w-6 mr-3 text-red-600 flex-shrink-0 mt-1" /><span>It does not guarantee a specific response to a medication.</span></li>
-                </ul>
-            </div>
+          <div>
+            <h3 className="text-2xl font-bold text-[#2D6762] mb-4">What It Informs</h3>
+            <ul className="space-y-3">
+              <li className="flex items-start"><CheckCircle className="h-6 w-6 mr-3 text-green-600 flex-shrink-0 mt-1" /><span>Your likely metabolizer status for key psychiatric medications.</span></li>
+              <li className="flex items-start"><CheckCircle className="h-6 w-6 mr-3 text-green-600 flex-shrink-0 mt-1" /><span>Optimal dose ranges, titration speed, and potential interaction risks.</span></li>
+              <li className="flex items-start"><CheckCircle className="h-6 w-6 mr-3 text-green-600 flex-shrink-0 mt-1" /><span>Guidance on when to avoid or prefer specific medications based on your genetics.</span></li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-2xl font-bold text-[#2D6762] mb-4">What It Does NOT Do</h3>
+            <ul className="space-y-3">
+              <li className="flex items-start"><XCircle className="h-6 w-6 mr-3 text-red-600 flex-shrink-0 mt-1" /><span>It does not diagnose a mental illness.</span></li>
+              <li className="flex items-start"><XCircle className="h-6 w-6 mr-3 text-red-600 flex-shrink-0 mt-1" /><span>It does not guarantee a specific response to a medication.</span></li>
+            </ul>
+          </div>
         </div>
 
         <DetailSection title="Who Benefits Most?">
           <div className="space-y-4">
             {whoBenefits.map((item, index) => (
-                <div key={index} className="flex items-center p-4 bg-gray-50 rounded-lg">
-                    <CheckCircle className="h-6 w-6 text-[#6D519D] mr-4 flex-shrink-0"/>
-                    <p className="text-lg">{item}</p>
-                </div>
+              <div key={index} className="flex items-center p-4 bg-gray-50 rounded-lg">
+                <CheckCircle className="h-6 w-6 text-[#6D519D] mr-4 flex-shrink-0" />
+                <p className="text-lg">{item}</p>
+              </div>
             ))}
           </div>
         </DetailSection>
@@ -145,4 +126,3 @@ const GeneticTesting = () => {
 };
 
 export default GeneticTesting;
-  

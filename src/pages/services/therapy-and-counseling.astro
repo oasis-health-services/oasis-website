@@ -1,14 +1,24 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import TherapyCounselingPage from '@/components/pages/services/TherapyCounseling';  
-import { getOrganizationSchema } from '@/utils/schema';
+import { getServiceSchema, getBreadcrumbSchema } from '@/components/SEO';
 ---
 
 <Layout 
   title="Therapy & Counseling"
   description="Evidence-based talk therapies designed to reduce symptoms, build skills, and improve daily functioning."
   keywords="therapy, counseling, talk therapy, evidence-based therapy"
-  schema={getOrganizationSchema()}
+  schema={[
+          getServiceSchema(
+            'Therapy & Counseling',
+            'We offer evidence-based talk therapies designed to reduce symptoms, build practical skills, and improve your daily functioning. Therapy can be a stand-alone treatment or used in combination with medication management to create a comprehensive care plan.'
+          ),
+          getBreadcrumbSchema([
+            { name: 'Home', url: '/' },
+            { name: 'Services', url: '/services' },
+            { name: 'Therapy & Counseling', url: '/services/therapy-and-counseling' }
+          ])
+        ]}
 >
   <TherapyCounselingPage client:load /> 
 </Layout>

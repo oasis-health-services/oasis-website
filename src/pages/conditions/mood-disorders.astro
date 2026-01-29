@@ -1,14 +1,30 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import MoodDisordersPage from '@/components/pages/conditions/MoodDisorders';
-import { getOrganizationSchema } from '@/utils/schema';
+import { getBreadcrumbSchema } from '@/components/SEO';
 ---
 
 <Layout 
   title="Mood Disorders"
   description="Learn about mood disorders such as depression, bipolar disorder, and dysthymia. Understand symptoms, evaluation, and treatment options including medication management."
   keywords="mood disorders treatment, depression treatment, bipolar disorder treatment"
-  schema={getOrganizationSchema()}
+  schema={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'MedicalCondition',
+            name: 'Mood Disorders',
+            description: 'Expert treatment for mood disorders including major depressive disorder, bipolar disorder, and dysthymia.',
+            possibleTreatment: {
+              '@type': 'MedicalTherapy',
+              name: 'Psychiatric Treatment and Therapy'
+            }
+          },
+          getBreadcrumbSchema([
+            { name: 'Home', url: '/' },
+            { name: 'Conditions', url: '/conditions' },
+            { name: 'Mood Disorders', url: '/conditions/mood-disorders' }
+          ])
+        ]}
 >
   <MoodDisordersPage client:load /> 
 </Layout>

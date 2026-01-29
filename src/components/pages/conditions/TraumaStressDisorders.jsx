@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 // import { Link } from 'react-router-dom'; // REMOVED
 import { Button } from '@/components/ui/button';
@@ -13,7 +12,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { conditionsLinks } from '@/lib/navLinks';
-import SEO, { getBreadcrumbSchema } from '@/components/SEO';
 
 const DetailSection = ({ title, children }) => (
   <div className="mb-10">
@@ -23,7 +21,7 @@ const DetailSection = ({ title, children }) => (
 );
 
 const TraumaStressDisorders = () => {
-    const faqs = [
+  const faqs = [
     {
       question: "What is the difference between PTSD and Acute Stress Disorder?",
       answer: "They have very similar symptoms, but the main difference is timing. Acute Stress Disorder is diagnosed when symptoms last from three days to one month after a traumatic event. If the symptoms persist for more than a month and cause significant distress or impairment, the diagnosis may be changed to Post-Traumatic Stress Disorder (PTSD)."
@@ -46,28 +44,6 @@ const TraumaStressDisorders = () => {
       navTitle="Conditions We Treat"
       pageType="conditions"
     >
-      <SEO
-        title="PTSD & Trauma Treatment"
-        description="Trauma-informed care for PTSD, acute stress, and adjustment disorders. Specialized therapy and medication management for healing."
-        url="/conditions/trauma-stress-disorders"
-        schema={[
-          {
-            '@context': 'https://schema.org',
-            '@type': 'MedicalCondition',
-            name: 'Trauma & Stress-Related Disorders',
-            description: 'Trauma-informed care for PTSD, acute stress, and adjustment disorders with specialized therapy and support.',
-            possibleTreatment: {
-              '@type': 'MedicalTherapy',
-              name: 'Psychiatric Treatment and Therapy'
-            }
-          },
-          getBreadcrumbSchema([
-            { name: 'Home', url: '/' },
-            { name: 'Conditions', url: '/conditions' },
-            { name: 'Trauma & Stress Disorders', url: '/conditions/trauma-stress-disorders' }
-          ])
-        ]}
-      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
         <DetailSection title="Overview">
           <p>These disorders develop following exposure to a traumatic or significantly stressful event. They involve a psychological response characterized by intrusive memories, avoidance of reminders, negative changes in mood and thinking, and significant alterations in arousal and reactivity.</p>
@@ -145,4 +121,3 @@ const TraumaStressDisorders = () => {
 };
 
 export default TraumaStressDisorders;
-  

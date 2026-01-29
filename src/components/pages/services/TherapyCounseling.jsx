@@ -1,8 +1,4 @@
-
-import React from 'react';
-import SEO, { getServiceSchema, getBreadcrumbSchema } from '@/components/SEO';
 import { motion } from 'framer-motion';
-// import { Link } from 'react-router-dom'; // REMOVED
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Brain, Zap, UserCheck, Repeat, Users, Star, Heart } from 'lucide-react';
 import TwoColumnLayout from '@/components/TwoColumnLayout';
@@ -22,14 +18,14 @@ const DetailSection = ({ title, children }) => (
 );
 
 const TherapyCounseling = () => {
-    const modalities = [
-        { icon: Brain, title: "Cognitive Behavioral Therapy (CBT)", description: "Structured, skills-based therapy linking thoughts, emotions, and behaviors. Targets depression, anxiety, panic, and more." },
-        { icon: UserCheck, title: "Motivational Interviewing", description: "Client-centered method to resolve ambivalence and strengthen motivation for change. Ideal for substance use and medication adherence." },
-        { icon: Star, title: "Solution-Focused Therapy", description: "Future-oriented therapy that amplifies strengths and finds exceptions to problems. Great for acute stress and relationship challenges." },
-        { icon: Heart, title: "Trauma-Focused Care", description: "Utilizes PTSD frameworks, grounding techniques, and paced exposure to process trauma safely." },
-        { icon: Repeat, title: "Acceptance & Commitment Therapy (ACT)", description: "Focuses on values-based action, cognitive defusion, and mindfulness to increase psychological flexibility." },
-        { icon: Users, title: "Parent Coaching/Family Sessions", description: "Provides tools for behavior plans, communication, and school collaboration for child and teen care." }
-    ];
+  const modalities = [
+    { icon: Brain, title: "Cognitive Behavioral Therapy (CBT)", description: "Structured, skills-based therapy linking thoughts, emotions, and behaviors. Targets depression, anxiety, panic, and more." },
+    { icon: UserCheck, title: "Motivational Interviewing", description: "Client-centered method to resolve ambivalence and strengthen motivation for change. Ideal for substance use and medication adherence." },
+    { icon: Star, title: "Solution-Focused Therapy", description: "Future-oriented therapy that amplifies strengths and finds exceptions to problems. Great for acute stress and relationship challenges." },
+    { icon: Heart, title: "Trauma-Focused Care", description: "Utilizes PTSD frameworks, grounding techniques, and paced exposure to process trauma safely." },
+    { icon: Repeat, title: "Acceptance & Commitment Therapy (ACT)", description: "Focuses on values-based action, cognitive defusion, and mindfulness to increase psychological flexibility." },
+    { icon: Users, title: "Parent Coaching/Family Sessions", description: "Provides tools for behavior plans, communication, and school collaboration for child and teen care." }
+  ];
 
   const faqs = [
     {
@@ -53,41 +49,25 @@ const TherapyCounseling = () => {
       navTitle="Our Services"
       pageType="services"
     >
-      <SEO
-        title="Therapy & Counseling"
-        description="Evidence-based talk therapy including CBT, ACT, trauma-focused care, and motivational interviewing. In-person and telehealth options available."
-        url="/services/therapy-and-counseling"
-        schema={[
-          getServiceSchema(
-            'Therapy & Counseling',
-            'We offer evidence-based talk therapies designed to reduce symptoms, build practical skills, and improve your daily functioning. Therapy can be a stand-alone treatment or used in combination with medication management to create a comprehensive care plan.'
-          ),
-          getBreadcrumbSchema([
-            { name: 'Home', url: '/' },
-            { name: 'Services', url: '/services' },
-            { name: 'Therapy & Counseling', url: '/services/therapy-and-counseling' }
-          ])
-        ]}
-      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
         <DetailSection title="Purpose">
           <p>We offer evidence-based talk therapies designed to reduce symptoms, build practical skills, and improve your daily functioning. Therapy can be a stand-alone treatment or used in combination with medication management to create a comprehensive care plan.</p>
         </DetailSection>
-        
+
         <DetailSection title="Formats">
           <p>Our therapy sessions are available both in-person (Georgia only) and via secure, HIPAA-compliant telehealth. We offer individual sessions, typically 45-60 minutes, on a weekly or bi-weekly basis, adjusting frequency as you make progress.</p>
         </DetailSection>
 
         <DetailSection title="Therapeutic Modalities">
-            <div className="grid md:grid-cols-2 gap-6">
-                {modalities.map((mod, index) => (
-                    <div key={index} className="p-6 bg-white rounded-lg shadow-sm border h-full">
-                        <mod.icon className="h-10 w-10 text-[#69A08B] mb-4" />
-                        <h4 className="text-xl font-semibold text-[#2D6762] mb-2">{mod.title}</h4>
-                        <p className="text-[#4A5455]">{mod.description}</p>
-                    </div>
-                ))}
-            </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            {modalities.map((mod, index) => (
+              <div key={index} className="p-6 bg-white rounded-lg shadow-sm border h-full">
+                <mod.icon className="h-10 w-10 text-[#69A08B] mb-4" />
+                <h4 className="text-xl font-semibold text-[#2D6762] mb-2">{mod.title}</h4>
+                <p className="text-[#4A5455]">{mod.description}</p>
+              </div>
+            ))}
+          </div>
         </DetailSection>
 
         <div className="mt-10 mb-16 bg-green-50 border-l-4 border-green-500 text-green-800 p-6 rounded-r-lg">
@@ -135,4 +115,3 @@ const TherapyCounseling = () => {
 };
 
 export default TherapyCounseling;
-  

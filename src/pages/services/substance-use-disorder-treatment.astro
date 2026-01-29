@@ -1,14 +1,24 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import SudTreatmentPage from '@/components/pages/services/SudTreatment';
-import { getOrganizationSchema } from '@/utils/schema';
+import { getServiceSchema, getBreadcrumbSchema } from '@/components/SEO';
 ---
 
 <Layout 
   title="Substance Use Disorder Treatment"
   description="Integrated, harm-reduction oriented care with therapy, medication support, and recovery planning for substance use disorders."
   keywords="substance use disorder treatment, addiction psychiatry, alcohol use disorder treatment, drug addiction treatment, gambling disorder treatment"
-  schema={getOrganizationSchema()}
+  schema={[
+          getServiceSchema(
+            'Substance Use Disorder (SUD) Treatment',
+            'We provide integrated, harm-reduction oriented care for substance use disorders. Our approach combines therapy and recovery supports with careful monitoring. We handle crisis and withdrawal protocols according to clinical need and arrange for higher levels of care when required, ensuring you have a safe and supportive path to recovery.'
+          ),
+          getBreadcrumbSchema([
+            { name: 'Home', url: '/' },
+            { name: 'Services', url: '/services' },
+            { name: 'SUD Treatment', url: '/services/substance-use-disorder-treatment' }
+          ])
+        ]}
 >
   <SudTreatmentPage client:load /> 
 </Layout>

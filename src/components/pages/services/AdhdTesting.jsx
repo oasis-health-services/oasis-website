@@ -1,10 +1,7 @@
 
-import React from 'react';
-import SEO, { getServiceSchema, getBreadcrumbSchema } from '@/components/SEO';
 import { motion } from 'framer-motion';
-// import { Link } from 'react-router-dom'; // REMOVED
 import { Button } from '@/components/ui/button';
-import { ArrowRight, FileCheck, Brain, MessageCircle, Shield, ListChecks } from 'lucide-react';
+import { ArrowRight, Brain, MessageCircle, Shield, ListChecks } from 'lucide-react';
 import TwoColumnLayout from '@/components/TwoColumnLayout';
 import {
   Accordion,
@@ -22,13 +19,13 @@ const DetailSection = ({ title, children }) => (
 );
 
 const AdhdTesting = () => {
-    const treatmentOptions = [
-        { icon: Brain, title: 'Medication', description: 'Stimulant and non-stimulant options, with a clear dosing and monitoring plan.' },
-        { icon: MessageCircle, title: 'Therapies', description: 'CBT for ADHD, skills coaching, and organizational strategies.' },
-        { icon: ListChecks, title: 'Care Coordination', description: 'Collaboration with primary care, therapists, and schools.' }
-    ];
+  const treatmentOptions = [
+    { icon: Brain, title: 'Medication', description: 'Stimulant and non-stimulant options, with a clear dosing and monitoring plan.' },
+    { icon: MessageCircle, title: 'Therapies', description: 'CBT for ADHD, skills coaching, and organizational strategies.' },
+    { icon: ListChecks, title: 'Care Coordination', description: 'Collaboration with primary care, therapists, and schools.' }
+  ];
 
-    const faqs = [
+  const faqs = [
     {
       question: "How long does ADHD testing take?",
       answer: "The process varies but typically involves an initial comprehensive interview (60-90 minutes), completing standardized rating scales, and then a feedback session to discuss the results and treatment plan. Some cases may require more extensive neuropsychological testing."
@@ -50,48 +47,32 @@ const AdhdTesting = () => {
       navTitle="Our Services"
       pageType="services"
     >
-      <SEO
-        title="ADHD Testing & Management"
-        description="Comprehensive ADHD evaluation and treatment for adults and adolescents. Expert testing, medication management, therapy, and skills coaching."
-        url="/services/adhd-testing-and-management"
-        schema={[
-          getServiceSchema(
-            'ADHD Testing & Management',
-            'This specialized service is designed to thoroughly evaluate concerns related to attention, impulsivity, and executive function. Our goal is to confirm or rule out ADHD and build a clear, actionable plan to improve symptom control and daily performance at school, work, and home.'
-          ),
-          getBreadcrumbSchema([
-            { name: 'Home', url: '/' },
-            { name: 'Services', url: '/services' },
-            { name: 'ADHD Testing & Management', url: '/services/adhd-testing-and-management' }
-          ])
-        ]}
-      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
         <DetailSection title="Purpose">
           <p>This specialized service is designed to thoroughly evaluate concerns related to attention, impulsivity, and executive function. Our goal is to confirm or rule out ADHD and build a clear, actionable plan to improve symptom control and daily performance at school, work, and home.</p>
         </DetailSection>
-        
+
         <DetailSection title="Who It’s For">
           <p>This service is for adults and adolescents experiencing persistent challenges with inattention, hyperactivity, impulsivity, disorganization, or task-completion that impact their quality of life.</p>
         </DetailSection>
 
         <DetailSection title="What We Assess">
-            <p>Our comprehensive assessment includes a detailed symptom history, evaluation of functional impact, and careful screening for other conditions that can mimic ADHD, such as anxiety, depression, sleep issues, or substance use. We offer both in-person and online testing formats.</p>
+          <p>Our comprehensive assessment includes a detailed symptom history, evaluation of functional impact, and careful screening for other conditions that can mimic ADHD, such as anxiety, depression, sleep issues, or substance use. We offer both in-person and online testing formats.</p>
         </DetailSection>
 
         <DetailSection title="Treatment Options">
-            <div className="grid md:grid-cols-3 gap-8">
-                {treatmentOptions.map((option, index) => (
-                     <div key={index} className="p-6 bg-gray-50 rounded-lg">
-                        <option.icon className="h-10 w-10 text-[#EB615C] mb-4" />
-                        <h4 className="text-xl font-semibold text-[#2D6762] mb-2">{option.title}</h4>
-                        <p>{option.description}</p>
-                    </div>
-                ))}
-            </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {treatmentOptions.map((option, index) => (
+              <div key={index} className="p-6 bg-gray-50 rounded-lg">
+                <option.icon className="h-10 w-10 text-[#EB615C] mb-4" />
+                <h4 className="text-xl font-semibold text-[#2D6762] mb-2">{option.title}</h4>
+                <p>{option.description}</p>
+              </div>
+            ))}
+          </div>
         </DetailSection>
 
-         <div className="mt-12 mb-12 bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-8 rounded-r-lg">
+        <div className="mt-12 mb-12 bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-8 rounded-r-lg">
           <div className="flex items-center">
             <Shield className="h-8 w-8 mr-4 text-blue-600 flex-shrink-0" />
             <div>
@@ -142,4 +123,3 @@ const AdhdTesting = () => {
 };
 
 export default AdhdTesting;
-  

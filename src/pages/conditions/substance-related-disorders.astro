@@ -1,14 +1,30 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import SubstanceRelatedDisordersPage from '@/components/pages/conditions/SubstanceRelatedDisorders';
-import { getOrganizationSchema } from '@/utils/schema';
+import { getBreadcrumbSchema } from '@/components/SEO';
 ---
 
 <Layout 
   title="Substance-Related and Addictive Disorders"
   description="Learn about substance-related and addictive disorders and how they affect health and life roles. Explore evaluation, treatment options, and integrated mental health support."
   keywords="substance use disorder treatment, addiction psychiatry, alcohol use disorder treatment, drug addiction treatment, gambling disorder treatment"
-  schema={getOrganizationSchema()}
+  schema={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'MedicalCondition',
+            name: 'Substance-Related & Addictive Disorders',
+            description: 'Compassionate treatment for substance use and addictive disorders with harm reduction, MAT, and therapy.',
+            possibleTreatment: {
+              '@type': 'MedicalTherapy',
+              name: 'Psychiatric Treatment and Therapy'
+            }
+          },
+          getBreadcrumbSchema([
+            { name: 'Home', url: '/' },
+            { name: 'Conditions', url: '/conditions' },
+            { name: 'Substance-Related Disorders', url: '/conditions/substance-related-disorders' }
+          ])
+        ]}
 >
   <SubstanceRelatedDisordersPage client:load /> 
 </Layout>

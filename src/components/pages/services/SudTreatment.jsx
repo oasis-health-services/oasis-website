@@ -1,8 +1,5 @@
 
-import React from 'react';
-import SEO, { getServiceSchema, getBreadcrumbSchema } from '@/components/SEO';
 import { motion } from 'framer-motion';
-// import { Link } from 'react-router-dom'; // REMOVED
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Shield, CheckCircle, Activity, Brain } from 'lucide-react';
 import TwoColumnLayout from '@/components/TwoColumnLayout';
@@ -22,14 +19,14 @@ const DetailSection = ({ title, children }) => (
 );
 
 const SudTreatment = () => {
-    const treatments = [
-        { title: 'Alcohol Use Disorder (AUD)', description: 'Medications like Naltrexone and Acamprosate, combined with relapse-prevention skills and lab monitoring.' },
-        { title: 'Nicotine Dependence', description: 'Varenicline, Bupropion, and nicotine-replacement therapy, supported by quit-date planning and coping skills.' },
-        { title: 'Opioid Dependency (Buprenorphine/Naloxone)', description: 'Office-based induction and maintenance for eligible patients, including overdose education and counseling.' },
-        { title: 'Stimulant Use Disorder', description: 'Focus on evidence-based behavioral strategies like contingency management, addressing sleep, mood, and co-occurring ADHD.' },
-        { title: 'Dual Diagnosis', description: 'Integrated plans for SUD plus co-occurring depression, anxiety, PTSD, or other disorders, prioritizing safety and stabilization.' },
-    ];
-    
+  const treatments = [
+    { title: 'Alcohol Use Disorder (AUD)', description: 'Medications like Naltrexone and Acamprosate, combined with relapse-prevention skills and lab monitoring.' },
+    { title: 'Nicotine Dependence', description: 'Varenicline, Bupropion, and nicotine-replacement therapy, supported by quit-date planning and coping skills.' },
+    { title: 'Opioid Dependency (Buprenorphine/Naloxone)', description: 'Office-based induction and maintenance for eligible patients, including overdose education and counseling.' },
+    { title: 'Stimulant Use Disorder', description: 'Focus on evidence-based behavioral strategies like contingency management, addressing sleep, mood, and co-occurring ADHD.' },
+    { title: 'Dual Diagnosis', description: 'Integrated plans for SUD plus co-occurring depression, anxiety, PTSD, or other disorders, prioritizing safety and stabilization.' },
+  ];
+
   const faqs = [
     {
       question: "What is a 'dual diagnosis'?",
@@ -52,36 +49,20 @@ const SudTreatment = () => {
       navTitle="Our Services"
       pageType="services"
     >
-      <SEO
-        title="Substance Use Disorder Treatment"
-        description="Integrated harm-reduction treatment for alcohol, opioid, nicotine, and stimulant use disorders. Dual diagnosis care with medication and therapy support."
-        url="/services/substance-use-disorder-treatment"
-        schema={[
-          getServiceSchema(
-            'Substance Use Disorder (SUD) Treatment',
-            'We provide integrated, harm-reduction oriented care for substance use disorders. Our approach combines therapy and recovery supports with careful monitoring. We handle crisis and withdrawal protocols according to clinical need and arrange for higher levels of care when required, ensuring you have a safe and supportive path to recovery.'
-          ),
-          getBreadcrumbSchema([
-            { name: 'Home', url: '/' },
-            { name: 'Services', url: '/services' },
-            { name: 'SUD Treatment', url: '/services/substance-use-disorder-treatment' }
-          ])
-        ]}
-      />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
         <DetailSection title="Our Approach">
           <p>We provide integrated, harm-reduction oriented care for substance use disorders. Our approach combines therapy and recovery supports with careful monitoring. We handle crisis and withdrawal protocols according to clinical need and arrange for higher levels of care when required, ensuring you have a safe and supportive path to recovery.</p>
         </DetailSection>
 
         <DetailSection title="Treatment for Specific Disorders">
-            <div className="space-y-6">
-                {treatments.map((item, index) => (
-                    <div key={index} className="p-6 bg-gray-50 rounded-lg border">
-                        <h4 className="text-xl font-semibold text-[#2D6762] mb-2">{item.title}</h4>
-                        <p className="text-[#4A5455]">{item.description}</p>
-                    </div>
-                ))}
-            </div>
+          <div className="space-y-6">
+            {treatments.map((item, index) => (
+              <div key={index} className="p-6 bg-gray-50 rounded-lg border">
+                <h4 className="text-xl font-semibold text-[#2D6762] mb-2">{item.title}</h4>
+                <p className="text-[#4A5455]">{item.description}</p>
+              </div>
+            ))}
+          </div>
         </DetailSection>
 
         <div className="mt-10 mb-16 bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-6 rounded-r-lg">
@@ -135,4 +116,3 @@ const SudTreatment = () => {
 };
 
 export default SudTreatment;
-  

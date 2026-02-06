@@ -1,0 +1,148 @@
+import type { ScreenerConfig } from "./types"
+
+export const GAD7: ScreenerConfig = {
+    id: "gad-7",
+    category: "anxiety",
+    slug: "anxiety/gad-7",
+    name: "GAD-7",
+    fullName: "Generalized Anxiety Disorder 7-item Scale",
+    description: "A validated 7-question screening tool used to assess the severity of generalized anxiety symptoms over the past two weeks.",
+    purpose: "This screener helps identify anxiety symptoms and their severity. It is widely used in clinical settings to screen for generalized anxiety disorder and monitor treatment response.",
+    timeEstimate: "2 minutes",
+    questionCount: 7,
+    citation: "Developed by Drs. Robert L. Spitzer, Kurt Kroenke, Janet B.W. Williams, and Bernd Löwe. Public domain.",
+    citationUrl: "https://www.phqscreeners.com/",
+    disclaimer: "This screening tool is not a diagnostic instrument. A diagnosis of anxiety can only be made by a qualified healthcare provider through a comprehensive evaluation.",
+    standardOptions: [
+        { value: 0, label: "Not at all" },
+        { value: 1, label: "Several days" },
+        { value: 2, label: "More than half the days" },
+        { value: 3, label: "Nearly every day" },
+    ],
+    questions: [
+        {
+            id: 1,
+            question: "Feeling nervous, anxious, or on edge",
+        },
+        {
+            id: 2,
+            question: "Not being able to stop or control worrying",
+        },
+        {
+            id: 3,
+            question: "Worrying too much about different things",
+        },
+        {
+            id: 4,
+            question: "Trouble relaxing",
+        },
+        {
+            id: 5,
+            question: "Being so restless that it's hard to sit still",
+        },
+        {
+            id: 6,
+            question: "Becoming easily annoyed or irritable",
+        },
+        {
+            id: 7,
+            question: "Feeling afraid as if something awful might happen",
+        },
+    ],
+    scoring: {
+        min: 0,
+        max: 21,
+        thresholds: [
+            { min: 0, max: 4, level: "minimal" },
+            { min: 5, max: 9, level: "mild" },
+            { min: 10, max: 14, level: "moderate" },
+            { min: 15, max: 21, level: "severe" },
+        ],
+    },
+    resultLevels: {
+        minimal: {
+            level: "minimal",
+            title: "Minimal Anxiety",
+            description: "Your responses suggest minimal anxiety symptoms. Some anxiety is a normal part of life, and your current symptoms are within the normal range.",
+            color: "text-green-700",
+            bgColor: "bg-green-50 border-green-200",
+            iconColor: "bg-green-100",
+            recommendations: [
+                "Continue practicing healthy stress management techniques",
+                "Maintain regular exercise and good sleep habits",
+                "Use relaxation techniques like deep breathing when stressed",
+                "Stay connected with supportive people in your life",
+                "Monitor your symptoms and seek help if they increase",
+            ],
+            resources: [
+                { title: "Self-Care Toolkit", href: "/resources/self-care", description: "Relaxation and coping techniques" },
+                { title: "Wellness Resources", href: "/resources", description: "Explore our full resource library" },
+            ],
+        },
+        mild: {
+            level: "mild",
+            title: "Mild Anxiety",
+            description: "Your responses suggest mild anxiety symptoms. While not severe, you may benefit from learning anxiety management strategies or speaking with a provider if symptoms persist.",
+            color: "text-yellow-700",
+            bgColor: "bg-yellow-50 border-yellow-200",
+            iconColor: "bg-yellow-100",
+            recommendations: [
+                "Practice regular relaxation techniques (deep breathing, progressive muscle relaxation)",
+                "Limit caffeine and alcohol, which can worsen anxiety",
+                "Exercise regularly - physical activity reduces anxiety",
+                "Consider learning about Cognitive Behavioral Therapy techniques",
+                "Talk to a healthcare provider if symptoms persist or worsen",
+                "Identify and address sources of stress in your life",
+            ],
+            resources: [
+                { title: "Self-Care Toolkit", href: "/resources/self-care", description: "Breathing exercises and grounding techniques" },
+                { title: "Telehealth Guide", href: "/resources/telehealth", description: "Learn about virtual care options" },
+                { title: "Schedule a Consultation", href: "/contact", description: "Speak with one of our providers" },
+            ],
+        },
+        moderate: {
+            level: "moderate",
+            title: "Moderate Anxiety",
+            description: "Your responses indicate moderate anxiety symptoms. At this level, anxiety is likely affecting your daily life and professional evaluation is recommended.",
+            color: "text-orange-700",
+            bgColor: "bg-orange-50 border-orange-200",
+            iconColor: "bg-orange-100",
+            recommendations: [
+                "Schedule an appointment with a mental health provider",
+                "Consider therapy (CBT is highly effective for anxiety)",
+                "Discuss medication options with your provider if appropriate",
+                "Avoid using alcohol or substances to cope with anxiety",
+                "Practice grounding techniques when feeling overwhelmed",
+                "Build a support system of people you can talk to",
+            ],
+            resources: [
+                { title: "Schedule an Appointment", href: "/contact", description: "Connect with our care team" },
+                { title: "About Anxiety Disorders", href: "/conditions/anxiety", description: "Learn about treatment options" },
+                { title: "Meet Our Providers", href: "/providers", description: "Find a provider who can help" },
+            ],
+        },
+        severe: {
+            level: "severe",
+            title: "Severe Anxiety",
+            description: "Your responses indicate severe anxiety symptoms. This level of anxiety significantly impacts daily functioning and requires professional treatment. Effective treatments are available.",
+            color: "text-red-700",
+            bgColor: "bg-red-50 border-red-200",
+            iconColor: "bg-red-100",
+            recommendations: [
+                "Seek professional help as soon as possible",
+                "Treatment combining therapy and medication is often most effective",
+                "If you're experiencing panic attacks, know they are not dangerous",
+                "Avoid avoiding - this can make anxiety worse over time",
+                "Consider intensive treatment options if available",
+                "Remember: severe anxiety is highly treatable",
+            ],
+            resources: [
+                { title: "Schedule Now", href: "/contact", description: "Book an appointment with our team" },
+                { title: "Crisis Resources", href: "/resources/crisis", description: "Immediate support if needed" },
+                { title: "Our Services", href: "/services", description: "Learn about our treatment approach" },
+            ],
+        },
+    },
+    relatedCondition: "anxiety",
+    relatedAssessments: ["phq-9", "pc-ptsd-5"],
+}

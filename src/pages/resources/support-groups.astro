@@ -1,0 +1,13 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SupportGroups from '@/components/pages/resources/SupportGroups';
+import { getOrganizationSchema } from '@/utils/schema';
+---
+
+<Layout 
+  title="Support Groups"
+  description="Find local and online mental health support groups in Georgia. Connect with others facing similar challenges including depression, anxiety, ADHD, grief, and addiction recovery."
+  schema={getOrganizationSchema()}
+>
+  <SupportGroups client:load /> 
+</Layout>

@@ -1,0 +1,36 @@
+---
+/**
+ * File: src/pages/providers/[slug].astro
+ * Route: /providers/:slug
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { conditions } from "../../lib/conditions-data";
+import ConditionDetail from "../../components/pages/conditions/ConditionDetail";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import CrisisNotice from "../../components/CrisisNotice";
+
+export function getStaticPaths() {
+  return conditions.map((c) => ({
+    params: { slug: c.slug },
+    props: { condition: c },
+  }));
+}
+
+const { condition } = Astro.props;
+
+if (!condition) {
+  // Return a proper 404 instead of rendering a blank page
+  return new Response("Condition not found", { status: 404 });
+}
+---
+
+<BaseLayout 
+  title={condition.name}
+  description={condition.description}
+>
+  <Header client:load />
+  <ConditionDetail client:load condition={condition} />
+  <CrisisNotice />
+  <Footer />
+</BaseLayout>

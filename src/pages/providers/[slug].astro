@@ -1,0 +1,54 @@
+---
+/**
+ * File: src/pages/providers/[slug].astro
+ * Route: /providers/:slug
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { providers } from "../../lib/providers-data";
+import Provider from "../../components/pages/Provider";
+import Header from "../../components/Header";
+import { ProviderBio } from "../../components/providers/ProviderBio";
+import { ProviderSpecialties } from "../../components/providers/ProviderSpecialties";
+import { ProviderApproach } from "../../components/providers/ProvidersApproach";
+import { ProviderInsurances } from "../../components/providers/ProviderInsurances";
+import { ProviderQualifications } from "../../components/providers/ProviderQualifications";
+import { ProviderLocations } from "../../components/providers/ProviderLocations";
+import { ProviderFAQ } from "../../components/providers/ProviderFAQ";
+import { ProviderCTA } from "../../components/providers/ProviderCTA";
+import CrisisNotice from "../../components/CrisisNotice";
+import Footer from "../../components/Footer";
+
+export function getStaticPaths() {
+  return providers.map((p) => ({
+    params: { slug: p.slug },
+    props: { provider: p },
+  }));
+}
+
+const { provider } = Astro.props;
+
+if (!provider) {
+  // Return a proper 404 instead of rendering a blank page
+  return new Response("Provider not found", { status: 404 });
+}
+---
+
+<BaseLayout 
+  title={provider.name}
+  description={provider.description}
+>
+  <Header client:load />
+  <Provider client:load provider={provider} />
+  <ProviderBio client:load provider={provider} />
+  <ProviderSpecialties client:load provider={provider} />
+  <ProviderApproach client:load provider={provider} />
+  <ProviderInsurances client:load provider={provider} />
+  <ProviderQualifications client:load provider={provider} />
+  <ProviderLocations client:load provider={provider} />
+  <ProviderFAQ client:load provider={provider} />
+  <ProviderCTA client:load provider={provider} />
+
+  <CrisisNotice />
+  <Footer />
+
+</BaseLayout>

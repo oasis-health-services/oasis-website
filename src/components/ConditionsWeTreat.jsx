@@ -107,10 +107,27 @@ export function ConditionsWeTreat({ className = "py-16 sm:py-24 bg-card" } = {})
                         />
                     </div> */}
 
-                    <div className="mt-4 flex flex-wrap justify-center gap-2">
+                    {/* <div className="mt-4 flex flex-wrap justify-center gap-2">
                         {categories.map((category, index) => (
 
-                            <motion.div key={category} initial={{
+
+                            <Badge
+                                key={category}
+                                variant={selectedCategory === category ? "default" : "secondary"}
+                                className="cursor-pointer px-4 py-1.5 text-sm transition-colors"
+                                onClick={() => setSelectedCategory(category)}
+                            >
+                                {category}
+                            </Badge>
+                        ))}
+                    </div> */}
+                </div>
+
+                <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {filteredServices.length > 0 ? (
+                        filteredServices.map((service, index) => (
+
+                            <motion.div key={service.id} initial={{
                                 opacity: 0,
                                 y: 10
                             }} whileInView={{
@@ -124,36 +141,21 @@ export function ConditionsWeTreat({ className = "py-16 sm:py-24 bg-card" } = {})
                                 delay: index * 0.03,
                                 ease: "easeOut"
                             }}>
-                                <Badge
-                                    key={category}
-                                    variant={selectedCategory === category ? "default" : "secondary"}
-                                    className="cursor-pointer px-4 py-1.5 text-sm transition-colors"
-                                    onClick={() => setSelectedCategory(category)}
+                                <Card
+                                    key={service.id}
+                                    className="h-full group cursor-pointer transition-all hover:shadow-lg hover:border-primary/30"
+                                    onClick={() => window.location.href = service.href}
                                 >
-                                    {category}
-                                </Badge>
+                                    <CardContent className="p-6">
+                                        <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                                            <service.icon className="h-6 w-6" />
+                                        </div>
+                                        <h3 className="text-lg font-semibold text-[#2D6762] group-hover:text-[#6D519D] transition-colors">{service.name}</h3>
+                                        <p className="mt-1 text-xs text-primary font-medium">{service.category}</p>
+                                        <p className="mt-2 text-sm text-muted-foreground line-clamp-2">{service.description}</p>
+                                    </CardContent>
+                                </Card>
                             </motion.div>
-                        ))}
-                    </div>
-                </div>
-
-                <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                    {filteredServices.length > 0 ? (
-                        filteredServices.map((service) => (
-                            <Card
-                                key={service.id}
-                                className="group cursor-pointer transition-all hover:shadow-lg hover:border-primary/30"
-                                onClick={() => window.location.href = service.href}
-                            >
-                                <CardContent className="p-6">
-                                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                                        <service.icon className="h-6 w-6" />
-                                    </div>
-                                    <h3 className="text-lg font-semibold text-[#2D6762] group-hover:text-[#6D519D] transition-colors">{service.name}</h3>
-                                    <p className="mt-1 text-xs text-primary font-medium">{service.category}</p>
-                                    <p className="mt-2 text-sm text-muted-foreground line-clamp-2">{service.description}</p>
-                                </CardContent>
-                            </Card>
                         ))
                     ) : (
                         <div className="col-span-full py-12 text-center">

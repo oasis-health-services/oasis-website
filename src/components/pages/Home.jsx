@@ -10,6 +10,12 @@ import OptimizedImage from '@/components/OptimizedImage';
 import { InsurancePartners } from '../InsurancePartners';
 import { HowItWorks } from '../HowItWorks';
 import { ConditionsWeTreat } from '../ConditionsWeTreat';
+import { Testimonials } from '../Testimonials';
+import { FooterCTA } from '../FooterCTA';
+import CrisisNotice from '../CrisisNotice';
+import { HomeHero } from '../HomeHero';
+import { ConditionsGrid } from '../ConditionsGrid';
+import { WellnessPath } from '../WellnessPath';
 
 const Home = () => {
     const heroImages = [{
@@ -89,6 +95,7 @@ const Home = () => {
     }];
 
     return <>
+        <HomeHero />
         <section className="relative text-white pt-24 pb-32 lg:pt-32 lg:pb-40 overflow-hidden bg-gradient-to-br from-[#2d6762] to-[#1a3a37]">
             <div className="absolute inset-0 z-0">
                 <svg className="absolute bottom-0 w-full h-auto text-[#1a3a37]/30" width="100%" height="100%" viewBox="0 0 1440 320" preserveAspectRatio="none">
@@ -268,6 +275,8 @@ const Home = () => {
             </div>
         </section>
 
+        <WellnessPath />
+
         <section className="py-20 bg-white">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <motion.div initial={{
@@ -295,9 +304,10 @@ const Home = () => {
             </div>
         </section>
 
-        <ConditionsWeTreat className="py-20 bg-gradient-to-br from-[#2D6762]/30 to-[#6D519D]/30" />
+        <ConditionsGrid />
+        {/* <ConditionsWeTreat className="py-20 bg-gradient-to-br from-[#2D6762]/30 to-[#6D519D]/30" /> */}
 
-        <section className="py-20 bg-gradient-to-br from-[#2D6762]/30 to-[#6D519D]/30">
+        {/* <section className="py-20 bg-gradient-to-br from-[#2D6762]/30 to-[#6D519D]/30">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <motion.div initial={{
                     opacity: 0,
@@ -340,11 +350,11 @@ const Home = () => {
                     })}
                 </div>
             </div>
-        </section>
+        </section> */}
 
         <HowItWorks className="py-20 bg-white" />
 
-        <section className="py-20 bg-white">
+        {/* <section className="py-20 bg-white">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <motion.div initial={{
                     opacity: 0,
@@ -386,7 +396,14 @@ const Home = () => {
                     </a>
                 </div>
             </div>
-        </section>
+        </section> */}
+
+        <Testimonials className="py-20 bg-white" />
+
+        <FooterCTA className="py-20 bg-primary" />
+
+        <CrisisNotice />
+
     </>;
 };
 export default Home;

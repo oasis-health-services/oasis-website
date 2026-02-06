@@ -1,7 +1,7 @@
 
 ---
 import Layout from '../layouts/Layout.astro';
-import ConditionsPage from '@/components/pages/Conditions';
+import Conditions from '@/components/pages/conditions/Conditions';
 import { getOrganizationSchema } from '@/utils/schema';
 ---
 
@@ -11,5 +11,5 @@ import { getOrganizationSchema } from '@/utils/schema';
   keywords="mental health conditions we treat, psychiatric conditions"
   schema={getOrganizationSchema()}
 >
-  <ConditionsPage client:load /> 
+  <Conditions/>
 </Layout>

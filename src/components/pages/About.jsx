@@ -1,10 +1,16 @@
 
 import React from 'react';
-// import { Helmet } from 'react-helmet'; // REMOVED
 import { motion } from 'framer-motion';
-// import { Link } from 'react-router-dom'; // REMOVED
 import { Heart, Target, Users, ArrowRight } from 'lucide-react';
 import OptimizedImage from '@/components/OptimizedImage';
+import { AboutHero } from '../about/AboutHero';
+import { MissionVision } from '../about/MissionVision';
+import { Conditions } from '../about/Conditions';
+import { Values } from '../about/Values';
+import { Services } from '../about/Services';
+import { MeetProviders } from '../about/MeetProviders';
+import { ResourcesCTA } from '../about/ResourcesCTA';
+import { Insurances } from '../about/Insurances';
 
 const About = () => {
     const providers = [
@@ -24,7 +30,8 @@ const About = () => {
 
     return (
         <>
-            <section className="relative bg-gradient-to-br from-[#2D6762] to-[#69A08B] text-white py-20">
+            <AboutHero />
+            {/* <section className="relative bg-gradient-to-br from-[#2D6762] to-[#69A08B] text-white py-20">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -37,9 +44,22 @@ const About = () => {
                         </h1>
                     </motion.div>
                 </div>
-            </section>
+            </section> */}
 
-            <section className="py-20 bg-white">
+            <MissionVision />
+
+            <Conditions />
+
+            <Services />
+
+            <MeetProviders />
+            <Values />
+
+            <ResourcesCTA />
+
+            <Insurances />
+
+            {/* <section className="py-20 bg-white">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
                         <motion.div
@@ -77,9 +97,9 @@ const About = () => {
                         </motion.div>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
-            <section className="py-20 bg-gradient-to-br from-[#90AB98]/20 to-[#69A08B]/20">
+            {/* <section className="py-20 bg-gradient-to-br from-[#90AB98]/20 to-[#69A08B]/20">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -118,9 +138,9 @@ const About = () => {
                         ))}
                     </div>
                 </div>
-            </section>
+            </section> */}
 
-            <section className="py-20 bg-white">
+            {/* <section className="py-20 bg-white">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -145,7 +165,7 @@ const About = () => {
                         </div>
                     </motion.div>
                 </div>
-            </section>
+            </section> */}
         </>
     );
 };

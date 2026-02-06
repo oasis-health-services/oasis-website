@@ -1,0 +1,36 @@
+---
+/**
+ * File: src/pages/providers/[slug].astro
+ * Route: /providers/:slug
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { services } from "../../lib/services-data";
+import ServiceDetail from "../../components/pages/services/ServiceDetail";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import CrisisNotice from "../../components/CrisisNotice";
+
+export function getStaticPaths() {
+  return services.map((s) => ({
+    params: { slug: s.slug },
+    props: { service: s },
+  }));
+}
+
+const { service } = Astro.props;
+
+if (!service) {
+  // Return a proper 404 instead of rendering a blank page
+  return new Response("Service not found", { status: 404 });
+}
+---
+
+<BaseLayout 
+  title={service.name}
+  description={service.description}
+>
+  <Header />
+  <ServiceDetail client:load service={service} />
+  <CrisisNotice />
+  <Footer />
+</BaseLayout>

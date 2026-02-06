@@ -1,5 +1,4 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
 
 const SITE_URL = 'https://oasishealthservices.com';
 const SITE_NAME = 'Oasis Health Services';

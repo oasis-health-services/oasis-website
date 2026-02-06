@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import Header from '@/components/Header2';
+import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import EmergencyBanner from '@/components/EmergencyBanner';
 
@@ -115,12 +115,9 @@ const ogImage = image
 		<!-- End Google Tag Manager (noscript) -->
 
 		<div class="min-h-screen flex flex-col bg-white">
-			<Header client:load currentPath={currentPath} />  <!-- Hydrating Header for mobile menu interactions -->
 			<main class="flex-grow">
 				<slot />
 			</main>
-			<Footer />
-			<EmergencyBanner />
 		</div>
 	</body>
 </html>

@@ -215,7 +215,7 @@ export default function SupportGroups() {
             <section className="bg-secondary py-16 lg:py-24">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="max-w-3xl mx-auto text-center">
-                        <Badge variant="outline" className="mb-4">Support Groups</Badge>
+                        <Badge variant="outline" className="mb-4 border-primary">Support Groups</Badge>
                         <h1 className="font-serif text-4xl sm:text-5xl font-semibold text-foreground text-balance">
                             Find Your Community
                         </h1>
@@ -230,7 +230,7 @@ export default function SupportGroups() {
                                     Find Local Groups
                                 </a>
                             </Button>
-                            <Button size="lg" variant="outline" asChild className="bg-transparent">
+                            <Button size="lg" variant="outline" asChild className="bg-transparent border-primary text-primary">
                                 <a href="#online-groups">
                                     <Globe className="mr-2 h-5 w-5" />
                                     Browse Online Groups
@@ -494,7 +494,7 @@ export default function SupportGroups() {
                             </a>
                         </Button>
                         <Button size="lg" variant="outline" asChild className="bg-transparent border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
-                            <a href="/providers">Meet Our Providers</a>
+                            <a href="/about/our-team">Meet Our Providers</a>
                         </Button>
                     </div>
                 </div>

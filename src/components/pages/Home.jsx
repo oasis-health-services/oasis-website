@@ -113,16 +113,16 @@ export default function Home() {
 function HomeHero() {
 
     const heroImages = [{
-        src: 'https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/72a4f4151125d938323fb2854f493120.jpg',
+        src: '/images/home/home-banner-1.jpg',
         alt: 'A group therapy session with a counselor offering tissues.'
     }, {
-        src: 'https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/c3bc08bf35fdf6c4ba923f2da2a38fe2.jpg',
+        src: '/images/home/home-banner-2.jpg',
         alt: 'Two women laughing and talking on a couch.'
     }, {
-        src: 'https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/b1069cd7a46868103f15c08f72cb9a17.jpg',
+        src: '/images/home/home-banner-3.jpg',
         alt: 'A group of people laughing together in a support group setting.'
     }, {
-        src: 'https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/d86919b972fa24b155bce6b8937ba94c.jpg',
+        src: '/images/home/home-banner-4.jpg',
         alt: 'A man talking to his therapist in a one-on-one session.'
     }];
 
@@ -387,47 +387,47 @@ function ConditionsGrid({ className = "py-20 bg-secondary" } = {}) {
         {
             icon: Brain,
             title: "Anxiety Disorders",
-            href: "/conditions/anxiety-disorders",
+            href: "/about/conditions/anxiety-disorders",
         },
         {
             icon: Heart,
             title: "Mood Disorders",
-            href: "/conditions/mood-disorders",
+            href: "/about/conditions/mood-disorders",
         },
         {
             icon: Zap,
             title: "ADHD",
-            href: "/conditions/neurodevelopmental-disorders",
+            href: "/about/conditions/neurodevelopmental-disorders",
         },
         {
             icon: Puzzle,
             title: "Autism Spectrum Disorder",
-            href: "/conditions/neurodevelopmental-disorders",
+            href: "/about/conditions/neurodevelopmental-disorders",
         },
         {
             icon: Wine,
             title: "Substance-Related Disorders",
-            href: "/conditions/substance-related-disorders",
+            href: "/about/conditions/substance-related-disorders",
         },
         {
             icon: AlertTriangle,
             title: "Trauma & Stress-Related",
-            href: "/conditions/trauma-stress-disorders",
+            href: "/about/conditions/trauma-stress-disorders",
         },
         {
             icon: Users,
             title: "Personality Disorders",
-            href: "/conditions/personality-disorders",
+            href: "/about/conditions/personality-disorders",
         },
         {
             icon: RotateCcw,
             title: "OCD & Related Disorders",
-            href: "/conditions/ocd-related-disorders",
+            href: "/about/conditions/ocd-related-disorders",
         },
         {
             icon: Eye,
             title: "Psychotic Disorders",
-            href: "/conditions/psychotic-disorders",
+            href: "/about/conditions/psychotic-disorders",
         },
     ]
 

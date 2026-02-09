@@ -27,7 +27,7 @@ export default function Providers() {
                 {/* For Providers Link */}
                 <div className="mt-8">
                     <a
-                        href="/for-providers"
+                        href="/providers"
                         className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors text-sm font-medium"
                     >
                         <Handshake className="h-4 w-4" aria-hidden="true" />

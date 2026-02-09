@@ -632,6 +632,7 @@ export const services: Service[] = [
         insurance: "Covered by Medicare and many commercial plans",
         serviceDetails: {
             title: "Workflow",
+            icon: "Activity",
             sections: [
                 {
                     title: "Device Provisioning",

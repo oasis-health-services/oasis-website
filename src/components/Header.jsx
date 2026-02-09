@@ -18,8 +18,8 @@ const navigation = [
     {
         name: "About",
         subMenu: [
-            { name: "Our Story", href: "/about" },
-            { name: "Our Team", href: "/about/our-team" },
+            { name: "Who We Are", href: "/about" },
+            { name: "Meet Our Team", href: "/about/our-team" },
             { name: "Conditions we Treat", href: "/about/conditions" },
             { name: "Blog", href: "/blog" }
         ]
@@ -43,7 +43,7 @@ const navigation = [
             support: [
                 { name: "Crisis Resources", href: "/resources/crisis", icon: AlertTriangle, description: "24/7 hotlines and emergency help", style: "hover:bg-red-50", textStyle: "text-red-700", iconStyles: ["bg-red-100", "text-red-600"] },
                 { name: "Support Groups", href: "/resources/support-groups", icon: Users, description: "Local and online communities" },
-                { name: "For Providers", href: "/for-providers", icon: Handshake, description: "Referrals and partnerships" },
+                { name: "For Providers", href: "/providers", icon: Handshake, description: "Referrals and partnerships" },
                 { name: "View All Resources", href: "/resources", icon: ArrowRight }
             ],
         },
@@ -108,7 +108,7 @@ export default function Header({ currentPath }) {
                 <div className="flex lg:flex-1">
                     <a href="/" className="flex items-center">
                         <OptimizedImage
-                            src="https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/2245c4f857f206a62cf1e8d030229d5c.png"
+                            src="/images/oasis-logo.png"
                             alt="Oasis Health Services Logo"
                             className="h-12 w-auto"
                             priority={true}

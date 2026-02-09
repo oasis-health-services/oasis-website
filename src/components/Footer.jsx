@@ -14,14 +14,14 @@ const footerNavigation = {
         { name: "Therapy & Counseling", href: "/services/therapy-and-counseling" },
         { name: "Telehealth Services", href: "/services/telehealth" },
         { name: "ADHD Testing & Management", href: "/services/adhd-testing-and-management" },
-        { name: "View All", href: "/services" }
+        { name: "All Services", href: "/services" }
     ],
     conditions: [
-        { name: "Anxiety Disorders", href: "/conditions/anxiety-disorders" },
-        { name: "Depression", href: "/conditions#depression" },
-        { name: "ADHD", href: "/conditions#adhd" },
-        { name: "Trauma & PTSD", href: "/conditions#trauma" },
-        { name: "View All", href: "/about/conditions" }
+        { name: "Anxiety Disorders", href: "/about/conditions/anxiety-disorders" },
+        { name: "Mood Disorders", href: "/about/conditions/mood-disorders" },
+        { name: "Neurodevelopmental Disorders", href: "/about/conditions/neurodevelopmental-disorders" },
+        { name: "Trauma & PTSD", href: "/about/conditions/trauma-stress-disorders" },
+        { name: "All Conditions", href: "/about/conditions" }
     ],
     company: [
         { name: "About Us", href: "/about" },
@@ -47,7 +47,7 @@ export default function Footer() {
 
                         <a href="/" className="inline-block mb-4">
                             <OptimizedImage
-                                src="https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/white-logo-kDbrD.png"
+                                src="/images/oasis-logo-white.png"
                                 alt="Oasis Health Services Logo"
                                 className="h-12 w-auto"
                                 priority={true}

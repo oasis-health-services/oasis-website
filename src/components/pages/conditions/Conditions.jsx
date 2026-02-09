@@ -37,8 +37,10 @@ export default function Conditions() {
                         <span className="text-sm font-medium text-primary tracking-wide uppercase">
                             Conditions We Treat
                         </span>
-                        <h1 className="mt-3 font-serif text-4xl sm:text-5xl font-semibold text-foreground leading-tight text-balance">
-                            Comprehensive Care for Your Mental Health
+                        <h1 className="mt-3 font-serif text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl text-balance">
+                            Comprehensive Care
+                            <br />
+                            <span className="text-primary">for Your Mental Health</span>
                         </h1>
                         <p className="mt-6 text-xl text-muted-foreground leading-relaxed">
                             We provide compassionate, evidence-based treatment for a wide range of mental health
@@ -120,7 +122,7 @@ export default function Conditions() {
                         </div>
                         <div className="flex flex-col sm:flex-row gap-4">
                             <Button size="lg" variant="secondary" asChild>
-                                <a href="/services/psychiatric-evaluation">
+                                <a href="/services/comprehensive-psychiatric-assessment">
                                     Learn About Evaluations
                                 </a>
                             </Button>

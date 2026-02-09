@@ -183,7 +183,7 @@ function ForProviders() {
                                         <ArrowRight className="ml-2 h-4 w-4" />
                                     </a>
                                 </Button>
-                                <Button size="lg" variant="outline" className="bg-transparent" asChild>
+                                <Button size="lg" variant="outline" className="bg-transparent border-primary text-primary" asChild>
                                     <a href="#contact">
                                         Request Collaboration Agreement
                                     </a>
@@ -340,7 +340,7 @@ function ForProviders() {
                                 </div>
                             </div>
                             <div className="mt-8">
-                                <Button variant="outline" className="bg-transparent" asChild>
+                                <Button variant="outline" className="bg-transparent border-primary text-primary" asChild>
                                     <a href="/conditions">
                                         View All Conditions We Treat
                                         <ArrowRight className="ml-2 h-4 w-4" />
@@ -435,7 +435,7 @@ function ForProviders() {
                     </div>
 
                     <div className="mt-12 text-center">
-                        <Button variant="outline" className="bg-transparent" asChild>
+                        <Button variant="outline" className="bg-transparent border-primary text-primary" asChild>
                             <a href="/services">
                                 View All Services
                                 <ArrowRight className="ml-2 h-4 w-4" />

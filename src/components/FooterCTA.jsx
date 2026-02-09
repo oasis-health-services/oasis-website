@@ -21,7 +21,7 @@ export function FooterCTA({ className = "bg-primary" } = {}) {
                                 asChild
                                 className="text-base px-8 group"
                             >
-                                <a href="/start">
+                                <a href="/patients">
                                     <Calendar className="mr-2 h-5 w-5" />
                                     Schedule Appointment
                                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />

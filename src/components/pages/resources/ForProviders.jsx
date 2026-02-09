@@ -178,7 +178,7 @@ function ForProviders() {
                             </p>
                             <div className="mt-8 flex flex-col sm:flex-row gap-4">
                                 <Button size="lg" asChild>
-                                    <a href="/for-providers/referrals">
+                                    <a href="/providers/referrals">
                                         Submit a Referral
                                         <ArrowRight className="ml-2 h-4 w-4" />
                                     </a>

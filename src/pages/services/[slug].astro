@@ -3,12 +3,9 @@
  * File: src/pages/providers/[slug].astro
  * Route: /providers/:slug
  */
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import Layout from '@/layouts/Layout.astro';
 import { services } from "../../lib/services-data";
 import ServiceDetail from "../../components/pages/services/ServiceDetail";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import CrisisNotice from "../../components/CrisisNotice";
 
 export function getStaticPaths() {
   return services.map((s) => ({
@@ -25,12 +22,10 @@ if (!service) {
 }
 ---
 
-<BaseLayout 
+<Layout 
   title={service.name}
   description={service.description}
+  keywords="mental health services, psychiatric assessments, therapy, medication management, Spravato, ADHD testing"
 >
-  <Header />
   <ServiceDetail client:load service={service} />
-  <CrisisNotice />
-  <Footer />
-</BaseLayout>
+</Layout>

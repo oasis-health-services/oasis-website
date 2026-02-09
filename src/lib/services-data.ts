@@ -12,6 +12,25 @@ export interface Service {
     insurance?: string
     faqs: { question: string; answer: string }[]
     relatedServices: string[]
+    serviceDetails?: {
+        title: string,
+        description?: string
+        icon?: string
+        sections?: {
+            title: string
+            description?: string
+            icon?: string
+            iconStyle?: string
+            style?: string
+        }[]
+    }
+    highlight?: {
+        title: string
+        description: string
+        icon?: string
+        style?: string
+        iconStyle?: string
+    }
 }
 
 export const services: Service[] = [
@@ -110,7 +129,7 @@ export const services: Service[] = [
                 answer: "No special preparation is needed. Just avoid eating, drinking, or smoking for 30 minutes before the cheek swab."
             }
         ],
-        relatedServices: ["psychiatric-evaluation", "medication-management", "adhd-treatment"]
+        relatedServices: ["psychiatric-evaluation", "medication-management", "adhd-testing-and-management"]
     },
     {
         slug: "adhd-testing-and-management",
@@ -142,6 +161,37 @@ export const services: Service[] = [
             "People whose ADHD medication isn't working well",
             "Individuals wanting non-medication strategies"
         ],
+        serviceDetails: {
+            title: "Treatment Options",
+            icon: "Focus",
+            sections: [
+                {
+                    title: "Medication",
+                    icon: "Brain",
+                    description: "Stimulant and non-stimulant options, with a clear dosing and monitoring plan.",
+                    iconStyle: "text-[#EB615C]"
+                },
+                {
+                    title: "Therapies",
+                    icon: "MessageCircle",
+                    description: "CBT for ADHD, skills coaching, and organizational strategies.",
+                    iconStyle: "text-[#EB615C]"
+                },
+                {
+                    title: "Care Coordination",
+                    icon: "ListChecks",
+                    description: "Collaboration with primary care, therapists, and schools.",
+                    iconStyle: "text-[#EB615C]"
+                }
+            ]
+        },
+        highlight: {
+            title: "Medication Safety & Controlled Substance Policy",
+            description: "Patient safety is our top priority. Our policy includes PDMP checks, informed consent, baseline vitals with RPM, possible urine drug screens, and secure e-prescribing. We require regular follow-ups and do not replace lost prescriptions.",
+            icon: "Shield",
+            style: "bg-blue-50 border-blue-500 text-blue-800",
+            iconStyle: "text-blue-600 "
+        },
         duration: "Initial evaluation: 60-90 minutes; Follow-ups: 20-30 minutes",
         frequency: "Monthly initially, then quarterly when stable",
         insurance: "Covered by most insurance plans",
@@ -194,6 +244,33 @@ export const services: Service[] = [
         duration: "2-4 hours across 1-2 sessions",
         frequency: "One-time evaluation",
         insurance: "Coverage varies; we provide documentation for out-of-network reimbursement",
+        serviceDetails: {
+            title: "Deliverables",
+            icon: "BadgeCheck",
+            sections: [
+                {
+                    title: "Written Report",
+                    icon: "FileText",
+                    description: "A detailed report with diagnostic rationale and a profile of strengths and needs.",
+                    iconStyle: "text-white",
+                    style: "bg-gradient-to-br from-blue-500 to-cyan-500"
+                },
+                {
+                    title: "Concrete Recommendations",
+                    icon: "Users",
+                    description: "Actionable steps for home, school, and the workplace.",
+                    iconStyle: "text-white",
+                    style: "bg-gradient-to-br from-blue-500 to-cyan-500"
+                },
+                {
+                    title: "Accomodation Letters",
+                    icon: "LetterText",
+                    description: "Official letters to support accommodations when clinically indicated.",
+                    iconStyle: "text-white",
+                    style: "bg-gradient-to-br from-blue-500 to-cyan-500"
+                }
+            ]
+        },
         faqs: [
             {
                 question: "Why would an adult seek an autism evaluation?",
@@ -208,7 +285,7 @@ export const services: Service[] = [
                 answer: "Women often present differently, with better social camouflaging, different special interests, and fewer obvious behaviors. This leads to frequent missed or late diagnosis."
             }
         ],
-        relatedServices: ["psychiatric-evaluation", "therapy", "adhd-treatment"]
+        relatedServices: ["psychiatric-evaluation", "therapy", "adhd-testing-and-management"]
     },
     {
         slug: "therapy-and-counseling",
@@ -244,6 +321,48 @@ export const services: Service[] = [
         duration: "45-60 minute sessions",
         frequency: "Weekly initially, then as needed",
         insurance: "Covered by most insurance plans",
+        serviceDetails: {
+            title: "Therapeutic Modalities",
+            icon: "Waves",
+            sections: [
+                {
+                    title: "Cognitive Behavioral Therapy (CBT)",
+                    icon: "Brain",
+                    description: "Structured, skills-based therapy linking thoughts, emotions, and behaviors. Targets depression, anxiety, panic, and more."
+                },
+                {
+                    title: "Motivational Interviewing",
+                    icon: "UserCheck",
+                    description: "Client-centered method to resolve ambivalence and strengthen motivation for change. Ideal for substance use and medication adherence."
+                },
+                {
+                    title: "Solution-Focused Therapy",
+                    icon: "Star",
+                    description: "Future-oriented therapy that amplifies strengths and finds exceptions to problems. Great for acute stress and relationship challenges."
+                },
+                {
+                    title: "Trauma-Focused Care",
+                    icon: "Heart",
+                    description: "Utilizes PTSD frameworks, grounding techniques, and paced exposure to process trauma safely."
+                },
+                {
+                    title: "Acceptance & Commitment Therapy (ACT)",
+                    icon: "Repeat",
+                    description: "Focuses on values-based action, cognitive defusion, and mindfulness to increase psychological flexibility."
+                },
+                {
+                    title: "Parent Coaching/Family Sessions",
+                    icon: "Users",
+                    description: "Provides tools for behavior plans, communication, and school collaboration for child and teen care."
+                }
+            ]
+        },
+        highlight: {
+            title: "Psychoeducation: The Foundation of Care",
+            description: "A key part of all our therapy is providing clear, practical information about your condition, triggers, and treatment options. This empowers you to make informed decisions and actively participate in your healing journey.",
+            style: "bg-green-50 border-green-500 text-green-800"
+        },
+
         faqs: [
             {
                 question: "How long will I need to be in therapy?",
@@ -294,6 +413,32 @@ export const services: Service[] = [
         duration: "Initial: 45-60 minutes; Follow-ups: 15-30 minutes",
         frequency: "Monthly initially, then every 2-3 months when stable",
         insurance: "Covered by most insurance plans",
+        serviceDetails: {
+            title: "When We Recommend for Specialized Care",
+            description: "For certain conditions, we may recommend one of our other specialized services.",
+            icon: "Stethoscope",
+            sections: [
+                {
+                    title: "ADHD Treatment",
+                    icon: "Brain"
+                },
+                {
+                    title: "Spravato® Treatment",
+                    icon: "Brain"
+                },
+                {
+                    title: "Remote Patient Monitoring",
+                    icon: "Activity"
+                }
+            ]
+        },
+        highlight: {
+            title: "Controlled Medication Policy",
+            description: "Controlled substances are prescribed only when clinically indicated after a full assessment. We strictly follow all state and federal rules and require ongoing monitoring for all patients receiving these medications.",
+            icon: "Shield",
+            style: "bg-blue-50 border-blue-500 text-blue-800",
+            iconStyle: "text-blue-600 "
+        },
         faqs: [
             {
                 question: "Will I need to take medication forever?",
@@ -308,7 +453,7 @@ export const services: Service[] = [
                 answer: "This requires careful consideration of risks and benefits. Some medications are safer than others during pregnancy. We work with you and your OB to make informed decisions."
             }
         ],
-        relatedServices: ["psychiatric-evaluation", "pharmacogenomic-testing", "telehealth", "spravato", "adhd-testing-and-management"]
+        relatedServices: ["psychiatric-evaluation", "pharmacogenomic-testing", "telehealth", "spravato", "adhd-testing-and-management", "remote-patient-monitoring"]
     },
     {
         slug: "substance-use-disorder-treatment",
@@ -344,6 +489,40 @@ export const services: Service[] = [
         duration: "Initial: 60-90 minutes; Follow-ups: 20-30 minutes",
         frequency: "Weekly initially, then as stability allows",
         insurance: "Covered by most insurance plans including Medicaid",
+        serviceDetails: {
+            title: "Treatment for Specific Disorders",
+            icon: "HeartHandshake",
+            sections: [
+                {
+                    title: "Alcohol Use Disorder (AUD)",
+                    description: "Medications like Naltrexone and Acamprosate, combined with relapse-prevention skills and lab monitoring"
+                },
+                {
+                    title: "Nicotine Dependence",
+                    description: "Medications like Varenicline and Bupropion, combined with relapse-prevention skills and lab monitoring"
+                },
+                {
+                    title: "Opioid Dependency (Buprenorphine/Naloxone)",
+                    description: "Office-based induction and maintenance for eligible patients, including overdose education and counseling."
+                },
+                {
+                    title: "Stimulant Use Disorder",
+                    description: "Focus on evidence-based behavioral strategies like contingency management, addressing sleep, mood, and co-occurring ADHD."
+                },
+                {
+                    title: "Dual Diagnosis",
+                    description: "Integrated plans for SUD plus co-occurring depression, anxiety, PTSD, or other disorders, prioritizing safety and stabilization."
+
+                }
+            ]
+        },
+        highlight: {
+            title: "Safety, Monitoring, and Policies",
+            description: "Our policy requires informed consent, treatment agreements, and may include urine drug screens or pill counts. We use secure e-prescribing and do not replace lost or stolen prescriptions. This is not an emergency service; for imminent risk, call 911 or 988.",
+            icon: "Shield",
+            style: "bg-blue-50 border-blue-500 text-blue-800",
+            iconStyle: "text-blue-600 "
+        },
         faqs: [
             {
                 question: "What is a dual diagnosis?",
@@ -451,6 +630,37 @@ export const services: Service[] = [
         duration: "Daily readings (takes minutes)",
         frequency: "Ongoing between appointments",
         insurance: "Covered by Medicare and many commercial plans",
+        serviceDetails: {
+            title: "Workflow",
+            sections: [
+                {
+                    title: "Device Provisioning",
+                    icon: "Brain",
+                    description: "We provide you with cellular-enabled devices (like a blood pressure cuff) and help you get set up.",
+                    style: "bg-gradient-to-br from-[#90AB98] to-[#69A08B]",
+                    iconStyle: "text-white"
+                },
+                {
+                    title: "Automated Data Uploads",
+                    icon: "MessageCircle",
+                    description: "Your data is automatically and securely uploaded to our HIPAA-compliant platform.",
+                    style: "bg-gradient-to-br from-[#90AB98] to-[#69A08B]",
+                    iconStyle: "text-white"
+                },
+                {
+                    title: "Clinical Review",
+                    icon: "UserCheck",
+                    description: "Our clinicians review your data, respond to alerts, and integrate a summary into your regular visits.",
+                    style: "bg-gradient-to-br from-[#90AB98] to-[#69A08B]",
+                    iconStyle: "text-white"
+                }
+            ]
+        },
+        highlight: {
+            title: "Your Privacy is Protected",
+            description: "We use a fully HIPAA-compliant platform, and only authorized clinical staff can view your data. Your privacy and security are paramount.",
+            style: "bg-green-50 border-green-500 text-green-800",
+        },
         faqs: [
             {
                 question: "Why would my blood pressure matter for psychiatric care?",
@@ -500,6 +710,40 @@ export const services: Service[] = [
         duration: "Same as in-person appointments",
         frequency: "Based on your treatment plan",
         insurance: "Covered the same as in-person visits",
+        serviceDetails: {
+            title: "Our Digital Care Services",
+            icon: "Wifi",
+            sections: [
+                {
+                    title: "Convenient Virtual Visits",
+                    icon: "Video",
+                    description: "Initial evaluations, follow-ups, medication management, and therapy from the comfort of your home.",
+                    iconStyle: "text-white",
+                    style: "bg-gradient-to-br from-indigo-500 to-purple-500"
+                },
+                {
+                    title: "Measurement-Based Care",
+                    icon: "HeartPulse",
+                    description: "We use structured data from symptom scales and checklists to guide treatment decisions, acting on trends, not guesswork.",
+                    iconStyle: "text-white",
+                    style: "bg-gradient-to-br from-indigo-500 to-purple-500"
+                },
+                {
+                    title: "Continuous Assessment",
+                    icon: "BarChart2",
+                    description: "Automated check-ins and data monitoring allow for faster interventions and proactive care adjustments.",
+                    iconStyle: "text-white",
+                    style: "bg-gradient-to-br from-indigo-500 to-purple-500"
+                }
+            ]
+        },
+        highlight: {
+            title: "Policies & Safety",
+            description: "You must be physically located in a state where your clinician is licensed at the time of service. Sessions may not be recorded. Standard missed appointment and refill policies apply. For emergencies, call 911 or 988.",
+            icon: "Shield",
+            style: "bg-blue-50 border-blue-500 text-blue-800",
+            iconStyle: "text-blue-600 "
+        },
         faqs: [
             {
                 question: "Is telehealth as effective as in-person care?",

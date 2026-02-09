@@ -70,7 +70,7 @@ export default function Services() {
                                         Schedule Appointment
                                     </a>
                                 </Button>
-                                <Button size="lg" variant="outline" asChild className="bg-transparent">
+                                <Button size="lg" variant="outline" asChild className="bg-transparent border-primary text-primary">
                                     <a href="tel:+15093816035">
                                         <Phone className="mr-2 h-5 w-5" />
                                         (509) 381-6035

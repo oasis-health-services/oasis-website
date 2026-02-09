@@ -52,7 +52,7 @@ export default function Conditions() {
                                     Schedule Evaluation
                                 </a>
                             </Button>
-                            <Button size="lg" variant="outline" asChild className="bg-transparent">
+                            <Button size="lg" variant="outline" asChild className="bg-transparent border-primary text-primary">
                                 <a href="tel:+5093816035">
                                     <Phone className="mr-2 h-5 w-5" />
                                     Call Us Today
@@ -79,7 +79,7 @@ export default function Conditions() {
                         {conditions.map((condition) => {
                             const Icon = iconMap[condition.icon] || Brain
                             return (
-                                <a key={condition.slug} href={`/conditions/${condition.slug}`}>
+                                <a key={condition.slug} href={`/about/conditions/${condition.slug}`}>
                                     <Card className="h-full group hover:shadow-lg hover:border-primary/30 transition-all cursor-pointer">
                                         <CardHeader>
                                             <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
@@ -187,7 +187,7 @@ export default function Conditions() {
                                     <Button className="w-full" asChild>
                                         <a href="/patients">Schedule an Appointment</a>
                                     </Button>
-                                    <Button variant="outline" className="w-full bg-transparent" asChild>
+                                    <Button variant="outline" className="w-full bg-transparent border-primary text-primary" asChild>
                                         <a href="/providers">Meet Our Providers</a>
                                     </Button>
                                 </div>
@@ -202,7 +202,7 @@ export default function Conditions() {
             </section>
 
             {/* Crisis Notice */}
-            <section className="py-6 bg-destructive/10 border-y border-destructive/20">
+            {/* <section className="py-6 bg-destructive/10 border-y border-destructive/20">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-center sm:text-left">
                         <AlertTriangle className="h-5 w-5 text-destructive shrink-0" />
@@ -214,7 +214,7 @@ export default function Conditions() {
                         </p>
                     </div>
                 </div>
-            </section>
+            </section> */}
         </>
     )
 }

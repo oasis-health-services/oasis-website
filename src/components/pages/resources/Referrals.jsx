@@ -67,8 +67,8 @@ export default function Referrals() {
         try {
             setIsSubmitting(true);
 
-            const { consent, ...collaborator } = formData;
-            const response = await submitPartnershipForm(collaborator);
+            const { consent, ...referralData } = formData;
+            const response = await submitReferralForm(referralData);
             if (!response.success) {
                 setError("We were unable to process your request at this time. Please try again later or contact us at support@oasishealthservices.com");
                 setIsSubmitting(false);
@@ -76,15 +76,15 @@ export default function Referrals() {
             }
 
             const params = new URLSearchParams({
-                type: "collaboration",
-                name: collaborator.name
+                type: "referral",
+                name: referralData.provider.name
             });
 
             setIsSubmitting(false);
             //            setIsSubmitted(true);
             window.location.href = `/thank-you?${params.toString()}`;
         } catch (error) {
-            console.error("failed to submit collaboration", error);
+            console.error("failed to submit referral", error);
             setIsSubmitting(false);
         }
     };

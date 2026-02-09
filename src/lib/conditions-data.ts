@@ -9,6 +9,13 @@ export interface Condition {
     treatments: string[]
     whenToSeekHelp: string[]
     relatedConditions: string[]
+    highlight?: {
+        title: string
+        description: string
+        icon?: string
+        style?: string
+        iconStyle?: string
+    }
     faqs: { question: string; answer: string }[]
 }
 

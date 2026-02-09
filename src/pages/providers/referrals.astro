@@ -1,13 +1,15 @@
+
 ---
 import Layout from '../../layouts/Layout.astro';
-import ReferralsPage from '@/components/pages/Referrals';
+import Referrals from '@/components/pages/resources/Referrals';
 import { getOrganizationSchema } from '@/utils/schema';
 ---
 
 <Layout 
   title="Provider Referrals"
   description="Refer your patients to Oasis Health Services for comprehensive mental health care and psychiatric services."
+  keywords="provider referrals, mental health referrals, psychiatric referrals, therapy referrals"
   schema={getOrganizationSchema()}
 >
-  <ReferralsPage client:load /> 
+  <Referrals client:load />
 </Layout>

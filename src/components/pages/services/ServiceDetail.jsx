@@ -26,9 +26,27 @@ import {
     Calendar,
     CreditCard,
     Phone,
-    HelpCircle
+    HelpCircle,
+    Shield,
+    UserCheck,
+    Brain,
+    Star,
+    Repeat,
+    BarChart2,
+    Scale,
+    HeartPulse,
+    ListChecks,
+    FileText,
+    LetterText,
+    Waves,
+    Focus,
+    HeartHandshake,
+    BadgeCheck,
+    Stethoscope,
+    Wifi
 } from "lucide-react"
 import { getRelatedServices } from "@/lib/services-data"
+import { cn } from "@/lib/utils"
 
 const iconMap = {
     ClipboardCheck,
@@ -41,12 +59,31 @@ const iconMap = {
     Sparkles,
     Activity,
     Dna: Activity,
+    Shield,
+    Brain,
+    UserCheck,
+    Star,
+    Repeat,
+    Scale,
+    BarChart2,
+    HeartPulse,
+    ListChecks,
+    Users,
+    FileText,
+    LetterText,
+    Waves,
+    Focus,
+    HeartHandshake,
+    BadgeCheck,
+    Stethoscope,
+    Wifi
 }
 
 export default function ServiceDetail({ service }) {
 
-    const Icon = iconMap[service.icon] || ClipboardCheck
-    const relatedServices = getRelatedServices(service.relatedServices)
+    const Icon = iconMap[service.icon] || ClipboardCheck;
+    const DetailsIcon = iconMap[service.serviceDetails?.icon];
+    const relatedServices = getRelatedServices(service.relatedServices);
 
 
     return (
@@ -218,6 +255,59 @@ export default function ServiceDetail({ service }) {
                                 </Card>
                             </div>
 
+                            {service.serviceDetails && (
+                                <div id="serviceDetails">
+
+                                    <div className="flex items-center gap-3 mb-6">
+                                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                                            <DetailsIcon className="h-5 w-5 text-primary" />
+                                        </div>
+                                        <h2 className="font-serif text-2xl font-semibold text-foreground">
+                                            {service.serviceDetails.title}
+                                        </h2>
+                                    </div>
+
+                                    <div>
+                                        {service.serviceDetails.description && <p className="mb-6">{service.serviceDetails.description}</p>}
+
+                                        <div className="grid md:grid-cols-2 gap-8">
+                                            {service.serviceDetails.sections.map((section, index) => {
+
+                                                const Icon = iconMap[section.icon] || CheckCircle;
+
+                                                return (
+                                                    <div key={index} className="flex flex-col items-center border p-6 rounded-lg gap-2 bg-secondary">
+                                                        {Icon &&
+                                                            <div className={cn("inline-flex items-center justify-center w-16 h-16 rounded-full mb-1", section.style ?? "")}>
+                                                                <Icon className={cn("h-8 w-8", section.iconStyle ?? "text-primary")} />
+                                                            </div>
+                                                        }
+
+                                                        <h3 className="font-serif text-center text-xl font-semibold text-foreground mb-2">{section.title}</h3>
+                                                        {section.description && <p className="text-center text-muted-foreground">{section.description}</p>}
+                                                    </div>
+                                                )
+                                            })}
+                                        </div>
+
+                                    </div>
+                                </div>
+                            )}
+
+                            {service.highlight && (
+                                <div id="highlight">
+                                    <div className={cn("mt-12 mb-12 p-8 border-l-4 rounded-r-lg", service.highlight.style ?? "")}>
+                                        <div className="flex items-center">
+                                            <Shield className={cn("h-8 w-8 mr-4 flex-shrink-0", service.highlight.iconStyle ?? "")} />
+                                            <div>
+                                                <h4 className="font-bold text-xl">{service.highlight.title}</h4>
+                                                <p className="mt-1">{service.highlight.description}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
                             {/* FAQs */}
                             <div id="faqs">
                                 <div className="flex items-center gap-3 mb-6">
@@ -379,7 +469,7 @@ export default function ServiceDetail({ service }) {
             </section>
 
             {/* Back to Services */}
-            <section className="py-8 bg-secondary border-t border-border">
+            {/* <section className="py-8 bg-secondary border-t border-border">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <a
                         href="/services"
@@ -389,7 +479,7 @@ export default function ServiceDetail({ service }) {
                         Back to All Services
                     </a>
                 </div>
-            </section>
+            </section> */}
         </>
     )
 }

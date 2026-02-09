@@ -1,125 +1,185 @@
-import React from 'react';
-import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
-import OptimizedImage from '@/components/OptimizedImage';
-const Footer = () => {
-  const currentYear = new Date().getFullYear();
-  const locations = ['Arizona', 'California', 'Colorado', 'Florida', 'Georgia', 'Maryland', 'Massachusetts', 'New York', 'New Jersey', 'Oregon', 'Texas', 'Washington'];
-  const quickLinks = [{
-    name: 'About Us',
-    href: '/about'
-  }, {
-    name: 'Services',
-    href: '/services'
-  }, {
-    name: 'Conditions',
-    href: '/conditions'
-  }, {
-    name: 'Patients',
-    href: '/patients'
-  }, {
-    name: 'Providers',
-    href: '/providers'
-  }, {
-    name: 'Contact',
-    href: '/contact'
-  }, {
-    name: 'FAQs',
-    href: '/patients/faqs'
-  }, {
-    name: 'Blog',
-    href: '/blog'
-  }];
-  const socialLinks = [{
-    name: 'Facebook',
-    href: 'https://www.facebook.com/oasishealthserv',
-    icon: Facebook
-  }, {
-    name: 'Instagram',
-    href: 'https://www.instagram.com/oasishealthserv/',
-    icon: Instagram
-  }, {
-    name: 'LinkedIn',
-    href: 'https://www.linkedin.com/company/oasis-health-service',
-    icon: Linkedin
-  }, {
-    name: 'X',
-    href: 'https://x.com/OasisHealthSer1',
-    icon: Twitter
-  }];
-  return <footer className="bg-[#1a3a37] text-white">
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div className="md:col-span-2 lg:col-span-1">
-          <a href="/" className="inline-block mb-4">
-            <OptimizedImage
-              src="https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/white-logo-kDbrD.png"
-              alt="Oasis Health Services Logo"
-              className="h-12 w-auto"
-              priority={true}
-            />
-          </a>
-          <p className="text-white/70 text-sm">
-            Your trusted partner in mental wellness. We provide compassionate, integrative care to help you find balance and hope.
-          </p>
-          <div className="flex space-x-4 mt-6">
-            {socialLinks.map(social => {
-              const Icon = social.icon;
-              return <a key={social.name} href={social.href} target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors" aria-label={social.name}>
-                <Icon className="h-6 w-6" />
-              </a>;
-            })}
-          </div>
-        </div>
-        <div>
-          <p className="font-semibold text-white mb-4">Quick Links</p>
-          <ul className="space-y-2">
-            {quickLinks.map(link => <li key={link.name}>
-              <a href={link.href} className="text-white/70 hover:text-white transition-colors text-sm">
-                {link.name}
-              </a>
-            </li>)}
-          </ul>
-        </div>
-        <div>
-          <p className="font-semibold text-white mb-4">Contact Us</p>
-          <ul className="space-y-2 text-sm text-white/70">
-            <li><p>Email: support@oasishealthservices.com</p></li>
-            <li><p>Phone: (509) 381-6035</p></li>
-            <li><p>Hours: Mon - Sat 8:30 AM - 5:30 PM EST</p></li>
-          </ul>
-          <div className="mt-4">
-            <a
-              title="Verify LegitScript Approval for www.oasishealthservices.com"
-              href="https://www.legitscript.com/websites/?checker_keywords=oasishealthservices.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src="https://static.legitscript.com/seals/15660777.png"
-                alt="Verify Approval for www.oasishealthservices.com"
-                width="73"
-                height="79"
-              />
-            </a>
-          </div>
-        </div>
-        <div>
-          <p className="font-semibold text-white mb-4">Locations Served</p>
-          <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-            {locations.map(location => <p key={location} className="text-white/70 text-sm">{location}</p>)}
-          </div>
-          <p className="text-white/70 text-xs mt-4">(In-person & virtual available in Georgia, telehealth/virtual visits in the rest of our states served.)</p>
-        </div>
-      </div>
-      <div className="mt-8 pt-8 border-t border-white/20 text-center text-sm text-white/50">
-        <p>&copy; {currentYear} Oasis Health Services. All Rights Reserved.</p>
-        <div className="flex justify-center items-center space-x-4 mt-2">
-          <a href="/policies" className="hover:text-white">Consent, Notices & Policies</a>
-          <span className="text-white/30">|</span>
-          <a href="/terms-and-conditions" className="hover:text-white">Terms & Conditions</a>
-        </div>
-      </div>
-    </div>
-  </footer>;
-};
-export default Footer;
+import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin, Twitter } from "lucide-react"
+import OptimizedImage from "./OptimizedImage"
+
+const socialLinks = [
+    { name: "Facebook", href: "https://facebook.com/oasishealthservices", icon: Facebook },
+    { name: "Instagram", href: "https://instagram.com/oasishealthservices", icon: Instagram },
+    { name: "LinkedIn", href: "https://linkedin.com/company/oasishealthservices", icon: Linkedin },
+    { name: "X", href: "https://x.com/OasisHealthSer1", icon: Twitter }
+]
+
+const footerNavigation = {
+    services: [
+        { name: "Medication Management", href: "/services/medication-management" },
+        { name: "Therapy & Counseling", href: "/services/therapy-and-counseling" },
+        { name: "Telehealth Services", href: "/services/telehealth" },
+        { name: "ADHD Testing & Management", href: "/services/adhd-testing-and-management" },
+        { name: "View All", href: "/services" }
+    ],
+    conditions: [
+        { name: "Anxiety Disorders", href: "/conditions/anxiety-disorders" },
+        { name: "Depression", href: "/conditions#depression" },
+        { name: "ADHD", href: "/conditions#adhd" },
+        { name: "Trauma & PTSD", href: "/conditions#trauma" },
+        { name: "View All", href: "/about/conditions" }
+    ],
+    company: [
+        { name: "About Us", href: "/about" },
+        { name: "Our Team", href: "/about/our-team" },
+        { name: "Resource Center", href: "/resources" },
+        { name: "Contact", href: "/contact" },
+    ],
+    legal: [
+        { name: "Privacy Policy", href: "/policies" },
+        { name: "Terms of Service", href: "/terms-and-conditions" },
+        { name: "HIPAA Notice", href: "/hipaa" },
+    ],
+}
+
+export default function Footer() {
+    return (
+        <footer className="bg-foreground text-background" aria-labelledby="footer-heading">
+            <h2 id="footer-heading" className="sr-only">Footer</h2>
+
+            <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 lg:px-8">
+                <div className="xl:grid xl:grid-cols-3 xl:gap-8">
+                    <div className="space-y-6">
+
+                        <a href="/" className="inline-block mb-4">
+                            <OptimizedImage
+                                src="https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/white-logo-kDbrD.png"
+                                alt="Oasis Health Services Logo"
+                                className="h-12 w-auto"
+                                priority={true}
+                            />
+                        </a>
+                        <p className="text-sm leading-relaxed opacity-80 max-w-xs">
+                            A trusted oasis of healing where individuals and families find balance, resilience, and hope through compassionate, integrative care.
+                        </p>
+
+                        {/* Social Media Links */}
+                        <div className="flex items-center gap-3">
+                            {socialLinks.map((item) => (
+                                <a
+                                    key={item.name}
+                                    href={item.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-9 h-9 rounded-full bg-background/10 flex items-center justify-center opacity-70 hover:opacity-100 hover:bg-primary hover:text-primary-foreground transition-all"
+                                    aria-label={`Follow us on ${item.name}`}
+                                >
+                                    <item.icon className="h-4 w-4" />
+                                </a>
+                            ))}
+                        </div>
+
+                        <div className="space-y-3">
+                            <a href="tel:+15093816035" className="flex items-center gap-2 text-sm opacity-80 hover:opacity-100 transition-opacity">
+                                <Phone className="h-4 w-4" />
+                                <span>(509) 381-6035</span>
+                            </a>
+                            <a href="mailto:support@oasishealthservices.com" className="flex items-center gap-2 text-sm opacity-80 hover:opacity-100 transition-opacity">
+                                <Mail className="h-4 w-4" />
+                                <span>support@oasishealthservices.com</span>
+                            </a>
+                            <div className="flex items-start gap-2 text-sm opacity-80">
+                                <MapPin className="h-4 w-4 mt-0.5 shrink-0" />
+                                <address className="not-italic">
+                                    11285 Elkins Road, Unit J6<br />
+                                    Roswell, GA 30076
+                                </address>
+                            </div>
+                        </div>
+
+                        {/* LegitScript Certification */}
+                        <div className="pt-4 mt-4 border-t border-background/20">
+
+                            <a
+                                title="Verify LegitScript Approval for www.oasishealthservices.com"
+                                href="https://www.legitscript.com/websites/?checker_keywords=oasishealthservices.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <img
+                                    src="https://static.legitscript.com/seals/15660777.png"
+                                    alt="Verify Approval for www.oasishealthservices.com"
+                                    width="73"
+                                    height="79"
+                                />
+                            </a>
+                            <p className="text-xs opacity-60 mt-2">
+                                LegitScript Certified
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
+                        <div className="md:grid md:grid-cols-2 md:gap-8">
+                            <div>
+                                <h3 className="text-sm font-semibold">Services</h3>
+                                <ul role="list" className="mt-4 space-y-3">
+                                    {footerNavigation.services.map((item) => (
+                                        <li key={item.name}>
+                                            <a href={item.href} className="text-sm opacity-70 hover:opacity-100 transition-opacity">
+                                                {item.name}
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div className="mt-10 md:mt-0">
+                                <h3 className="text-sm font-semibold">Conditions</h3>
+                                <ul role="list" className="mt-4 space-y-3">
+                                    {footerNavigation.conditions.map((item) => (
+                                        <li key={item.name}>
+                                            <a href={item.href} className="text-sm opacity-70 hover:opacity-100 transition-opacity">
+                                                {item.name}
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="md:grid md:grid-cols-2 md:gap-8">
+                            <div>
+                                <h3 className="text-sm font-semibold">Company</h3>
+                                <ul role="list" className="mt-4 space-y-3">
+                                    {footerNavigation.company.map((item) => (
+                                        <li key={item.name}>
+                                            <a href={item.href} className="text-sm opacity-70 hover:opacity-100 transition-opacity">
+                                                {item.name}
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div className="mt-10 md:mt-0">
+                                <h3 className="text-sm font-semibold">Legal</h3>
+                                <ul role="list" className="mt-4 space-y-3">
+                                    {footerNavigation.legal.map((item) => (
+                                        <li key={item.name}>
+                                            <a href={item.href} className="text-sm opacity-70 hover:opacity-100 transition-opacity">
+                                                {item.name}
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="mt-12 border-t border-background/20 pt-8">
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                        <p className="text-xs opacity-60">
+                            &copy; {new Date().getFullYear()} Oasis Health Services. All rights reserved.
+                        </p>
+                        <p className="text-xs opacity-60">
+                            If you are experiencing a medical or psychiatric emergency, call or text <strong>988</strong> immediately.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    )
+}

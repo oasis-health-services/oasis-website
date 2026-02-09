@@ -13,7 +13,7 @@ const resources = [
         icon: FileText,
         title: "Condition Guides",
         description: "In-depth guides to understanding anxiety, depression, ADHD, and other conditions.",
-        href: "/resources/guides",
+        href: "/conditions",
     },
     {
         icon: Video,

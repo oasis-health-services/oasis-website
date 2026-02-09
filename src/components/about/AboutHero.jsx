@@ -35,7 +35,7 @@ export function AboutHero() {
                                 <ArrowRight className="ml-2 h-4 w-4" />
                             </a>
                         </Button>
-                        <Button variant="outline" size="lg" asChild>
+                        <Button variant="outline" size="lg" asChild className="bg-transparent border-primary text-primary">
                             <a href="#providers">Meet Our Providers</a>
                         </Button>
                     </div>

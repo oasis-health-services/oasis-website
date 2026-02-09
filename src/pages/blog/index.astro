@@ -1,14 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
 import BlogLayout from "../../layouts/BlogLayout.astro";
-import Header from "../../components/Header";
+import Header from "@/components/Header";
 import HeroSection from "../../components/blog/HeroSection.astro";
 import { SearchBox } from "../../components/blog/react/SearchBox";
 import CategoriesSection from "../../components/blog/react/CategoriesSection";
 import FeaturedArticles from "../../components/blog/FeaturedArticles.astro";
 import SupportCTA from "../../components/blog/SupportCTA.astro";
 import NewsletterSection from "../../components/blog/react/NewsletterSection";
-import Footer from "../../components/blog/Footer.astro";
+import Footer from "../../components/Footer";
 
 const categoriesEntries = await getCollection('categories');
 const categories = categoriesEntries.map(c => c.data);

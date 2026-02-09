@@ -10,6 +10,9 @@ export default defineConfig({
         sitemap()
     ],
     vite: {
+        server: {
+            allowedHosts: [".trycloudflare.com"]
+        },
         plugins: [tailwindcss()], // Add Tailwind as a Vite plugin here
     },
 });

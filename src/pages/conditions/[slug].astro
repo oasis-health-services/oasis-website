@@ -3,12 +3,9 @@
  * File: src/pages/providers/[slug].astro
  * Route: /providers/:slug
  */
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import Layout from '@/layouts/Layout.astro';
 import { conditions } from "../../lib/conditions-data";
 import ConditionDetail from "../../components/pages/conditions/ConditionDetail";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import CrisisNotice from "../../components/CrisisNotice";
 
 export function getStaticPaths() {
   return conditions.map((c) => ({
@@ -25,12 +22,11 @@ if (!condition) {
 }
 ---
 
-<BaseLayout 
+<Layout 
   title={condition.name}
   description={condition.description}
+  keywords="mental health conditions we treat, psychiatric conditions"
+  schema={getOrganizationSchema()}
 >
-  <Header client:load />
   <ConditionDetail client:load condition={condition} />
-  <CrisisNotice />
-  <Footer />
-</BaseLayout>
+</Layout>

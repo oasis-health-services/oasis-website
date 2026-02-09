@@ -115,7 +115,7 @@ export default function HIPAACompliance() {
                         </p>
                         <p className="text-sm text-muted-foreground">
                             <strong>Effective Date:</strong> January 1, 2024 |{" "}
-                            <strong>Last Updated:</strong> January 1, 2024
+                            <strong>Last Updated:</strong> January 1, 2026
                         </p>
                     </div>
                 </div>

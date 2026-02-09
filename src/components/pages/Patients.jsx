@@ -82,7 +82,7 @@ const Patients = () => {
 
             <ContactSection />
 
-            <section className="relative bg-gradient-to-br from-[#2D6762] to-[#69A08B] text-white py-20">
+            {/* <section className="relative bg-gradient-to-br from-[#2D6762] to-[#69A08B] text-white py-20">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -98,9 +98,9 @@ const Patients = () => {
                         </p>
                     </motion.div>
                 </div>
-            </section>
+            </section> */}
 
-            <section className="py-20 bg-white">
+            {/* <section className="py-20 bg-white">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -139,9 +139,9 @@ const Patients = () => {
                         </a>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
-            <section className="py-20 bg-gradient-to-br from-[#90AB98]/20 to-[#69A08B]/20">
+            {/* <section className="py-20 bg-gradient-to-br from-[#90AB98]/20 to-[#69A08B]/20">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -187,9 +187,9 @@ const Patients = () => {
                         </Sheet>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
-            <section className="py-20 bg-white">
+            {/* <section className="py-20 bg-white">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -212,7 +212,7 @@ const Patients = () => {
                         </a>
                     </motion.div>
                 </div>
-            </section>
+            </section> */}
         </>
     );
 };
@@ -249,7 +249,7 @@ function PatientsHero() {
                                     <ArrowRight className="ml-2 h-4 w-4" />
                                 </a>
                             </Button>
-                            <Button variant="outline" size="lg" asChild>
+                            <Button variant="outline" className="bg-transparent border-primary text-primary" size="lg" asChild>
                                 <a href="tel:+15093816035">
                                     <Phone className="mr-2 h-4 w-4" />
                                     (509) 381-6035
@@ -577,7 +577,7 @@ export function ReturningPatients() {
                                     <ArrowRight className="ml-2 h-4 w-4" />
                                 </a>
                             </Button>
-                            <Button variant="outline" size="lg" asChild>
+                            <Button variant="outline" size="lg" className="border-primary text-primary" asChild>
                                 <a href="tel:+15093816035">
                                     Call Front Desk
                                 </a>

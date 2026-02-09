@@ -223,7 +223,7 @@ export default function Resources() {
                             <Button asChild>
                                 <a href="/patients">Schedule Appointment</a>
                             </Button>
-                            <Button variant="outline" asChild className="bg-transparent">
+                            <Button variant="outline" asChild className="bg-transparent border-primary text-primary">
                                 <a href="/contact">Contact Us</a>
                             </Button>
                         </div>

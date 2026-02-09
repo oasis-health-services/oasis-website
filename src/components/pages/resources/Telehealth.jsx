@@ -212,7 +212,7 @@ export default function Telehealth() {
                                 <Button size="lg" asChild className="text-base px-8">
                                     <a href="/patients">Schedule Telehealth Visit</a>
                                 </Button>
-                                <Button size="lg" variant="outline" asChild className="text-base px-8 bg-transparent">
+                                <Button size="lg" variant="outline" asChild className="text-base px-8 bg-transparent border-primary text-primary">
                                     <a href="#preparation">View Preparation Steps</a>
                                 </Button>
                             </div>
@@ -465,7 +465,7 @@ export default function Telehealth() {
                                 <ArrowRight className="ml-2 h-4 w-4" />
                             </a>
                         </Button>
-                        <Button size="lg" variant="outline" asChild className="text-base px-8 bg-transparent">
+                        <Button size="lg" variant="outline" asChild className="text-base px-8 bg-transparent border-primary text-primary">
                             <a href="/about#services">Prefer In-Person? Visit Our Office</a>
                         </Button>
                     </div>

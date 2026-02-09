@@ -1,0 +1,33 @@
+---
+/**
+ * File: src/pages/providers/[slug].astro
+ * Route: /providers/:slug
+ */
+import Layout from '@/layouts/Layout.astro';
+import { conditions } from "@/lib/conditions-data";
+import ConditionDetail from "@/components/pages/conditions/ConditionDetail";
+import { getOrganizationSchema } from '@/utils/schema';
+
+export function getStaticPaths() {
+  return conditions.map((c) => ({
+    params: { slug: c.slug },
+    props: { condition: c },
+  }));
+}
+
+const { condition } = Astro.props;
+
+if (!condition) {
+  // Return a proper 404 instead of rendering a blank page
+  return new Response("Condition not found", { status: 404 });
+}
+---
+
+<Layout 
+  title={condition.name}
+  description={condition.description}
+  keywords="mental health conditions we treat, psychiatric conditions"
+  schema={getOrganizationSchema()}
+>
+  <ConditionDetail condition={condition}/>
+</Layout>

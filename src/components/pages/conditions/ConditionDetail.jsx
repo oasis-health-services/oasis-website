@@ -149,10 +149,10 @@ export default function ConditionDetail({ condition }) {
                                         Causes & Risk Factors
                                     </h2>
                                 </div>
-                                <p className="text-muted-foreground mb-6">
+                                <p className="font-serif text-muted-foreground mb-6">
                                     Understanding what contributes to {condition.title.toLowerCase()} can help in treatment and prevention:
                                 </p>
-                                <ul className="space-y-3">
+                                <ul className="space-y-3 font-serif">
                                     {condition.causes.map((cause, index) => (
                                         <li key={index} className="flex items-start gap-3">
                                             <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
@@ -192,11 +192,11 @@ export default function ConditionDetail({ condition }) {
 
                             {/* When to Seek Help */}
                             <div id="when-to-seek-help">
-                                <Card className="border-primary/30 bg-primary/5">
+                                <Card className="font-serif bg-red-50 border-red-500 text-red-800 border-0 border-l-4">
                                     <CardHeader>
-                                        <CardTitle className="flex items-center gap-3 text-foreground">
-                                            <AlertTriangle className="h-5 w-5 text-primary" />
-                                            When to Seek Help
+                                        <CardTitle className="flex items-center gap-3 text-red-800">
+                                            <AlertTriangle className="h-5 w-5 text-red-600" />
+                                            <h4 className="font-bold text-xl">When to Seek Urgent Help</h4>
                                         </CardTitle>
                                     </CardHeader>
                                     <CardContent>
@@ -214,6 +214,7 @@ export default function ConditionDetail({ condition }) {
                                     </CardContent>
                                 </Card>
                             </div>
+
 
                             {/* FAQs */}
                             <div id="faqs">
@@ -351,7 +352,7 @@ export default function ConditionDetail({ condition }) {
             </section>
 
             {/* Back to Conditions */}
-            <section className="py-8 bg-secondary border-t border-border">
+            {/* <section className="py-8 bg-secondary border-t border-border">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <a
                         href="/conditions"
@@ -361,7 +362,7 @@ export default function ConditionDetail({ condition }) {
                         Back to All Conditions
                     </a>
                 </div>
-            </section>
+            </section> */}
         </>
     )
 }

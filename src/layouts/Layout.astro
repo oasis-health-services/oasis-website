@@ -1,8 +1,13 @@
 ---
+
 import '../styles/global.css';
-import Header from '@/components/Header2';
+
+import '@fontsource-variable/dm-sans';
+import '@fontsource/playfair-display';
+
+import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import EmergencyBanner from '@/components/EmergencyBanner';
+import CrisisNotice from '@/components/common/CrisisNotice';
 
 const SITE_URL = 'https://oasishealthservices.com';
 const SITE_NAME = 'Oasis Health Services';
@@ -108,7 +113,7 @@ const ogImage = image
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
 	</head>
-	<body class="bg-white text-foreground font-sans">
+	<body class="bg-white text-foreground font-serif">
 		<!-- Google Tag Manager (noscript) -->
 		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MTTSNH5Z"
 		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -119,8 +124,15 @@ const ogImage = image
 			<main class="flex-grow">
 				<slot />
 			</main>
+			<CrisisNotice />
 			<Footer />
-			<EmergencyBanner />
 		</div>
 	</body>
 </html>
+
+<style is:global>
+  :root {
+    --font-dm-sans: 'DM Sans Variable', sans-serif;
+    --font-playfair: 'Playfair Display', serif;
+  }
+</style>

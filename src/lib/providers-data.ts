@@ -61,8 +61,8 @@ export const providers: Provider[] = [
     slug: "olajumoke-akinyele",
     name: "Olajumoke Akinyele",
     credentials: "DNP, PMHNP-BC, FNP-C",
-    role: "Board-Certified Psychiatric Nurse Practitioner",
-    image: "https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/80ad63f8667e4b31d0ddc190e412e19f.png",
+    role: "Board-Certified Psychiatric & Family Nurse Practitioner",
+    image: "/images/providers/dr-ola-akinyele-profile.jpeg",
     imageAlt: "Olajumoke Akinyele",
     tagline: "Helping you feel balanced, supported, and in control of your mental health through compassionate, evidence-based psychiatric care.",
     bio: [
@@ -143,7 +143,7 @@ export const providers: Provider[] = [
       }
     ],
     licenses: [
-      { state: "Georgia", number: "RN224730" },
+      { state: "Georgia" },
       { state: "Florida" },
       { state: "Washington" },
       { state: "Massachusetts" },
@@ -164,14 +164,6 @@ export const providers: Provider[] = [
         city: "Roswell",
         state: "GA",
         zip: "30076"
-      },
-      {
-        name: "Oasis Health Services LLC",
-        address: "Virtual Office",
-        city: "Boca Raton",
-        state: "FL",
-        zip: "33431",
-        isVirtual: true
       }
     ],
     phone: "(509) 381-6035",
@@ -210,7 +202,7 @@ export const providers: Provider[] = [
     name: "Ann-Marie Taylor",
     credentials: "LPC",
     role: "Licensed Professional Counselor",
-    image: "https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/7de41d1a354e2c40d55bfdb7b2bd7de0.png",
+    image: "/images/providers/anne-marie-taylor-profile.png",
     imageAlt: "Ann-Marie Taylor",
     tagline: "Equipping you with practical tools and strategies to reach your fullest potential through compassionate, goal-oriented therapy.",
     bio: [
@@ -245,8 +237,8 @@ export const providers: Provider[] = [
     ageGroups: ["Adults (18+)"],
     sessionTypes: ["Individual Therapy", "Online Therapy"],
     fees: {
-      initialSession: 175,
-      standardVisit: 125,
+      initialSession: 150,
+      standardVisit: 150,
       slidingScale: true
     },
     insurance: [

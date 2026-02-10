@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { motion } from 'framer-motion'
 import {
     ClipboardCheck,
     Pill,
@@ -55,8 +56,9 @@ export default function Services() {
                             <span className="text-sm font-medium text-primary tracking-wide uppercase">
                                 Our Services
                             </span>
-                            <h1 className="mt-3 font-serif text-4xl sm:text-5xl font-semibold text-foreground leading-tight text-balance">
-                                Comprehensive Mental Health Care
+                            <h1 className="mt-3 font-serif text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl text-balance">
+                                Comprehensive <br />
+                                <span className="text-primary">Mental Health Care</span>
                             </h1>
                             <p className="mt-6 text-xl text-muted-foreground leading-relaxed">
                                 At Oasis, we treat the whole person with coordinated, evidence-based services designed

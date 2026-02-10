@@ -1,4 +1,5 @@
 import React from "react"
+import { motion } from 'framer-motion'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -105,7 +106,12 @@ export default function ServiceDetail({ service }) {
             <section className="bg-secondary py-16 lg:py-20">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="lg:grid lg:grid-cols-3 lg:gap-12">
-                        <div className="lg:col-span-2">
+                        <motion.div
+                            className="lg:col-span-2"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8 }}
+                        >
                             <div className="flex items-center gap-4 mb-6">
                                 <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center">
                                     <Icon className="h-8 w-8 text-primary" />
@@ -140,9 +146,14 @@ export default function ServiceDetail({ service }) {
                                     </div>
                                 )}
                             </div>
-                        </div>
+                        </motion.div>
 
-                        <div className="mt-8 lg:mt-0">
+                        <motion.div
+                            className="mt-8 lg:mt-0"
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                        >
                             <Card className="border-primary/20 bg-card">
                                 <CardContent className="p-6">
                                     <h2 className="font-semibold text-foreground mb-4">Schedule This Service</h2>
@@ -170,7 +181,7 @@ export default function ServiceDetail({ service }) {
                                     </div>
                                 </CardContent>
                             </Card>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </section>
@@ -183,34 +194,53 @@ export default function ServiceDetail({ service }) {
                         <div className="lg:col-span-2 space-y-12">
                             {/* Benefits */}
                             <div id="benefits">
-                                <div className="flex items-center gap-3 mb-6">
+                                <motion.div
+                                    className="flex items-center gap-3 mb-6"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.6 }}
+                                >
                                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                                         <CheckCircle className="h-5 w-5 text-primary" />
                                     </div>
                                     <h2 className="font-serif text-2xl font-semibold text-foreground">
                                         Benefits
                                     </h2>
-                                </div>
+                                </motion.div>
                                 <div className="grid sm:grid-cols-2 gap-4">
                                     {service.benefits.map((benefit, index) => (
-                                        <div key={index} className="flex items-start gap-3 p-4 rounded-lg bg-secondary">
+                                        <motion.div
+                                            key={index}
+                                            className="flex items-start gap-3 p-4 rounded-lg bg-secondary"
+                                            initial={{ opacity: 0, y: 10 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true, margin: "-50px" }}
+                                            transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
+                                        >
                                             <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                                             <span className="text-sm text-foreground">{benefit}</span>
-                                        </div>
+                                        </motion.div>
                                     ))}
                                 </div>
                             </div>
 
                             {/* What to Expect */}
                             <div id="what-to-expect">
-                                <div className="flex items-center gap-3 mb-6">
+                                <motion.div
+                                    className="flex items-center gap-3 mb-6"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.6 }}
+                                >
                                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                                         <Clock className="h-5 w-5 text-primary" />
                                     </div>
                                     <h2 className="font-serif text-2xl font-semibold text-foreground">
                                         What to Expect
                                     </h2>
-                                </div>
+                                </motion.div>
                                 <p className="text-muted-foreground mb-6">
                                     Here's what you can expect when you schedule this service:
                                 </p>
@@ -230,14 +260,20 @@ export default function ServiceDetail({ service }) {
 
                             {/* Who Is It For */}
                             <div id="who-is-it-for">
-                                <div className="flex items-center gap-3 mb-6">
+                                <motion.div
+                                    className="flex items-center gap-3 mb-6"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.6 }}
+                                >
                                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                                         <Users className="h-5 w-5 text-primary" />
                                     </div>
                                     <h2 className="font-serif text-2xl font-semibold text-foreground">
                                         Who Is This For?
                                     </h2>
-                                </div>
+                                </motion.div>
                                 <Card className="bg-secondary border-0">
                                     <CardContent className="p-6">
                                         <p className="text-muted-foreground mb-4">
@@ -310,14 +346,20 @@ export default function ServiceDetail({ service }) {
 
                             {/* FAQs */}
                             <div id="faqs">
-                                <div className="flex items-center gap-3 mb-6">
+                                <motion.div
+                                    className="flex items-center gap-3 mb-6"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.6 }}
+                                >
                                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                                         <HelpCircle className="h-5 w-5 text-primary" />
                                     </div>
                                     <h2 className="font-serif text-2xl font-semibold text-foreground">
                                         Frequently Asked Questions
                                     </h2>
-                                </div>
+                                </motion.div>
                                 <Accordion type="single" collapsible className="w-full">
                                     {service.faqs.map((faq, index) => (
                                         <AccordionItem key={index} value={`faq-${index}`}>

@@ -168,8 +168,8 @@ function ForProviders() {
                                 <Handshake className="h-3 w-3 mr-1.5" />
                                 Provider Partnership
                             </Badge>
-                            <h1 className="font-serif text-4xl font-semibold text-foreground sm:text-5xl text-balance">
-                                Partner With Oasis Health Services
+                            <h1 className="mt-3 font-serif text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl text-balance">
+                                Partner With <br /> <span className="text-primary">Oasis Health Services</span>
                             </h1>
                             <p className="mt-6 text-xl text-muted-foreground text-pretty">
                                 We work with physicians, specialists, and healthcare providers to coordinate care

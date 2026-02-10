@@ -41,11 +41,15 @@ export const CollaborationSchema = z.object({
 export const ReferralSchema = z.object({
     provider: z.object({
         name: z.string({ required_error: "name is required" }).min(2, "name must be at least 2 characters").max(100, "name must be at most 100 characters"),
-        npi: z.string({ required_error: "npi is required" }).max(10, "Provide a valid NPI"),
+        npi: z.string().max(10, "Provide a valid NPI").optional(),
         practiceName: z.string({ required_error: "practice name is required" }).min(2, "practice name must be at least 2 characters").max(100, "practice name must be at most 100 characters"),
         email: z.string({ required_error: "email is required" }).email("provide a valid email address"),
         phone: z.string({ required_error: "phone number is required" }).regex(/^\d{10}$/, "provide a valid phone number"),
-        fax: z.string().regex(/^\d{10}$/, "provide a valid fax number").optional()
+        //        fax: z.string().regex(/^\d{10}$/, "provide a valid fax number").optional()
+        fax: z.preprocess(
+            v => (typeof v === "string" && v.trim() === "" ? undefined : v),
+            z.string().regex(/^\d{10}$/, "provide a valid fax number").optional()
+        )
     }),
     patient: z.object({
         firstName: z.string({ required_error: "first name is required" }).min(2, "first name must be at least 2 characters").max(100, "first name must be at most 100 characters"),
@@ -58,9 +62,9 @@ export const ReferralSchema = z.object({
     }),
     referralReason: z.array(z.string()).min(1, "Select at least one referral reason"),
     urgency: z.enum(["routine", "urgent", "expedited"], { message: "Select one of routine, urgent, or expedited" }),
-    appointmentPreference: z.enum(["", "in-person", "telehealth"]),
-    clinicalNotes: z.string().max(1000, "clinical notes must be at most 1000 characters"),
-    currentMedications: z.string().max(1000, "current medications must be at most 1000 characters"),
+    appointmentPreference: z.enum(["none", "in-person", "telehealth"]),
+    clinicalNotes: z.string({ required_error: "Provide some clinical notes about the patient" }).min(5, "Provide some clinical notes about the patient").max(1000, "clinical notes must be at most 1000 characters"),
+    currentMedications: z.string().max(1000, "current medications must be at most 1000 characters").optional(),
     consent: z.boolean().refine((value) => value === true, { message: "You must consent to Oasis Health Services contacting you regarding your inquiry." }),
 }).strict();
 

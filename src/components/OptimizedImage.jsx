@@ -18,6 +18,7 @@ const OptimizedImage = ({
   ...props
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [error, setError] = useState(false);
 
   if (!src) {
     return null;
@@ -46,46 +47,73 @@ const OptimizedImage = ({
   }
 
   // Generate WebP source from original
-  const getWebPSrc = (originalSrc) => {
-    const ext = originalSrc.match(/\.(jpg|jpeg|png)$/i);
-    if (!ext) return null;
-    return originalSrc.replace(ext[0], '.webp');
-  };
+  const isAlreadyWebp = src.endsWith('.webp');
+  const webpSrc = !isAlreadyWebp ? src.replace(/\.(jpg|jpeg|png)$/i, '.webp') : null;
 
-  const webpSrc = getWebPSrc(src);
+  // const getWebPSrc = (originalSrc) => {
+  //   const ext = originalSrc.match(/\.(jpg|jpeg|png)$/i);
+  //   if (!ext) return null;
+  //   return originalSrc.replace(ext[0], '.webp');
+  // };
+
+  // const webpSrc = getWebPSrc(src);
 
   // Combine styles to prevent layout shift
-  const imgStyle = {
-    ...(objectFit ? { objectFit } : {}),
-    ...(width && height ? { aspectRatio: `${width} / ${height}` } : {}),
-  };
+  // const imgStyle = {
+  //   ...(objectFit ? { objectFit } : {}),
+  //   ...(width && height ? { aspectRatio: `${width} / ${height}` } : {}),
+  // };
+
+  // return (
+  //   <picture className={className}>
+  //     {/* WebP - Modern format with great compression */}
+  //     {webpSrc && (
+  //       <source
+  //         type="image/webp"
+  //         srcSet={webpSrc}
+  //         sizes={sizes}
+  //       />
+  //     )}
+
+  //     {/* Fallback - Original format (JPEG/PNG) */}
+  //     <img
+  //       src={src}
+  //       alt={alt}
+  //       className={`${className} ${isLoaded ? 'loaded' : ''}`}
+  //       width={width}
+  //       height={height}
+  //       loading={priority ? 'eager' : loading}
+  //       decoding="async"
+  //       onLoad={handleLoad}
+  //       style={imgStyle}
+  //       {...props}
+  //     />
+  //   </picture>
+  // );
 
   return (
     <picture className={className}>
-      {/* WebP - Modern format with great compression */}
-      {webpSrc && (
-        <source
-          type="image/webp"
-          srcSet={webpSrc}
-          sizes={sizes}
-        />
+      {/* try the webP version */}
+      {!error && webpSrc && (
+        <source srcSet={webpSrc} type="image/webp" onError={setError(true)} />
       )}
 
-      {/* Fallback - Original format (JPEG/PNG) */}
       <img
         src={src}
         alt={alt}
-        className={`${className} ${isLoaded ? 'loaded' : ''}`}
+        className={className}
         width={width}
         height={height}
-        loading={priority ? 'eager' : loading}
-        decoding="async"
-        onLoad={handleLoad}
-        style={imgStyle}
+        loading={loading}
+        style={{ objectFit }}
         {...props}
+        onError={(e) => {
+          e.target.style.display = 'none';
+        }}
       />
+
     </picture>
-  );
+  )
 };
 
 /**
@@ -120,17 +148,17 @@ export const ResponsiveImage = ({
     ].join(', ');
   };
 
-  const webpSrc = src.replace(/\.(jpg|jpeg|png)$/i, '.webp');
+  const isAlreadyWebp = src.endsWith('.webp');
+  const webpSrc = !isAlreadyWebp ? src.replace(/\.(jpg|jpeg|png)$/i, '.webp') : null;
+
 
   return (
     <picture className={className}>
-      {webpSrc && (
-        <source
-          type="image/webp"
-          srcSet={generateSrcSet(webpSrc)}
-          sizes={sizes}
-        />
+
+      {!error && webpSrc && (
+        <source srcSet={generateSrcSet(webpSrc)} type="image/webp" sizes={sizes} onError={setError(true)} />
       )}
+
       <img
         src={src}
         srcSet={generateSrcSet(src)}
@@ -140,6 +168,9 @@ export const ResponsiveImage = ({
         loading={priority ? 'eager' : 'lazy'}
         decoding="async"
         {...props}
+        onError={(e) => {
+          e.target.style.display = 'none';
+        }}
       />
     </picture>
   );

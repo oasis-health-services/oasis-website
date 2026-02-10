@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+import { getFeaturedArticle } from "../../content/config";
+import ArticleCard from "./ArticleCard.astro";
+
+const featuredArticle = await getFeaturedArticle();
+const allArticles = await getCollection('blog');
+
+// Filter out the featured article and sort by date
+const regularArticles = allArticles
+  .filter((a) => a.id !== featuredArticle?.id)
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
+  .slice(0, 3);
+---
+
+<section class="py-16 md:py-24 bg-muted/50">
+  <div class="mx-auto max-w-7xl px-4 lg:px-8">
+    <!-- Section header -->
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+      <div>
+        <h2 class="font-serif text-3xl font-semibold text-foreground sm:text-4xl">
+          Latest Articles
+        </h2>
+        <p class="mt-2 text-muted-foreground">
+          Fresh perspectives and practical guidance for your journey.
+        </p>
+      </div>
+      <a 
+        href="/blog"
+        class="w-fit inline-flex items-center rounded-lg border border-border bg-transparent px-4 py-2 text-sm font-medium text-foreground hover:bg-muted transition-colors"
+      >
+        View All Articles
+        <svg class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+
+    <!-- Articles grid -->
+    <div class="grid gap-6 lg:grid-cols-2">
+      <!-- Featured article -->
+      {featuredArticle && (
+        <ArticleCard article={featuredArticle} variant="featured" />
+      )}
+
+      <!-- Regular articles -->
+      <div class="grid gap-6">
+        {regularArticles.map((article) => (
+          <ArticleCard article={article} variant="horizontal" />
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

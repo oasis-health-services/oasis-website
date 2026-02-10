@@ -1,0 +1,13 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import FAQsPage from '@/components/pages/FAQs';
+import { getOrganizationSchema } from '@/utils/schema';
+---
+
+<Layout 
+  title="Frequently Asked Questions"
+  description="Find answers to common questions about our mental health services, insurance, appointments, and more."
+  schema={getOrganizationSchema()}
+>
+  <FAQsPage client:load /> 
+</Layout>

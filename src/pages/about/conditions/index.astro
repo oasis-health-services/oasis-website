@@ -1,0 +1,15 @@
+
+---
+import Layout from '@/layouts/Layout.astro';
+import Conditions from '@/components/pages/conditions/Conditions';
+import { getOrganizationSchema } from '@/utils/schema';
+---
+
+<Layout 
+  title="Conditions We Treat"
+  description="Explore the mental health conditions we treat, including anxiety, depression, bipolar disorder, ADHD, OCD, PTSD, personality disorders, and psychotic disorders. Learn about care options and next steps."
+  keywords="mental health conditions we treat, psychiatric conditions"
+  schema={getOrganizationSchema()}
+>
+  <Conditions client:load />
+</Layout>

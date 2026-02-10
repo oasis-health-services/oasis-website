@@ -1,0 +1,123 @@
+---
+import '../styles/global.css';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import EmergencyBanner from '@/components/EmergencyBanner';
+
+const SITE_URL = 'https://oasishealthservices.com';
+const SITE_NAME = 'Oasis Health Services';
+const DEFAULT_IMAGE = 'https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/80ad63f8667e4b31d0ddc190e412e19f.png';
+
+interface Props {
+	title?: string;
+	description?: string;
+	keywords?: string;
+	image?: string;
+	type?: 'website' | 'article';
+	noindex?: boolean;
+	schema?: object;
+}
+
+const { 
+	title = "Virtual Mental Health Care",
+	description = "Expert mental health care tailored for you, combining psychiatric and primary care for whole-person healing. Covered by insurance.",
+	keywords,
+	image,
+	type = 'website',
+	noindex = false,
+	schema
+} = Astro.props;
+
+// Format title (max 60 chars for SEO)
+const formattedTitle = title.length > 60 ? title.substring(0, 57) + '...' : title;
+const pageTitle = `${formattedTitle} | ${SITE_NAME}`;
+
+// Format description (max 155 chars for SEO)
+const formattedDescription = description.length > 155 
+	? description.substring(0, 152) + '...' 
+	: description;
+
+// Build full URLs
+const currentPath = Astro.url.pathname;
+const fullUrl = `${SITE_URL}${currentPath}`;
+const ogImage = image 
+	? (image.startsWith('http') ? image : `${SITE_URL}${image}`)
+	: DEFAULT_IMAGE;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<!-- Google Tag Manager -->
+		<script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-8TCL37DQ6W&cx=c&gtm=4e61m0"></script>
+		<script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-LRQ33V32XH&cx=c&gtm=4e61m0"></script>
+		<script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-MTTSNH5Z"></script>
+		<script is:inline>
+			(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-MTTSNH5Z');
+		</script>
+		<!-- End Google Tag Manager -->
+
+		<!-- Basic Meta Tags -->
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>{pageTitle}</title>
+		<meta name="description" content={formattedDescription} />
+		{keywords && <meta name="keywords" content={keywords} />}
+		<link rel="canonical" href={fullUrl} />
+		<meta name="theme-color" content="#2D6762">
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:site_name" content={SITE_NAME} />
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:description" content={formattedDescription} />
+		<meta property="og:type" content={type} />
+		<meta property="og:url" content={fullUrl} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:image:alt" content={formattedTitle} />
+
+		<!-- Twitter Cards -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content={fullUrl} />
+		<meta name="twitter:title" content={pageTitle} />
+		<meta name="twitter:description" content={formattedDescription} />
+		<meta name="twitter:image" content={ogImage} />
+
+		<!-- Robots -->
+		{noindex ? (
+			<meta name="robots" content="noindex,nofollow" />
+		) : (
+			<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+		)}
+
+		<!-- Schema.org JSON-LD -->
+		{schema && (
+			<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+		)}
+
+		<!-- Favicon -->
+		<link rel="icon" type="image/png" sizes="32x32" href="https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/6e6e756733b6ed03692ed1bc66bf9526.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/6e6e756733b6ed03692ed1bc66bf9526.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/6e6e756733b6ed03692ed1bc66bf9526.png">
+
+		<!-- Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+	</head>
+	<body class="bg-white text-foreground font-sans">
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MTTSNH5Z"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+
+		<div class="min-h-screen flex flex-col bg-white">
+			<main class="flex-grow">
+				<slot />
+			</main>
+		</div>
+	</body>
+</html>

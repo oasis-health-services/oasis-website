@@ -1,0 +1,31 @@
+---
+/**
+ * File: src/pages/providers/[slug].astro
+ * Route: /providers/:slug
+ */
+import Layout from '@/layouts/Layout.astro';
+import { services } from "../../lib/services-data";
+import ServiceDetail from "../../components/pages/services/ServiceDetail";
+
+export function getStaticPaths() {
+  return services.map((s) => ({
+    params: { slug: s.slug },
+    props: { service: s },
+  }));
+}
+
+const { service } = Astro.props;
+
+if (!service) {
+  // Return a proper 404 instead of rendering a blank page
+  return new Response("Service not found", { status: 404 });
+}
+---
+
+<Layout 
+  title={service.title}
+  description={service.shortDescription}
+  keywords="mental health services, psychiatric assessments, therapy, medication management, Spravato, ADHD testing"
+>
+  <ServiceDetail client:load service={service} />
+</Layout>

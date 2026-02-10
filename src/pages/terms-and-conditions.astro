@@ -1,0 +1,14 @@
+
+---
+import Layout from '../layouts/Layout.astro';
+import TermsPage from '@/components/pages/TermsAndConditions';
+import { getOrganizationSchema } from '@/utils/schema';
+---
+
+<Layout 
+  title="Terms & Conditions"
+  description="Read the Terms and Conditions for using the services of Oasis Health Services."
+  schema={getOrganizationSchema()}
+>
+  <TermsPage client:load /> 
+</Layout>

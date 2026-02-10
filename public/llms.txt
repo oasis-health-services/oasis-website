@@ -1,46 +1,26 @@
 ## Pages
-- [About Us - Oasis Health Services](/about): Learn about our mission, vision, and expert providers at Oasis Health Services. Bringing a fresh perspective to mental health care.
-- [ADHD Testing & Management](/adhdtesting): Comprehensive ADHD evaluation and treatment for adults and adolescents. Expert testing, medication management, therapy, and skills coaching.
-- [ADHD Treatment - Oasis Health Services](/adhd): Comprehensive ADHD evaluations and individualized treatment for children, teens, and adults. Expert care to help you thrive.
-- [Anxiety Disorders Treatment](/anxietydisorders): Comprehensive treatment for anxiety disorders including generalized anxiety, panic disorder, social anxiety, and phobias. Expert psychiatric care and therapy.
-- [Anxiety Treatment - Oasis Health Services](/anxiety): Professional anxiety treatment through evidence-based therapy and medication management. Overcome overwhelming worries and panic with personalized care.
-- [Autism Assessment & Management](/autismassessment): Comprehensive autism spectrum disorder evaluation for children, teens, and adults. Professional ASD assessment with detailed reports and accommodation letters.
-- [Autism Spectrum Disorder Treatment - Oasis Health Services](/asd): Compassionate, evidence-based support for autism spectrum disorder. Personalized therapy, caregiver education, and coordinated care for all ages.
-- [Blog - Oasis Health Services](/blog): Explore articles on mental health, wellness, and personal growth from the experts at Oasis Health Services.
-- [Comprehensive Psychiatric Assessment](/comprehensiveassessment): Professional psychiatric evaluation for mood, anxiety, trauma, ADHD, and other mental health concerns. Get a thorough assessment and personalized treatment plan.
-- [Conditions We Treat - Oasis Health Services](/conditions): Learn about the wide range of mental health conditions we treat at Oasis Health Services, including anxiety, depression, ADHD, and more.
-- [Consent, Notices & Policies - Oasis Health Services](/policies): Review our HIPAA Notice of Privacy Practices and Telehealth Informed Consent to understand how your medical information is used and your rights.
-- [Contact Us - Oasis Health Services](/contact): Get in touch with Oasis Health Services. We
-- [Depression Treatment - Oasis Health Services](/depression): Compassionate depression treatment that restores energy, interest, and joy. Professional care combining therapy and medication management.
-- [FAQs - Oasis Health Services](/faqs): Find answers to frequently asked questions about our services, insurance, how to get started, and more at Oasis Health Services.
-- [For Patients - Oasis Health Services](/patients): Get started with Oasis Health Services. Complete our secure assessment, schedule your visit, and access patient resources.
-- [For Providers - Oasis Health Services](/providers): Partner with Oasis Health Services. We work with physicians and specialists to coordinate care and improve patient outcomes.
-- [Medication Management](/medicationmanagement): Personalized psychiatric medication management for depression, anxiety, ADHD, and mood disorders. Evidence-based treatment with regular monitoring and safety protocols.
-- [Mood Disorders Treatment](/mooddisorders): Expert treatment for mood disorders including major depressive disorder, bipolar disorder, and dysthymia. Professional psychiatric care and therapy.
-- [Neurodevelopmental Disorders Treatment](/neurodevelopmentaldisorders): Comprehensive care for ADHD and Autism Spectrum Disorder. Expert assessment, therapy, and medication management for neurodevelopmental conditions.
-- [Oasis Health Services - Virtual Mental Health Care](/home): Expert mental health care tailored for you, combining psychiatric and primary care for whole-person healing. Covered by insurance.
-- [OCD & Related Disorders Treatment](/ocdrelateddisorders): Specialized treatment for OCD, Body Dysmorphic Disorder, and Hoarding Disorder. Expert therapy including ERP and medication management.
-- [Our Services - Oasis Health Services](/services): Explore our comprehensive mental health services, including psychiatric assessments, therapy, medication management, and specialized treatments like Spravato® and ADHD testing.
-- [Personality Disorders Treatment](/personalitydisorders): Specialized therapy for personality disorders including Borderline, Obsessive-Compulsive, and Anti-Social personality disorders. Expert DBT and care.
-- [Pharmacogenomic Genetic Testing](/genetictesting): Personalized medication management with pharmacogenomic (PGx) testing. Optimize psychiatric medication choices based on your unique genetic profile.
-- [post.title](/blogpost): post.excerpt || post.custom_excerpt
-- [Psychotic Disorders Treatment](/psychoticdisorders): Integrated care for psychotic disorders including schizophrenia and schizoaffective disorder. Expert medication management and therapy.
-- [PTSD & Trauma Treatment](/traumastressdisorders): Trauma-informed care for PTSD, acute stress, and adjustment disorders. Specialized therapy and medication management for healing.
-- [Remote Patient Monitoring (RPM)](/rpm): Secure digital health monitoring with automated data tracking. Monitor blood pressure and vital signs between appointments for proactive psychiatric care.
-- [Spravato (Esketamine) Therapy](/spravato): Breakthrough treatment for treatment-resistant depression. FDA-approved Spravato therapy administered in REMS-certified clinic with comprehensive monitoring.
-- [Start Now - Oasis Health Services](/startnow): Begin your journey to better mental health. Complete our secure assessment and take the first step toward wellness with Oasis Health Services.
-- [Substance Use Disorder Treatment](/substancerelateddisorders): Compassionate treatment for substance use and addictive disorders. Harm reduction approach with MAT, therapy, and comprehensive support.
-- [Substance Use Disorder Treatment](/sudtreatment): Integrated harm-reduction treatment for alcohol, opioid, nicotine, and stimulant use disorders. Dual diagnosis care with medication and therapy support.
-- [Substance Use Disorder Treatment - Oasis Health Services](/sud): Safe, supportive path to recovery from substance use disorder. Therapy, medication support, and remote monitoring for lasting recovery.
-- [Telehealth & Telepsychiatry](/telehealth): Secure virtual psychiatric care with HIPAA-compliant platform. Access mental health services from anywhere with state-licensed providers.
-- [Terms & Conditions - Oasis Health Services](/termsandconditions): Read the Terms and Conditions for using the services of Oasis Health Services.
-- [Therapy & Counseling](/therapycounseling): Evidence-based talk therapy including CBT, ACT, trauma-focused care, and motivational interviewing. In-person and telehealth options available.
-
-## Blog Posts
-- [How to Choose the Right Mental Health Focused Primary Care Provider](/blog/how-to-choose-the-right-mental-health-focused-primary-care-provider): If mental health shapes your daily life, you need a primary care provider who understands the mind body connection. This guide explains what to look for, what to ask, and how integrated care supports both your emotional and physical health.
-- [The Hidden Side of Depression: When Motivation Disappears](/blog/the-hidden-side-of-depression-when-motivation-disappears): Depression rarely looks the same for everyone. For some, it shows up as sadness or tears. For others, it’s quiet—just a constant lack of energy, interest, or drive. Everyday tasks start to feel impossible, even when nothing looks wrong from the outside.
-- [The Link Between Physical Health and Mental Wellness](/blog/the-link-between-physical-health-and-mental-wellness): Why treating your body helps heal your mind
-- [Trauma Recovery Takes Time: Understanding the Healing Process](/blog/trauma-recovery-takes-time-understanding-the-healing-process): Trauma isn’t defined by the event itself. It’s defined by how your nervous system had to cope with something overwhelming, frightening, or deeply unsafe. Afterward, your body holds on to that experience in ways you can feel long after the moment is over.
-- [Understanding OCD: Why the Thoughts Won’t Stop and What Actually Helps](/blog/understanding-ocd-why-the-thoughts-wont-stop-and-what-actually-helps): Obsessive-Compulsive Disorder isn’t about being organized, neat, or “a little particular.” It’s a mental health condition where intrusive thoughts trigger intense anxiety, and compulsions temporarily relieve that anxiety. 
-- [What “Whole-Person Care” Really Means](/blog/what-whole-person-care-really-means): Understanding integrative treatment for lasting change
-- [When Anxiety Feels Physical: Understanding the Mind-Body Loop](/blog/when-anxiety-feels-physical-understanding-the-mind-body-loop): Why your body might be speaking the language of stress
+- [About Us](/about): Learn about our mission, vision, and expert providers at Oasis Health Services. Bringing a fresh perspective to mental health care.
+- [Conditions We Treat](/about/conditions): Explore the mental health conditions we treat, including anxiety, depression, bipolar disorder, ADHD, OCD, PTSD, personality disorders, and psychotic disorders. Learn about care options and next steps.
+- [Consent, Notices & Policies](/policies): Review our HIPAA Notice of Privacy Practices and Telehealth Informed Consent to understand how your medical information is used and your rights.
+- [Contact Us](/contact): Get in touch with Oasis Health Services. We
+- [Crisis Resources](/resources/crisis): Crisis Resources for mental health care and psychiatric services.
+- [FAQ Resources](/resources/faq): FAQ Resources for mental health care and psychiatric services.
+- [For Patients](/patients): Get started with Oasis Health Services. Complete our secure assessment, schedule your visit, and access patient resources.
+- [For Providers](/providers): For providers, learn about our mental health services, including psychiatric care, therapy, and support groups.
+- [Frequently Asked Questions](/patients/faqs): Find answers to common questions about our mental health services, insurance, appointments, and more.
+- [Grief Support Screener](/resources/grief-support): Take our free grief support screener to understand your grief experience and find appropriate resources. This confidential self-assessment helps identify if you may benefit from professional grief counseling.
+- [HIPAA](/hipaa): Review our HIPAA Notice of Privacy Practices and Telehealth Informed Consent to understand how your medical information is used and your rights.
+- [Medication Information](/resources/medications): Educational resources about psychiatric medications including antidepressants, anti-anxiety medications, mood stabilizers, and ADHD medications. Learn what to expect from your treatment.
+- [Mental Health Care](/): Expert mental health care tailored for you, combining psychiatric and primary care for whole-person healing. Covered by insurance.
+- [Mental Health Self-Assessments](/assessments): Free, confidential mental health screening tools for depression (PHQ-9), anxiety (GAD-7), PTSD, ADHD, and more. Take validated assessments and get personalized recommendations.
+- [Our Providers](/about/our-team): Meet our experienced mental health providers. Board-certified psychiatric nurse practitioners and licensed counselors specializing in anxiety, depression, ADHD, and more. Accepting new patients.
+- [Page Not Found](/404): The page you
+- [Provider Referrals](/providers/referrals): Refer your patients to Oasis Health Services for comprehensive mental health care and psychiatric services.
+- [Resources](/resources): Resources for mental health care and psychiatric services.
+- [Self-Care Resources](/resources/self-care): Self-Care Resources for mental health care and psychiatric services.
+- [Services](/services): Explore our comprehensive mental health services, including psychiatric assessments, therapy, medication management, ADHD and autism assessment, Spravato® therapy, telehealth, and remote patient monitoring.
+- [Start Now](/start): Begin your journey to better mental health. Complete our secure assessment and take the first step toward wellness with Oasis Health Services.
+- [Support Groups](/resources/support-groups): Find local and online mental health support groups in Georgia. Connect with others facing similar challenges including depression, anxiety, ADHD, grief, and addiction recovery.
+- [Telehealth Resources](/resources/telehealth): Telehealth Resources for mental health care and psychiatric services.
+- [Terms & Conditions](/terms-and-conditions): Read the Terms and Conditions for using the services of Oasis Health Services.
+- [Thank You | Oasis Health Services](/thank-you): Thank you for reaching out to Oasis Health Services. We have received your message and will get back to you soon.

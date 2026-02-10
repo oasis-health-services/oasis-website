@@ -1,4 +1,4 @@
-# robots.txt for https://oasishealthservices.com
+# robots.txt for undefined
 # Generated at build time
 
 User-agent: *
@@ -9,7 +9,7 @@ Disallow: /admin/
 Disallow: /private/
 
 # Sitemap
-Sitemap: https://oasishealthservices.com/sitemap.xml
+Sitemap: undefined/sitemap.xml
 
 # Crawl delay (optional, usually not needed)
 # Crawl-delay: 1

@@ -2,7 +2,6 @@
 
 import fs from 'fs';
 import path from 'path';
-import GhostContentAPI from '@tryghost/content-api';
 
 const CLEAN_CONTENT_REGEX = {
   comments: /\/\*[\s\S]*?\*\/|\/\/.*$/gm,
@@ -205,30 +204,6 @@ function processPageFile(filePath, routes) {
   }
 }
 
-async function fetchBlogPosts() {
-  try {
-    const ghostAPI = new GhostContentAPI({
-      url: process.env.VITE_GHOST_API_URL,
-      key: process.env.VITE_GHOST_API_KEY,
-      version: 'v5.0'
-    });
-
-    const posts = await ghostAPI.posts.browse({
-      limit: 'all',
-      fields: 'title,slug,excerpt,custom_excerpt'
-    });
-
-    return posts.map(post => ({
-      title: post.title,
-      url: `/blog/${post.slug}`,
-      description: post.excerpt || post.custom_excerpt || 'Blog post from Oasis Health Services'
-    }));
-  } catch (error) {
-    console.error('⚠️  Error fetching blog posts for llms.txt:', error.message);
-    return [];
-  }
-}
-
 async function main() {
   const pagesDir = path.join(process.cwd(), 'src', 'pages');
   const appJsxPath = path.join(process.cwd(), 'src', 'App.jsx');
@@ -251,16 +226,13 @@ async function main() {
     }
   }
 
-  // Fetch blog posts
-  const blogPosts = await fetchBlogPosts();
-  console.log(`✓ Found ${blogPosts.length} blog posts`);
 
-  const llmsTxtContent = generateLlmsTxt(pages, blogPosts);
+  const llmsTxtContent = generateLlmsTxt(pages);
   const outputPath = path.join(process.cwd(), 'public', 'llms.txt');
 
   ensureDirectoryExists(path.dirname(outputPath));
   fs.writeFileSync(outputPath, llmsTxtContent, 'utf8');
-  console.log(`✓ Generated llms.txt with ${pages.length} pages and ${blogPosts.length} blog posts`);
+  console.log(`✓ Generated llms.txt with ${pages.length} pages`);
 }
 
 const isMainModule = import.meta.url === `file://${process.argv[1]}`;

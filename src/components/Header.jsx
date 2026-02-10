@@ -43,7 +43,7 @@ const navigation = [
             support: [
                 { name: "Crisis Resources", href: "/resources/crisis", icon: AlertTriangle, description: "24/7 hotlines and emergency help", style: "hover:bg-red-50", textStyle: "text-red-700", iconStyles: ["bg-red-100", "text-red-600"] },
                 { name: "Support Groups", href: "/resources/support-groups", icon: Users, description: "Local and online communities" },
-                { name: "For Providers", href: "/providers", icon: Handshake, description: "Referrals and partnerships" },
+                //                { name: "For Providers", href: "/providers", icon: Handshake, description: "Referrals and partnerships" },
                 { name: "View All Resources", href: "/resources", icon: ArrowRight }
             ],
         },
@@ -87,7 +87,6 @@ const ActiveIndicator = () => (
 
 export default function Header({ currentPath }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-    const [resourcesOpen, setResourcesOpen] = useState(false)
     const [mobileSubMenuItemOpen, setMobileSubMenuItemOpen] = useState(null)
     const [mobileSubMenuOpen, setMobileSubMenuOpen] = useState(null)
 
@@ -99,8 +98,6 @@ export default function Header({ currentPath }) {
         return currentPath === href || currentPath?.startsWith(href + '/');
     };
 
-    // Check if any resource sub-item is active
-    const isResourceActive = Object.values(resourcesMenu).flat().some(item => isActive(item.href)) || isActive('/resources');
 
     return (
         <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border">

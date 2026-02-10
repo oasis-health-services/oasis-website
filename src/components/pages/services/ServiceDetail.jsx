@@ -20,7 +20,6 @@ import {
     Sparkles,
     Activity,
     ArrowRight,
-    ArrowLeft,
     CheckCircle,
     Users,
     Clock,

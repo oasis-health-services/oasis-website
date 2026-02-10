@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent } from "@/components/ui/card"
+import { motion } from "framer-motion"
 import {
     Select,
     SelectContent,
@@ -54,7 +55,9 @@ function ContactHero() {
     return (
         <section className="bg-secondary py-16 lg:py-24">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="max-w-3xl">
+                <motion.div initial={{ opacity: 0, x: -50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5 }} className="max-w-3xl">
                     <span className="text-sm font-medium text-primary tracking-wide uppercase">
                         Contact Us
                     </span>
@@ -76,7 +79,7 @@ function ContactHero() {
                             <p className="text-sm text-muted-foreground">We respond to all inquiries within 1-2 business days</p>
                         </div>
                     </div>
-                </div>
+                </motion.div>
             </div>
         </section>
     )
@@ -122,31 +125,35 @@ function QuickContactCards() {
         <section className="py-12 lg:py-16 -mt-8 relative z-10">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {contactMethods.map((method) => (
-                        <a
-                            key={method.title}
-                            href={method.href}
-                            target={method.href.startsWith("http") ? "_blank" : undefined}
-                            rel={method.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                            className="group"
-                        >
-                            <Card className="h-full hover:border-primary/30 hover:shadow-lg transition-all">
-                                <CardContent className="p-6">
-                                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                                        <method.icon className="h-6 w-6 text-primary group-hover:text-primary-foreground transition-colors" />
-                                    </div>
-                                    <h3 className="font-semibold text-foreground">{method.title}</h3>
-                                    <p className="text-sm font-medium text-primary mt-1">{method.value}</p>
-                                    <p className="text-xs text-muted-foreground mt-1">{method.description}</p>
-                                    <span className="inline-flex items-center text-sm text-primary font-medium mt-3 group-hover:underline">
-                                        {method.action}
-                                        {method.href.startsWith("http") && (
-                                            <ExternalLink className="ml-1 h-3 w-3" />
-                                        )}
-                                    </span>
-                                </CardContent>
-                            </Card>
-                        </a>
+                    {contactMethods.map((method, index) => (
+                        <motion.div initial={{ opacity: 0, y: 50 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}>
+                            <a
+                                key={method.title}
+                                href={method.href}
+                                target={method.href.startsWith("http") ? "_blank" : undefined}
+                                rel={method.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                                className="group"
+                            >
+                                <Card className="h-full hover:border-primary/30 hover:shadow-lg transition-all">
+                                    <CardContent className="p-6">
+                                        <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                                            <method.icon className="h-6 w-6 text-primary group-hover:text-primary-foreground transition-colors" />
+                                        </div>
+                                        <h3 className="font-semibold text-foreground">{method.title}</h3>
+                                        <p className="text-sm font-medium text-primary mt-1">{method.value}</p>
+                                        <p className="text-xs text-muted-foreground mt-1">{method.description}</p>
+                                        <span className="inline-flex items-center text-sm text-primary font-medium mt-3 group-hover:underline">
+                                            {method.action}
+                                            {method.href.startsWith("http") && (
+                                                <ExternalLink className="ml-1 h-3 w-3" />
+                                            )}
+                                        </span>
+                                    </CardContent>
+                                </Card>
+                            </a>
+                        </motion.div>
                     ))}
                 </div>
             </div>
@@ -201,7 +208,9 @@ function ContactFormSection() {
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="lg:grid lg:grid-cols-5 lg:gap-16">
                     {/* Form Info */}
-                    <div className="lg:col-span-2">
+                    <motion.div initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5 }} className="lg:col-span-2">
                         <span className="text-sm font-medium text-primary tracking-wide uppercase">
                             Send a Message
                         </span>
@@ -244,10 +253,12 @@ function ContactFormSection() {
                                 shared through this form is confidential and protected under HIPAA guidelines.
                             </p>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Contact Form */}
-                    <div className="mt-12 lg:mt-0 lg:col-span-3">
+                    <motion.div initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5 }} className="mt-12 lg:mt-0 lg:col-span-3">
                         <Card>
                             <CardContent className="p-8">
                                 {isSubmitted ? (
@@ -394,7 +405,7 @@ function ContactFormSection() {
                                 )}
                             </CardContent>
                         </Card>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </section>
@@ -494,7 +505,7 @@ function LocationSection() {
                             <Button asChild>
                                 <a href="/patients">Schedule Appointment</a>
                             </Button>
-                            <Button variant="outline" className="bg-transparent" asChild>
+                            <Button variant="outline" className="bg-transparent border-primary text-primary" asChild>
                                 <a href="/resources/telehealth">Learn About Telehealth</a>
                             </Button>
                         </div>

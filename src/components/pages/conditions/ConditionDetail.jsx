@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { motion } from 'framer-motion'
 import {
     Accordion,
     AccordionContent,
@@ -17,7 +18,6 @@ import {
     Wine,
     Brain,
     ArrowRight,
-    ArrowLeft,
     CheckCircle,
     AlertCircle,
     Stethoscope,
@@ -62,7 +62,12 @@ export default function ConditionDetail({ condition }) {
             <section className="bg-secondary py-16 lg:py-20">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="lg:grid lg:grid-cols-3 lg:gap-12">
-                        <div className="lg:col-span-2">
+                        <motion.div
+                            className="lg:col-span-2"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8 }}
+                        >
                             <div className="flex items-center gap-4 mb-6">
                                 <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center">
                                     <Icon className="h-8 w-8 text-primary" />
@@ -77,8 +82,12 @@ export default function ConditionDetail({ condition }) {
                             <p className="text-xl text-muted-foreground leading-relaxed">
                                 {condition.fullDescription}
                             </p>
-                        </div>
-                        <div className="mt-8 lg:mt-0">
+                        </motion.div>
+                        <motion.div className="mt-8 lg:mt-0"
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                        >
                             <Card className="border-primary/20 bg-card">
                                 <CardContent className="p-6">
                                     <h2 className="font-semibold text-foreground mb-4">Get Help Today</h2>
@@ -105,7 +114,7 @@ export default function ConditionDetail({ condition }) {
                                     </p>
                                 </CardContent>
                             </Card>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </section>
@@ -118,80 +127,127 @@ export default function ConditionDetail({ condition }) {
                         <div className="lg:col-span-2 space-y-12">
                             {/* Symptoms */}
                             <div id="symptoms">
-                                <div className="flex items-center gap-3 mb-6">
+
+                                <motion.div className="flex items-center gap-3 mb-6"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.6 }}
+                                >
                                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                                         <AlertCircle className="h-5 w-5 text-primary" />
                                     </div>
                                     <h2 className="font-serif text-2xl font-semibold text-foreground">
                                         Signs & Symptoms
                                     </h2>
-                                </div>
-                                <p className="text-muted-foreground mb-6">
+                                </motion.div>
+                                <motion.p className="text-muted-foreground mb-6"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.6 }}
+                                >
                                     Recognizing the symptoms is the first step toward getting help. Common signs of {condition.title.toLowerCase()} include:
-                                </p>
+                                </motion.p>
                                 <div className="grid sm:grid-cols-2 gap-3">
                                     {condition.symptoms.map((symptom, index) => (
-                                        <div key={index} className="flex items-start gap-3 p-3 rounded-lg bg-secondary">
+                                        <motion.div key={index} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: index * 0.1 }} className="flex items-start gap-3 p-3 rounded-lg bg-secondary">
                                             <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                                             <span className="text-sm text-foreground">{symptom}</span>
-                                        </div>
+                                        </motion.div>
                                     ))}
                                 </div>
                             </div>
 
                             {/* Causes */}
                             <div id="causes">
-                                <div className="flex items-center gap-3 mb-6">
+                                <motion.div className="flex items-center gap-3 mb-6"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.6 }}
+                                >
                                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                                         <HelpCircle className="h-5 w-5 text-primary" />
                                     </div>
                                     <h2 className="font-serif text-2xl font-semibold text-foreground">
                                         Causes & Risk Factors
                                     </h2>
-                                </div>
-                                <p className="font-serif text-muted-foreground mb-6">
+                                </motion.div>
+                                <motion.p className="font-serif text-muted-foreground mb-6"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.6 }}
+                                >
                                     Understanding what contributes to {condition.title.toLowerCase()} can help in treatment and prevention:
-                                </p>
+                                </motion.p>
                                 <ul className="space-y-3 font-serif">
                                     {condition.causes.map((cause, index) => (
-                                        <li key={index} className="flex items-start gap-3">
+                                        <motion.li key={index} className="flex items-start gap-3"
+                                            initial={{ opacity: 0, y: 20 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 0.6, delay: index * 0.1 }}
+                                        >
                                             <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
                                             <span className="text-muted-foreground">{cause}</span>
-                                        </li>
+                                        </motion.li>
                                     ))}
                                 </ul>
                             </div>
 
                             {/* Treatments */}
                             <div id="treatment">
-                                <div className="flex items-center gap-3 mb-6">
+                                <motion.div className="flex items-center gap-3 mb-6"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.6 }}
+                                >
                                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                                         <Stethoscope className="h-5 w-5 text-primary" />
                                     </div>
                                     <h2 className="font-serif text-2xl font-semibold text-foreground">
                                         Treatment Options
                                     </h2>
-                                </div>
-                                <p className="text-muted-foreground mb-6">
+                                </motion.div>
+                                <motion.p className="text-muted-foreground mb-6"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.6 }}
+                                >
                                     Effective treatment is available. At Oasis Health Services, we may use one or more of
                                     these evidence-based approaches:
-                                </p>
+                                </motion.p>
                                 <div className="grid sm:grid-cols-2 gap-4">
                                     {condition.treatments.map((treatment, index) => (
-                                        <Card key={index} className="bg-card border-border">
-                                            <CardContent className="p-4 flex items-center gap-3">
-                                                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                                                    <span className="text-sm font-semibold text-primary">{index + 1}</span>
-                                                </div>
-                                                <span className="text-sm font-medium text-foreground">{treatment}</span>
-                                            </CardContent>
-                                        </Card>
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 20 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 0.6, delay: index * 0.1 }}>
+                                            <Card key={index} className="bg-card border-border">
+                                                <CardContent className="p-4 flex items-center gap-3">
+                                                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                                                        <span className="text-sm font-semibold text-primary">{index + 1}</span>
+                                                    </div>
+                                                    <span className="text-sm font-medium text-foreground">{treatment}</span>
+                                                </CardContent>
+                                            </Card>
+                                        </motion.div>
                                     ))}
                                 </div>
                             </div>
 
                             {/* When to Seek Help */}
-                            <div id="when-to-seek-help">
+                            <motion.div id="when-to-seek-help"
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6 }}
+                            >
                                 <Card className="font-serif bg-red-50 border-red-500 text-red-800 border-0 border-l-4">
                                     <CardHeader>
                                         <CardTitle className="flex items-center gap-3 text-red-800">
@@ -213,36 +269,53 @@ export default function ConditionDetail({ condition }) {
                                         </ul>
                                     </CardContent>
                                 </Card>
-                            </div>
+                            </motion.div>
 
 
                             {/* FAQs */}
                             <div id="faqs">
-                                <div className="flex items-center gap-3 mb-6">
+                                <motion.div className="flex items-center gap-3 mb-6"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.6 }}
+                                >
                                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                                         <HelpCircle className="h-5 w-5 text-primary" />
                                     </div>
                                     <h2 className="font-serif text-2xl font-semibold text-foreground">
                                         Frequently Asked Questions
                                     </h2>
-                                </div>
+                                </motion.div>
                                 <Accordion type="single" collapsible className="w-full">
                                     {condition.faqs.map((faq, index) => (
-                                        <AccordionItem key={index} value={`faq-${index}`}>
-                                            <AccordionTrigger className="text-left text-foreground hover:text-primary">
-                                                {faq.question}
-                                            </AccordionTrigger>
-                                            <AccordionContent className="text-muted-foreground">
-                                                {faq.answer}
-                                            </AccordionContent>
-                                        </AccordionItem>
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 20 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 0.6, delay: index * 0.1 }}
+                                        >
+                                            <AccordionItem key={index} value={`faq-${index}`}>
+                                                <AccordionTrigger className="text-left text-foreground hover:text-primary">
+                                                    {faq.question}
+                                                </AccordionTrigger>
+                                                <AccordionContent className="text-muted-foreground">
+                                                    {faq.answer}
+                                                </AccordionContent>
+                                            </AccordionItem>
+                                        </motion.div>
                                     ))}
                                 </Accordion>
                             </div>
                         </div>
 
                         {/* Sidebar */}
-                        <div className="mt-12 lg:mt-0 space-y-8">
+                        <motion.div className="mt-12 lg:mt-0 space-y-8"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                        >
                             {/* Quick Navigation */}
                             <Card className="sticky top-24">
                                 <CardHeader>
@@ -323,14 +396,19 @@ export default function ConditionDetail({ condition }) {
                                     </div>
                                 </CardContent>
                             </Card>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </section>
 
             {/* CTA Section */}
             <section className="py-16 bg-primary text-primary-foreground">
-                <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                <motion.div className="mx-auto max-w-7xl px-6 lg:px-8"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                >
                     <div className="text-center max-w-3xl mx-auto">
                         <h2 className="font-serif text-2xl sm:text-3xl font-semibold">
                             Take the First Step Toward Healing
@@ -348,7 +426,7 @@ export default function ConditionDetail({ condition }) {
                             </Button>
                         </div>
                     </div>
-                </div>
+                </motion.div>
             </section>
 
             {/* Back to Conditions */}

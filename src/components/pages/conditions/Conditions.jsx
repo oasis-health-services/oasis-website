@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { motion } from 'framer-motion'
 import {
     AlertTriangle,
     CloudRain,
@@ -33,7 +34,11 @@ export default function Conditions() {
             {/* Hero Section */}
             <section className="relative bg-secondary py-20 lg:py-28">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="max-w-3xl">
+                    <motion.div className="max-w-3xl"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                    >
                         <span className="text-sm font-medium text-primary tracking-wide uppercase">
                             Conditions We Treat
                         </span>
@@ -61,45 +66,47 @@ export default function Conditions() {
                                 </a>
                             </Button>
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
             </section>
 
             {/* Conditions Grid */}
             <section className="py-20 lg:py-28 bg-background" aria-labelledby="conditions-grid">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="text-center max-w-3xl mx-auto mb-16">
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-center max-w-3xl mx-auto mb-16">
                         <h2 id="conditions-grid" className="font-serif text-3xl font-semibold text-foreground sm:text-4xl text-balance">
                             Find the Care You Need
                         </h2>
                         <p className="mt-4 text-lg text-muted-foreground">
                             Click on any condition below to learn more about symptoms, causes, and our treatment approaches.
                         </p>
-                    </div>
+                    </motion.div>
 
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                        {conditions.map((condition) => {
+                        {conditions.map((condition, index) => {
                             const Icon = iconMap[condition.icon] || Brain
                             return (
-                                <a key={condition.slug} href={`/about/conditions/${condition.slug}`}>
-                                    <Card className="h-full group hover:shadow-lg hover:border-primary/30 transition-all cursor-pointer">
-                                        <CardHeader>
-                                            <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                                                <Icon className="h-6 w-6 text-primary" />
-                                            </div>
-                                            <CardTitle className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                                                {condition.title}
-                                            </CardTitle>
-                                            <CardDescription className="text-muted-foreground leading-relaxed text-sm">
-                                                {condition.shortDescription}
-                                            </CardDescription>
-                                            <span className="inline-flex items-center text-sm font-medium text-primary mt-3 group-hover:underline">
-                                                Learn more
-                                                <ArrowRight className="ml-1 h-3 w-3 group-hover:translate-x-1 transition-transform" />
-                                            </span>
-                                        </CardHeader>
-                                    </Card>
-                                </a>
+                                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: index * 0.1 }}>
+                                    <a key={condition.slug} href={`/about/conditions/${condition.slug}`}>
+                                        <Card className="h-full group hover:shadow-lg hover:border-primary/30 transition-all cursor-pointer">
+                                            <CardHeader>
+                                                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                                                    <Icon className="h-6 w-6 text-primary" />
+                                                </div>
+                                                <CardTitle className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                                                    {condition.title}
+                                                </CardTitle>
+                                                <CardDescription className="text-muted-foreground leading-relaxed text-sm">
+                                                    {condition.shortDescription}
+                                                </CardDescription>
+                                                <span className="inline-flex items-center text-sm font-medium text-primary mt-3 group-hover:underline">
+                                                    Learn more
+                                                    <ArrowRight className="ml-1 h-3 w-3 group-hover:translate-x-1 transition-transform" />
+                                                </span>
+                                            </CardHeader>
+                                        </Card>
+                                    </a>
+                                </motion.div>
                             )
                         })}
                     </div>
@@ -109,7 +116,7 @@ export default function Conditions() {
             {/* Assessment CTA */}
             <section className="py-16 bg-primary text-primary-foreground">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
                         <div className="max-w-2xl">
                             <h2 className="font-serif text-2xl sm:text-3xl font-semibold">
                                 Not Sure What You're Experiencing?
@@ -127,7 +134,7 @@ export default function Conditions() {
                                 </a>
                             </Button>
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
             </section>
 
@@ -135,7 +142,7 @@ export default function Conditions() {
             <section className="py-20 lg:py-28 bg-card">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
-                        <div>
+                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
                             <span className="text-sm font-medium text-primary tracking-wide uppercase">
                                 Our Approach
                             </span>
@@ -175,8 +182,8 @@ export default function Conditions() {
                                     </div>
                                 ))}
                             </div>
-                        </div>
-                        <div className="mt-12 lg:mt-0">
+                        </motion.div>
+                        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="mt-12 lg:mt-0">
                             <Card className="p-8 bg-secondary border-0">
                                 <h3 className="font-serif text-2xl font-semibold text-foreground">
                                     Ready to Get Started?
@@ -198,7 +205,7 @@ export default function Conditions() {
                                     your needs and answer questions.
                                 </p>
                             </Card>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </section>

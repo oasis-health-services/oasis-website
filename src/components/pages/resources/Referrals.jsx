@@ -1,4 +1,4 @@
-import { ArrowRight, FileText, Phone, Mail, Fan as Fax, Upload, CheckCircle2, Clock, AlertCircle, Download, Printer } from "lucide-react"
+import { ArrowRight, FileText, Phone, Mail, Fan as Fax, Upload, CheckCircle2, Clock, AlertCircle, Download, Printer, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -57,7 +57,7 @@ export default function Referrals() {
             },
             referralReason: [],
             urgency: "",
-            appointmentPreference: "",
+            appointmentPreference: "none",
             clinicalNotes: "",
             currentMedications: ""
         },
@@ -69,6 +69,7 @@ export default function Referrals() {
 
             const { consent, ...referralData } = formData;
             const response = await submitReferralForm(referralData);
+
             if (!response.success) {
                 setError("We were unable to process your request at this time. Please try again later or contact us at support@oasishealthservices.com");
                 setIsSubmitting(false);
@@ -233,7 +234,7 @@ export default function Referrals() {
                                                         id="practice-phone"
                                                         {...register("provider.phone")}
                                                         className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                                                        placeholder="(555) 123-4567"
+                                                        placeholder="5551234567"
                                                     />
                                                     <FieldError error={errors.provider?.phone} />
                                                 </div>
@@ -246,7 +247,7 @@ export default function Referrals() {
                                                         id="practice-fax"
                                                         {...register("provider.fax")}
                                                         className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                                                        placeholder="(555) 123-4568"
+                                                        placeholder="5551234568"
                                                     />
                                                     <FieldError error={errors.provider?.fax} />
                                                 </div>
@@ -317,13 +318,13 @@ export default function Referrals() {
                                                         id="patient-phone"
                                                         {...register("patient.phone")}
                                                         className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                                                        placeholder="(555) 123-4567"
+                                                        placeholder="5551234567"
                                                     />
                                                     <FieldError error={errors.patient?.phone} />
                                                 </div>
                                                 <div>
                                                     <label htmlFor="patient-email" className="block text-sm font-medium text-foreground mb-1.5">
-                                                        Patient Email
+                                                        Patient Email *
                                                     </label>
                                                     <input
                                                         type="email"
@@ -422,7 +423,7 @@ export default function Referrals() {
                                                         {...register("appointmentPreference")}
                                                         className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
                                                     >
-                                                        <option value="">No preference</option>
+                                                        <option value="none">No preference</option>
                                                         <option value="in-person">In-Person (Roswell Office)</option>
                                                         <option value="telehealth">Telehealth/Virtual</option>
                                                     </select>

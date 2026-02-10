@@ -12,7 +12,7 @@ export default function Insurances({ showConsultationCTA = true } = {}) {
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
                     {/* Left column */}
-                    <div>
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
                         <span className="text-sm font-medium text-primary tracking-wide uppercase">Insurance & Payments</span>
                         <h2 id="insurance-heading" className="mt-3 font-serif text-3xl font-semibold text-foreground sm:text-4xl text-balance">
                             Making Quality Care Accessible
@@ -52,10 +52,10 @@ export default function Insurances({ showConsultationCTA = true } = {}) {
                                 </SheetContent>
                             </Sheet>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Right column - insurance logos */}
-                    <div className="mt-12 lg:mt-0">
+                    <motion.div className="mt-12 lg:mt-0" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
                         <p className="text-sm font-medium text-muted-foreground mb-6">Accepted Insurance Partners</p>
                         <div className="grid grid-cols-3 gap-4">
                             {insurancePartners.map((insurance, index) => (
@@ -85,7 +85,7 @@ export default function Insurances({ showConsultationCTA = true } = {}) {
                         <p className="mt-6 text-sm text-muted-foreground">
                             Don't see your insurance? <a href="/contact" className="text-primary hover:underline">Contact us</a> to discuss payment options and self-pay rates.
                         </p>
-                    </div>
+                    </motion.div>
                 </div>
 
                 {showConsultationCTA && (

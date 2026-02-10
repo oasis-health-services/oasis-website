@@ -13,7 +13,12 @@ export default function Providers() {
 
         {/* Hero */}
         <section className="bg-secondary py-16 lg:py-20">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
+            <motion.div className="mx-auto max-w-7xl px-6 lg:px-8 text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+            >
                 <span className="text-sm font-medium text-primary tracking-wide uppercase">Our Team</span>
                 <h1 className="mt-3 font-serif text-4xl font-semibold text-foreground sm:text-5xl text-balance">
                     Meet Our Providers
@@ -35,7 +40,7 @@ export default function Providers() {
                         <ArrowRight className="h-4 w-4" aria-hidden="true" />
                     </a>
                 </div>
-            </div>
+            </motion.div>
         </section>
 
         {/* Providers Grid */}
@@ -44,93 +49,100 @@ export default function Providers() {
                 <h2 id="providers-list" className="sr-only">All Providers</h2>
 
                 <div className="grid md:grid-cols-2 gap-8">
-                    {providers.map((provider) => (
-                        <Card
+                    {providers.map((provider, index) => (
+                        <motion.div
                             key={provider.slug}
-                            className="overflow-hidden bg-card border-border group hover:shadow-lg transition-shadow"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: index * 0.1 }}
                         >
-                            <CardContent className="p-0">
-                                <div className="lg:flex">
-                                    {/* Provider Image */}
-                                    <div className="lg:w-64 shrink-0 relative">
-                                        <div className="h-64 lg:h-full bg-primary/10 relative overflow-hidden">
-                                            <OptimizedImage
-                                                src={provider.image || "/placeholder.svg"}
-                                                alt={`${provider.name} - ${provider.role}`}
-                                                fill
-                                                className="object-cover group-hover:scale-105 transition-transform duration-500"
-                                                sizes="(max-width: 1024px) 100vw, 256px"
-                                            />
-                                        </div>
-                                        {provider.availableOnline && (
-                                            <div className="absolute bottom-3 left-3 right-3 lg:right-auto">
-                                                <Badge className="bg-card/90 text-foreground border-0 shadow-sm">
-                                                    <Video className="h-3 w-3 mr-1.5" aria-hidden="true" />
-                                                    In-Person & Online
-                                                </Badge>
+                            <Card
+                                className="overflow-hidden bg-card border-border group hover:shadow-lg transition-shadow h-full"
+                            >
+                                <CardContent className="p-0">
+                                    <div className="lg:flex">
+                                        {/* Provider Image */}
+                                        <div className="lg:w-64 shrink-0 relative">
+                                            <div className="h-64 lg:h-full bg-primary/10 relative overflow-hidden">
+                                                <OptimizedImage
+                                                    src={provider.image || "/placeholder.svg"}
+                                                    alt={`${provider.name} - ${provider.role}`}
+                                                    fill
+                                                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                                    sizes="(max-width: 1024px) 100vw, 256px"
+                                                />
                                             </div>
-                                        )}
-                                    </div>
-
-                                    {/* Provider Info */}
-                                    <div className="p-6 flex flex-col flex-1">
-                                        {provider.acceptingNewPatients && (
-                                            <Badge variant="outline" className="w-fit mb-3 text-xs border-primary/30 text-primary">
-                                                Accepting New Patients
-                                            </Badge>
-                                        )}
-
-                                        <h3 className="text-2xl font-semibold text-foreground">
-                                            {provider.name}
-                                            {provider.credentials && (
-                                                <span className="text-muted-foreground font-normal text-lg">, {provider.credentials}</span>
-                                            )}
-                                        </h3>
-                                        <p className="text-primary font-medium mt-1">{provider.role}</p>
-
-                                        <p className="mt-4 text-muted-foreground text-sm leading-relaxed line-clamp-2">
-                                            {provider.tagline}
-                                        </p>
-
-                                        {/* Specialties */}
-                                        <div className="mt-4">
-                                            <div className="flex flex-wrap gap-1.5">
-                                                {provider.specialties.top.map((specialty) => (
-                                                    <Badge key={specialty} variant="secondary" className="text-xs">
-                                                        {specialty}
+                                            {provider.availableOnline && (
+                                                <div className="absolute bottom-3 left-3 right-3 lg:right-auto">
+                                                    <Badge className="bg-card/90 text-foreground border-0 shadow-sm">
+                                                        <Video className="h-3 w-3 mr-1.5" aria-hidden="true" />
+                                                        In-Person & Online
                                                     </Badge>
-                                                ))}
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        {/* Provider Info */}
+                                        <div className="p-6 flex flex-col flex-1">
+                                            {provider.acceptingNewPatients && (
+                                                <Badge variant="outline" className="w-fit mb-3 text-xs border-primary/30 text-primary">
+                                                    Accepting New Patients
+                                                </Badge>
+                                            )}
+
+                                            <h3 className="text-2xl font-semibold text-foreground">
+                                                {provider.name}
+                                                {provider.credentials && (
+                                                    <span className="text-muted-foreground font-normal text-lg">, {provider.credentials}</span>
+                                                )}
+                                            </h3>
+                                            <p className="text-primary font-medium mt-1">{provider.role}</p>
+
+                                            <p className="mt-4 text-muted-foreground text-sm leading-relaxed line-clamp-2">
+                                                {provider.tagline}
+                                            </p>
+
+                                            {/* Specialties */}
+                                            <div className="mt-4">
+                                                <div className="flex flex-wrap gap-1.5">
+                                                    {provider.specialties.top.map((specialty) => (
+                                                        <Badge key={specialty} variant="secondary" className="text-xs">
+                                                            {specialty}
+                                                        </Badge>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            {/* Location */}
+                                            <div className="mt-4 flex items-center text-sm text-muted-foreground">
+                                                <MapPin className="h-4 w-4 mr-1.5 text-primary" aria-hidden="true" />
+                                                {provider.locations.map(l => `${l.city}, ${l.state}`).join(" & ")}
+                                            </div>
+
+                                            {/* Fees */}
+                                            <div className="mt-4 text-sm">
+                                                <span className="text-muted-foreground">From </span>
+                                                <span className="font-semibold text-foreground">${provider.fees.standardVisit}</span>
+                                                <span className="text-muted-foreground"> / session</span>
+                                                <span className="mx-2 text-border">|</span>
+                                                <span className="text-primary font-medium">Insurance accepted</span>
+                                            </div>
+
+                                            {/* CTA */}
+                                            <div className="mt-6 pt-4 border-t border-border">
+                                                <Button className="w-full" asChild>
+                                                    <a href={`/about/our-team/${provider.slug}`}>
+                                                        View Full Profile
+                                                        <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+                                                    </a>
+                                                </Button>
                                             </div>
                                         </div>
-
-                                        {/* Location */}
-                                        <div className="mt-4 flex items-center text-sm text-muted-foreground">
-                                            <MapPin className="h-4 w-4 mr-1.5 text-primary" aria-hidden="true" />
-                                            {provider.locations.map(l => `${l.city}, ${l.state}`).join(" & ")}
-                                        </div>
-
-                                        {/* Fees */}
-                                        <div className="mt-4 text-sm">
-                                            <span className="text-muted-foreground">From </span>
-                                            <span className="font-semibold text-foreground">${provider.fees.standardVisit}</span>
-                                            <span className="text-muted-foreground"> / session</span>
-                                            <span className="mx-2 text-border">|</span>
-                                            <span className="text-primary font-medium">Insurance accepted</span>
-                                        </div>
-
-                                        {/* CTA */}
-                                        <div className="mt-6 pt-4 border-t border-border">
-                                            <Button className="w-full" asChild>
-                                                <a href={`/about/our-team/${provider.slug}`}>
-                                                    View Full Profile
-                                                    <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
-                                                </a>
-                                            </Button>
-                                        </div>
                                     </div>
-                                </div>
-                            </CardContent>
-                        </Card>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
                     ))}
                 </div>
             </div>
@@ -138,7 +150,12 @@ export default function Providers() {
 
         {/* CTA Section */}
         <section className="py-16 lg:py-20 bg-primary text-primary-foreground">
-            <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
+            <motion.div className="mx-auto max-w-4xl px-6 lg:px-8 text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+            >
                 <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-balance">
                     Not Sure Which Provider Is Right for You?
                 </h2>
@@ -167,7 +184,7 @@ export default function Providers() {
                         </a>
                     </Button>
                 </div>
-            </div>
+            </motion.div>
         </section>
 
         {/* <section className="relative bg-gradient-to-br from-[#6D519D] to-[#2D6762] text-white py-20">

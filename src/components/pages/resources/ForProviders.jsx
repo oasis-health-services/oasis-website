@@ -16,6 +16,7 @@ import {
     HeartPulse,
     Loader2
 } from "lucide-react"
+import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -163,7 +164,12 @@ function ForProviders() {
             <section className="bg-secondary py-16 lg:py-20">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
-                        <div>
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                        >
                             <Badge variant="secondary" className="mb-4">
                                 <Handshake className="h-3 w-3 mr-1.5" />
                                 Provider Partnership
@@ -189,10 +195,15 @@ function ForProviders() {
                                     </a>
                                 </Button>
                             </div>
-                        </div>
+                        </motion.div>
 
                         {/* Quick Contact Card */}
-                        <div className="lg:justify-self-end w-full max-w-md">
+                        <motion.div className="lg:justify-self-end w-full max-w-md"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                        >
                             <Card className="bg-card border-border shadow-lg">
                                 <CardHeader className="pb-4">
                                     <CardTitle className="flex items-center gap-2 text-lg">
@@ -234,7 +245,7 @@ function ForProviders() {
                                     </div>
                                 </CardContent>
                             </Card>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </section>
@@ -242,7 +253,12 @@ function ForProviders() {
             {/* Partnership Benefits */}
             <section className="py-16 lg:py-20">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="text-center max-w-3xl mx-auto mb-12">
+                    <motion.div className="text-center max-w-3xl mx-auto mb-12"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                    >
                         <h2 className="font-serif text-3xl font-semibold text-foreground sm:text-4xl">
                             Why Partner With Us
                         </h2>
@@ -250,19 +266,27 @@ function ForProviders() {
                             Our commitment to collaborative care means better outcomes for your patients
                             and a streamlined experience for your practice.
                         </p>
-                    </div>
+                    </motion.div>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {partnershipBenefits.map((benefit) => (
-                            <Card key={benefit.title} className="bg-card border-border">
-                                <CardContent className="pt-6">
-                                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                                        <benefit.icon className="h-6 w-6 text-primary" />
-                                    </div>
-                                    <h3 className="text-lg font-semibold text-foreground mb-2">{benefit.title}</h3>
-                                    <p className="text-muted-foreground text-sm leading-relaxed">{benefit.description}</p>
-                                </CardContent>
-                            </Card>
+                        {partnershipBenefits.map((benefit, index) => (
+                            <motion.div
+                                key={benefit.title}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: index * 0.1 }}
+                            >
+                                <Card className="bg-card border-border">
+                                    <CardContent className="pt-6">
+                                        <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                                            <benefit.icon className="h-6 w-6 text-primary" />
+                                        </div>
+                                        <h3 className="text-lg font-semibold text-foreground mb-2">{benefit.title}</h3>
+                                        <p className="text-muted-foreground text-sm leading-relaxed">{benefit.description}</p>
+                                    </CardContent>
+                                </Card>
+                            </motion.div>
                         ))}
                     </div>
                 </div>
@@ -271,18 +295,28 @@ function ForProviders() {
             {/* Referral Process */}
             <section className="py-16 lg:py-20 bg-secondary">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="text-center max-w-3xl mx-auto mb-12">
+                    <motion.div className="text-center max-w-3xl mx-auto mb-12"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                    >
                         <h2 className="font-serif text-3xl font-semibold text-foreground sm:text-4xl">
                             How the Referral Process Works
                         </h2>
                         <p className="mt-4 text-lg text-muted-foreground">
                             Our streamlined process makes it easy to refer patients and stay informed about their care.
                         </p>
-                    </div>
+                    </motion.div>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {referralSteps.map((step, index) => (
-                            <div key={step.step} className="relative">
+                            <motion.div key={step.step} className="relative"
+                                initial={{ opacity: 0, x: 30 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: index * 0.1 }}
+                            >
                                 <Card className="bg-card border-border h-full">
                                     <CardContent className="pt-6">
                                         <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg mb-4">
@@ -297,18 +331,23 @@ function ForProviders() {
                                         <ArrowRight className="h-6 w-6" />
                                     </div>
                                 )}
-                            </div>
+                            </motion.div>
                         ))}
                     </div>
 
-                    <div className="mt-12 text-center">
+                    <motion.div className="mt-12 text-center"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                    >
                         <Button size="lg" asChild>
-                            <a href="/for-providers/referrals">
+                            <a href="/providers/referrals">
                                 Start a Referral
                                 <ArrowRight className="ml-2 h-4 w-4" />
                             </a>
                         </Button>
-                    </div>
+                    </motion.div>
                 </div>
             </section>
 
@@ -316,7 +355,12 @@ function ForProviders() {
             <section className="py-16 lg:py-20">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
-                        <div>
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                        >
                             <h2 className="font-serif text-3xl font-semibold text-foreground sm:text-4xl">
                                 Conditions We Accept Referrals For
                             </h2>
@@ -347,18 +391,26 @@ function ForProviders() {
                                     </a>
                                 </Button>
                             </div>
-                        </div>
+                        </motion.div>
 
                         <div className="grid grid-cols-2 gap-4">
-                            {referralConditions.map((condition) => (
-                                <Card key={condition.name} className="bg-card border-border">
-                                    <CardContent className="p-4 flex items-center gap-3">
-                                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                                            <condition.icon className="h-5 w-5 text-primary" />
-                                        </div>
-                                        <span className="text-sm font-medium text-foreground">{condition.name}</span>
-                                    </CardContent>
-                                </Card>
+                            {referralConditions.map((condition, index) => (
+                                <motion.div
+                                    key={condition.name}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                                >
+                                    <Card className="bg-card border-border">
+                                        <CardContent className="p-4 flex items-center gap-3">
+                                            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                                                <condition.icon className="h-5 w-5 text-primary" />
+                                            </div>
+                                            <span className="text-sm font-medium text-foreground">{condition.name}</span>
+                                        </CardContent>
+                                    </Card>
+                                </motion.div>
                             ))}
                         </div>
                     </div>
@@ -368,80 +420,132 @@ function ForProviders() {
             {/* Our Services for Referred Patients */}
             <section className="py-16 lg:py-20 bg-muted">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="text-center max-w-3xl mx-auto mb-12">
+                    <motion.div className="text-center max-w-3xl mx-auto mb-12"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                    >
                         <h2 className="font-serif text-3xl font-semibold text-foreground sm:text-4xl">
                             Services for Referred Patients
                         </h2>
                         <p className="mt-4 text-lg text-muted-foreground">
                             Comprehensive mental health services to support your patients' treatment needs.
                         </p>
-                    </div>
+                    </motion.div>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <Card className="bg-card border-border">
-                            <CardContent className="pt-6">
-                                <Stethoscope className="h-8 w-8 text-primary mb-4" />
-                                <h3 className="text-lg font-semibold text-foreground mb-2">Psychiatric Evaluation</h3>
-                                <p className="text-muted-foreground text-sm leading-relaxed">
-                                    Comprehensive diagnostic assessments with detailed reports sent to referring providers.
-                                </p>
-                            </CardContent>
-                        </Card>
-                        <Card className="bg-card border-border">
-                            <CardContent className="pt-6">
-                                <ClipboardList className="h-8 w-8 text-primary mb-4" />
-                                <h3 className="text-lg font-semibold text-foreground mb-2">Medication Management</h3>
-                                <p className="text-muted-foreground text-sm leading-relaxed">
-                                    Expert psychopharmacology services with coordination of care for patients on multiple medications.
-                                </p>
-                            </CardContent>
-                        </Card>
-                        <Card className="bg-card border-border">
-                            <CardContent className="pt-6">
-                                <Brain className="h-8 w-8 text-primary mb-4" />
-                                <h3 className="text-lg font-semibold text-foreground mb-2">Pharmacogenomic Testing</h3>
-                                <p className="text-muted-foreground text-sm leading-relaxed">
-                                    Genetic testing to optimize medication selection and reduce trial-and-error prescribing.
-                                </p>
-                            </CardContent>
-                        </Card>
-                        <Card className="bg-card border-border">
-                            <CardContent className="pt-6">
-                                <Users className="h-8 w-8 text-primary mb-4" />
-                                <h3 className="text-lg font-semibold text-foreground mb-2">Therapy Services</h3>
-                                <p className="text-muted-foreground text-sm leading-relaxed">
-                                    Evidence-based psychotherapy including CBT, DBT, and trauma-focused approaches.
-                                </p>
-                            </CardContent>
-                        </Card>
-                        <Card className="bg-card border-border">
-                            <CardContent className="pt-6">
-                                <HeartPulse className="h-8 w-8 text-primary mb-4" />
-                                <h3 className="text-lg font-semibold text-foreground mb-2">Spravato Treatment</h3>
-                                <p className="text-muted-foreground text-sm leading-relaxed">
-                                    FDA-approved esketamine treatment for treatment-resistant depression.
-                                </p>
-                            </CardContent>
-                        </Card>
-                        <Card className="bg-card border-border">
-                            <CardContent className="pt-6">
-                                <Shield className="h-8 w-8 text-primary mb-4" />
-                                <h3 className="text-lg font-semibold text-foreground mb-2">Autism Evaluation</h3>
-                                <p className="text-muted-foreground text-sm leading-relaxed">
-                                    Comprehensive autism spectrum assessments for children and adults.
-                                </p>
-                            </CardContent>
-                        </Card>
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                        >
+                            <Card className="bg-card border-border">
+                                <CardContent className="pt-6">
+                                    <Stethoscope className="h-8 w-8 text-primary mb-4" />
+                                    <h3 className="text-lg font-semibold text-foreground mb-2">Psychiatric Evaluation</h3>
+                                    <p className="text-muted-foreground text-sm leading-relaxed">
+                                        Comprehensive diagnostic assessments with detailed reports sent to referring providers.
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.1 }}
+                        >
+                            <Card className="bg-card border-border">
+                                <CardContent className="pt-6">
+                                    <ClipboardList className="h-8 w-8 text-primary mb-4" />
+                                    <h3 className="text-lg font-semibold text-foreground mb-2">Medication Management</h3>
+                                    <p className="text-muted-foreground text-sm leading-relaxed">
+                                        Expert psychopharmacology services with coordination of care for patients on multiple medications.
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.2 }}
+                        >
+                            <Card className="bg-card border-border">
+                                <CardContent className="pt-6">
+                                    <Brain className="h-8 w-8 text-primary mb-4" />
+                                    <h3 className="text-lg font-semibold text-foreground mb-2">Pharmacogenomic Testing</h3>
+                                    <p className="text-muted-foreground text-sm leading-relaxed">
+                                        Genetic testing to optimize medication selection and reduce trial-and-error prescribing.
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.3 }}
+                        >
+                            <Card className="bg-card border-border">
+                                <CardContent className="pt-6">
+                                    <Users className="h-8 w-8 text-primary mb-4" />
+                                    <h3 className="text-lg font-semibold text-foreground mb-2">Therapy Services</h3>
+                                    <p className="text-muted-foreground text-sm leading-relaxed">
+                                        Evidence-based psychotherapy including CBT, DBT, and trauma-focused approaches.
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.4 }}
+                        >
+                            <Card className="bg-card border-border">
+                                <CardContent className="pt-6">
+                                    <HeartPulse className="h-8 w-8 text-primary mb-4" />
+                                    <h3 className="text-lg font-semibold text-foreground mb-2">Spravato Treatment</h3>
+                                    <p className="text-muted-foreground text-sm leading-relaxed">
+                                        FDA-approved esketamine treatment for treatment-resistant depression.
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.5 }}
+                        >
+                            <Card className="bg-card border-border">
+                                <CardContent className="pt-6">
+                                    <Shield className="h-8 w-8 text-primary mb-4" />
+                                    <h3 className="text-lg font-semibold text-foreground mb-2">Autism Evaluation</h3>
+                                    <p className="text-muted-foreground text-sm leading-relaxed">
+                                        Comprehensive autism spectrum assessments for children and adults.
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
                     </div>
 
-                    <div className="mt-12 text-center">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.6 }}
+                        className="mt-12 text-center">
                         <Button variant="outline" className="bg-transparent border-primary text-primary" asChild>
                             <a href="/services">
                                 View All Services
                                 <ArrowRight className="ml-2 h-4 w-4" />
                             </a>
                         </Button>
-                    </div>
+                    </motion.div>
                 </div>
             </section>
 
@@ -449,7 +553,12 @@ function ForProviders() {
             <section id="contact" className="py-16 lg:py-20">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="grid lg:grid-cols-2 gap-12">
-                        <div>
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                        >
                             <h2 className="font-serif text-3xl font-semibold text-foreground sm:text-4xl">
                                 Questions About Partnering?
                             </h2>
@@ -491,155 +600,161 @@ function ForProviders() {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
 
                         {/* Collaboration Request Form */}
-                        <Card className="bg-card border-border">
-                            <CardHeader>
-                                <CardTitle>Request Collaboration Agreement</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <form className="space-y-4" onSubmit={formSubmit(onSubmit)}>
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.1 }}
+                        >
+                            <Card className="bg-card border-border">
+                                <CardHeader>
+                                    <CardTitle>Request Collaboration Agreement</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <form className="space-y-4" onSubmit={formSubmit(onSubmit)}>
 
-                                    <FormError error={error} />
+                                        <FormError error={error} />
 
-                                    <div className="grid sm:grid-cols-2 gap-4">
-                                        <div>
-                                            <label htmlFor="provider-name" className="block text-sm font-medium text-foreground mb-1.5">
-                                                Your Name
-                                            </label>
-                                            <input
-                                                type="text"
-                                                {...register("name")}
-                                                id="name"
-                                                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                                                placeholder="Dr. Jane Smith"
-                                            />
-                                            <FieldError error={errors.name} />
-                                        </div>
-                                        <div>
-                                            <label htmlFor="credentials" className="block text-sm font-medium text-foreground mb-1.5">
-                                                Credentials
-                                            </label>
-                                            <input
-                                                type="text"
-                                                {...register("credentials")}
-                                                id="credentials"
-                                                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                                                placeholder="MD, DO, NP, PA"
-                                            />
-                                            <FieldError error={errors.credentials} />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label htmlFor="practice-name" className="block text-sm font-medium text-foreground mb-1.5">
-                                            Practice Name
-                                        </label>
-                                        <input
-                                            type="text"
-                                            {...register("practiceName")}
-                                            id="practice-name"
-                                            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                                            placeholder="Your practice or organization"
-                                        />
-                                        <FieldError error={errors.practiceName} />
-                                    </div>
-                                    <div className="grid sm:grid-cols-2 gap-4">
-                                        <div>
-                                            <label htmlFor="provider-email" className="block text-sm font-medium text-foreground mb-1.5">
-                                                Email
-                                            </label>
-                                            <input
-                                                type="email"
-                                                {...register("email")}
-                                                id="email"
-                                                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                                                placeholder="you@practice.com"
-                                            />
-                                            <FieldError error={errors.email} />
-                                        </div>
-                                        <div>
-                                            <label htmlFor="provider-phone" className="block text-sm font-medium text-foreground mb-1.5">
-                                                Phone
-                                            </label>
-                                            <input
-                                                type="tel"
-                                                {...register("phone")}
-                                                id="phone"
-                                                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                                                placeholder="(555) 123-4567"
-                                            />
-                                            <FieldError error={errors.phone} />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label htmlFor="specialty" className="block text-sm font-medium text-foreground mb-1.5">
-                                            Your Specialty
-                                        </label>
-                                        <select
-                                            id="specialty"
-                                            {...register("specialty")}
-                                            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                                        >
-                                            <option value="">Select your specialty</option>
-                                            <option>Primary Care / Family Medicine</option>
-                                            <option>Pediatrics</option>
-                                            <option>Internal Medicine</option>
-                                            <option>OB/GYN</option>
-                                            <option>Neurology</option>
-                                            <option>Cardiology</option>
-                                            <option>Other Specialty</option>
-                                        </select>
-                                        <FieldError error={errors.specialty} />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-foreground mb-2">Partnership Interests</label>
-                                        <FieldError error={errors.partnershipInterests} />
-                                        <div className="space-y-2">
-                                            {partnershipInterests.map((interest) => (
-                                                <label key={interest} className="flex items-center gap-2 text-sm">
-                                                    <input
-                                                        type="checkbox"
-                                                        value={interest}
-                                                        {...register("partnershipInterests")}
-                                                        className="rounded border-input text-primary focus:ring-primary"
-                                                    />
-                                                    <span className="text-muted-foreground">{interest}</span>
+                                        <div className="grid sm:grid-cols-2 gap-4">
+                                            <div>
+                                                <label htmlFor="provider-name" className="block text-sm font-medium text-foreground mb-1.5">
+                                                    Your Name
                                                 </label>
-                                            ))}
+                                                <input
+                                                    type="text"
+                                                    {...register("name")}
+                                                    id="name"
+                                                    className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                                                    placeholder="Dr. Jane Smith"
+                                                />
+                                                <FieldError error={errors.name} />
+                                            </div>
+                                            <div>
+                                                <label htmlFor="credentials" className="block text-sm font-medium text-foreground mb-1.5">
+                                                    Credentials
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    {...register("credentials")}
+                                                    id="credentials"
+                                                    className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                                                    placeholder="MD, DO, NP, PA"
+                                                />
+                                                <FieldError error={errors.credentials} />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <label htmlFor="estimated-referrals" className="block text-sm font-medium text-foreground mb-1.5">
-                                            Estimated Monthly Referrals
-                                        </label>
-                                        <select
-                                            id="estimated-referrals"
-                                            {...register("estimatedReferrals")}
-                                            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                                        >
-                                            <option value="">Select estimated volume</option>
-                                            <option>1-5 patients/month</option>
-                                            <option>6-10 patients/month</option>
-                                            <option>11-20 patients/month</option>
-                                            <option>20+ patients/month</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label htmlFor="message" className="block text-sm font-medium text-foreground mb-1.5">
-                                            Message (Optional)
-                                        </label>
-                                        <textarea
-                                            id="message"
-                                            {...register("message")}
-                                            rows={3}
-                                            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none"
-                                            placeholder="Tell us about your practice and how you'd like to collaborate"
-                                        />
-                                        <FieldError error={errors.message} />
-                                    </div>
+                                        <div>
+                                            <label htmlFor="practice-name" className="block text-sm font-medium text-foreground mb-1.5">
+                                                Practice Name
+                                            </label>
+                                            <input
+                                                type="text"
+                                                {...register("practiceName")}
+                                                id="practice-name"
+                                                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                                                placeholder="Your practice or organization"
+                                            />
+                                            <FieldError error={errors.practiceName} />
+                                        </div>
+                                        <div className="grid sm:grid-cols-2 gap-4">
+                                            <div>
+                                                <label htmlFor="provider-email" className="block text-sm font-medium text-foreground mb-1.5">
+                                                    Email
+                                                </label>
+                                                <input
+                                                    type="email"
+                                                    {...register("email")}
+                                                    id="email"
+                                                    className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                                                    placeholder="you@practice.com"
+                                                />
+                                                <FieldError error={errors.email} />
+                                            </div>
+                                            <div>
+                                                <label htmlFor="provider-phone" className="block text-sm font-medium text-foreground mb-1.5">
+                                                    Phone
+                                                </label>
+                                                <input
+                                                    type="tel"
+                                                    {...register("phone")}
+                                                    id="phone"
+                                                    className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                                                    placeholder="1234567890"
+                                                />
+                                                <FieldError error={errors.phone} />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label htmlFor="specialty" className="block text-sm font-medium text-foreground mb-1.5">
+                                                Your Specialty
+                                            </label>
+                                            <select
+                                                id="specialty"
+                                                {...register("specialty")}
+                                                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                                            >
+                                                <option value="">Select your specialty</option>
+                                                <option>Primary Care / Family Medicine</option>
+                                                <option>Pediatrics</option>
+                                                <option>Internal Medicine</option>
+                                                <option>OB/GYN</option>
+                                                <option>Neurology</option>
+                                                <option>Cardiology</option>
+                                                <option>Other Specialty</option>
+                                            </select>
+                                            <FieldError error={errors.specialty} />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-foreground mb-2">Partnership Interests</label>
+                                            <FieldError error={errors.partnershipInterests} />
+                                            <div className="space-y-2">
+                                                {partnershipInterests.map((interest) => (
+                                                    <label key={interest} className="flex items-center gap-2 text-sm">
+                                                        <input
+                                                            type="checkbox"
+                                                            value={interest}
+                                                            {...register("partnershipInterests")}
+                                                            className="rounded border-input text-primary focus:ring-primary"
+                                                        />
+                                                        <span className="text-muted-foreground">{interest}</span>
+                                                    </label>
+                                                ))}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label htmlFor="estimated-referrals" className="block text-sm font-medium text-foreground mb-1.5">
+                                                Estimated Monthly Referrals
+                                            </label>
+                                            <select
+                                                id="estimated-referrals"
+                                                {...register("estimatedReferrals")}
+                                                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                                            >
+                                                <option value="">Select estimated volume</option>
+                                                <option>1-5 patients/month</option>
+                                                <option>6-10 patients/month</option>
+                                                <option>11-20 patients/month</option>
+                                                <option>20+ patients/month</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label htmlFor="message" className="block text-sm font-medium text-foreground mb-1.5">
+                                                Message (Optional)
+                                            </label>
+                                            <textarea
+                                                id="message"
+                                                {...register("message")}
+                                                rows={3}
+                                                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none"
+                                                placeholder="Tell us about your practice and how you'd like to collaborate"
+                                            />
+                                            <FieldError error={errors.message} />
+                                        </div>
 
-                                    {/* <div className="flex items-start gap-2 bg-muted p-4 rounded-lg">
+                                        {/* <div className="flex items-start gap-2 bg-muted p-4 rounded-lg">
                                         <input
                                             type="checkbox"
                                             id="consent"
@@ -654,19 +769,20 @@ function ForProviders() {
                                     </div>
                                     <FieldError error={errors.consent} /> */}
 
-                                    <Button type="submit" className="w-full cursor-pointer" disabled={isSubmitting}>
-                                        {isSubmitting ? (
-                                            <>
-                                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                                Submitting Request...
-                                            </>
-                                        ) : (
-                                            "Request Collaboration Agreement"
-                                        )}
-                                    </Button>
-                                </form>
-                            </CardContent>
-                        </Card>
+                                        <Button type="submit" className="w-full cursor-pointer" disabled={isSubmitting}>
+                                            {isSubmitting ? (
+                                                <>
+                                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                                    Submitting Request...
+                                                </>
+                                            ) : (
+                                                "Request Collaboration Agreement"
+                                            )}
+                                        </Button>
+                                    </form>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
                     </div>
                 </div>
             </section>

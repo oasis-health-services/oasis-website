@@ -2,6 +2,7 @@ import { Quote } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { motion } from "framer-motion"
 import {
     Accordion,
     AccordionContent,
@@ -43,8 +44,12 @@ function ProviderHero({ provider }) {
 
                 <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
                     {/* Provider Image */}
-                    <div className="lg:w-80 shrink-0">
-                        <div className="relative aspect-[4/5] w-full max-w-xs mx-auto lg:mx-0 rounded-2xl overflow-hidden shadow-lg">
+                    <motion.div className="lg:w-80 shrink-0"
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        <div className="relative aspect-[4/5] w-full max-w-xs mx-auto lg:mx-0 rounded-2xl overflow-hidden shadow-lg border-primary border">
 
                             <OptimizedImage
                                 src={provider.image || "/placeholder.svg"}
@@ -62,10 +67,14 @@ function ProviderHero({ provider }) {
                                 <span>Available in-person and online</span>
                             </div>
                         )}
-                    </div>
+                    </motion.div>
 
                     {/* Provider Info */}
-                    <div className="flex-1">
+                    <motion.div className="flex-1"
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5 }}
+                    >
                         <div className="flex flex-wrap items-center gap-3 mb-3">
                             {provider.acceptingNewPatients && (
                                 <Badge className="bg-primary/10 text-primary border-0">
@@ -146,7 +155,7 @@ function ProviderHero({ provider }) {
                                     Book Appointment
                                 </a>
                             </Button>
-                            <Button size="lg" variant="outline" asChild>
+                            <Button size="lg" variant="outline" asChild className="bg-transparent border-primary text-primary">
                                 <a href={`tel:${provider.phone.replace(/[^0-9]/g, "")}`}>
                                     <Mail className="h-4 w-4 mr-2" aria-hidden="true" />
                                     Free Consultation
@@ -162,7 +171,7 @@ function ProviderHero({ provider }) {
                             <span className="mx-2">|</span>
                             <span className="text-primary font-medium">I accept insurance</span>
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </section>
@@ -176,7 +185,11 @@ function ProviderBio({ provider }) {
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="grid lg:grid-cols-3 gap-12">
                     {/* Main Bio */}
-                    <div className="lg:col-span-2">
+                    <motion.div className="lg:col-span-2"
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5 }}
+                    >
                         <h2 id="bio-heading" className="sr-only">About {provider.name}</h2>
                         <div className="prose prose-lg max-w-none">
                             {provider.bio.map((paragraph, index) => (
@@ -185,52 +198,66 @@ function ProviderBio({ provider }) {
                                 </p>
                             ))}
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Practice Statement & Endorsement */}
                     <div className="space-y-6">
                         {/* Practice Statement */}
-                        <Card className="bg-primary/5 border-primary/20">
-                            <CardContent className="p-6">
-                                <Quote className="h-8 w-8 text-primary/40 mb-4" aria-hidden="true" />
-                                <p className="text-foreground leading-relaxed italic text-pretty">
-                                    {provider.practiceStatement}
-                                </p>
-                                <p className="mt-4 text-sm font-semibold text-primary">
-                                    — {provider.name}, {provider.credentials}
-                                </p>
-                            </CardContent>
-                        </Card>
-
-                        {/* Endorsement */}
-                        {provider.endorsement && (
-                            <Card className="border-border">
+                        <motion.div className="space-y-6"
+                            initial={{ opacity: 0, x: 50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            <Card className="bg-primary/5 border-primary/20">
                                 <CardContent className="p-6">
-                                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">
-                                        Peer Endorsement
+                                    <Quote className="h-8 w-8 text-primary/40 mb-4" aria-hidden="true" />
+                                    <p className="text-foreground leading-relaxed italic text-pretty">
+                                        {provider.practiceStatement}
                                     </p>
-                                    <p className="text-muted-foreground leading-relaxed italic text-sm text-pretty">
-                                        &ldquo;{provider.endorsement.text}&rdquo;
-                                    </p>
-                                    <p className="mt-4 text-sm font-medium text-foreground">
-                                        — {provider.endorsement.name}
-                                        <span className="text-muted-foreground font-normal">, {provider.endorsement.credentials}</span>
+                                    <p className="mt-4 text-sm font-semibold text-primary">
+                                        — {provider.name}, {provider.credentials}
                                     </p>
                                 </CardContent>
                             </Card>
+                        </motion.div>
+
+                        {/* Endorsement */}
+                        {provider.endorsement && (
+                            <motion.div className="space-y-6"
+                                initial={{ opacity: 0, x: 50 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.5 }}
+                            >
+                                <Card className="border-border">
+                                    <CardContent className="p-6">
+                                        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">
+                                            Peer Endorsement
+                                        </p>
+                                        <p className="text-muted-foreground leading-relaxed italic text-sm text-pretty">
+                                            &ldquo;{provider.endorsement.text}&rdquo;
+                                        </p>
+                                        <p className="mt-4 text-sm font-medium text-foreground">
+                                            — {provider.endorsement.name}
+                                            <span className="text-muted-foreground font-normal">, {provider.endorsement.credentials}</span>
+                                        </p>
+                                    </CardContent>
+                                </Card>
+                            </motion.div>
                         )}
 
                         {/* Quick Stats */}
-                        <div className="grid grid-cols-2 gap-4">
+                        <motion.div initial={{ opacity: 0, x: 50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.5 }} className="grid grid-cols-2 gap-4">
                             <div className="text-center p-4 rounded-xl bg-secondary">
                                 <p className="text-3xl font-serif font-semibold text-primary">{provider.yearsInPractice}+</p>
                                 <p className="text-sm text-muted-foreground mt-1">Years Experience</p>
                             </div>
-                            <div className="text-center p-4 rounded-xl bg-secondary">
+                            {/* <div className="text-center p-4 rounded-xl bg-secondary">
                                 <p className="text-3xl font-serif font-semibold text-primary">{provider.licenses.length}</p>
                                 <p className="text-sm text-muted-foreground mt-1">State Licenses</p>
-                            </div>
-                        </div>
+                            </div> */}
+                        </motion.div>
                     </div>
                 </div>
             </div>
@@ -246,7 +273,9 @@ function ProviderCTA({ provider }) {
             className="py-20 lg:py-28 bg-primary text-primary-foreground scroll-mt-20"
             aria-labelledby="cta-heading"
         >
-            <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
+            <motion.div initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }} className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
                 <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-primary-foreground/10 text-sm font-medium mb-6">
                     {provider.acceptingNewPatients ? "Now Accepting New Patients" : "Limited Availability"}
                 </span>
@@ -312,7 +341,7 @@ function ProviderCTA({ provider }) {
                         View All Providers
                     </a>
                 </div>
-            </div>
+            </motion.div>
         </section>
     )
 }
@@ -320,7 +349,9 @@ function ProviderCTA({ provider }) {
 function ProviderFAQ({ provider }) {
     return (
         <section className="py-16 lg:py-20" aria-labelledby="faq-heading">
-            <div className="mx-auto max-w-3xl px-6 lg:px-8">
+            <motion.div initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }} className="mx-auto max-w-3xl px-6 lg:px-8">
                 <div className="text-center mb-12">
                     <span className="text-sm font-medium text-primary tracking-wide uppercase">Questions & Answers</span>
                     <h2 id="faq-heading" className="mt-3 font-serif text-3xl font-semibold text-foreground sm:text-4xl text-balance">
@@ -358,7 +389,7 @@ function ProviderFAQ({ provider }) {
                         <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
                     </a>
                 </div>
-            </div>
+            </motion.div>
         </section>
     )
 }
@@ -368,7 +399,9 @@ function ProviderInsurances({ provider }) {
     return (
         <section className="py-16 lg:py-20 bg-secondary" aria-labelledby="insurance-heading">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="text-center max-w-3xl mx-auto mb-12">
+                <motion.div initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }} className="text-center max-w-3xl mx-auto mb-12">
                     <span className="text-sm font-medium text-primary tracking-wide uppercase">Finances & Insurance</span>
                     <h2 id="insurance-heading" className="mt-3 font-serif text-3xl font-semibold text-foreground sm:text-4xl text-balance">
                         Investment in Your Mental Health
@@ -377,75 +410,84 @@ function ProviderInsurances({ provider }) {
                         I accept many major insurance plans and offer flexible payment options.
                         I handle all claim filing for you so you can focus on your healing.
                     </p>
-                </div>
+                </motion.div>
 
                 <div className="grid lg:grid-cols-3 gap-8">
                     {/* Fees Card */}
-                    <Card className="bg-card border-border">
-                        <CardHeader>
-                            <div className="flex items-center gap-3">
-                                <div className="p-2 rounded-lg bg-primary/10">
-                                    <DollarSign className="h-5 w-5 text-primary" aria-hidden="true" />
+
+                    <motion.div initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5 }}>
+                        <Card className="bg-card border-border">
+                            <CardHeader>
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 rounded-lg bg-primary/10">
+                                        <DollarSign className="h-5 w-5 text-primary" aria-hidden="true" />
+                                    </div>
+                                    <CardTitle className="text-lg">Session Fees</CardTitle>
                                 </div>
-                                <CardTitle className="text-lg">Session Fees</CardTitle>
-                            </div>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                            <div className="flex justify-between items-center py-3 border-b border-border">
-                                <span className="text-muted-foreground">Initial Session</span>
-                                <span className="text-xl font-semibold text-foreground">${provider.fees.initialSession}</span>
-                            </div>
-                            <div className="flex justify-between items-center py-3 border-b border-border">
-                                <span className="text-muted-foreground">Standard Visit</span>
-                                <span className="text-xl font-semibold text-foreground">${provider.fees.standardVisit}</span>
-                            </div>
-                            {provider.fees.slidingScale && (
-                                <p className="text-sm text-primary font-medium">
-                                    Sliding scale available for those who qualify
-                                </p>
-                            )}
-                        </CardContent>
-                    </Card>
+                            </CardHeader>
+                            <CardContent className="space-y-4">
+                                <div className="flex justify-between items-center py-3 border-b border-border">
+                                    <span className="text-muted-foreground">Initial Session</span>
+                                    <span className="text-xl font-semibold text-foreground">${provider.fees.initialSession}</span>
+                                </div>
+                                <div className="flex justify-between items-center py-3 border-b border-border">
+                                    <span className="text-muted-foreground">Standard Visit</span>
+                                    <span className="text-xl font-semibold text-foreground">${provider.fees.standardVisit}</span>
+                                </div>
+                                {provider.fees.slidingScale && (
+                                    <p className="text-sm text-primary font-medium">
+                                        Sliding scale available for those who qualify
+                                    </p>
+                                )}
+                            </CardContent>
+                        </Card>
+                    </motion.div>
 
                     {/* Insurance Card */}
-                    <Card className="bg-card border-border lg:col-span-2">
-                        <CardHeader>
-                            <div className="flex items-center gap-3">
-                                <div className="p-2 rounded-lg bg-primary/10">
-                                    <ShieldCheck className="h-5 w-5 text-primary" aria-hidden="true" />
+                    <motion.div initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5 }} className="lg:col-span-2">
+                        <Card className="bg-card border-border">
+                            <CardHeader>
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 rounded-lg bg-primary/10">
+                                        <ShieldCheck className="h-5 w-5 text-primary" aria-hidden="true" />
+                                    </div>
+                                    <CardTitle className="text-lg">Accepted Insurance</CardTitle>
                                 </div>
-                                <CardTitle className="text-lg">Accepted Insurance</CardTitle>
-                            </div>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="flex flex-wrap gap-2">
-                                {provider.insurance.map((ins) => (
+                            </CardHeader>
+                            <CardContent>
+                                <div className="flex flex-wrap gap-2">
+                                    {provider.insurance.map((ins) => (
+                                        <Badge
+                                            key={ins}
+                                            variant="outline"
+                                            className="px-3 py-1.5 text-sm bg-background"
+                                        >
+                                            {ins}
+                                        </Badge>
+                                    ))}
                                     <Badge
-                                        key={ins}
                                         variant="outline"
-                                        className="px-3 py-1.5 text-sm bg-background"
+                                        className="px-3 py-1.5 text-sm bg-background border-dashed"
                                     >
-                                        {ins}
+                                        Out of Network
                                     </Badge>
-                                ))}
-                                <Badge
-                                    variant="outline"
-                                    className="px-3 py-1.5 text-sm bg-background border-dashed"
-                                >
-                                    Out of Network
-                                </Badge>
-                                <Badge
-                                    variant="outline"
-                                    className="px-3 py-1.5 text-sm bg-background border-dashed"
-                                >
-                                    Self-Pay
-                                </Badge>
-                            </div>
-                            <p className="mt-4 text-sm text-muted-foreground">
-                                Not sure if your plan is covered? Contact me to verify your coverage before your first appointment.
-                            </p>
-                        </CardContent>
-                    </Card>
+                                    <Badge
+                                        variant="outline"
+                                        className="px-3 py-1.5 text-sm bg-background border-dashed"
+                                    >
+                                        Self-Pay
+                                    </Badge>
+                                </div>
+                                <p className="mt-4 text-sm text-muted-foreground">
+                                    Not sure if your plan is covered? Contact me to verify your coverage before your first appointment.
+                                </p>
+                            </CardContent>
+                        </Card>
+                    </motion.div>
                 </div>
 
                 {/* Payment Methods */}

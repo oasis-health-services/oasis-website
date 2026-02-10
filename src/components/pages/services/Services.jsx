@@ -19,6 +19,7 @@ import {
     MapPin
 } from "lucide-react"
 import { services } from "@/lib/services-data"
+import Insurances from "@/components/common/Insurances"
 
 const iconMap = {
     ClipboardCheck,
@@ -52,7 +53,11 @@ export default function Services() {
             <section className="relative bg-secondary py-20 lg:py-28">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
-                        <div>
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                        >
                             <span className="text-sm font-medium text-primary tracking-wide uppercase">
                                 Our Services
                             </span>
@@ -79,8 +84,12 @@ export default function Services() {
                                     </a>
                                 </Button>
                             </div>
-                        </div>
-                        <div className="mt-12 lg:mt-0">
+                        </motion.div>
+                        <motion.div className="mt-12 lg:mt-0"
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                        >
                             <Card className="bg-card">
                                 <CardContent className="p-8">
                                     <h2 className="font-semibold text-lg text-foreground mb-4">
@@ -103,7 +112,7 @@ export default function Services() {
                                     </div>
                                 </CardContent>
                             </Card>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </section>
@@ -111,7 +120,7 @@ export default function Services() {
             {/* Featured Services */}
             <section className="py-20 lg:py-28 bg-background" aria-labelledby="featured-services">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="text-center max-w-3xl mx-auto mb-16">
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-center max-w-3xl mx-auto mb-16">
                         <Badge variant="secondary" className="mb-4">Core Services</Badge>
                         <h2 id="featured-services" className="font-serif text-3xl font-semibold text-foreground sm:text-4xl text-balance">
                             Our Most Requested Services
@@ -119,44 +128,52 @@ export default function Services() {
                         <p className="mt-4 text-lg text-muted-foreground">
                             These foundational services form the core of our mental health care offerings.
                         </p>
-                    </div>
+                    </motion.div>
 
                     <div className="grid md:grid-cols-2 gap-8">
-                        {featured.map((service) => {
+                        {featured.map((service, index) => {
                             const Icon = iconMap[service.icon] || ClipboardCheck
                             return (
-                                <a key={service.slug} href={`/services/${service.slug}`}>
-                                    <Card className="h-full group hover:shadow-lg hover:border-primary/30 transition-all cursor-pointer">
-                                        <CardHeader>
-                                            <div className="flex items-start justify-between">
-                                                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                                                    <Icon className="h-7 w-7 text-primary" />
+
+                                <motion.div
+                                    key={service.slug}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: index * 0.1 }}
+                                >
+                                    <a key={service.slug} href={`/services/${service.slug}`}>
+                                        <Card className="h-full group hover:shadow-lg hover:border-primary/30 transition-all cursor-pointer">
+                                            <CardHeader>
+                                                <div className="flex items-start justify-between">
+                                                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                                                        <Icon className="h-7 w-7 text-primary" />
+                                                    </div>
+                                                    <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
                                                 </div>
-                                                <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
-                                            </div>
-                                            <CardTitle className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors mt-4">
-                                                {service.title}
-                                            </CardTitle>
-                                            <CardDescription className="text-muted-foreground leading-relaxed">
-                                                {service.shortDescription}
-                                            </CardDescription>
-                                        </CardHeader>
-                                        <CardContent>
-                                            <div className="flex flex-wrap gap-2">
-                                                {service.benefits.slice(0, 3).map((benefit, index) => (
-                                                    <Badge key={index} variant="secondary" className="text-xs">
-                                                        {benefit.length > 30 ? benefit.slice(0, 30) + "..." : benefit}
-                                                    </Badge>
-                                                ))}
-                                            </div>
-                                            {service.duration && (
-                                                <p className="text-sm text-muted-foreground mt-4">
-                                                    <span className="font-medium">Duration:</span> {service.duration}
-                                                </p>
-                                            )}
-                                        </CardContent>
-                                    </Card>
-                                </a>
+                                                <CardTitle className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors mt-4">
+                                                    {service.title}
+                                                </CardTitle>
+                                                <CardDescription className="text-muted-foreground leading-relaxed">
+                                                    {service.shortDescription}
+                                                </CardDescription>
+                                            </CardHeader>
+                                            <CardContent>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {service.benefits.slice(0, 3).map((benefit, index) => (
+                                                        <Badge key={index} variant="secondary" className="text-xs">
+                                                            {benefit.length > 30 ? benefit.slice(0, 30) + "..." : benefit}
+                                                        </Badge>
+                                                    ))}
+                                                </div>
+                                                {service.duration && (
+                                                    <p className="text-sm text-muted-foreground mt-4">
+                                                        <span className="font-medium">Duration:</span> {service.duration}
+                                                    </p>
+                                                )}
+                                            </CardContent>
+                                        </Card>
+                                    </a>
+                                </motion.div>
                             )
                         })}
                     </div>
@@ -166,7 +183,7 @@ export default function Services() {
             {/* Specialized Services */}
             <section className="py-20 lg:py-28 bg-card" aria-labelledby="specialized-services">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="text-center max-w-3xl mx-auto mb-16">
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-center max-w-3xl mx-auto mb-16">
                         <Badge variant="secondary" className="mb-4">Specialized Care</Badge>
                         <h2 id="specialized-services" className="font-serif text-3xl font-semibold text-foreground sm:text-4xl text-balance">
                             Specialized Treatment Options
@@ -174,31 +191,38 @@ export default function Services() {
                         <p className="mt-4 text-lg text-muted-foreground">
                             Advanced and specialized services for specific conditions and needs.
                         </p>
-                    </div>
+                    </motion.div>
 
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {additional.map((service) => {
+                        {additional.map((service, index) => {
                             const Icon = iconMap[service.icon] || ClipboardCheck
                             return (
-                                <a key={service.slug} href={`/services/${service.slug}`}>
-                                    <Card className="h-full group hover:shadow-md hover:border-primary/30 transition-all cursor-pointer">
-                                        <CardHeader>
-                                            <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-3 group-hover:bg-primary/20 transition-colors">
-                                                <Icon className="h-6 w-6 text-primary" />
-                                            </div>
-                                            <CardTitle className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                                                {service.title}
-                                            </CardTitle>
-                                            <CardDescription className="text-sm text-muted-foreground leading-relaxed">
-                                                {service.shortDescription}
-                                            </CardDescription>
-                                            <span className="inline-flex items-center text-sm font-medium text-primary mt-2 group-hover:underline">
-                                                Learn more
-                                                <ArrowRight className="ml-1 h-3 w-3 group-hover:translate-x-1 transition-transform" />
-                                            </span>
-                                        </CardHeader>
-                                    </Card>
-                                </a>
+                                <motion.div
+                                    key={service.slug}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: index * 0.1 }}
+                                >
+                                    <a key={service.slug} href={`/services/${service.slug}`}>
+                                        <Card className="h-full group hover:shadow-md hover:border-primary/30 transition-all cursor-pointer">
+                                            <CardHeader>
+                                                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-3 group-hover:bg-primary/20 transition-colors">
+                                                    <Icon className="h-6 w-6 text-primary" />
+                                                </div>
+                                                <CardTitle className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                                                    {service.title}
+                                                </CardTitle>
+                                                <CardDescription className="text-sm text-muted-foreground leading-relaxed">
+                                                    {service.shortDescription}
+                                                </CardDescription>
+                                                <span className="inline-flex items-center text-sm font-medium text-primary mt-2 group-hover:underline">
+                                                    Learn more
+                                                    <ArrowRight className="ml-1 h-3 w-3 group-hover:translate-x-1 transition-transform" />
+                                                </span>
+                                            </CardHeader>
+                                        </Card>
+                                    </a>
+                                </motion.div>
                             )
                         })}
                     </div>
@@ -208,14 +232,14 @@ export default function Services() {
             {/* Process Section */}
             <section className="py-20 lg:py-28 bg-background">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="text-center max-w-3xl mx-auto mb-16">
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-center max-w-3xl mx-auto mb-16">
                         <h2 className="font-serif text-3xl font-semibold text-foreground sm:text-4xl text-balance">
                             Your Path to Better Mental Health
                         </h2>
                         <p className="mt-4 text-lg text-muted-foreground">
                             Getting started is simple. Here's what to expect when you choose Oasis Health Services.
                         </p>
-                    </div>
+                    </motion.div>
 
                     <div className="grid md:grid-cols-4 gap-8">
                         {[
@@ -239,21 +263,22 @@ export default function Services() {
                                 title: "Heal",
                                 description: "Begin your treatment with ongoing support, monitoring, and care adjustments."
                             }
-                        ].map((item) => (
-                            <div key={item.step} className="text-center">
+                        ].map((item, index) => (
+                            <motion.div key={item.step} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: index * 0.1 }} className="text-center">
                                 <div className="w-14 h-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center mx-auto mb-4 text-xl font-semibold">
                                     {item.step}
                                 </div>
                                 <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
                                 <p className="text-sm text-muted-foreground">{item.description}</p>
-                            </div>
+                            </motion.div>
                         ))}
                     </div>
                 </div>
             </section>
 
             {/* Insurance Section */}
-            <section className="py-16 bg-secondary">
+            <Insurances showConsultationCTA={false} />
+            {/* <section className="py-16 bg-secondary">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="lg:flex lg:items-center lg:justify-between">
                         <div className="max-w-2xl">
@@ -277,12 +302,12 @@ export default function Services() {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             {/* CTA Section */}
             <section className="py-20 bg-primary text-primary-foreground">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="text-center max-w-3xl mx-auto">
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-center max-w-3xl mx-auto">
                         <h2 className="font-serif text-2xl sm:text-3xl font-semibold">
                             Ready to Begin Your Journey?
                         </h2>
@@ -301,7 +326,7 @@ export default function Services() {
                         <p className="mt-6 text-sm text-primary-foreground/70">
                             Free 15-minute consultation available for new patients
                         </p>
-                    </div>
+                    </motion.div>
                 </div>
             </section>
         </>

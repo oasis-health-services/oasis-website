@@ -11,7 +11,7 @@ import { globby } from 'globby'
 import * as cheerio from 'cheerio'
 
 const DIST_DIR = './dist';
-const SITE_URL = process.env.PUBLIC_SITE_URL || 'https://oasishealthservices.com';
+const SITE_URL = process.env.PUBLIC_SITE_URL; // || 'https://oasishealthservices.com';
 
 async function generateSitemap() {
 

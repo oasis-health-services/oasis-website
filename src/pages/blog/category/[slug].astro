@@ -34,7 +34,7 @@ const iconPaths = {
 const iconPath = iconPaths[category.data.iconName as keyof typeof iconPaths] || iconPaths.Heart;
 ---
 
-<BlogLayout title={`${category.data.title} | Oasis Support & Resource Center`} description={category.data.description}>
+<BlogLayout title={`${category.data.title}`} description={category.data.description}>
   <Header categories={allCategories} client:load />
   <main class="flex-1">
     <!-- Hero section -->

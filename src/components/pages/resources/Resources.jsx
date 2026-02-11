@@ -58,7 +58,7 @@ const additionalResources = [
         icon: Brain,
         title: "Condition Guides",
         description: "In-depth information about the conditions we treat, symptoms, and treatment approaches.",
-        href: "/conditions",
+        href: "/about/conditions",
     },
     {
         icon: FileText,

@@ -7,14 +7,15 @@ import { SearchBox } from "../../components/blog/react/SearchBox";
 import CategoriesSection from "../../components/blog/react/CategoriesSection";
 import FeaturedArticles from "../../components/blog/FeaturedArticles.astro";
 import SupportCTA from "../../components/blog/SupportCTA.astro";
-import NewsletterSection from "../../components/blog/react/NewsletterSection";
+//import NewsletterSection from "../../components/blog/react/NewsletterSection";
 import Footer from "../../components/Footer";
+import CrisisNotice from "@/components/common/CrisisNotice";
 
 const categoriesEntries = await getCollection('categories');
 const categories = categoriesEntries.map(c => c.data);
 ---
 
-<BlogLayout title="Oasis Support & Resource Center | Mental Health Blog">
+<BlogLayout title="Oasis Mental Health Blog">
   <Header client:load />
   <main class="flex-1">
     <HeroSection>
@@ -23,7 +24,8 @@ const categories = categoriesEntries.map(c => c.data);
     <CategoriesSection categories={categories} client:load />
     <FeaturedArticles />
     <SupportCTA />
-    <NewsletterSection client:load />
+    <!--NewsletterSection client:load />-->
+    <CrisisNotice client:load />
   </main>
   <Footer />
 </BlogLayout>

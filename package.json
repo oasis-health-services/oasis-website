@@ -5,11 +5,13 @@
   "private": true,
   "scripts": {
     "dev": "node tools/generate-webp.js && astro dev --host :: --port 3000",
-    "build": "npm run build:seo && node tools/generate-webp.js && astro build",
+    "build": "node tools/generate-webp.js && cross-env NODE_ENV=production astro build && cross-env NODE_ENV=production node tools/build-seo.js",
+    "build-staging": "node tools/generate-webp.js && cross-env PUBLIC_SITE_URL=https://dev.oasishealthservices.com NODE_ENV=staging astro build -- --mode staging && cross-env PUBLIC_SITE_URL=https://dev.oasishealthservices.com NODE_ENV=staging node tools/build-seo.js",
     "preview": "node tools/generate-webp.js && astro preview --host :: --port 3000",
     "astro": "astro",
     "astro:dev": "node tools/generate-webp.js && astro dev",
     "astro:build": "node tools/generate-webp.js && astro build",
+    "astro:build-staging": "node tools/generate-webp.js && astro build --mode staging",
     "astro:preview": "node tools/generate-webp.js && astro preview",
     "build:seo": "node --env-file=.env tools/build-seo.js",
     "build:post": "node --env-file=.env tools/post-build.js",
@@ -76,12 +78,16 @@
     "@types/react-dom": "^18.2.7",
     "autoprefixer": "^10.4.16",
     "baseline-browser-mapping": "^2.9.18",
+    "cheerio": "^1.2.0",
+    "cross-env": "^10.1.0",
     "eslint": "^8.57.1",
     "eslint-config-react-app": "^7.0.1",
+    "globby": "^16.1.0",
     "postcss": "^8.4.31",
     "puppeteer": "^24.36.0",
     "serve-handler": "^6.1.6",
     "tailwindcss": "^4.1.18",
-    "terser": "^5.39.0"
+    "terser": "^5.39.0",
+    "vite": "^7.3.1"
   }
 }

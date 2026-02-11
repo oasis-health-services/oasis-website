@@ -1,24 +1,30 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
-import BlogLayout from "../../layouts/BlogLayout.astro";
+import BlogLayout from "@/layouts/BlogLayout.astro";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import BreadcrumbNav from "../../components/blog/BreadcrumbNav.astro";
-import ArticleCard from "../../components/blog/ArticleCard.astro";
+import BreadcrumbNav from "@/components/blog/BreadcrumbNav.astro";
+import ArticleCard from "@/components/blog/ArticleCard.astro";
 import { 
   getRelatedArticles, 
   getCategoryBySlug, 
   getCategories 
-} from "../../content/config";
-import { cn } from "../../lib/utils";
+} from "@/content/config";
+import { cn } from "@/lib/utils";
 
 export async function getStaticPaths() {
   const allArticles = await getCollection('blog');
   return allArticles.map((article) => {
-    // Extract the filename without extension for flat slugs
-    const slug = article.id.split('/').pop()?.replace(/\.[^/.]+$/, "") || article.id;
+    // article.id looks like "2024/05/my-post.md"
+    const parts = article.id.split('/');
+    
+    // Extract year, month, and the filename (slug)
+    const year = parts[0];
+    const month = parts[1];
+    const slug = parts[2]?.replace(/\.[^/.]+$/, "") || parts[parts.length - 1].replace(/\.[^/.]+$/, "");
+
     return {
-      params: { slug },
+      params: { year, month, slug }, // These must match your [year]/[month]/[slug].astro filename
       props: { article },
     };
   });

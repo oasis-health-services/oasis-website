@@ -422,7 +422,7 @@ export default function ConditionDetail({ condition }) {
                                 <a href="/patients">Schedule Your Appointment</a>
                             </Button>
                             <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 bg-transparent" asChild>
-                                <a href="/providers">Meet Our Providers</a>
+                                <a href="/about/our-team">Meet Our Providers</a>
                             </Button>
                         </div>
                     </div>

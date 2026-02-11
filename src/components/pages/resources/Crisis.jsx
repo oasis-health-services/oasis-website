@@ -183,7 +183,7 @@ export default function Crisis() {
                                     Call 988 Now
                                 </a>
                             </Button>
-                            <Button size="lg" variant="outline" asChild className="text-lg px-8 bg-transparent">
+                            <Button size="lg" variant="outline" asChild className="text-lg px-8 bg-transparent border-primary text-primary">
                                 <a href="sms:741741?body=HOME">
                                     <MessageCircle className="mr-2 h-5 w-5" />
                                     Text HOME to 741741

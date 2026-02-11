@@ -431,7 +431,7 @@ export default function Medications() {
                                 <p className="text-sm text-muted-foreground mb-4">
                                     Your provider is your best resource for medication questions specific to your treatment.
                                 </p>
-                                <Button variant="outline" asChild className="w-full bg-transparent">
+                                <Button variant="outline" asChild className="w-full bg-transparent border-primary text-primary">
                                     <a href="/contact">Contact Us</a>
                                 </Button>
                             </div>
@@ -510,8 +510,8 @@ export default function Medications() {
                                 <ArrowRight className="ml-2 h-4 w-4" />
                             </a>
                         </Button>
-                        <Button size="lg" variant="outline" asChild className="bg-transparent">
-                            <a href="/providers">Meet Our Providers</a>
+                        <Button size="lg" variant="outline" asChild className="bg-transparent border-primary text-primary">
+                            <a href="/about/our-team">Meet Our Providers</a>
                         </Button>
                     </div>
                 </div>

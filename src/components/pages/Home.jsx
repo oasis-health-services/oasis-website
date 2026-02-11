@@ -368,7 +368,7 @@ function WellnessPath({ className = "py-20 bg-primary text-primary-foreground" }
                                 asChild
                                 className="text-base px-8"
                             >
-                                <a href="/contact" className="inline-flex items-center gap-2">
+                                <a href="/start" className="inline-flex items-center gap-2">
                                     Start Now
                                     <ArrowRight className="w-4 h-4" />
                                 </a>
@@ -562,8 +562,9 @@ function HowItWorks({ className = "py-16 sm:py-24 bg-background" } = {}) {
 
                 <div className="text-center mt-12">
                     <Button size="lg" asChild className="text-base px-8">
-                        <a href="/contact">Get Started Today</a>
+                        <a href="/start">Get Started Today</a>
                     </Button>
+
                 </div>
             </div>
         </section>

@@ -588,7 +588,7 @@ export function ReturningPatients() {
                             <p className="text-sm text-muted-foreground">
                                 <strong className="text-foreground">Been away for more than a year?</strong><br />
                                 Please complete a new intake form to ensure we have your most current information.{" "}
-                                <a href="#become-client" className="text-primary hover:underline">
+                                <a href="/start" className="text-primary hover:underline">
                                     Start new intake
                                 </a>
                             </p>
@@ -637,7 +637,7 @@ function PatientResources() {
             icon: BookOpen,
             title: "Mental Health Blog",
             description: "Educational articles on mental wellness, treatment options, and coping strategies.",
-            href: "/resources/blog",
+            href: "/blog",
         },
         {
             icon: Heart,
@@ -660,11 +660,11 @@ function PatientResources() {
     ]
 
     const quickLinks = [
-        { label: "Condition Guides", href: "/conditions" },
+        { label: "Condition Guides", href: "/about/conditions" },
         { label: "Insurance FAQs", href: "/resources/faq#insurance" },
         { label: "Medication Information", href: "/resources/medications" },
-        { label: "Therapy Types Explained", href: "/resources/therapy-types" },
-        { label: "What to Expect at First Visit", href: "/resources/first-visit" },
+        //        { label: "Therapy Types Explained", href: "/resources/therapy-types" },
+        //        { label: "What to Expect at First Visit", href: "/resources/first-visit" },
         { label: "Community Support Groups", href: "/resources/support-groups" },
     ]
 

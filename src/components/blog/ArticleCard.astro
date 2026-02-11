@@ -9,7 +9,20 @@ interface Props {
 
 const { article, variant = "default" } = Astro.props;
 const { data } = article;
-const slug = article.id.split('/').pop()?.replace(/\.[^/.]+$/, "") || article.id;
+/*const slug = article.id.split('/').pop()?.replace(/\.[^/.]+$/, "") || article.id;*/
+
+// Split the ID (e.g., "2025/01/my-post.md") into parts
+const pathParts = article.id.split('/');
+
+// Extract year and month
+const year = pathParts[0];
+const month = pathParts[1];
+
+// Extract filename and strip extension
+const fileName = pathParts[pathParts.length - 1].replace(/\.[^/.]+$/, "");
+
+// Construct the full URL-friendly slug
+const slug = `${year}/${month}/${fileName}`;
 ---
 
 {variant === "featured" && (

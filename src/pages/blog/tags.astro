@@ -22,7 +22,7 @@ const tagsWithCounts = await Promise.all(
 tagsWithCounts.sort((a, b) => b.count - a.count);
 ---
 
-<BlogLayout title="All Tags | Oasis Support & Resource Center" description="Browse all topics and tags to find mental health resources that match your needs.">
+<BlogLayout title="All Tags" description="Browse all topics and tags to find mental health resources that match your needs.">
   <Header categories={categories} client:load />
   <main class="flex-1">
     <!-- Hero section -->

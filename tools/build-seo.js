@@ -5,6 +5,7 @@
  * Runs all SEO-related generation tasks in the correct order
  */
 
+import 'dotenv/config';
 import fs from 'node:fs/promises';
 import path from 'node:path'
 import { globby } from 'globby'

@@ -6,6 +6,7 @@ const USER = process.env.STAGING_USER || 'admin';
 const PASS = process.env.STAGING_PASS || 'oasis#2026!';
 const DIST_DIR = path.resolve('./dist');
 const PUBLIC_DIR = path.resolve('./public');
+const REMOTE_PATH = process.env.REMOTE_SERVER_PATH;
 
 if (process.env.PUBLIC_SITE_URL?.includes('dev') || process.env.NODE_ENV === 'staging') {
     console.log('🔒 Setting up Basic Auth for Staging...');
@@ -13,7 +14,7 @@ if (process.env.PUBLIC_SITE_URL?.includes('dev') || process.env.NODE_ENV === 'st
     // 1. Generate .htpasswd content
     // Apache supports bcrypt hasshes (prefixed with $2y$)
     const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(PASS, salt).replaceAll(/^\$2a\$/, '$2y$');
+    const hash = bcrypt.hashSync(PASS, salt).replace(/^\$2a\$/, '$2y$');
     const htpasswdContent = `${USER}:${hash}`;
 
     // Read existing .htaccess from /public
@@ -23,12 +24,16 @@ if (process.env.PUBLIC_SITE_URL?.includes('dev') || process.env.NODE_ENV === 'st
         existingContent = fs.readFileSync(htaccessPath, 'utf-8');
     }
 
+    const absoluteHtpasswdPath = REMOTE_PATH
+        ? `${REMOTE_PATH}/.htpasswd`
+        : path.join(DIST_DIR, '.htpasswd');
+
     // Define auth block
     const authBlock = `
 # --- STAGING AUTH START ---
 AuthType Basic
 AuthName "Staging Environment - oasishealthservices.com"
-AuthUserFile ${path.join(DIST_DIR, '.htpasswd')}
+AuthUserFile ${absoluteHtpasswdPath}
 Require valid-user
 
 # Security: Prevent the auth files from being downloaded

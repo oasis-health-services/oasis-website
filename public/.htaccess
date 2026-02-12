@@ -8,7 +8,7 @@
   # Serve existing files/directories normally
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
-  RewriteRule ^ - [L]  
+  RewriteRule ^ - [L]
 </IfModule>
 
 ErrorDocument 404 /404.html
@@ -16,7 +16,7 @@ ErrorDocument 404 /404.html
 <IfModule mod_headers.c>
   # Cache everything on CDN by default
   Header set Cache-Control "public, s-maxage=604800, max-age=0"
-  
+
   # Cache in browser all assets
   <If "%{REQUEST_URI} =~ m#^/assets/.*$#">
     Header set Cache-Control "public, max-age=604800"

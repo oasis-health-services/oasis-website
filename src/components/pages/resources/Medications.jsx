@@ -279,7 +279,7 @@ export default function Medications() {
             <section className="bg-secondary py-16 lg:py-24">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="max-w-3xl mx-auto text-center">
-                        <Badge variant="outline" className="mb-4">Medication Information</Badge>
+                        <Badge variant="outline" className="mb-4 border-primary">Medication Information</Badge>
                         <h1 className="font-serif text-4xl sm:text-5xl font-semibold text-foreground text-balance">
                             Understanding Your Medications
                         </h1>

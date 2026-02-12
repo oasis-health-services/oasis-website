@@ -197,7 +197,7 @@ export default function Conditions() {
                                         <a href="/patients">Schedule an Appointment</a>
                                     </Button>
                                     <Button variant="outline" className="w-full bg-transparent border-primary text-primary" asChild>
-                                        <a href="/providers">Meet Our Providers</a>
+                                        <a href="/about/our-team">Meet Our Providers</a>
                                     </Button>
                                 </div>
                                 <p className="mt-6 text-sm text-muted-foreground">

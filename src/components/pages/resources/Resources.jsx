@@ -42,12 +42,12 @@ const mainResources = [
 ]
 
 const additionalResources = [
-    {
-        icon: Video,
-        title: "Video Library",
-        description: "Watch educational videos from our providers on mental health topics and treatments.",
-        href: "/resources/videos",
-    },
+    // {
+    //     icon: Video,
+    //     title: "Video Library",
+    //     description: "Watch educational videos from our providers on mental health topics and treatments.",
+    //     href: "/resources/videos",
+    // },
     {
         icon: HelpCircle,
         title: "Frequently Asked Questions",
@@ -60,12 +60,12 @@ const additionalResources = [
         description: "In-depth information about the conditions we treat, symptoms, and treatment approaches.",
         href: "/about/conditions",
     },
-    {
-        icon: FileText,
-        title: "Patient Forms",
-        description: "Download and complete intake forms, consent documents, and other paperwork.",
-        href: "/patients#forms",
-    },
+    // {
+    //     icon: FileText,
+    //     title: "Patient Forms",
+    //     description: "Download and complete intake forms, consent documents, and other paperwork.",
+    //     href: "/patients#forms",
+    // },
     {
         icon: Users,
         title: "Support Groups",
@@ -83,7 +83,7 @@ const additionalResources = [
 const quickLinks = [
     { label: "988 Suicide & Crisis Lifeline", href: "tel:988", external: true },
     { label: "Schedule Appointment", href: "/patients" },
-    { label: "Patient Portal", href: "https://portal.oasishealthservices.com", external: true },
+    { label: "Patient Portal", href: "https://accounts.charmtracker.com/signin?hide_signup=true&hide_secure=true&hide_gsignup=true&servicename=charmphr&serviceurl=https%3A%2F%2Fphr2.charmtracker.com%2Fmain.do", external: true },
     { label: "Contact Us", href: "/contact" },
 ]
 
@@ -95,7 +95,7 @@ export default function Resources() {
             <section className="bg-secondary py-16 lg:py-24">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="max-w-3xl mx-auto text-center">
-                        <Badge variant="outline" className="mb-4">Resource Center</Badge>
+                        <Badge variant="outline" className="mb-4 border-primary">Resource Center</Badge>
                         <h1 className="font-serif text-4xl sm:text-5xl font-semibold text-foreground text-balance">
                             Tools & Resources for Your Mental Health Journey
                         </h1>

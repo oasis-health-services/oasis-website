@@ -74,7 +74,7 @@ const Patients = () => {
 
             <IntakeProcess />
 
-            <PatientForms />
+            {/* <PatientForms /> */}
 
             <ReturningPatients />
 
@@ -388,7 +388,7 @@ function IntakeProcess() {
                                 <ArrowRight className="ml-2 h-4 w-4" />
                             </a>
                         </Button>
-                        <Button variant="outline" size="lg" asChild>
+                        <Button variant="outline" size="lg" className="border-primary text-primary" asChild>
                             <a href="/resources/grief-support">
                                 Grief Support Group Screener
                             </a>
@@ -572,7 +572,7 @@ export function ReturningPatients() {
 
                         <div className="mt-8 flex flex-col sm:flex-row gap-4">
                             <Button size="lg" asChild>
-                                <a href="https://portal.oasishealthservices.com" target="_blank" rel="noopener noreferrer">
+                                <a href="https://accounts.charmtracker.com/signin?hide_signup=true&hide_secure=true&hide_gsignup=true&servicename=charmphr&serviceurl=https%3A%2F%2Fphr2.charmtracker.com%2Fmain.do" target="_blank" rel="noopener noreferrer">
                                     Access Patient Portal
                                     <ArrowRight className="ml-2 h-4 w-4" />
                                 </a>

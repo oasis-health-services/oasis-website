@@ -21,13 +21,13 @@ const quickLinks = [
         icon: Stethoscope,
         title: "Conditions We Treat",
         description: "Learn about anxiety, depression, ADHD, and more",
-        href: "/conditions",
+        href: "/about/conditions",
     },
     {
         icon: Users,
         title: "Meet Our Providers",
         description: "View our team of mental health professionals",
-        href: "/providers",
+        href: "/about/our-team",
     },
     {
         icon: FileText,

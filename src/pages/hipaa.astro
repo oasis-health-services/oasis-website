@@ -1,0 +1,14 @@
+
+---
+import Layout from '../layouts/Layout.astro';
+import HIPAA from '@/components/pages/HIPAA';
+import { getOrganizationSchema } from '@/utils/schema';
+---
+
+<Layout 
+  title="HIPAA"
+  description="Review our HIPAA Notice of Privacy Practices and Telehealth Informed Consent to understand how your medical information is used and your rights."
+  schema={getOrganizationSchema()}
+>
+  <HIPAA client:load /> 
+</Layout>

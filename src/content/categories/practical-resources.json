@@ -1,0 +1,31 @@
+{
+    "id": "resources",
+    "slug": "practical-resources",
+    "title": "Practical Resources",
+    "description": "Checklists, worksheets, FAQs, and crisis resources to help you prepare and stay informed.",
+    "iconName": "FileText",
+    "color": "text-violet-600",
+    "bgColor": "bg-violet-50 border-violet-100",
+    "items": [
+        {
+            "name": "Checklists & Worksheets",
+            "slug": "checklists-worksheets",
+            "description": "Downloadable tools to support your mental health journey."
+        },
+        {
+            "name": "Frequently Asked Questions",
+            "slug": "faqs",
+            "description": "Common questions about mental health and our services."
+        },
+        {
+            "name": "Crisis and Safety Resources",
+            "slug": "crisis-resources",
+            "description": "Important information for when you or someone else needs immediate help."
+        },
+        {
+            "name": "Insurance and Billing Basics",
+            "slug": "insurance-billing",
+            "description": "Understanding the practical side of accessing mental health care."
+        }
+    ]
+}

@@ -1,0 +1,127 @@
+---
+import LandingLayout from '../../layouts/LandingLayout.astro';
+import { Header } from '../../components/lp/Header';
+import { Hero } from '../../components/lp/Hero';
+import { Features } from '../../components/lp/Features';
+import { HowItWorks } from '../../components/lp/HowItWorks';
+import { FAQ } from '../../components/lp/FAQ';
+import { CTA } from '../../components/lp/CTA';
+import { Footer } from '../../components/lp/Footer';
+import { InsuranceLogos } from '../../components/lp/InsuranceLogos';
+import { ClipboardCheck, LineChart, Users, Shield, Calendar, Stethoscope } from 'lucide-react';
+
+const features = [
+  {
+    icon: ClipboardCheck,
+    title: "Comprehensive Evaluation",
+    description: "We start with a full diagnostic assessment to understand your unique needs and create a personalized treatment plan."
+  },
+  {
+    icon: Users,
+    title: "Shared Decision-Making",
+    description: "We discuss the risks, benefits, and alternatives with you to choose the best path forward together."
+  },
+  {
+    icon: LineChart,
+    title: "Measurement-Based Care",
+    description: "We use validated scales to track your progress objectively and adjust treatment as needed."
+  },
+  {
+    icon: Shield,
+    title: "Safety Protocols",
+    description: "Our process includes PDMP checks, treatment agreements, and labs/vitals as needed to ensure your safety."
+  },
+  {
+    icon: Calendar,
+    title: "Regular Follow-Up",
+    description: "Appointments every 2-4 weeks during initial titration, then every 1-3 months for stable maintenance."
+  },
+  {
+    icon: Stethoscope,
+    title: "Coordinated Care",
+    description: "We collaborate with your therapist, primary care provider, and other specialists for comprehensive treatment."
+  }
+];
+
+const steps = [
+  {
+    number: "1",
+    title: "Complete Online Assessment",
+    description: "Fill out our secure online form to help us understand your symptoms and medical history."
+  },
+  {
+    number: "2",
+    title: "Free Consultation",
+    description: "Speak with our care team to discuss your needs and determine if medication management is right for you."
+  },
+  {
+    number: "3",
+    title: "Meet Your Provider",
+    description: "Connect with a board-certified psychiatric provider via secure video for your comprehensive evaluation."
+  },
+  {
+    number: "4",
+    title: "Personalized Treatment",
+    description: "Receive a tailored medication plan with ongoing monitoring and support for optimal results."
+  }
+];
+
+const faqs = [
+  {
+    question: "How do you decide which medication is right for me?",
+    answer: "We conduct a comprehensive evaluation including your medical history, current symptoms, previous treatments, and personal preferences. Treatment decisions are always made together with you, weighing the risks, benefits, and alternatives of each option."
+  },
+  {
+    question: "How often will I need to have appointments?",
+    answer: "During the initial titration phase, appointments are typically scheduled every 2-4 weeks. Once you're stable on your medication, follow-up visits are usually every 1-3 months, depending on your individual needs."
+  },
+  {
+    question: "What is measurement-based care?",
+    answer: "Measurement-based care uses validated rating scales and assessments to objectively track your symptoms and progress over time. This helps us make data-driven decisions about your treatment and ensures we're meeting your goals."
+  },
+  {
+    question: "Do you prescribe controlled medications?",
+    answer: "Controlled substances are prescribed only when clinically indicated after a full assessment. We strictly follow all state and federal rules and require ongoing monitoring for all patients receiving these medications."
+  },
+  {
+    question: "Will you coordinate with my other doctors?",
+    answer: "Absolutely. We believe in coordinated care and will collaborate with your therapist, primary care provider, and other specialists with your permission to ensure comprehensive treatment."
+  }
+];
+---
+
+<LandingLayout 
+  title="Medication Management | Oasis Health Services" 
+  description="Expert psychiatric medication management for depression, anxiety, ADHD, and mood disorders. Virtual appointments, insurance accepted. Start your journey to wellness today."
+>
+  <Header client:load />
+  <Hero
+    client:load
+    badge="Virtual Appointments Available"
+    title="Expert Medication Management for Your Mental Health"
+    subtitle="Personalized psychiatric care combining evidence-based treatment with compassionate support. Get the right medication, monitored safely, with regular follow-ups to ensure your success."
+    ctaText="Start Your Assessment"
+    image="/images/lp/medication-hero.jpg"
+    imageAlt="Medication Management"
+  />
+  <InsuranceLogos client:load />
+  <Features
+    client:load
+    title="Our Approach to Medication Management"
+    subtitle="Safe, effective, and personalized care designed around your needs"
+    features={features}
+  />
+  <HowItWorks
+    client:load
+    title="Your Path to Better Mental Health"
+    subtitle="Getting started is simple and convenient"
+    steps={steps}
+  />
+  <FAQ client:load items={faqs} />
+  <CTA
+    client:load
+    title="Find the Right Medication Plan for You"
+    subtitle="Expert medication management designed to be safe, effective, and personalized to your needs."
+  />
+  <Footer client:load />
+</LandingLayout>

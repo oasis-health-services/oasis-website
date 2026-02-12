@@ -1,0 +1,15 @@
+
+---
+import Layout from '../../layouts/Layout.astro';
+import ForProviders from '@/components/pages/resources/ForProviders';
+import { getOrganizationSchema } from '@/utils/schema';
+---
+
+<Layout 
+  title="For Providers"
+  description="For providers, learn about our mental health services, including psychiatric care, therapy, and support groups."
+  keywords="mental health services for providers, psychiatric care for providers, therapy for providers, support groups for providers"
+  schema={getOrganizationSchema()}
+>
+  <ForProviders client:load/>
+</Layout>

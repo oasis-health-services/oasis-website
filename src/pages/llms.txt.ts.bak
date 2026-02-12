@@ -1,0 +1,100 @@
+import { conditions } from "@/lib/conditions-data";
+import { providers } from "@/lib/providers-data";
+import { services } from "@/lib/services-data";
+import type { APIRoute } from "astro";
+import { getCollection } from "astro:content";
+import fs from 'node:fs';
+import path from 'node:path';
+
+/**
+ * Recursively crawls the src/pages directory to find static routes
+ */
+function getStaticPages(dir: string, baseUrl: string, results: string[] = []) {
+    const items = fs.readdirSync(dir);
+
+    for (const item of items) {
+        const fullPath = path.join(dir, item);
+        const stat = fs.statSync(fullPath);
+
+        if (stat.isDirectory()) {
+            if (item.toLowerCase() == 'blog' || item.toLowerCase() == "lp") continue;
+            getStaticPages(fullPath, baseUrl, results);
+        } else if (item.endsWith('.astro') || item.endsWith('.md')) {
+            if (item.startsWith('[') || item == "404.astro") continue;
+
+            console.log("processing", item, "in", dir);
+
+            const content = fs.readFileSync(fullPath, 'utf-8');
+
+            // console.log(content);
+
+            // Simple regex to grab title/description from frontmatter
+            // let title = content.match(/title:\s*["'](.+?)["']/)?.[1] || item.replace('.astro', '');
+            // let description = content.match(/description:\s*["'](.+?)["']/)?.[1] || 'Main site page.';
+
+            let title, description;
+
+            const layoutMatch = content.match(/<Layout\s+[^>]*title=\{?["'`]([^"'`}]*)["'`]\}?[^>]*description=\{?["'`]([^"'`}]*)["'`]\}?/i);
+            if (layoutMatch) {
+                title = layoutMatch[1];
+                description = layoutMatch[2];
+            }
+
+            console.log(title, description);
+
+            //            console.log(title, desc);
+            const route = path.relative('src/pages', fullPath)
+                .replace(/\.(astro|md)$/, '')
+                .replace(/index$/, '');
+
+            results.push(`[${title}](${baseUrl}/${route}): ${description}`);
+        }
+    }
+
+    return results;
+}
+
+export const GET: APIRoute = async () => {
+    const siteUrl = import.meta.env.PUBLIC_SITE_URL; // || "https://oasishealthservices.com";
+
+    const staticPages = getStaticPages('src/pages', siteUrl);
+
+    const blogPosts = await getCollection('blog');
+
+    const blogLinks = blogPosts.map(post =>
+        `[${post.data.title} (${post.data.publishedAt})](${siteUrl}/blog/${post.slug}): ${post.data.excerpt}`
+    );
+
+    const serviceLinks = services.map(service =>
+        `[${service.title}](${siteUrl}/services/${service.slug}): ${service.shortDescription}`
+    );
+
+    const conditionLinks = conditions.map(condition =>
+        `[${condition.title}](${siteUrl}/conditions/${condition.slug}): ${condition.shortDescription}`
+    );
+
+    const providerLinks = providers.map(provider =>
+        `[${provider.name}](${siteUrl}/providers/${provider.slug}): ${provider.bio}`
+    );
+
+    const body = [
+        "# Oasis Health Services - Site Map",
+        "> Purpose: Context for RAG and LLM agents.",
+        "\n## Core Pages",
+        ...staticPages,
+        "\n## Blog Articles & Insights",
+        ...blogLinks,
+        "\n## Members of our Care Team",
+        ...providerLinks,
+        "\n## Services We Offer",
+        ...serviceLinks,
+        "\n## Conditions We Treat",
+        ...conditionLinks,
+    ].join('\n');
+
+    return new Response(body, {
+        headers: {
+            'Content-Type': 'text/plain; charset=utf-8'
+        }
+    })
+}

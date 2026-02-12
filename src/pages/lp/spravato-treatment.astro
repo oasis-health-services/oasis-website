@@ -1,0 +1,128 @@
+---
+import LandingLayout from '../../layouts/LandingLayout.astro';
+import { Header } from '../../components/lp/Header';
+import { Hero } from '../../components/lp/Hero';
+import { Features } from '../../components/lp/Features';
+import { HowItWorks } from '../../components/lp/HowItWorks';
+import { FAQ } from '../../components/lp/FAQ';
+import { CTA } from '../../components/lp/CTA';
+import { Footer } from '../../components/lp/Footer';
+import { InsuranceLogos } from '../../components/lp/InsuranceLogos';
+import { Sparkles, ShieldCheck, Activity, Clock, Users, LineChart } from 'lucide-react';
+
+const features = [
+  {
+    icon: Sparkles,
+    title: "Breakthrough Treatment",
+    description: "Spravato (esketamine) is FDA-approved for treatment-resistant depression when other antidepressants haven't worked."
+  },
+  {
+    icon: ShieldCheck,
+    title: "REMS-Certified Clinic",
+    description: "Our clinic is certified under the Spravato REMS program, ensuring the highest standards of safety and care."
+  },
+  {
+    icon: Activity,
+    title: "Continuous Monitoring",
+    description: "Blood pressure monitoring, dissociation checks, and safety assessments throughout your entire visit."
+  },
+  {
+    icon: Clock,
+    title: "Supervised Sessions",
+    description: "Each treatment includes supervised intranasal dosing followed by at least 2 hours of observation in our calming environment."
+  },
+  {
+    icon: Users,
+    title: "Experienced Team",
+    description: "Our specialized providers have extensive experience with Spravato therapy and treatment-resistant depression."
+  },
+  {
+    icon: LineChart,
+    title: "Progress Tracking",
+    description: "We use measurement-based care to track your response and optimize your treatment plan over time."
+  }
+];
+
+const steps = [
+  {
+    number: "1",
+    title: "Eligibility Screening",
+    description: "We assess whether Spravato is right for you based on your history with antidepressants and current treatment."
+  },
+  {
+    number: "2",
+    title: "Induction Phase",
+    description: "Treatments twice weekly for 4 weeks to establish therapeutic response in our comfortable clinic setting."
+  },
+  {
+    number: "3",
+    title: "Optimization Phase",
+    description: "Weekly treatments for 4 weeks, adjusting dosage based on your response and tolerability."
+  },
+  {
+    number: "4",
+    title: "Maintenance Phase",
+    description: "Treatments spaced to every 1-2 weeks based on your sustained response and ongoing needs."
+  }
+];
+
+const faqs = [
+  {
+    question: "What is Treatment-Resistant Depression (TRD)?",
+    answer: "Treatment-resistant depression is diagnosed when a person has not adequately responded to at least two different antidepressant medications taken at adequate doses for sufficient duration. Spravato offers a new mechanism of action that can help when traditional antidepressants haven't worked."
+  },
+  {
+    question: "What are the common side effects of Spravato?",
+    answer: "The most common side effects include dissociation (feeling disconnected), dizziness, nausea, sedation, vertigo, and increased blood pressure. These effects typically peak within 40 minutes and resolve within 2 hours, which is why we monitor you throughout your visit."
+  },
+  {
+    question: "Why can't I drive after a Spravato treatment?",
+    answer: "Spravato can cause temporary dissociation, sedation, and impaired coordination. For your safety, you cannot drive or operate heavy machinery until the day after your treatment. Please arrange for transportation home after each session."
+  },
+  {
+    question: "How is Spravato different from other treatments?",
+    answer: "Spravato works on the glutamate system rather than the serotonin system targeted by most antidepressants. This different mechanism can provide relief for patients who haven't responded to traditional medications, often with faster-acting results."
+  },
+  {
+    question: "Will insurance cover Spravato treatment?",
+    answer: "Many insurance plans cover Spravato for treatment-resistant depression. Our team will work with your insurance to determine coverage and obtain any necessary prior authorizations before starting treatment."
+  }
+];
+---
+
+<LandingLayout 
+  title="Spravato (Esketamine) Treatment | Oasis Health Services" 
+  description="FDA-approved Spravato therapy for treatment-resistant depression. REMS-certified clinic with experienced providers. Find hope when other treatments haven't worked."
+>
+  <Header client:load />
+  <Hero
+    client:load
+    badge="FDA-Approved for Treatment-Resistant Depression"
+    title="Find Hope When Other Treatments Haven't Worked"
+    subtitle="Spravato (esketamine) offers a breakthrough option for treatment-resistant depression. Our REMS-certified clinic provides safe, supervised treatment in a calm, supportive environment."
+    ctaText="Check Your Eligibility"
+    image="/images/lp/spravato-hero.jpg"
+    imageAlt="Spravato Treatment"
+  />
+  <InsuranceLogos client:load />
+  <Features
+    client:load
+    title="Why Choose Our Spravato Program"
+    subtitle="Safe, supervised treatment with experienced providers"
+    features={features}
+  />
+  <HowItWorks
+    client:load
+    title="Your Spravato Treatment Journey"
+    subtitle="A structured program designed for optimal results"
+    steps={steps}
+  />
+  <FAQ client:load items={faqs} />
+  <CTA
+    client:load
+    title="Ask If Spravato Is Right for You"
+    subtitle="Discover if this breakthrough treatment can help when other options haven't worked."
+    primaryText="Check Eligibility"
+  />
+  <Footer client:load />
+</LandingLayout>

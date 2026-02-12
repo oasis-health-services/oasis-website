@@ -1,0 +1,31 @@
+{
+    "id": "families",
+    "slug": "families-caregivers",
+    "title": "For Families and Caregivers",
+    "description": "Guidance for parents, partners, and loved ones who want to understand and support someone they care about.",
+    "iconName": "Users",
+    "color": "text-sky-600",
+    "bgColor": "bg-sky-50 border-sky-100",
+    "items": [
+        {
+            "name": "Parenting Support",
+            "slug": "parenting-support",
+            "description": "Navigating parenthood while supporting your child's mental health."
+        },
+        {
+            "name": "Supporting a Loved One",
+            "slug": "supporting-loved-one",
+            "description": "How to be there for someone struggling with their mental health."
+        },
+        {
+            "name": "Neurodiverse Support at Home",
+            "slug": "neurodiverse-home",
+            "description": "Creating a supportive environment for neurodivergent family members."
+        },
+        {
+            "name": "Family Communication",
+            "slug": "family-communication",
+            "description": "Building open, healthy dialogue within your family."
+        }
+    ]
+}

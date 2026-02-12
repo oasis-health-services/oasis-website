@@ -1,0 +1,13 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SelfCare from '@/components/pages/resources/SelfCare';
+import { getOrganizationSchema } from '@/utils/schema';
+---
+
+<Layout 
+  title="Self-Care Resources"
+  description="Self-Care Resources for mental health care and psychiatric services."
+  schema={getOrganizationSchema()}
+>
+  <SelfCare client:load /> 
+</Layout>

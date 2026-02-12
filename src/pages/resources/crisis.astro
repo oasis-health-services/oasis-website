@@ -1,0 +1,13 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Crisis from '@/components/pages/resources/Crisis';
+import { getOrganizationSchema } from '@/utils/schema';
+---
+
+<Layout 
+  title="Crisis Resources"
+  description="Crisis Resources for mental health care and psychiatric services."
+  schema={getOrganizationSchema()}
+>
+  <Crisis client:load /> 
+</Layout>

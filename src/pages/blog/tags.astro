@@ -1,0 +1,76 @@
+---
+import { getCollection } from 'astro:content';
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import BreadcrumbNav from "../../components/blog/BreadcrumbNav.astro";
+import { getArticlesByTag, getCategories } from "../../content/config";
+import { Hash } from "lucide-react";
+
+const allTagsEntries = await getCollection('tags');
+const categoriesEntries = await getCategories();
+const categories = categoriesEntries.map(c => c.data);
+
+// Sort tags by article count
+const tagsWithCounts = await Promise.all(
+  allTagsEntries.map(async (tag) => ({
+    ...tag.data,
+    count: (await getArticlesByTag(tag.id)).length,
+  }))
+);
+
+tagsWithCounts.sort((a, b) => b.count - a.count);
+---
+
+<BlogLayout title="All Tags" description="Browse all topics and tags to find mental health resources that match your needs.">
+  <Header categories={categories} client:load />
+  <main class="flex-1">
+    <!-- Hero section -->
+    <section class="py-12 md:py-16 border-b border-border bg-muted/30">
+      <div class="mx-auto max-w-7xl px-4 lg:px-8">
+        <BreadcrumbNav items={[{ label: "Tags" }]} />
+        
+        <div class="flex items-start gap-6">
+          <div class="hidden sm:flex rounded-2xl bg-primary/10 p-4 text-primary">
+            <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 9h16M4 15h16M10 3v18M14 3v18" />
+            </svg>
+          </div>
+          <div>
+            <h1 class="font-serif text-3xl font-semibold text-foreground sm:text-4xl lg:text-5xl">
+              Browse by Tag
+            </h1>
+            <p class="mt-4 text-lg text-muted-foreground max-w-2xl text-pretty">
+              Explore our resources organized by topic. Click any tag to see related articles.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tags grid -->
+    <section class="py-12 md:py-16">
+      <div class="mx-auto max-w-7xl px-4 lg:px-8">
+        <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {tagsWithCounts.map((tag) => (
+            <a
+              href={`/blog/tag/${tag.slug}`}
+              class="flex items-center justify-between rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/30 hover:shadow-lg group"
+            >
+              <span class="flex items-center gap-2">
+                <Hash className="h-4 w-4 text-primary" />
+                <span class="font-medium text-foreground group-hover:text-primary transition-colors">
+                  {tag.name}
+                </span>
+              </span>
+              <span class="text-sm text-muted-foreground">
+                {tag.count} {tag.count === 1 ? "article" : "articles"}
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BlogLayout>

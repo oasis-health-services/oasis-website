@@ -1,0 +1,51 @@
+{
+    "id": "skills",
+    "slug": "life-skills",
+    "title": "Skills for Everyday Life",
+    "description": "Practical tools and techniques to help you manage stress, build routines, and feel more grounded.",
+    "iconName": "Sparkles",
+    "color": "text-amber-600",
+    "bgColor": "bg-amber-50 border-amber-100",
+    "items": [
+        {
+            "name": "Calming Skills & Grounding",
+            "slug": "calming-grounding",
+            "description": "Techniques to bring you back to the present moment when feeling overwhelmed."
+        },
+        {
+            "name": "Sleep, Energy & Motivation",
+            "slug": "sleep-energy",
+            "description": "Building healthy patterns for rest and maintaining your energy."
+        },
+        {
+            "name": "Stress and Burnout Support",
+            "slug": "stress-burnout",
+            "description": "Recognizing and recovering from chronic stress and burnout."
+        },
+        {
+            "name": "Managing Intrusive Thoughts",
+            "slug": "managing-thoughts",
+            "description": "Practical strategies for when unwanted thoughts arise."
+        },
+        {
+            "name": "Building Routines",
+            "slug": "building-routines",
+            "description": "Creating structure that supports your wellbeing without feeling rigid."
+        },
+        {
+            "name": "Confidence & Self-Compassion",
+            "slug": "confidence-self-compassion",
+            "description": "Learning to treat yourself with kindness and building inner strength."
+        },
+        {
+            "name": "Communication & Boundaries",
+            "slug": "communication-boundaries",
+            "description": "Expressing yourself clearly and protecting your energy."
+        },
+        {
+            "name": "Work and School Support",
+            "slug": "work-school",
+            "description": "Managing mental health in academic and professional settings."
+        }
+    ]
+}

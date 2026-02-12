@@ -299,7 +299,7 @@ export default function AssessmentsPage() {
                             asChild
                             className="bg-transparent border-primary-foreground/30 hover:bg-primary-foreground/10"
                         >
-                            <a href="/providers">Meet Our Providers</a>
+                            <a href="/about/our-team">Meet Our Providers</a>
                         </Button>
                     </div>
                 </div>

@@ -101,7 +101,7 @@ export default function Insurances({ showConsultationCTA = true } = {}) {
                             </div>
                             <div className="mt-6 lg:mt-0 lg:shrink-0">
                                 <Button size="lg" asChild>
-                                    <a href="/contact">
+                                    <a href="/patients">
                                         Book Free Consultation
                                         <ArrowRight className="ml-2 h-4 w-4" />
                                     </a>

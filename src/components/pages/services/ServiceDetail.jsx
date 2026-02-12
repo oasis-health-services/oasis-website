@@ -109,7 +109,7 @@ export default function ServiceDetail({ service }) {
                             className="lg:col-span-2"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8 }}
+                            transition={{ duration: 0.3 }}
                         >
                             <div className="flex items-center gap-4 mb-6">
                                 <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center">
@@ -151,7 +151,7 @@ export default function ServiceDetail({ service }) {
                             className="mt-8 lg:mt-0"
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
+                            transition={{ duration: 0.3, delay: 0.2 }}
                         >
                             <Card className="border-primary/20 bg-card">
                                 <CardContent className="p-6">
@@ -397,6 +397,14 @@ export default function ServiceDetail({ service }) {
                                                 {item.label}
                                             </a>
                                         ))}
+                                        {/* {service.serviceDetails && (
+                                            <a
+                                                href="#serviceDetails"
+                                                className="block text-sm text-muted-foreground hover:text-primary transition-colors py-1"
+                                            >
+                                                {service.serviceDetails.title}
+                                            </a>
+                                        )} */}
                                     </nav>
                                 </CardContent>
                             </Card>

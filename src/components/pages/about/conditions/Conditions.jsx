@@ -37,7 +37,7 @@ export default function Conditions() {
                     <motion.div className="max-w-3xl"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
+                        transition={{ duration: 0.3 }}
                     >
                         <span className="text-sm font-medium text-primary tracking-wide uppercase">
                             Conditions We Treat
@@ -73,7 +73,7 @@ export default function Conditions() {
             {/* Conditions Grid */}
             <section className="py-20 lg:py-28 bg-background" aria-labelledby="conditions-grid">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-center max-w-3xl mx-auto mb-16">
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="text-center max-w-3xl mx-auto mb-16">
                         <h2 id="conditions-grid" className="font-serif text-3xl font-semibold text-foreground sm:text-4xl text-balance">
                             Find the Care You Need
                         </h2>

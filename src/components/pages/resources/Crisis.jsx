@@ -396,7 +396,7 @@ export default function Crisis() {
                             </a>
                         </Button>
                         <Button size="lg" variant="outline" asChild className="text-base px-8 bg-transparent border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
-                            <a href="/providers">Meet Our Providers</a>
+                            <a href="/about/our-team">Meet Our Providers</a>
                         </Button>
                     </div>
                 </div>

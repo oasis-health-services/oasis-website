@@ -148,7 +148,7 @@ function HomeHero() {
                         opacity: 1,
                         x: 0
                     }} transition={{
-                        duration: 0.8
+                        duration: 0.3
                     }}>
                         <div className="space-y-8">
                             <div className="space-y-4">
@@ -165,7 +165,7 @@ function HomeHero() {
 
                             <div className="flex flex-col sm:flex-row gap-4">
                                 <Button size="lg" asChild className="text-base px-8">
-                                    <a href="/start">Get Started</a>
+                                    <a href="/start">Start Now</a>
                                 </Button>
                                 <Button size="lg" variant="outline" asChild className="text-base px-8 bg-transparent border-primary text-primary">
                                     <a href="/about">Learn More</a>
@@ -210,7 +210,7 @@ function HomeHero() {
                         opacity: 1,
                         scale: 1
                     }} transition={{
-                        duration: 0.8,
+                        duration: 0.3,
                         delay: 0.2
                     }}>
                         <div className="relative">

@@ -317,7 +317,7 @@ export default function FAQ() {
                                         Contact Us
                                     </a>
                                 </Button>
-                                <Button size="lg" variant="outline" asChild className="bg-transparent">
+                                <Button size="lg" variant="outline" asChild className="bg-transparent border-primary text-primary">
                                     <a href="tel:+15093816035">
                                         <Phone className="h-5 w-5 mr-2" />
                                         Call (509) 381-6035
@@ -381,7 +381,7 @@ export default function FAQ() {
                                 </CardContent>
                             </Card>
 
-                            <Card>
+                            {/* <Card>
                                 <CardHeader>
                                     <FileText className="h-8 w-8 text-primary mb-2" />
                                     <CardTitle className="text-lg">Patient Forms</CardTitle>
@@ -397,7 +397,7 @@ export default function FAQ() {
                                         </a>
                                     </Button>
                                 </CardContent>
-                            </Card>
+                            </Card> */}
                         </div>
                     </div>
                 </div>

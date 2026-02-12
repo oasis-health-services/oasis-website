@@ -56,7 +56,7 @@ export default function Services() {
                         <motion.div
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8 }}
+                            transition={{ duration: 0.3 }}
                         >
                             <span className="text-sm font-medium text-primary tracking-wide uppercase">
                                 Our Services
@@ -88,7 +88,7 @@ export default function Services() {
                         <motion.div className="mt-12 lg:mt-0"
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
+                            transition={{ duration: 0.3, delay: 0.2 }}
                         >
                             <Card className="bg-card">
                                 <CardContent className="p-8">

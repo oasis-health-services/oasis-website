@@ -11,13 +11,6 @@ import { providers } from "@/lib/providers-data"
 import OptimizedImage from "@/components/OptimizedImage"
 
 
-//import { AboutHero } from '../../about/AboutHero';
-//import { MissionVision } from '../../about/MissionVision';
-//import { Conditions } from '../../about/Conditions';
-//import { Values } from '../../about/Values';
-//import { Services } from '../../about/Services';
-//import { MeetProviders } from '../../about/MeetProviders';
-//import { ResourcesCTA } from '../../about/ResourcesCTA';
 import Insurances from '@/components/common/Insurances';
 
 export default function About() {
@@ -56,7 +49,7 @@ function AboutHero() {
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
+                transition={{ duration: 0.3 }}
                 className="relative mx-auto max-w-7xl px-6 lg:px-8"
             >
                 <div className="max-w-3xl">
@@ -241,7 +234,7 @@ export function AboutConditions() {
 
 
     return (
-        <section className="py-20 lg:py-28 bg-secondary" aria-labelledby="conditions-heading">
+        <section id="conditions" className="py-20 lg:py-28 bg-secondary" aria-labelledby="conditions-heading">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
 
                 <motion.div
@@ -306,7 +299,7 @@ export function AboutConditions() {
                     className="mt-12 text-center"
                 >
                     <a
-                        href="/conditions"
+                        href="/about/conditions"
                         className="inline-flex items-center text-primary font-medium hover:underline"
                     >
                         View all conditions we treat
@@ -331,7 +324,7 @@ function AboutServices() {
         {
             icon: MessageCircle,
             title: "Therapy & Counseling",
-            href: "/services/therapy-counseling",
+            href: "/services/therapy-and-counseling",
             description: "One-on-one counseling sessions using evidence-based approaches like CBT, DBT, and trauma-focused therapies to help you work through challenges.",
             features: ["Cognitive Behavioral Therapy (CBT)", "Dialectical Behavior Therapy (DBT)", "Trauma-informed approaches"],
         },
@@ -352,7 +345,7 @@ function AboutServices() {
     ]
 
     return (
-        <section className="py-20 lg:py-28 bg-card" aria-labelledby="services-heading">
+        <section id="services" className="py-20 lg:py-28 bg-card" aria-labelledby="services-heading">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="lg:grid lg:grid-cols-12 lg:gap-16">
                     {/* Left column - sticky header */}
@@ -502,7 +495,7 @@ function AboutMeetProviders() {
                                         </div>
 
                                         <Button variant="outline" size="sm" className="w-full mt-auto bg-transparent" asChild>
-                                            <a href={`/providers/${provider.slug}`}>
+                                            <a href={`/about/our-team/${provider.slug}`}>
                                                 View Full Profile
                                                 <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
                                             </a>
@@ -616,14 +609,14 @@ function AboutResourcesCTA() {
             icon: FileText,
             title: "Condition Guides",
             description: "In-depth guides to understanding anxiety, depression, ADHD, and other conditions.",
-            href: "/conditions",
+            href: "/about/condition-guides",
         },
-        {
-            icon: Video,
-            title: "Wellness Videos",
-            description: "Expert-led videos on mindfulness, stress management, and mental health tips.",
-            href: "/resources/videos",
-        },
+        // {
+        //     icon: Video,
+        //     title: "Wellness Videos",
+        //     description: "Expert-led videos on mindfulness, stress management, and mental health tips.",
+        //     href: "/resources/videos",
+        // },
         {
             icon: HelpCircle,
             title: "FAQs",
@@ -646,7 +639,7 @@ function AboutResourcesCTA() {
                     </p>
                 </div>
 
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {resources.map((resource) => (
                         <a
                             key={resource.title}

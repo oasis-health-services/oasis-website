@@ -47,13 +47,13 @@ const navigation = [
                 { name: "View All Resources", href: "/resources", icon: ArrowRight }
             ],
         },
-        viewAll: {
-            name: "View All Rersources",
-            mobileName: "View All",
-            href: "/resources",
-            icon: ArrowRight,
-            description: "View all resources"
-        }
+        // viewAll: {
+        //     name: "View All Rersources",
+        //     mobileName: "View All",
+        //     href: "/resources",
+        //     icon: ArrowRight,
+        //     description: "View all resources"
+        // }
     },
     { name: "Shop", href: "https://shop.oasishealthservices.com", external: true },
     { name: "Contact", href: "/contact" }
@@ -251,7 +251,7 @@ export default function Header({ currentPath }) {
                         <span>(509) 381-6035</span>
                     </a>
                     <Button asChild>
-                        <a href="/start">Get Started</a>
+                        <a href="/start">Start Now</a>
                     </Button>
                 </div>
             </nav>
@@ -300,7 +300,7 @@ export default function Header({ currentPath }) {
                                                 );
                                             })}
 
-                                            {item.viewAll && (
+                                            {/* {item.viewAll && (
                                                 <a
                                                     href={item.viewAll.href}
                                                     className={cn(
@@ -311,7 +311,7 @@ export default function Header({ currentPath }) {
                                                 >
                                                     {item.viewAll.mobileName} &rarr;
                                                 </a>
-                                            )}
+                                            )} */}
                                         </div>
                                     }
 

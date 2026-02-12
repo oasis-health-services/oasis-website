@@ -26,11 +26,14 @@ export const VerifyInsuranceSchema = z.object({
 }).strict();
 
 export const CollaborationSchema = z.object({
-    name: z.string({ required_error: "name is required" }).min(2, "name must be at least 2 characters").max(100, "name must be at most 100 characters"),
-    credentials: z.string({ required_error: "credentials is required" }).min(2, "credentials must be at least 2 characters").max(100, "credentials must be at most 100 characters"),
+    name: z.string({ required_error: "name is required" }).min(2, "name is required").max(100, "name must be at most 100 characters"),
+    credentials: z.string({ required_error: "credentials is required" }).max(100, "credentials must be at most 100 characters"),
     practiceName: z.string({ required_error: "We would love to know your practice name" }).min(2, "Please provide a valid practice name must be at least 2 characters").max(100, "practice name must be at most 100 characters"),
     email: z.string({ required_error: "email is required" }).email("provide a valid email address"),
-    phone: z.string({ required_error: "phone number is required" }).regex(/^\d{10}$/, "provide a valid phone number"),
+    phone: z.preprocess(
+        v => (typeof v === "string" && v.trim() === "" ? undefined : v),
+        z.string().regex(/^\d{10}$/, "provide a valid phone number").optional()
+    ),
     specialty: z.string({ required_error: "Select your specialty" }).min(1, "Select your specialty").max(50, "Select your specialty"),
     partnershipInterests: z.array(z.string()).min(1, "Select at least one partnership interest").max(5, "Select at most 5 partnership interests"),
     estimatedReferrals: z.string().optional(),

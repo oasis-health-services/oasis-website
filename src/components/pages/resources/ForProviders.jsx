@@ -385,7 +385,7 @@ function ForProviders() {
                             </div>
                             <div className="mt-8">
                                 <Button variant="outline" className="bg-transparent border-primary text-primary" asChild>
-                                    <a href="/conditions">
+                                    <a href="/about/conditions">
                                         View All Conditions We Treat
                                         <ArrowRight className="ml-2 h-4 w-4" />
                                     </a>
@@ -621,7 +621,7 @@ function ForProviders() {
                                         <div className="grid sm:grid-cols-2 gap-4">
                                             <div>
                                                 <label htmlFor="provider-name" className="block text-sm font-medium text-foreground mb-1.5">
-                                                    Your Name
+                                                    Your Name *
                                                 </label>
                                                 <input
                                                     type="text"
@@ -648,7 +648,7 @@ function ForProviders() {
                                         </div>
                                         <div>
                                             <label htmlFor="practice-name" className="block text-sm font-medium text-foreground mb-1.5">
-                                                Practice Name
+                                                Practice Name *
                                             </label>
                                             <input
                                                 type="text"
@@ -662,7 +662,7 @@ function ForProviders() {
                                         <div className="grid sm:grid-cols-2 gap-4">
                                             <div>
                                                 <label htmlFor="provider-email" className="block text-sm font-medium text-foreground mb-1.5">
-                                                    Email
+                                                    Email *
                                                 </label>
                                                 <input
                                                     type="email"
@@ -689,7 +689,7 @@ function ForProviders() {
                                         </div>
                                         <div>
                                             <label htmlFor="specialty" className="block text-sm font-medium text-foreground mb-1.5">
-                                                Your Specialty
+                                                Your Specialty *
                                             </label>
                                             <select
                                                 id="specialty"
@@ -708,7 +708,7 @@ function ForProviders() {
                                             <FieldError error={errors.specialty} />
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-foreground mb-2">Partnership Interests</label>
+                                            <label className="block text-sm font-medium text-foreground mb-2">Partnership Interests *</label>
                                             <FieldError error={errors.partnershipInterests} />
                                             <div className="space-y-2">
                                                 {partnershipInterests.map((interest) => (

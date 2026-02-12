@@ -1,4 +1,4 @@
-name: Dev - CI
+name: Continuous Integration (Development)
 
 on:
     push:
@@ -16,13 +16,16 @@ concurrency:
     
 jobs:
     ci:
+        name: Continuous Integration (Dev)
         environment: dev
-
         if: ${{ github.event_name != 'pull_request' || github.event.pull_request.draft == false }}
         runs-on: ubuntu-latest
 
         steps:
-            - name: 
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Write .env for build
               shell: bash
               run: |
                 set -euo pipefail
@@ -46,9 +49,6 @@ jobs:
                 EOF
 
                 echo "Wrote ${ENV_FILE} with $(wc -l < ${ENV_FILE}) entries"
-
-            - name: Checkout code
-              uses: actions/checkout@v4
 
             - name: Set up Node.js
               uses: actions/setup-node@v4

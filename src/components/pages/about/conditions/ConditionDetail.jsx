@@ -51,7 +51,7 @@ export default function ConditionDetail({ condition }) {
                     <nav className="flex items-center gap-2 text-sm text-muted-foreground">
                         <a href="/" className="hover:text-foreground transition-colors">Home</a>
                         <span>/</span>
-                        <a href="/conditions" className="hover:text-foreground transition-colors">Conditions</a>
+                        <a href="/about/conditions" className="hover:text-foreground transition-colors">Conditions</a>
                         <span>/</span>
                         <span className="text-foreground font-medium">{condition.title}</span>
                     </nav>

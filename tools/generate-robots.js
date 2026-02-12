@@ -3,7 +3,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const SITE_URL = 'https://oasishealthservices.com';
+const SITE_URL = process.env.VITE_WEBSITE_URL;
 
 function generateRobotsTxt() {
   const content = `# robots.txt for ${SITE_URL}

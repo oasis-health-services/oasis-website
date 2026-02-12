@@ -1,0 +1,15 @@
+
+---
+import Layout from '../../../layouts/Layout.astro';
+import Providers from '@/components/pages/providers/Providers';
+import { getOrganizationSchema } from '@/utils/schema';
+---
+
+<Layout 
+  title="Meet Our Team"
+  description="Meet our experienced mental health providers. Board-certified psychiatric nurse practitioners and licensed counselors specializing in anxiety, depression, ADHD, and more. Accepting new patients."
+  keywords="mental health providers, psychiatrist, nurse practitioner, therapist, counselor, ADHD specialist, anxiety treatment, depression therapy, Georgia mental health"
+  schema={getOrganizationSchema()}
+>
+  <Providers client:load /> 
+</Layout>

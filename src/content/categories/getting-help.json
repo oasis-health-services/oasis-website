@@ -1,0 +1,51 @@
+{
+    "id": "getting-help",
+    "slug": "getting-help",
+    "title": "Getting Help and Feeling Better",
+    "description": "Learn what to expect from care — from your first appointment to ongoing support and treatment options.",
+    "iconName": "HandHelping",
+    "color": "text-emerald-600",
+    "bgColor": "bg-emerald-50 border-emerald-100",
+    "items": [
+        {
+            "name": "Starting Care",
+            "slug": "starting-care",
+            "description": "Taking the first step toward mental health support — what to expect and how to prepare."
+        },
+        {
+            "name": "Evaluation & Diagnosis",
+            "slug": "evaluation-diagnosis",
+            "description": "Understanding the assessment process and what a diagnosis means for you."
+        },
+        {
+            "name": "Medication Support",
+            "slug": "medication-support",
+            "description": "Information about psychiatric medications, their benefits, and what to expect."
+        },
+        {
+            "name": "Therapy & Counseling",
+            "slug": "therapy-counseling",
+            "description": "Different therapeutic approaches and finding the right fit for you."
+        },
+        {
+            "name": "Spravato® (Esketamine) for TRD",
+            "slug": "spravato-treatment",
+            "description": "Understanding this innovative treatment for treatment-resistant depression."
+        },
+        {
+            "name": "Genetic Testing",
+            "slug": "genetic-testing",
+            "description": "How genetic testing can inform personalized mental health treatment."
+        },
+        {
+            "name": "Telehealth & Digital Care",
+            "slug": "telehealth-digital",
+            "description": "Accessing care from the comfort of your home."
+        },
+        {
+            "name": "Remote Patient Monitoring",
+            "slug": "remote-monitoring",
+            "description": "How technology helps us support you between visits."
+        }
+    ]
+}

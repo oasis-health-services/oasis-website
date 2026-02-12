@@ -1,0 +1,24 @@
+
+---
+import Layout from '../layouts/Layout.astro';
+import { Button } from '@/components/ui/button';
+import { Heart, Brain, Users, Shield, CheckCircle, ArrowRight } from 'lucide-react';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import OptimizedImage from '@/components/OptimizedImage';
+import { motion, AnimatePresence } from 'framer-motion';
+// We'll migrate the carousel logic into a client-side React component or rewrite it in Astro later.
+// For now, let's keep the Home component as a .jsx file but REFACOR it to remove react-router-dom
+// and then import it here.
+import HomePage from '@/components/pages/Home';
+import { getOrganizationSchema } from '@/utils/schema';
+---
+
+<Layout 
+  title="Mental Health Care"
+  description="Expert mental health care tailored for you, combining psychiatric and primary care for whole-person healing. Covered by insurance."
+  keywords="mental health, psychiatric care, therapy, medication management, specialized treatments, Georgia, Atlanta, Roswell"
+  schema={getOrganizationSchema()}
+  type="website"
+>
+  <HomePage client:load /> 
+</Layout>

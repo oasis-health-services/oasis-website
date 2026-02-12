@@ -1,0 +1,29 @@
+
+---
+import Layout from '../../../layouts/Layout.astro';
+import AssessmentDetail from '../../../components/pages/assessments/AssessmentDetail';
+import { screenersList } from "../../../lib/assessments";
+
+export function getStaticPaths() {
+  return screenersList.map((s) => ({
+    params: { category: s.category, slug: s.id },
+    props: { assessment: s },
+  }));
+}
+
+const { assessment } = Astro.props;
+
+if (!assessment) {
+  // Return a proper 404 instead of rendering a blank page
+  return new Response("Assessment not found", { status: 404 });
+}
+
+---
+
+<Layout 
+  title={`${assessment.name}: ${assessment.fullName}`}
+  description="Free, confidential mental health screening tools for depression (PHQ-9), anxiety (GAD-7), PTSD, ADHD, and more. Take validated assessments and get personalized recommendations."
+  keywords="mental health assessment, depression test, anxiety screening, PHQ-9, GAD-7, PTSD screener, ADHD test, mental health quiz, free mental health screening"
+>
+  <AssessmentDetail client:load assessment={assessment} /> 
+</Layout>

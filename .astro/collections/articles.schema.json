@@ -1,0 +1,107 @@
+{
+  "$ref": "#/definitions/articles",
+  "definitions": {
+    "articles": {
+      "type": "object",
+      "properties": {
+        "excerpt": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "categorySlug": {
+          "type": "string"
+        },
+        "subcategory": {
+          "type": "string"
+        },
+        "subcategorySlug": {
+          "type": "string"
+        },
+        "readTime": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "slug"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "publishedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "integer",
+              "format": "unix-time"
+            }
+          ]
+        },
+        "updatedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "integer",
+              "format": "unix-time"
+            }
+          ]
+        },
+        "author": {
+          "type": "string",
+          "default": "Oasis Health Services"
+        },
+        "image": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "featured": {
+          "type": "boolean"
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "excerpt",
+        "category",
+        "categorySlug",
+        "subcategory",
+        "subcategorySlug",
+        "readTime",
+        "publishedAt",
+        "title"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

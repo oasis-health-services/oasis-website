@@ -1,0 +1,14 @@
+
+---
+import Layout from '../layouts/Layout.astro';
+import StartNowPage from '@/components/pages/StartNow';
+import { getOrganizationSchema } from '@/utils/schema';
+---
+
+<Layout 
+  title="Start Now"
+  description="Begin your journey to better mental health. Complete our secure assessment and take the first step toward wellness with Oasis Health Services."
+  schema={getOrganizationSchema()}
+>
+  <StartNowPage client:load /> 
+</Layout>

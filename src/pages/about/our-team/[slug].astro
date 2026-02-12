@@ -1,0 +1,39 @@
+
+---
+import Layout from '@/layouts/Layout.astro';
+import { getProviderSchema } from '@/utils/schema';
+import { providers } from "@/lib/providers-data";
+import Provider from "@/components/pages/providers/Provider";
+
+export function getStaticPaths() {
+  return providers.map((p) => ({
+    params: { slug: p.slug },
+    props: { provider: p },
+  }));
+}
+
+const { provider } = Astro.props;
+
+if (!provider) {
+  // Return a proper 404 instead of rendering a blank page
+  return new Response("Provider not found", { status: 404 });
+}
+---
+
+<Layout 
+  title={provider.name}
+  description={provider.tagline}
+  image={provider.image}
+  keywords = {[
+    provider.name,
+    provider.role,
+    ...provider.specialties.top,
+    ...provider.specialties.expertise.slice(0, 5),
+    provider.locations.map(l => `${l.city}, ${l.state}`).join(" & "),
+    "mental health",
+    "telehealth"
+  ].join(", ")}
+  schema={getProviderSchema(provider)}
+>
+  <Provider client:load provider={provider} />
+</Layout>

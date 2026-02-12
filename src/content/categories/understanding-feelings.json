@@ -1,0 +1,51 @@
+{
+    "id": "understanding",
+    "slug": "understanding-feelings",
+    "title": "Understanding What You're Feeling",
+    "description": "Explore topics like anxiety, depression, ADHD, trauma, and more — with warmth and without judgment.",
+    "iconName": "Heart",
+    "color": "text-rose-600",
+    "bgColor": "bg-rose-50 border-rose-100",
+    "items": [
+        {
+            "name": "Anxiety & Worry",
+            "slug": "anxiety-worry",
+            "description": "Understanding the physical and emotional experience of anxiety, and learning to find calm."
+        },
+        {
+            "name": "Depression & Low Mood",
+            "slug": "depression-low-mood",
+            "description": "Recognizing depression, understanding its many forms, and finding pathways to feeling better."
+        },
+        {
+            "name": "Mood Swings & Bipolar Disorders",
+            "slug": "mood-swings-bipolar",
+            "description": "Navigating the highs and lows of mood disorders with knowledge and compassion."
+        },
+        {
+            "name": "Focus & Attention (ADHD)",
+            "slug": "adhd-focus",
+            "description": "Living well with ADHD — strategies, insights, and understanding your unique brain."
+        },
+        {
+            "name": "Autism & Neurodiversity",
+            "slug": "autism-neurodiversity",
+            "description": "Celebrating neurodiversity while providing practical support and understanding."
+        },
+        {
+            "name": "Intrusive Thoughts & OCD",
+            "slug": "ocd-intrusive-thoughts",
+            "description": "Understanding unwanted thoughts and compulsive behaviors without shame."
+        },
+        {
+            "name": "Trauma, Stress & PTSD",
+            "slug": "trauma-ptsd",
+            "description": "Healing from difficult experiences and building resilience."
+        },
+        {
+            "name": "Substance Use & Recovery",
+            "slug": "substance-recovery",
+            "description": "Support and resources for those navigating recovery."
+        }
+    ]
+}

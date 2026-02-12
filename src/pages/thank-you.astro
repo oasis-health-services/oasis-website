@@ -1,0 +1,12 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ThankYou from '@/components/pages/ThankYou';
+---
+
+<Layout 
+  title="Thank You"
+  description="Thank you for reaching out to Oasis Health Services. We have received your message and will get back to you soon."
+  noindex={true}
+>
+  <ThankYou client:load />
+</Layout>

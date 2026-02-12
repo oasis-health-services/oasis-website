@@ -1,0 +1,71 @@
+{
+  "$ref": "#/definitions/blog",
+  "definitions": {
+    "blog": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "excerpt": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "categorySlug": {
+          "type": "string"
+        },
+        "subCategorySlug": {
+          "type": "string"
+        },
+        "readTime": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "publishedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "integer",
+              "format": "unix-time"
+            }
+          ]
+        },
+        "authorSlug": {
+          "type": "string"
+        },
+        "featured": {
+          "type": "boolean"
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "excerpt",
+        "categorySlug",
+        "subCategorySlug",
+        "readTime",
+        "tags",
+        "publishedAt",
+        "authorSlug"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

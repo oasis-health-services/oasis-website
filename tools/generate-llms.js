@@ -2,7 +2,6 @@
 
 import fs from 'fs';
 import path from 'path';
-import GhostContentAPI from '@tryghost/content-api';
 
 const CLEAN_CONTENT_REGEX = {
   comments: /\/\*[\s\S]*?\*\/|\/\/.*$/gm,
@@ -26,6 +25,8 @@ const EXTRACTION_REGEX = {
   helmetTest: /<Helmet[\s\S]*?<\/Helmet>/i,
   seo: /<SEO\s+([^>]*?)(?:\/?>|>[\s\S]*?<\/SEO>)/i,
   seoTest: /<SEO[\s\S]*?(?:\/?>|<\/SEO>)/i,
+  layout: /<Layout\s+([^>]*?)(?:\/?>|>[\s\S]*?<\/Layout>)/i,
+  layoutTest: /<Layout[\s\S]*?(?:\/?>|<\/Layout>)/i,
   seoProp: /(\w+)=\{([^}]*)\}|(\w+)="([^"]*)"/g,
   title: /<title[^>]*?>\s*(.*?)\s*<\/title>/i,
   description: /<meta\s+name=["']description["']\s+content=["'](.*?)["']/i
@@ -40,7 +41,7 @@ function cleanContent(content) {
 
 function cleanText(text) {
   if (!text) return text;
-  
+
   return text
     .replace(CLEAN_CONTENT_REGEX.jsxExpressions, '')
     .replace(CLEAN_CONTENT_REGEX.htmlEntities.quot, '"')
@@ -58,23 +59,23 @@ function extractRoutes(appJsxPath) {
     const content = fs.readFileSync(appJsxPath, 'utf8');
     const routes = new Map();
     const routeMatches = [...content.matchAll(EXTRACTION_REGEX.route)];
-    
+
     for (const match of routeMatches) {
       const routeTag = match[0];
       const pathMatch = routeTag.match(EXTRACTION_REGEX.path);
       const elementMatch = routeTag.match(EXTRACTION_REGEX.element);
       const isIndex = routeTag.includes('index');
-      
+
       if (elementMatch) {
         const componentName = elementMatch[1];
         let routePath;
-        
+
         if (isIndex) {
           routePath = '/';
         } else if (pathMatch) {
           routePath = pathMatch[1].startsWith('/') ? pathMatch[1] : `/${pathMatch[1]}`;
         }
-        
+
         routes.set(componentName, routePath);
       }
     }
@@ -85,8 +86,10 @@ function extractRoutes(appJsxPath) {
   }
 }
 
-function findReactFiles(dir) {
+function findPageFiles(dir) {
   let files = [];
+  if (!fs.existsSync(dir)) return files;
+
   const items = fs.readdirSync(dir);
 
   for (const item of items) {
@@ -94,10 +97,12 @@ function findReactFiles(dir) {
     const stat = fs.statSync(fullPath);
 
     if (stat.isDirectory()) {
-      // Recursively search subdirectories
-      files = files.concat(findReactFiles(fullPath));
-    } else if (stat.isFile() && (fullPath.endsWith('.jsx') || fullPath.endsWith('.js'))) {
-      files.push(fullPath);
+      files = files.concat(findPageFiles(fullPath));
+    } else if (stat.isFile() && (fullPath.endsWith('.jsx') || fullPath.endsWith('.js') || fullPath.endsWith('.astro'))) {
+      // Skip dynamic routes like [slug].astro
+      if (!item.includes('[') && !item.includes(']')) {
+        files.push(fullPath);
+      }
     }
   }
 
@@ -105,52 +110,52 @@ function findReactFiles(dir) {
 }
 
 function extractHelmetData(content, filePath, routes) {
-  const cleanedContent = cleanContent(content);
-
+  // Use a more careful cleaning for Layout/SEO tags
   let title, description;
 
-  // Check for SEO component first
-  if (EXTRACTION_REGEX.seoTest.test(cleanedContent)) {
-    const seoMatch = content.match(EXTRACTION_REGEX.seo);
+  // 1. Try to find Layout props (Astro style)
+  const layoutMatch = content.match(/<Layout\s+[^>]*title=\{?["'`]([^"'`}]*)["'`]\}?[^>]*description=\{?["'`]([^"'`}]*)["'`]\}?/i);
+  if (layoutMatch) {
+    title = layoutMatch[1];
+    description = layoutMatch[2];
+  }
+
+  // 2. Try to find SEO props
+  if (!title) {
+    const seoMatch = content.match(/<SEO\s+[^>]*title=["']([^"']*)["'][^>]*description=["']([^"']*)["']/i);
     if (seoMatch) {
-      const seoProps = seoMatch[1];
-
-      // Extract title prop
-      const titlePropMatch = seoProps.match(/title=["']([^"']*)["']/) ||
-                            seoProps.match(/title=\{["']([^"']*)["']\}/) ||
-                            seoProps.match(/title=\{([^}]*)\}/);
-      if (titlePropMatch) {
-        title = cleanText(titlePropMatch[1]);
-      }
-
-      // Extract description prop
-      const descPropMatch = seoProps.match(/description=["']([^"']*)["']/) ||
-                           seoProps.match(/description=\{["']([^"']*)["']\}/) ||
-                           seoProps.match(/description=\{([^}]*)\}/);
-      if (descPropMatch) {
-        description = cleanText(descPropMatch[1]);
-      }
+      title = seoMatch[1];
+      description = seoMatch[2];
     }
   }
-  // Fall back to Helmet component
-  else if (EXTRACTION_REGEX.helmetTest.test(cleanedContent)) {
-    const helmetMatch = content.match(EXTRACTION_REGEX.helmet);
-    if (helmetMatch) {
-      const helmetContent = helmetMatch[1];
-      const titleMatch = helmetContent.match(EXTRACTION_REGEX.title);
-      const descMatch = helmetContent.match(EXTRACTION_REGEX.description);
 
-      title = cleanText(titleMatch?.[1]);
-      description = cleanText(descMatch?.[1]);
-    }
-  } else {
+  // 3. Fall back to Helmet
+  if (!title) {
+    const helmetTitleMatch = content.match(/<title[^>]*?>\s*(.*?)\s*<\/title>/i);
+    const helmetDescMatch = content.match(/<meta\s+name=["']description["']\s+content=["'](.*?)["']/i);
+    if (helmetTitleMatch) title = cleanText(helmetTitleMatch[1]);
+    if (helmetDescMatch) description = cleanText(helmetDescMatch[1]);
+  }
+
+  // If title looks like a variable (starts with { or contains .), skip it
+  if (title && (title.includes('{') || title.includes('.') || title.includes('Astro.props'))) {
     return null;
   }
 
+  if (!title) return null;
+
   const fileName = path.basename(filePath, path.extname(filePath));
-  const url = routes.length && routes.has(fileName)
-    ? routes.get(fileName)
-    : generateFallbackUrl(fileName);
+  let url;
+
+  if (filePath.includes('/src/pages/')) {
+    const relativePath = path.relative(path.join(process.cwd(), 'src', 'pages'), filePath);
+    url = '/' + relativePath.replace(/\.(astro|jsx|js)$/, '').replace(/\/index$/, '');
+    if (url === '/index' || url === '') url = '/';
+  } else {
+    url = routes && routes.has(fileName)
+      ? routes.get(fileName)
+      : generateFallbackUrl(fileName);
+  }
 
   return {
     url,
@@ -199,30 +204,6 @@ function processPageFile(filePath, routes) {
   }
 }
 
-async function fetchBlogPosts() {
-  try {
-    const ghostAPI = new GhostContentAPI({
-      url: 'https://oasis.marketingcarcontent.com',
-      key: 'dac5098ae92e739703c202ce3e',
-      version: 'v5'
-    });
-
-    const posts = await ghostAPI.posts.browse({
-      limit: 'all',
-      fields: 'title,slug,excerpt,custom_excerpt'
-    });
-
-    return posts.map(post => ({
-      title: post.title,
-      url: `/blog/${post.slug}`,
-      description: post.excerpt || post.custom_excerpt || 'Blog post from Oasis Health Services'
-    }));
-  } catch (error) {
-    console.error('⚠️  Error fetching blog posts for llms.txt:', error.message);
-    return [];
-  }
-}
-
 async function main() {
   const pagesDir = path.join(process.cwd(), 'src', 'pages');
   const appJsxPath = path.join(process.cwd(), 'src', 'App.jsx');
@@ -233,9 +214,9 @@ async function main() {
     pages.push(processPageFile(appJsxPath, []));
   } else {
     const routes = extractRoutes(appJsxPath);
-    const reactFiles = findReactFiles(pagesDir);
+    const pageFiles = findPageFiles(pagesDir);
 
-    pages = reactFiles
+    pages = pageFiles
       .map(filePath => processPageFile(filePath, routes))
       .filter(Boolean);
 
@@ -245,16 +226,13 @@ async function main() {
     }
   }
 
-  // Fetch blog posts
-  const blogPosts = await fetchBlogPosts();
-  console.log(`✓ Found ${blogPosts.length} blog posts`);
 
-  const llmsTxtContent = generateLlmsTxt(pages, blogPosts);
+  const llmsTxtContent = generateLlmsTxt(pages);
   const outputPath = path.join(process.cwd(), 'public', 'llms.txt');
 
   ensureDirectoryExists(path.dirname(outputPath));
   fs.writeFileSync(outputPath, llmsTxtContent, 'utf8');
-  console.log(`✓ Generated llms.txt with ${pages.length} pages and ${blogPosts.length} blog posts`);
+  console.log(`✓ Generated llms.txt with ${pages.length} pages`);
 }
 
 const isMainModule = import.meta.url === `file://${process.argv[1]}`;

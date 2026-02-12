@@ -11,8 +11,7 @@ import { promisify } from 'util';
 const execAsync = promisify(exec);
 
 const postBuildTasks = [
-  { name: 'Static Pages', script: 'node tools/generate-static-pages.js' },
-  { name: 'Blog Pages', script: 'node tools/generate-blog-pages.js' },
+  { name: 'Prerendering', script: 'node --env-file=.env tools/prerender.js' },
 ];
 
 async function runScript(name, script) {
@@ -31,7 +30,7 @@ async function runScript(name, script) {
 
 async function main() {
   console.log('\n🎯 Starting Post-Build SEO Tasks...\n');
-  console.log('=' .repeat(50));
+  console.log('='.repeat(50));
 
   let allSuccess = true;
 

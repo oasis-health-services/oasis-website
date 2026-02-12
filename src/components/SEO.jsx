@@ -1,9 +1,8 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
 
 const SITE_URL = 'https://oasishealthservices.com';
 const SITE_NAME = 'Oasis Health Services';
-const DEFAULT_IMAGE = 'https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/80ad63f8667e4b31d0ddc190e412e19f.png';
+const DEFAULT_IMAGE = '/images/home-banner-1.webp';
 
 const SEO = ({
   title,
@@ -30,45 +29,7 @@ const SEO = ({
     ? (image.startsWith('http') ? image : `${SITE_URL}${image}`)
     : DEFAULT_IMAGE;
 
-  return (
-    <Helmet>
-      {/* Basic Meta Tags */}
-      <title>{pageTitle}</title>
-      <meta name="description" content={formattedDescription} />
-      {keywords && <meta name="keywords" content={keywords} />}
-      <link rel="canonical" href={fullUrl} />
-
-      {/* Open Graph / Facebook */}
-      <meta property="og:site_name" content={siteName} />
-      <meta property="og:title" content={pageTitle} />
-      <meta property="og:description" content={formattedDescription} />
-      <meta property="og:type" content={type} />
-      <meta property="og:url" content={fullUrl} />
-      <meta property="og:image" content={ogImage} />
-      <meta property="og:image:alt" content={formattedTitle || siteName} />
-
-      {/* Twitter */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:url" content={fullUrl} />
-      <meta name="twitter:title" content={pageTitle} />
-      <meta name="twitter:description" content={formattedDescription} />
-      <meta name="twitter:image" content={ogImage} />
-
-      {/* Robots */}
-      {noindex ? (
-        <meta name="robots" content="noindex,nofollow" />
-      ) : (
-        <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
-      )}
-
-      {/* Schema.org JSON-LD */}
-      {schema && (
-        <script type="application/ld+json">
-          {JSON.stringify(schema)}
-        </script>
-      )}
-    </Helmet>
-  );
+  return null;
 };
 
 // Helper function to generate Organization schema
@@ -143,5 +104,31 @@ export const getArticleSchema = (post) => ({
     }
   }
 });
+
+export const getProviderSchema = (provider) => {
+
+  const topSpecialties = provider.specialties.top.join(", ")
+  const locations = provider.locations.map(l => `${l.city}, ${l.state}`).join(" & ")
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'MentalHealthProfessional',
+    name: provider.name,
+    url: provider.url,
+    image: provider.image,
+    description: `${provider.tagline}`,
+    keywords: [
+      provider.name,
+      provider.role,
+      ...topSpecialties,
+      ...provider.specialties.expertise.slice(0, 5),
+      "mental health",
+      "psychiatrist",
+      "therapist",
+      ...locations,
+      "telehealth",
+    ].join(", "),
+  }
+};
 
 export default SEO;

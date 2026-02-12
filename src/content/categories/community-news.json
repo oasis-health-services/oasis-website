@@ -1,0 +1,31 @@
+{
+    "id": "community",
+    "slug": "community-news",
+    "title": "Community and Practice News",
+    "description": "Stay connected with events, announcements, and updates from our community.",
+    "iconName": "Megaphone",
+    "color": "text-teal-600",
+    "bgColor": "bg-teal-50 border-teal-100",
+    "items": [
+        {
+            "name": "Events & Workshops",
+            "slug": "events-workshops",
+            "description": "Upcoming opportunities to learn and connect."
+        },
+        {
+            "name": "Press Releases",
+            "slug": "press-releases",
+            "description": "Official announcements and news from Oasis."
+        },
+        {
+            "name": "Announcements",
+            "slug": "announcements",
+            "description": "Important updates about our services and team."
+        },
+        {
+            "name": "Community Outreach",
+            "slug": "community-outreach",
+            "description": "Our work in the broader community."
+        }
+    ]
+}

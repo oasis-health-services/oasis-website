@@ -47,7 +47,7 @@ function ProviderHero({ provider }) {
                     <motion.div className="lg:w-80 shrink-0"
                         initial={{ opacity: 0, x: -50 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5 }}
+                        transition={{ duration: 0.3 }}
                     >
                         <div className="relative aspect-[4/5] w-full max-w-xs mx-auto lg:mx-0 rounded-2xl overflow-hidden shadow-lg border-primary border">
 
@@ -73,7 +73,7 @@ function ProviderHero({ provider }) {
                     <motion.div className="flex-1"
                         initial={{ opacity: 0, x: 50 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5 }}
+                        transition={{ duration: 0.3 }}
                     >
                         <div className="flex flex-wrap items-center gap-3 mb-3">
                             {provider.acceptingNewPatients && (

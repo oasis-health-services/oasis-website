@@ -17,7 +17,7 @@ export default function Providers() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 0.3 }}
             >
                 <span className="text-sm font-medium text-primary tracking-wide uppercase">Our Team</span>
                 <h1 className="mt-3 font-serif text-4xl font-semibold text-foreground sm:text-5xl text-balance">
@@ -55,7 +55,7 @@ export default function Providers() {
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
+                            transition={{ duration: 0.3, delay: index * 0.1 }}
                         >
                             <Card
                                 className="overflow-hidden bg-card border-border group hover:shadow-lg transition-shadow h-full"

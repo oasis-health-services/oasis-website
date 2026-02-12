@@ -4,7 +4,6 @@ import { Badge } from "@/components/ui/badge"
 import {
     Phone,
     MessageCircle,
-    Globe,
     Heart,
     Shield,
     Users,

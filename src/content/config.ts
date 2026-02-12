@@ -1,5 +1,5 @@
 import { Heart, HandHelping, Sparkles, Users, FileText, Megaphone } from "lucide-react";
-import { defineCollection, z, getCollection, type CollectionEntry, reference } from 'astro:content';
+import { defineCollection, z, getCollection, type CollectionEntry } from 'astro:content';
 
 
 export interface SubCategory {

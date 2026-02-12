@@ -1,8 +1,7 @@
 
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Users, FileText, ArrowRight, Handshake, MapPin, Video } from 'lucide-react';
+import { ArrowRight, Handshake, MapPin, Video } from 'lucide-react';
 import OptimizedImage from '@/components/OptimizedImage';
 import { providers } from "@/lib/providers-data"
 import { Badge } from '@/components/ui/badge';

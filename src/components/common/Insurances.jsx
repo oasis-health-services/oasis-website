@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button"
-import { ArrowRight, CheckCircle, Phone } from "lucide-react"
+import { ArrowRight, CheckCircle } from "lucide-react"
 import { motion } from 'framer-motion';
 import { allInsuranceProviders, insurancePartners } from "@/lib/insurance-data";
-import OptimizedImage from "../OptimizedImage";
+//import OptimizedImage from "../OptimizedImage";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "../ui/sheet";
 
 

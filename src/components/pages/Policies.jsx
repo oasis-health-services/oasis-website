@@ -1,6 +1,3 @@
-
-import React from 'react';
-// import { Helmet } from 'react-helmet'; // REMOVED
 import { motion } from 'framer-motion';
 
 const Section = ({ title, children }) => (

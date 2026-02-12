@@ -1,9 +1,8 @@
 
 ---
 import Layout from '../layouts/Layout.astro';
-import ContactPage from '@/components/pages/Contact'; 
 import { getOrganizationSchema } from '@/utils/schema';
-import ContactUs from '@/components/pages/ContactUs';
+import ContactUsPage from '@/components/pages/ContactUs';
 ---
 
 <Layout 
@@ -11,5 +10,5 @@ import ContactUs from '@/components/pages/ContactUs';
   description="Get in touch with Oasis Health Services. We're here to help answer your questions and support your mental health journey."
   schema={getOrganizationSchema()}
 >
-  <ContactUs client:load />
+  <ContactUsPage client:load />
 </Layout>

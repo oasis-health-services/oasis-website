@@ -13,10 +13,12 @@ import CrisisNotice from "@/components/common/CrisisNotice";
 
 const categoriesEntries = await getCollection('categories');
 const categories = categoriesEntries.map(c => c.data);
+
+const currentPath = Astro.url.pathname;
 ---
 
 <BlogLayout title="Oasis Mental Health Blog">
-  <Header client:load />
+  <Header currentPath={currentPath} client:load />
   <main class="flex-1">
     <HeroSection>
       <SearchBox slot="search" categories={categories} client:load />

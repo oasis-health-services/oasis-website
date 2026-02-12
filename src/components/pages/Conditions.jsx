@@ -1,8 +1,4 @@
-
-import React from 'react';
-// import { Helmet } from 'react-helmet'; // REMOVED
 import { motion } from 'framer-motion';
-// import { Link } from 'react-router-dom'; // REMOVED
 import { ArrowRight, Brain, Heart, Users, Shield } from 'lucide-react';
 
 const Conditions = () => {

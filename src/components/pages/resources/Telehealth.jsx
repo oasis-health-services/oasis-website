@@ -6,7 +6,6 @@ import {
     Wifi,
     Lock,
     Monitor,
-    Smartphone,
     Headphones,
     CheckCircle2,
     Clock,

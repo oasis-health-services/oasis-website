@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import GriefScreener from '@/components/pages/resources/GriefScreener';
+import GriefScreenerPage from '@/components/pages/resources/GriefScreener';
 import { getOrganizationSchema } from '@/utils/schema';
 ---
 
@@ -9,5 +9,5 @@ import { getOrganizationSchema } from '@/utils/schema';
   description="Take our free grief support screener to understand your grief experience and find appropriate resources. This confidential self-assessment helps identify if you may benefit from professional grief counseling."
   schema={getOrganizationSchema()}
 >
-  <GriefScreener client:load /> 
+  <GriefScreenerPage client:load /> 
 </Layout>

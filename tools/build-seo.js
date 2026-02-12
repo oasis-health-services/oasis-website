@@ -154,22 +154,19 @@ async function generateRobotsTxt() {
   const siteUrl = SITE_URL; // || "https://oasishealthservices.com";
   const isProd = process.env.NODE_ENV === 'production';
 
-  const privatePaths = ['/thank-you', '/privacy-policy', '/terms-and-conditions'];
+  const privatePaths = ['/thank-you*', '/privacy-policy*', '/terms-and-conditions*'];
 
   const disallowRules = privatePaths.map(path => `Disallow: ${path}`).join('\n');
 
   const robots = isProd ? `# Production Environment
 User-agent: *
-Allow: /
 ${disallowRules}
-
-# Sitemap & AI Discovery
 Sitemap: ${new URL('sitemap-index.xml', siteUrl).href}
-llms: ${new URL('llms.txt', siteUrl).href}
 
 # Block AI scrapers
 User-agent: GPTBot
 Disallow: /
+
 User-agent: CCBot
 Disallow: /` : `# Test Environment
 User-agent: *

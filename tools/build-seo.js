@@ -31,12 +31,36 @@ async function generateSitemap() {
 
     const url = `${SITE_URL}/${relativePath}`.replace(/\/+$/, '') || '/';
     const lastmod = stats.mtime.toISOString();
+    let priority = 0.7;
+    let changefreq = 'monthly';
+    if (relativePath.startsWith('blog/categories') || relativePath.startsWith('blog/tags')) {
+      priority = 0.9;
+      changefreq = 'weekly';
+    } else if (relativePath.startsWith('blog')) {
+      priority = 0.9;
+      changefreq = 'daily';
+    } else if (relativePath.startsWith('about/conditions')) {
+      priority = 0.8;
+      changefreq = 'monthly';
+    } else if (relativePath.startsWith('about/our-team')) {
+      priority = 0.8;
+      changefreq = 'weekly';
+    } else if (relativePath.startsWith('services')) {
+      priority = 0.8;
+    } else if (relativePath.startsWith('about/our-team')) {
+      priority = 0.8;
+    } else if (relativePath.startsWith('resources')) {
+      priority = 0.8;
+    } else if (relativePath.startsWith('policies') || relativePath.startsWith('terms-and-conditions') || relativePath.startsWith('hipaa')) {
+      priority = 0.5;
+      changefreq = 'yearly';
+    }
 
     return `  <url>
     <loc>${url}</loc>
     <lastmod>${lastmod}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <changefreq>${changefreq}</changefreq>
+    <priority>${priority}</priority>
   </url>`;
   }));
 

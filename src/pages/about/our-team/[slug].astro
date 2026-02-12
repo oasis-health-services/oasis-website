@@ -1,20 +1,9 @@
 
 ---
 import Layout from '@/layouts/Layout.astro';
-import { getOrganizationSchema } from '@/utils/schema';
+import { getProviderSchema } from '@/utils/schema';
 import { providers } from "@/lib/providers-data";
 import Provider from "@/components/pages/providers/Provider";
-import Header from "@/components/Header";
-import { ProviderBio } from "@/components/providers/ProviderBio";
-import { ProviderSpecialties } from "@/components/providers/ProviderSpecialties";
-import { ProviderApproach } from "@/components/providers/ProvidersApproach";
-import { ProviderInsurances } from "@/components/providers/ProviderInsurances";
-import { ProviderQualifications } from "@/components/providers/ProviderQualifications";
-import { ProviderLocations } from "@/components/providers/ProviderLocations";
-import { ProviderFAQ } from "@/components/providers/ProviderFAQ";
-import { ProviderCTA } from "@/components/providers/ProviderCTA";
-import CrisisNotice from "@/components/common/CrisisNotice";
-import Footer from "@/components/Footer";
 
 export function getStaticPaths() {
   return providers.map((p) => ({
@@ -33,10 +22,18 @@ if (!provider) {
 
 <Layout 
   title={provider.name}
-  description={provider.description}
-  schema={getOrganizationSchema()}
+  description={provider.tagline}
+  image={provider.image}
+  keywords = {[
+    provider.name,
+    provider.role,
+    ...provider.specialties.top,
+    ...provider.specialties.expertise.slice(0, 5),
+    provider.locations.map(l => `${l.city}, ${l.state}`).join(" & "),
+    "mental health",
+    "telehealth"
+  ].join(", ")}
+  schema={getProviderSchema(provider)}
 >
-
   <Provider client:load provider={provider} />
-
 </Layout>

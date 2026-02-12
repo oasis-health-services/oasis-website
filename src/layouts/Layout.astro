@@ -6,9 +6,9 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CrisisNotice from '@/components/common/CrisisNotice';
 
-const SITE_URL = 'https://oasishealthservices.com';
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://oasishealthservices.com';
 const SITE_NAME = 'Oasis Health Services';
-const DEFAULT_IMAGE = 'https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/80ad63f8667e4b31d0ddc190e412e19f.png';
+const DEFAULT_IMAGE = '/images/home/home-banner-1.webp';
 
 interface Props {
 	title?: string;

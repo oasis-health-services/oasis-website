@@ -102,7 +102,7 @@ export default function ConditionDetail({ condition }) {
                                                 Schedule Appointment
                                             </a>
                                         </Button>
-                                        <Button variant="outline" className="w-full bg-transparent" asChild>
+                                        <Button variant="outline" className="w-full bg-transparent border-primary text-primary" asChild>
                                             <a href="tel:+5093816035">
                                                 <Phone className="mr-2 h-4 w-4" />
                                                 (509) 381-6035

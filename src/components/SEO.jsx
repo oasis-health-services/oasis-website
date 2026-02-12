@@ -2,7 +2,7 @@ import React from 'react';
 
 const SITE_URL = 'https://oasishealthservices.com';
 const SITE_NAME = 'Oasis Health Services';
-const DEFAULT_IMAGE = 'https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/80ad63f8667e4b31d0ddc190e412e19f.png';
+const DEFAULT_IMAGE = '/images/home-banner-1.webp';
 
 const SEO = ({
   title,
@@ -112,20 +112,20 @@ export const getProviderSchema = (provider) => {
 
   return {
     '@context': 'https://schema.org',
-    '@type': 'MedicalOrganization',
+    '@type': 'MentalHealthProfessional',
     name: provider.name,
     url: provider.url,
     image: provider.image,
-    description: `${provider.name} is a ${provider.role} specializing in ${topSpecialties}. ${provider.yearsInPractice}+ years experience. Accepting new patients in ${locations} and via telehealth. Book your appointment today.`,
+    description: `${provider.tagline}`,
     keywords: [
       provider.name,
       provider.role,
-      ...provider.specialties.top,
+      ...topSpecialties,
       ...provider.specialties.expertise.slice(0, 5),
       "mental health",
       "psychiatrist",
       "therapist",
-      ...provider.locations.map(l => `${l.city} ${l.state}`),
+      ...locations,
       "telehealth",
     ].join(", "),
   }

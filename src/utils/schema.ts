@@ -1,6 +1,8 @@
-const SITE_URL = 'https://oasishealthservices.com';
+import type { Provider } from "@/lib/providers-data";
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://oasishealthservices.com';
 const SITE_NAME = 'Oasis Health Services';
-const DEFAULT_IMAGE = 'https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/80ad63f8667e4b31d0ddc190e412e19f.png';
+const DEFAULT_IMAGE = import.meta.env.PUBLIC_SITE_IMAGE || '/images/home/home-banner-1.webp';
 
 export const getOrganizationSchema = () => ({
     '@context': 'https://schema.org',
@@ -81,3 +83,24 @@ export const getArticleSchema = (post: {
         }
     }
 });
+
+export const getProviderSchema = (provider: Provider) => {
+
+    return {
+        '@context': 'https://schema.org',
+        '@type': 'MentalHealthProfessional',
+        name: provider.name,
+        url: `${SITE_URL}/about/our-team/${provider.slug}`,
+        image: provider.image,
+        description: `${provider.tagline}`,
+        keywords: [
+            provider.name,
+            provider.role,
+            ...provider.specialties.top,
+            ...provider.specialties.expertise.slice(0, 5),
+            provider.locations.map(l => `${l.city}, ${l.state}`).join(" & "),
+            "mental health",
+            "telehealth",
+        ].join(", "),
+    }
+};

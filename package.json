@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "node tools/generate-webp.js && astro dev --host :: --port 3000",
-    "build": "node --env-file=.env.production tools/pipeline.js",
+    "build": "node --env-file=.env.local tools/pipeline.js",
+    "build-prod": "node --env-file=.env.production tools/pipeline.js",
     "build-staging": "node --env-file=.env.staging tools/pipeline.js",
     "preview": "node tools/generate-webp.js && astro preview --host :: --port 3000",
     "typecheck": "astro check",

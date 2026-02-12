@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "hooks:install": "git config core.hooksPath .githooks",
     "dev": "node tools/generate-webp.js && astro dev --host :: --port 3000",
     "build": "node --env-file=.env.local tools/pipeline.js",
     "build-prod": "node --env-file=.env.production tools/pipeline.js",

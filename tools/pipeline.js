@@ -3,7 +3,6 @@ import { spawnSync } from 'node:child_process';
 const env = process.env.NODE_ENV || 'local';
 const isProd = env === 'production';
 const isStaging = env === 'staging';
-const isLocal = env === 'local';
 
 function runCommand(command, args, name) {
     console.log(`\n▶ [${env.toUpperCase()}] Running ${name}...`);

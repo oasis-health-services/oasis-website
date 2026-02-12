@@ -9,7 +9,7 @@ const PUBLIC_DIR = path.resolve('./public');
 const REMOTE_PATH = process.env.REMOTE_SERVER_PATH;
 
 if (process.env.PUBLIC_SITE_URL?.includes('dev') || process.env.NODE_ENV === 'staging') {
-    console.log('🔒 Setting up Basic Auth for Staging...');
+    console.log('🔒 Setting up Basic Auth for Staging...', USER, PASS);
 
     // 1. Generate .htpasswd content
     // Apache supports bcrypt hasshes (prefixed with $2y$)

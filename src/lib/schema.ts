@@ -5,7 +5,10 @@ export const ContactSchema = z.object({
     firstName: z.string({ required_error: "first name is required" }).min(2, { message: "first name must be at least 2 characters" }).max(100, { message: "first name must be at most 100 characters" }),
     lastName: z.string({ required_error: "last name is required" }).min(2, { message: "last name must be at least 2 characters" }).max(100, { message: "last name must be at most 100 characters" }),
     email: z.string({ required_error: "email is required" }).email({ message: "provide a valid email address" }),
-    phone: z.string({ required_error: "phone number is required" }).regex(/^\d{10}$/, { message: "provide a valid phone number" }),
+    phone: z.preprocess(
+        v => (typeof v === "string" && v.trim() === "" ? undefined : v),
+        z.string().regex(/^\d{10}$/, "provide a valid phone number").optional()
+    ),
     inquiryType: z.enum(["Free Consultation", "Medication Management", "Therapy", "ADHD Treatment", "Genetic Testing",
         "Vitamins & Supplements", "Autism Spectrum Disorder", "Spravato", "RPM",
         "Insurance", "Other"],

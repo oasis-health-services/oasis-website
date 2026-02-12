@@ -1,12 +1,11 @@
-import { Phone, Mail, MapPin } from "lucide-react"
-import { SiFacebook, SiInstagram, SiLinkedin, SiTwitter } from "simple-icons/icons"
+import { Phone, Mail, MapPin, Linkedin, Facebook, Twitter, Instagram } from "lucide-react"
 import OptimizedImage from "./OptimizedImage"
 
 const socialLinks = [
-    { name: "Facebook", href: "https://facebook.com/oasishealthservices", icon: SiFacebook },
-    { name: "Instagram", href: "https://instagram.com/oasishealthservices", icon: SiInstagram },
-    { name: "LinkedIn", href: "https://linkedin.com/company/oasishealthservices", icon: SiLinkedin },
-    { name: "X", href: "https://x.com/OasisHealthSer1", icon: SiTwitter }
+    { name: "Facebook", href: "https://facebook.com/oasishealthservices", icon: Facebook },
+    { name: "Instagram", href: "https://instagram.com/oasishealthservices", icon: Instagram },
+    { name: "LinkedIn", href: "https://linkedin.com/company/oasishealthservices", icon: Linkedin },
+    { name: "X", href: "https://x.com/OasisHealthSer1", icon: Twitter }
 ]
 
 const footerNavigation = {

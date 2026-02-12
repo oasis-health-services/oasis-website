@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/navigation-menu"
 import { cn } from "@/lib/utils"
 import OptimizedImage from "./OptimizedImage"
+import { Button } from "@/components/ui/button"
 
 const navigation = [
     { name: "Home", href: "/" },

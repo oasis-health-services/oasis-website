@@ -1,42 +1,47 @@
-name: Continuous Integration (Staging/Production)
+name: Manual Deploy
 
 on:
-  pull_request:
-    branches: [qa, main]
-    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Deployment target"
+        type: choice
+        options: [staging, production]
+        required: true
 
 permissions:
   contents: read
 
 concurrency:
-  group: pr-ci-${{ github.event.pull_request.number }}
-  cancel-in-progress: true
+  group: manual-deploy-${{ inputs.environment }}
+  cancel-in-progress: false
 
 jobs:
-  ci:
-    name: Continuous Integration (Staging/Production)
-    if: ${{ github.event.pull_request.draft == false }}
+  deploy:
     runs-on: ubuntu-latest
-
-    environment: ${{ github.base_ref == 'main' && 'production' || 'staging' }}
+    environment: ${{ inputs.environment }}
 
     env:
-      NODE_ENV: ${{ github.base_ref == 'main' && 'production' || 'staging' }}
+      TARGET_BRANCH: ${{ inputs.environment == 'production' && 'main' || 'qa' }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-          ref: refs/pull/${{ github.event.pull_request.number }}/merge
+          ref: ${{ env.TARGET_BRANCH }}
 
       - name: Write env file for build
         shell: bash
         run: |
           set -euo pipefail
 
-          ENV_FILE=".env.${NODE_ENV}"
-          echo "ENV_FILE=${ENV_FILE}" >> "$GITHUB_ENV"
+          if [ "${{ inputs.environment }}" = "production" ]; then
+            ENV_FILE=".env.production"
+            NODE_ENV_VALUE="production"
+          else
+            ENV_FILE=".env.staging"
+            NODE_ENV_VALUE="staging"
+          fi
 
           cat > "${ENV_FILE}" <<EOF
           PUBLIC_SITE_URL=${{ vars.PUBLIC_SITE_URL }}
@@ -51,10 +56,13 @@ jobs:
           PUBLIC_RECAPTCHA_SITE_KEY=${{ secrets.PUBLIC_RECAPTCHA_SITE_KEY }}
           PUBLIC_API_URL=${{ vars.PUBLIC_API_URL }}
           REMOTE_SERVER_PATH=${{ vars.REMOTE_SERVER_PATH }}
-          NODE_ENV=${NODE_ENV}
+          NODE_ENV=${NODE_ENV_VALUE}
           EOF
 
           echo "Wrote ${ENV_FILE} with $(wc -l < "${ENV_FILE}") entries"
+
+          # Make ENV_FILE available to later steps
+          echo "ENV_FILE=${ENV_FILE}" >> "$GITHUB_ENV"
 
       - uses: actions/setup-node@v4
         with:
@@ -78,8 +86,23 @@ jobs:
         run: |
           set -euo pipefail
 
-          if [ "${{ github.base_ref }}" = "main" ]; then
+          # If your build tooling expects .env.local specifically, uncomment:
+          # cp "${ENV_FILE}" .env.local
+
+          if [ "${{ inputs.environment }}" = "production" ]; then
             npm run build-prod
           else
             npm run build-staging
           fi
+        env:
+          ENV_FILE: ${{ env.ENV_FILE }}
+
+      - name: Deploy files via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: dist/
+          server-dir: /
+          dangerous-clean-slate: false

@@ -61,8 +61,10 @@ jobs:
             - name: Typecheck (Astro)
               run: npm run typecheck
 
-            - name: Lint/Test
+            - name: Lint
               run: npm run lint --if-present
+
+            - name: Test
               run: npm test --if-present
 
             - name: Build

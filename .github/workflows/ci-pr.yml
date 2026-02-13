@@ -24,11 +24,19 @@ jobs:
       NODE_ENV: ${{ github.base_ref == 'main' && 'production' || 'staging' }}
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+
+      - name: Ensure PR has merge commit
+        shell: bash
+        run: |
+          if [ -z "${{ github.event.pull_request.merge_commit_sha }}" ]; then
+            echo "No merge commit SHA available (likely merge conflicts or merge ref not generated)."
+            exit 1
+          fi
+
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: refs/pull/${{ github.event.pull_request.number }}/merge
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
 
       - name: Write env file for build
         shell: bash

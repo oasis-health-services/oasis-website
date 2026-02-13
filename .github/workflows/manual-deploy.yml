@@ -96,13 +96,31 @@ jobs:
           fi
         env:
           ENV_FILE: ${{ env.ENV_FILE }}
+      
+      - name: Install SSH + rsync
+        run: sudo apt-get update && sudo apt-get install -y openssh-client rsync
 
-      - name: Deploy files via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: dist/
-          server-dir: /
-          dangerous-clean-slate: false
+      - name: Configure SSH key
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/ssh_ohs_key
+          chmod 600 ~/.ssh/ssh_ohs_key
+
+          # Add host key to known_hosts
+          ssh-keyscan -p "${{ vars.SSH_PORT }}" "${{ vars.SSH_HOST }}" >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Deploy (rsync)
+        shell: bash
+        run: |
+          set -euo pipefail
+          rsync -avz --delete \
+            -e "ssh -i ~/.ssh/ssh_ohs_key -p ${{ vars.SSH_PORT }} -o IdentitiesOnly=yes" \
+            dist/ \
+            "${{ vars.SSH_USER }}@${{ vars.SSH_HOST }}:${{ vars.SSH_PATH }}"
+
+          echo "Deployed to ${{ vars.SSH_HOST }}"

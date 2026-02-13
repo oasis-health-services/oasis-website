@@ -33,7 +33,6 @@ jobs:
                 ENV_FILE=".env.local"
 
                 cat > "${ENV_FILE}" << 'EOF'
-                PUBLIC_WEBSITE_URL=${{ vars.PUBLIC_WEBSITE_URL }}
                 PUBLIC_SITE_URL=${{ vars.PUBLIC_SITE_URL }}
                 PUBLIC_API_KEY=${{ secrets.PUBLIC_API_KEY }}
                 PUBLIC_AUTH_DOMAIN=${{ vars.PUBLIC_AUTH_DOMAIN }}
@@ -62,8 +61,9 @@ jobs:
             - name: Typecheck (Astro)
               run: npm run typecheck
 
-            - name: Lint
-              run: npm run lint
+            - name: Lint/Test
+              run: npm run lint --if-present
+              run: npm test --if-present
 
             - name: Build
               run: npm run build

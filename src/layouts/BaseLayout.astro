@@ -1,9 +1,9 @@
 ---
 import '../styles/global.css';
 
-const SITE_URL = 'https://oasishealthservices.com';
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://oasishealthservices.com';
 const SITE_NAME = 'Oasis Health Services';
-const DEFAULT_IMAGE = 'https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/80ad63f8667e4b31d0ddc190e412e19f.png';
+const DEFAULT_IMAGE = '/images/home/home-banner-1.webp';
 
 interface Props {
 	title?: string;
@@ -96,9 +96,9 @@ const ogImage = image
 		)}
 
 		<!-- Favicon -->
-		<link rel="icon" type="image/png" sizes="32x32" href="https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/6e6e756733b6ed03692ed1bc66bf9526.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/6e6e756733b6ed03692ed1bc66bf9526.png">
-		<link rel="apple-touch-icon" sizes="180x180" href="https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/6e6e756733b6ed03692ed1bc66bf9526.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/images/oasis-favicon.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/images/oasis-favicon.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/images/oasis-favicon.png">
 
 		<!-- Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">

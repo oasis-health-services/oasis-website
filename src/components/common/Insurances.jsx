@@ -6,9 +6,9 @@ import { allInsuranceProviders, insurancePartners } from "@/lib/insurance-data";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "../ui/sheet";
 
 
-export default function Insurances({ showConsultationCTA = true } = {}) {
+export default function Insurances({ showConsultationCTA = true, className = "py-20 lg:py-28 bg-secondary" } = {}) {
     return (
-        <section className="py-20 lg:py-28 bg-secondary" aria-labelledby="insurance-heading">
+        <section className={className} aria-labelledby="insurance-heading">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
                     {/* Left column */}
@@ -83,7 +83,7 @@ export default function Insurances({ showConsultationCTA = true } = {}) {
                             ))}
                         </div>
                         <p className="mt-6 text-sm text-muted-foreground">
-                            Don't see your insurance? <a href="/contact" className="text-primary hover:underline">Contact us</a> to discuss payment options and self-pay rates.
+                            Don't see your insurance? <a href="/contact" className="text-primary hover:underline">Contact us</a> to verify your benefits or discuss self-pay rates.
                         </p>
                     </motion.div>
                 </div>

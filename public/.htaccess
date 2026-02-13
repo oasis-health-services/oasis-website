@@ -5,14 +5,17 @@
     Options -MultiViews
   </IfModule>
 
-  # Specific redirect
-  RewriteRule ^landing-page/virtual-medication-management/?$ /lp/medication-management [R=301,L,QSA]
-  RewriteRule ^landing-page/(.+)$ /lp/$1 [R=301,L,QSA]
+  # Legacy redirects (root .htaccess)
+  RewriteRule ^landing-page/virtual-medication-management(\.html)?/?$ /lp/medication-management [R=301,L,QSA]
+  RewriteRule ^landing-page/(.+?)(\.html)?/?$ /lp/$1 [R=301,L,QSA]
 
-  # Serve existing files/directories normally
+  # Serve real files/dirs
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
+
+  # Anything else does not exist -> 404
+  RewriteRule ^ - [R=404,L]
 </IfModule>
 
 ErrorDocument 404 /404.html

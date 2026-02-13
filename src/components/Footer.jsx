@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin, Twitter } from "lucide-react"
+import { Phone, Mail, MapPin, Linkedin, Facebook, Twitter, Instagram } from "lucide-react"
 import OptimizedImage from "./OptimizedImage"
 
 const socialLinks = [

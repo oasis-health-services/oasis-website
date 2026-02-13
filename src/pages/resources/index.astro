@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Resources from '@/components/pages/resources/Resources';
+import ResourcesPage from '@/components/pages/resources/Resources';
 import { getOrganizationSchema } from '@/utils/schema';
 ---
 
@@ -9,5 +9,5 @@ import { getOrganizationSchema } from '@/utils/schema';
   description="Resources for mental health care and psychiatric services."
   schema={getOrganizationSchema()}
 >
-  <Resources client:load /> 
+  <ResourcesPage client:load /> 
 </Layout>

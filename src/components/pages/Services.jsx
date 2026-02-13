@@ -1,8 +1,4 @@
-
-import React from 'react';
-// import { Helmet } from 'react-helmet'; // REMOVED
 import { motion } from 'framer-motion';
-// import { Link } from 'react-router-dom'; // REMOVED
 import { ArrowRight, Activity, Brain, Shield, TestTube, Pill, Users, FileText, Wifi } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 

@@ -5,7 +5,8 @@ export function InsuranceLogos() {
         "Cigna",
         "UnitedHealthcare",
         "Optum",
-        "UMR"
+        "UMR",
+        "OSCAR",
     ];
 
     return (
@@ -24,6 +25,10 @@ export function InsuranceLogos() {
                         </div>
                     ))}
                 </div>
+                <p className="mt-6 text-center text-sm text-muted-foreground">
+                    Don't see your insurance? <a href="/contact" className="text-primary hover:underline">Contact us</a> to verify your benefits or discuss self-pay rates.
+                </p>
+
             </div>
         </section>
     );

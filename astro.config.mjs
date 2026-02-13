@@ -1,10 +1,10 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
-import sitemap from '@astrojs/sitemap';
+//import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite'; // Import the new Vite plugin
-import fs from 'node:fs';
-import path from 'node:path';
-import { execSync } from 'node:child_process';
+//import fs from 'node:fs';
+//import path from 'node:path';
+//import { execSync } from 'node:child_process';
 import { loadEnv } from 'vite';
 
 const env = loadEnv(process.env.NODE_ENV || 'development', process.cwd(), '');

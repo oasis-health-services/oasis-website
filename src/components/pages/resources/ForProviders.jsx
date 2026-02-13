@@ -95,15 +95,15 @@ const referralSteps = [
     },
 ]
 
-const specialties = [
-    { value: "primary-care", label: "Primary Care / Family Medicine" },
-    { value: "pediatrics", label: "Pediatrics" },
-    { value: "internal-medicine", label: "Internal Medicine" },
-    { value: "ob-gyn", label: "OB/GYN" },
-    { value: "neurology", label: "Neurology" },
-    { value: "cardiology", label: "Cardiology" },
-    { value: "other", label: "Other Specialty" },
-]
+// const specialties = [
+//     { value: "primary-care", label: "Primary Care / Family Medicine" },
+//     { value: "pediatrics", label: "Pediatrics" },
+//     { value: "internal-medicine", label: "Internal Medicine" },
+//     { value: "ob-gyn", label: "OB/GYN" },
+//     { value: "neurology", label: "Neurology" },
+//     { value: "cardiology", label: "Cardiology" },
+//     { value: "other", label: "Other Specialty" },
+// ]
 
 const partnershipInterests = [
     "Co-management of patients",

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -env
+
+npm run build

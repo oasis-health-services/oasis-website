@@ -1,0 +1,108 @@
+name: Manual Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Deployment target"
+        type: choice
+        options: [staging, production]
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: manual-deploy-${{ inputs.environment }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+
+    env:
+      TARGET_BRANCH: ${{ inputs.environment == 'production' && 'main' || 'qa' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TARGET_BRANCH }}
+
+      - name: Write env file for build
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ "${{ inputs.environment }}" = "production" ]; then
+            ENV_FILE=".env.production"
+            NODE_ENV_VALUE="production"
+          else
+            ENV_FILE=".env.staging"
+            NODE_ENV_VALUE="staging"
+          fi
+
+          cat > "${ENV_FILE}" <<EOF
+          PUBLIC_SITE_URL=${{ vars.PUBLIC_SITE_URL }}
+          PUBLIC_API_KEY=${{ secrets.PUBLIC_API_KEY }}
+          PUBLIC_AUTH_DOMAIN=${{ vars.PUBLIC_AUTH_DOMAIN }}
+          PUBLIC_DATABASE_URL=${{ vars.PUBLIC_DATABASE_URL }}
+          PUBLIC_PROJECT_ID=${{ vars.PUBLIC_PROJECT_ID }}
+          PUBLIC_STORAGE_BUCKET=${{ vars.PUBLIC_STORAGE_BUCKET }}
+          PUBLIC_MESSAGING_SENDER_ID=${{ vars.PUBLIC_MESSAGING_SENDER_ID }}
+          PUBLIC_APP_ID=${{ secrets.PUBLIC_APP_ID }}
+          PUBLIC_MEASUREMENT_ID=${{ vars.PUBLIC_MEASUREMENT_ID }}
+          PUBLIC_RECAPTCHA_SITE_KEY=${{ secrets.PUBLIC_RECAPTCHA_SITE_KEY }}
+          PUBLIC_API_URL=${{ vars.PUBLIC_API_URL }}
+          REMOTE_SERVER_PATH=${{ vars.REMOTE_SERVER_PATH }}
+          NODE_ENV=${NODE_ENV_VALUE}
+          EOF
+
+          echo "Wrote ${ENV_FILE} with $(wc -l < "${ENV_FILE}") entries"
+
+          # Make ENV_FILE available to later steps
+          echo "ENV_FILE=${ENV_FILE}" >> "$GITHUB_ENV"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Typecheck (Astro)
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint --if-present
+
+      - name: Test
+        run: npm test --if-present
+
+      - name: Build
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # If your build tooling expects .env.local specifically, uncomment:
+          # cp "${ENV_FILE}" .env.local
+
+          if [ "${{ inputs.environment }}" = "production" ]; then
+            npm run build-prod
+          else
+            npm run build-staging
+          fi
+        env:
+          ENV_FILE: ${{ env.ENV_FILE }}
+
+      - name: Deploy files via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: dist/
+          server-dir: /
+          dangerous-clean-slate: false

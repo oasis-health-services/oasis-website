@@ -1,6 +1,6 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Telehealth from '@/components/pages/resources/Telehealth';
+import Layout from '@/layouts/Layout.astro';
+import TelehealthPage from '@/components/pages/resources/Telehealth';
 import { getOrganizationSchema } from '@/utils/schema';
 ---
 
@@ -9,5 +9,5 @@ import { getOrganizationSchema } from '@/utils/schema';
   description="Telehealth Resources for mental health care and psychiatric services."
   schema={getOrganizationSchema()}
 >
-  <Telehealth client:load /> 
+  <TelehealthPage client:load /> 
 </Layout>

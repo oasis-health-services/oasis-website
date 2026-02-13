@@ -5,6 +5,10 @@
     Options -MultiViews
   </IfModule>
 
+  # Specific redirect
+  RewriteRule ^landing-page/virtual-medication-management/?$ /lp/medication-management [R=301,L,QSA]
+  RewriteRule ^landing-page/(.+)$ /lp/$1 [R=301,L,QSA]
+
   # Serve existing files/directories normally
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
@@ -15,10 +19,11 @@ ErrorDocument 404 /404.html
 
 <IfModule mod_headers.c>
   # Cache everything on CDN by default
-  Header set Cache-Control "public, s-maxage=604800, max-age=0"
+  # Default for HTML/docs: short CDN cache
+  Header set Cache-Control "public, max-age=0, s-maxage=300"
 
-  # Cache in browser all assets
+  # Long cache for assets
   <If "%{REQUEST_URI} =~ m#^/assets/.*$#">
-    Header set Cache-Control "public, max-age=604800"
+    Header set Cache-Control "public, max-age=604800, immutable"
   </If>
 </IfModule>

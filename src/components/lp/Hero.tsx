@@ -15,7 +15,7 @@ export function Hero({
     title,
     subtitle,
     ctaText = "Get Started Today",
-    ctaHref = "https://oasishealthservices.com/get-started",
+    ctaHref = "/start",
     image,
     imageAlt = "Healthcare professional"
 }: HeroProps) {

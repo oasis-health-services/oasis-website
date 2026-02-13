@@ -1,15 +1,13 @@
 ---
 import { getCollection } from 'astro:content';
-import BlogLayout from "../../layouts/BlogLayout.astro";
+import BlogLayout from "@/layouts/BlogLayout.astro";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import BreadcrumbNav from "../../components/blog/BreadcrumbNav.astro";
-import { getArticlesByTag, getCategories } from "../../content/config";
+import BreadcrumbNav from "@/components/blog/BreadcrumbNav.astro";
+import { getArticlesByTag } from "@/content/config";
 import { Hash } from "lucide-react";
 
 const allTagsEntries = await getCollection('tags');
-const categoriesEntries = await getCategories();
-const categories = categoriesEntries.map(c => c.data);
 
 // Sort tags by article count
 const tagsWithCounts = await Promise.all(
@@ -19,11 +17,12 @@ const tagsWithCounts = await Promise.all(
   }))
 );
 
+const currentPath = Astro.url.pathname;
 tagsWithCounts.sort((a, b) => b.count - a.count);
 ---
 
 <BlogLayout title="All Tags" description="Browse all topics and tags to find mental health resources that match your needs.">
-  <Header categories={categories} client:load />
+  <Header currentPath={currentPath} client:load />
   <main class="flex-1">
     <!-- Hero section -->
     <section class="py-12 md:py-16 border-b border-border bg-muted/30">

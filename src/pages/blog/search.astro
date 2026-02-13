@@ -5,14 +5,11 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BreadcrumbNav from "../../components/blog/BreadcrumbNav.astro";
 import ArticleCard from "../../components/blog/ArticleCard.astro";
-import { searchContent, getCategories } from "../../content/config";
+import { searchContent } from "../../content/config";
 import { Search as SearchIcon, FolderOpen, Tag, FileText } from "lucide-react";
 
 const query = Astro.url.searchParams.get("q")?.trim() || "";
 const results = query.length >= 1 ? await searchContent(query, 50) : [];
-
-const categoriesEntries = await getCategories();
-const categories = categoriesEntries.map(c => c.data);
 
 // Group results by type
 const articleResults = results.filter(r => r.type === "article");
@@ -25,6 +22,8 @@ const matchingArticleIds = articleResults.map(r => r.url.replace("/blog/", ""));
 const allArticles = await getCollection('blog');
 const matchingArticles = allArticles.filter(a => matchingArticleIds.includes(a.id));
 
+const currentPath = Astro.url.pathname;
+
 const breadcrumbs = [
   { label: "Home", href: "/" },
   { label: "Blog", href: "/blog" },
@@ -33,7 +32,7 @@ const breadcrumbs = [
 ---
 
 <BlogLayout title={query ? `Search: ${query}` : "Search"}>
-  <Header categories={categories} client:load />
+  <Header currentPath={currentPath} client:load />
   
   <main class="min-h-screen bg-background">
     <div class="mx-auto max-w-7xl px-4 py-8 lg:px-8">

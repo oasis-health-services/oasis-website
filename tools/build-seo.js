@@ -176,55 +176,15 @@ Disallow: /`;
   console.log('✅ robots.txt generated in dist/');
 }
 
-//import { exec } from 'child_process';
-//import { promisify } from 'util';
-
-//const execAsync = promisify(exec);
-
-//const tools = [
-//  { name: 'Robots.txt', script: 'node --env-file=.env tools/generate-robots.js' },
-//  { name: 'LLMs.txt', script: 'node --env-file=.env tools/generate-llms.js' },
-//];
-
-// async function runScript(name, script) {
-//   console.log(`\n🔧 Running: ${name}...`);
-//   try {
-//     const { stdout, stderr } = await execAsync(script);
-//     if (stdout) console.log(stdout);
-//     if (stderr) console.error(stderr);
-//     console.log(`✅ ${name} completed`);
-//     return true;
-//   } catch (error) {
-//     console.error(`❌ ${name} failed:`, error.message);
-//     return false;
-//   }
-// }
-
 async function main() {
   console.log('🚀 Starting SEO Build Process...\n');
   console.log('='.repeat(50));
-
-  let allSuccess = true;
-
-  // Run pre-build tools
-  // for (const tool of tools) {
-  //   const success = await runScript(tool.name, tool.script);
-  //   if (!success) allSuccess = false;
-  // }
-
-  //  console.log('\n' + '='.repeat(50));
 
   await generateSitemap();
   await generateLLMs();
   await generateRobotsTxt();
 
   console.log('✅ All pre-build SEO tasks completed successfully!');
-
-  //  if (allSuccess) {
-  //    console.log('\n📦 Now running Astro build...\n');
-  //  } else {
-  //    console.log('⚠️  Some tasks failed, but continuing with build...');
-  //  }
 }
 
 const isMainModule = import.meta.url === `file://${process.argv[1]}`;

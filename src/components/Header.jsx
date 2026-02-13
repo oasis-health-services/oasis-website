@@ -1,7 +1,6 @@
 import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, Phone, ChevronDown, BookOpen, Video, HelpCircle, Heart, Smartphone, FileText, AlertTriangle, Users, Handshake, ClipboardCheck, ArrowRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { motion } from "framer-motion"
+import { Menu, X, Phone, ChevronDown, BookOpen, HelpCircle, Heart, Smartphone, AlertTriangle, Users, ClipboardCheck, ArrowRight } from "lucide-react"
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -12,6 +11,7 @@ import {
 } from "@/components/ui/navigation-menu"
 import { cn } from "@/lib/utils"
 import OptimizedImage from "./OptimizedImage"
+import { Button } from "@/components/ui/button"
 
 const navigation = [
     { name: "Home", href: "/" },
@@ -58,24 +58,6 @@ const navigation = [
     { name: "Shop", href: "https://shop.oasishealthservices.com", external: true },
     { name: "Contact", href: "/contact" }
 ];
-
-const resourcesMenu = {
-    learn: [
-        { name: "Blog", href: "/resources/blog", icon: BookOpen, description: "Articles and insights on mental wellness" },
-        { name: "Video Library", href: "/resources/videos", icon: Video, description: "Educational videos from our providers" },
-        { name: "FAQ", href: "/resources/faq", icon: HelpCircle, description: "Answers to common questions" },
-    ],
-    patientTools: [
-        { name: "Self-Assessments", href: "/assessments", icon: ClipboardCheck, description: "PHQ-9, GAD-7, and more screeners" },
-        { name: "Self-Care Toolkit", href: "/resources/self-care", icon: Heart, description: "Exercises and coping strategies" },
-        { name: "Telehealth Guide", href: "/resources/telehealth", icon: Smartphone, description: "How to prepare for virtual visits" },
-    ],
-    support: [
-        { name: "Crisis Resources", href: "/resources/crisis", icon: AlertTriangle, description: "24/7 hotlines and emergency help" },
-        { name: "Support Groups", href: "/resources/support-groups", icon: Users, description: "Local and online communities" },
-        { name: "For Providers", href: "/for-providers", icon: Handshake, description: "Referrals and partnerships" },
-    ],
-}
 
 const ActiveIndicator = () => (
     <motion.div

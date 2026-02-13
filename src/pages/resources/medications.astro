@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Medications from '@/components/pages/resources/Medications';
+import MedicationsPage from '@/components/pages/resources/Medications';
 import { getOrganizationSchema } from '@/utils/schema';
 ---
 
@@ -9,5 +9,5 @@ import { getOrganizationSchema } from '@/utils/schema';
   description="Educational resources about psychiatric medications including antidepressants, anti-anxiety medications, mood stabilizers, and ADHD medications. Learn what to expect from your treatment."
   schema={getOrganizationSchema()}
 >
-  <Medications client:load /> 
+  <MedicationsPage client:load /> 
 </Layout>

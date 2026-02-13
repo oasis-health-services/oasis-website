@@ -1,26 +1,26 @@
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+//import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-    ArrowRight, CheckCircle, HelpCircle, CalendarCheck, Phone,
-    FileText, UserCheck, Calendar, Stethoscope, Download, ExternalLink,
+    ArrowRight, CalendarCheck, Phone,
+    FileText, UserCheck, Calendar, Stethoscope, /*Download, ExternalLink,*/
     MessageSquare, CreditCard, FileCheck, BookOpen, Heart, Shield,
     Send, Loader2
 } from 'lucide-react';
 
-import {
-    Sheet,
-    SheetContent,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from "@/components/ui/sheet";
-import OptimizedImage from '@/components/OptimizedImage';
+// import {
+//     Sheet,
+//     SheetContent,
+//     SheetHeader,
+//     SheetTitle,
+//     SheetTrigger,
+// } from "@/components/ui/sheet";
+// import OptimizedImage from '@/components/OptimizedImage';
 import { useForm } from 'react-hook-form';
 import { ContactSchema } from '@/lib/schema';
 import FormError from '../FormError';
@@ -28,44 +28,44 @@ import FieldError from '../FieldError';
 import { submitContactForm } from '@/api';
 
 const Patients = () => {
-    const steps = [
-        {
-            number: '01',
-            title: 'Complete a Secure Online Assessment',
-            description: 'Fill out our confidential intake form to help us understand your needs.',
-        },
-        {
-            number: '02',
-            title: 'Receive a Free Consultation',
-            description: 'Our team will review your responses and schedule a consultation if needed.',
-        },
-        {
-            number: '03',
-            title: 'Schedule Easily',
-            description: 'Book your appointment through our secure online portal.',
-        },
-        {
-            number: '04',
-            title: 'Attend Your Session',
-            description: 'Meet with your provider virtually or in person.',
-        },
-    ];
+    // const steps = [
+    //     {
+    //         number: '01',
+    //         title: 'Complete a Secure Online Assessment',
+    //         description: 'Fill out our confidential intake form to help us understand your needs.',
+    //     },
+    //     {
+    //         number: '02',
+    //         title: 'Receive a Free Consultation',
+    //         description: 'Our team will review your responses and schedule a consultation if needed.',
+    //     },
+    //     {
+    //         number: '03',
+    //         title: 'Schedule Easily',
+    //         description: 'Book your appointment through our secure online portal.',
+    //     },
+    //     {
+    //         number: '04',
+    //         title: 'Attend Your Session',
+    //         description: 'Meet with your provider virtually or in person.',
+    //     },
+    // ];
 
-    const insurancePartners = [
-        { name: 'Aetna', alt: 'Aetna logo', logo: 'https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/a1da4b7ea507773a15fc0f9d0afda54e.webp' },
-        { name: 'BlueCross BlueShield', alt: 'BlueCross BlueShield logo', logo: 'https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/b4915d726b2da1904d14ac200e95ba27.webp' },
-        { name: 'Cigna', alt: 'Cigna logo', logo: 'https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/f778db83833b190c40c7e1eb8598b165.webp' },
-        { name: 'Optum', alt: 'Optum logo', logo: 'https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/cc8d5c1f30422780fab79fe1bfe8d7bb.webp' },
-        { name: 'UnitedHealthcare', alt: 'UnitedHealthcare logo', logo: 'https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/35b8e2b9fb67ed7f4f91564249adc06b.webp' },
-        { name: 'UMR', alt: 'UMR logo', logo: 'https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/1e3cc13010bffe27f18829d2a50f5e4c.webp' },
-    ];
+    // const insurancePartners = [
+    //     { name: 'Aetna', alt: 'Aetna logo', logo: 'https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/a1da4b7ea507773a15fc0f9d0afda54e.webp' },
+    //     { name: 'BlueCross BlueShield', alt: 'BlueCross BlueShield logo', logo: 'https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/b4915d726b2da1904d14ac200e95ba27.webp' },
+    //     { name: 'Cigna', alt: 'Cigna logo', logo: 'https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/f778db83833b190c40c7e1eb8598b165.webp' },
+    //     { name: 'Optum', alt: 'Optum logo', logo: 'https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/cc8d5c1f30422780fab79fe1bfe8d7bb.webp' },
+    //     { name: 'UnitedHealthcare', alt: 'UnitedHealthcare logo', logo: 'https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/35b8e2b9fb67ed7f4f91564249adc06b.webp' },
+    //     { name: 'UMR', alt: 'UMR logo', logo: 'https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/1e3cc13010bffe27f18829d2a50f5e4c.webp' },
+    // ];
 
-    const allInsuranceProviders = [
-        'Aetna', 'Anthem', 'Beacon', 'Blue Cross Blue Shield', 'CareSource',
-        'Cigna Health Plans', 'Compsych', 'Coordinated Care', 'Humana',
-        'Magellan Health', 'Meritain Health', 'Optum', 'Oscar', 'Premera',
-        'Regence', 'TriCare', 'UMR', 'United Healthcare'
-    ];
+    // const allInsuranceProviders = [
+    //     'Aetna', 'Anthem', 'Beacon', 'Blue Cross Blue Shield', 'CareSource',
+    //     'Cigna Health Plans', 'Compsych', 'Coordinated Care', 'Humana',
+    //     'Magellan Health', 'Meritain Health', 'Optum', 'Oscar', 'Premera',
+    //     'Regence', 'TriCare', 'UMR', 'United Healthcare'
+    // ];
 
     return (
         <>
@@ -410,126 +410,126 @@ function IntakeProcess() {
     )
 }
 
-function PatientForms() {
+// function PatientForms() {
 
-    const forms = [
-        {
-            title: "New Patient Intake Form",
-            description: "Required for all new patients. Complete this form to begin the intake process.",
-            type: "online",
-            href: "/start",
-            primary: true,
-        },
-        {
-            title: "Release of Information (ROI)",
-            description: "Authorize the release of your medical records to or from another provider.",
-            type: "download",
-            href: "/forms/release-of-information.pdf",
-        },
-        {
-            title: "Guardian Authorization Form",
-            description: "Required for parents or guardians of patients under 18 years of age.",
-            type: "download",
-            href: "/forms/guardian-authorization.pdf",
-        },
-        {
-            title: "Medication Refill Request",
-            description: "Request a refill of your current medications. Allow 48-72 hours for processing.",
-            type: "online",
-            href: "/medication-refill",
-        },
-        {
-            title: "Insurance Information Form",
-            description: "Update your insurance information or submit new coverage details.",
-            type: "download",
-            href: "/forms/insurance-info.pdf",
-        },
-        {
-            title: "HIPAA Privacy Notice",
-            description: "Review our privacy practices and how we protect your health information.",
-            type: "download",
-            href: "/forms/hipaa-notice.pdf",
-        },
-    ]
+//     const forms = [
+//         {
+//             title: "New Patient Intake Form",
+//             description: "Required for all new patients. Complete this form to begin the intake process.",
+//             type: "online",
+//             href: "/start",
+//             primary: true,
+//         },
+//         {
+//             title: "Release of Information (ROI)",
+//             description: "Authorize the release of your medical records to or from another provider.",
+//             type: "download",
+//             href: "/forms/release-of-information.pdf",
+//         },
+//         {
+//             title: "Guardian Authorization Form",
+//             description: "Required for parents or guardians of patients under 18 years of age.",
+//             type: "download",
+//             href: "/forms/guardian-authorization.pdf",
+//         },
+//         {
+//             title: "Medication Refill Request",
+//             description: "Request a refill of your current medications. Allow 48-72 hours for processing.",
+//             type: "online",
+//             href: "/medication-refill",
+//         },
+//         {
+//             title: "Insurance Information Form",
+//             description: "Update your insurance information or submit new coverage details.",
+//             type: "download",
+//             href: "/forms/insurance-info.pdf",
+//         },
+//         {
+//             title: "HIPAA Privacy Notice",
+//             description: "Review our privacy practices and how we protect your health information.",
+//             type: "download",
+//             href: "/forms/hipaa-notice.pdf",
+//         },
+//     ]
 
-    return (
-        <section className="py-20 lg:py-28 bg-secondary" aria-labelledby="forms-heading">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="lg:grid lg:grid-cols-3 lg:gap-16">
-                    {/* Header */}
-                    <div className="lg:col-span-1">
-                        <span className="text-sm font-medium text-primary tracking-wide uppercase">Forms & Documents</span>
-                        <h2 id="forms-heading" className="mt-3 font-serif text-3xl font-semibold text-foreground sm:text-4xl text-balance">
-                            Patient Forms
-                        </h2>
-                        <p className="mt-4 text-muted-foreground text-pretty">
-                            Access and download the forms you need. Online forms can be completed directly on our secure portal.
-                            PDF forms can be downloaded, filled out, and brought to your appointment or emailed to us.
-                        </p>
-                        <p className="mt-4 text-sm text-muted-foreground">
-                            Need help with a form? Contact us at{" "}
-                            <a href="mailto:support@oasishealthservices.com" className="text-primary hover:underline">
-                                support@oasishealthservices.com
-                            </a>
-                        </p>
-                    </div>
+//     return (
+//         <section className="py-20 lg:py-28 bg-secondary" aria-labelledby="forms-heading">
+//             <div className="mx-auto max-w-7xl px-6 lg:px-8">
+//                 <div className="lg:grid lg:grid-cols-3 lg:gap-16">
+//                     {/* Header */}
+//                     <div className="lg:col-span-1">
+//                         <span className="text-sm font-medium text-primary tracking-wide uppercase">Forms & Documents</span>
+//                         <h2 id="forms-heading" className="mt-3 font-serif text-3xl font-semibold text-foreground sm:text-4xl text-balance">
+//                             Patient Forms
+//                         </h2>
+//                         <p className="mt-4 text-muted-foreground text-pretty">
+//                             Access and download the forms you need. Online forms can be completed directly on our secure portal.
+//                             PDF forms can be downloaded, filled out, and brought to your appointment or emailed to us.
+//                         </p>
+//                         <p className="mt-4 text-sm text-muted-foreground">
+//                             Need help with a form? Contact us at{" "}
+//                             <a href="mailto:support@oasishealthservices.com" className="text-primary hover:underline">
+//                                 support@oasishealthservices.com
+//                             </a>
+//                         </p>
+//                     </div>
 
-                    {/* Forms Grid */}
-                    <div className="mt-10 lg:mt-0 lg:col-span-2">
-                        <div className="grid sm:grid-cols-2 gap-4">
-                            {forms.map((form) => (
-                                <div
-                                    key={form.title}
-                                    className={`bg-card rounded-xl p-5 border transition-colors ${form.primary
-                                        ? "border-primary shadow-sm"
-                                        : "border-border hover:border-primary/50"
-                                        }`}
-                                >
-                                    <div className="flex items-start gap-3">
-                                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${form.primary ? "bg-primary" : "bg-primary/10"
-                                            }`}>
-                                            <FileText className={`h-5 w-5 ${form.primary ? "text-primary-foreground" : "text-primary"}`} />
-                                        </div>
-                                        <div className="flex-1 min-w-0">
-                                            <h3 className="font-semibold text-foreground text-sm">{form.title}</h3>
-                                            <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
-                                                {form.description}
-                                            </p>
-                                            <Button
-                                                variant={form.primary ? "default" : "outline"}
-                                                size="sm"
-                                                className="mt-3"
-                                                asChild
-                                            >
-                                                <a
-                                                    href={form.href}
-                                                    target={form.type === "download" ? "_blank" : undefined}
-                                                    rel={form.type === "download" ? "noopener noreferrer" : undefined}
-                                                >
-                                                    {form.type === "download" ? (
-                                                        <>
-                                                            <Download className="mr-1.5 h-3.5 w-3.5" />
-                                                            Download PDF
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            <ExternalLink className="mr-1.5 h-3.5 w-3.5" />
-                                                            Open Form
-                                                        </>
-                                                    )}
-                                                </a>
-                                            </Button>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    )
-}
+//                     {/* Forms Grid */}
+//                     <div className="mt-10 lg:mt-0 lg:col-span-2">
+//                         <div className="grid sm:grid-cols-2 gap-4">
+//                             {forms.map((form) => (
+//                                 <div
+//                                     key={form.title}
+//                                     className={`bg-card rounded-xl p-5 border transition-colors ${form.primary
+//                                         ? "border-primary shadow-sm"
+//                                         : "border-border hover:border-primary/50"
+//                                         }`}
+//                                 >
+//                                     <div className="flex items-start gap-3">
+//                                         <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${form.primary ? "bg-primary" : "bg-primary/10"
+//                                             }`}>
+//                                             <FileText className={`h-5 w-5 ${form.primary ? "text-primary-foreground" : "text-primary"}`} />
+//                                         </div>
+//                                         <div className="flex-1 min-w-0">
+//                                             <h3 className="font-semibold text-foreground text-sm">{form.title}</h3>
+//                                             <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
+//                                                 {form.description}
+//                                             </p>
+//                                             <Button
+//                                                 variant={form.primary ? "default" : "outline"}
+//                                                 size="sm"
+//                                                 className="mt-3"
+//                                                 asChild
+//                                             >
+//                                                 <a
+//                                                     href={form.href}
+//                                                     target={form.type === "download" ? "_blank" : undefined}
+//                                                     rel={form.type === "download" ? "noopener noreferrer" : undefined}
+//                                                 >
+//                                                     {form.type === "download" ? (
+//                                                         <>
+//                                                             <Download className="mr-1.5 h-3.5 w-3.5" />
+//                                                             Download PDF
+//                                                         </>
+//                                                     ) : (
+//                                                         <>
+//                                                             <ExternalLink className="mr-1.5 h-3.5 w-3.5" />
+//                                                             Open Form
+//                                                         </>
+//                                                     )}
+//                                                 </a>
+//                                             </Button>
+//                                         </div>
+//                                     </div>
+//                                 </div>
+//                             ))}
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
+//         </section>
+//     )
+// }
 
 export function ReturningPatients() {
 
@@ -741,7 +741,7 @@ function ContactSection() {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isSubmitted, setIsSubmitted] = useState(false)
 
-    const { register, handleSubmit: formSubmit, control, formState: { errors } } = useForm({
+    const { register, handleSubmit: formSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(ContactSchema),
         defaultValues: {
             firstName: "",
@@ -778,17 +778,6 @@ function ContactSection() {
             setIsSubmitting(false);
         }
     };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        setIsSubmitting(true)
-
-        // Simulate form submission
-        await new Promise(resolve => setTimeout(resolve, 1500))
-
-        setIsSubmitting(false)
-        setIsSubmitted(true)
-    }
 
     return (
         <section className="py-20 lg:py-28" aria-labelledby="contact-heading">

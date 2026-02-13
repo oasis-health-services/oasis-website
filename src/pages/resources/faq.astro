@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import FAQ from '@/components/pages/resources/FAQ';
+import FAQPage from '@/components/pages/resources/FAQ';
 import { getOrganizationSchema } from '@/utils/schema';
 ---
 
@@ -9,5 +9,5 @@ import { getOrganizationSchema } from '@/utils/schema';
   description="FAQ Resources for mental health care and psychiatric services."
   schema={getOrganizationSchema()}
 >
-  <FAQ client:load /> 
+  <FAQPage client:load /> 
 </Layout>

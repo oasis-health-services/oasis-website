@@ -32,7 +32,7 @@ export function Footer() {
                         <h4 className="mb-4 font-semibold text-[var(--color-foreground)]">Our Services</h4>
                         <ul className="space-y-2 text-sm text-[var(--color-foreground-muted)]">
                             <li><a href="https://oasishealthservices.com/services/medication-management" className="hover:text-[var(--color-primary)]">Medication Management</a></li>
-                            <li><a href="https://oasishealthservices.com/services/adhd" className="hover:text-[var(--color-primary)]">ADHD Testing & Treatment</a></li>
+                            <li><a href="https://oasishealthservices.com/services/adhd-testing-and-management" className="hover:text-[var(--color-primary)]">ADHD Testing & Treatment</a></li>
                             <li><a href="https://oasishealthservices.com/services/spravato" className="hover:text-[var(--color-primary)]">Spravato Therapy</a></li>
                             <li><a href="https://oasishealthservices.com/services" className="hover:text-[var(--color-primary)]">View All Services</a></li>
                         </ul>
@@ -41,14 +41,14 @@ export function Footer() {
                     <div>
                         <h4 className="mb-4 font-semibold text-[var(--color-foreground)]">Contact</h4>
                         <a
-                            href="tel:+18005551234"
+                            href="tel:+15093816035"
                             className="mb-4 inline-flex items-center gap-2 text-[var(--color-primary)] hover:text-[var(--color-primary-dark)]"
                         >
                             <Phone className="h-4 w-4" />
-                            <span className="font-semibold">1-800-555-1234</span>
+                            <span className="font-semibold">509-381-6035</span>
                         </a>
                         <p className="text-sm text-[var(--color-foreground-muted)]">
-                            Virtual appointments available nationwide.
+                            Virtual appointments available.
                         </p>
                     </div>
                 </div>

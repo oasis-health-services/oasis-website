@@ -1,9 +1,9 @@
 ---
 import '../styles/global.css';
 
-const SITE_URL = 'https://oasishealthservices.com';
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://oasishealthservices.com';
 const SITE_NAME = 'Oasis Health Services';
-const DEFAULT_IMAGE = 'https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/80ad63f8667e4b31d0ddc190e412e19f.png';
+const DEFAULT_IMAGE = '/images/home/home-banner-1.webp';
 
 interface Props {
 	title?: string;
@@ -46,9 +46,9 @@ const ogImage = image
 <html lang="en">
 	<head>
 		<!-- Google Tag Manager -->
-		<script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-8TCL37DQ6W&cx=c&gtm=4e61m0"></script>
-		<script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-LRQ33V32XH&cx=c&gtm=4e61m0"></script>
-		<script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-MTTSNH5Z"></script>
+		<script is:inline type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-8TCL37DQ6W&cx=c&gtm=4e61m0"></script>
+		<script is:inline type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-LRQ33V32XH&cx=c&gtm=4e61m0"></script>
+		<script is:inline async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-MTTSNH5Z"></script>
 		<script is:inline>
 			(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -91,13 +91,13 @@ const ogImage = image
 
 		<!-- Schema.org JSON-LD -->
 		{schema && (
-			<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+			<script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
 		)}
 
 		<!-- Favicon -->
-		<link rel="icon" type="image/png" sizes="32x32" href="https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/6e6e756733b6ed03692ed1bc66bf9526.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/6e6e756733b6ed03692ed1bc66bf9526.png">
-		<link rel="apple-touch-icon" sizes="180x180" href="https://horizons-cdn.hostinger.com/0bf89f29-e8e8-4300-9c8a-627c22f53622/6e6e756733b6ed03692ed1bc66bf9526.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/images/oasis-favicon.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/images/oasis-favicon.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/images/oasis-favicon.png">
 
 		<!-- Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">

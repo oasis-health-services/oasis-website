@@ -27,6 +27,7 @@ import { CollaborationSchema } from "@/lib/schema"
 import { submitPartnershipForm } from "@/api"
 import FormError from "@/components/FormError"
 import FieldError from "@/components/FieldError"
+import { contact } from "@/lib/contact"
 
 const partnershipBenefits = [
     {
@@ -216,8 +217,8 @@ function ForProviders() {
                                         <Phone className="h-5 w-5 text-primary mt-0.5" />
                                         <div>
                                             <p className="font-medium text-foreground">Referral Line</p>
-                                            <a href="tel:+15093816035" className="text-primary hover:underline">
-                                                (509) 381-6035
+                                            <a href={contact.phoneUrl} className="text-primary hover:underline">
+                                                {contact.phone}
                                             </a>
                                         </div>
                                     </div>
@@ -574,8 +575,8 @@ function ForProviders() {
                                     </div>
                                     <div>
                                         <p className="text-sm text-muted-foreground">Call Us</p>
-                                        <a href="tel:+15093816035" className="text-lg font-semibold text-foreground hover:text-primary">
-                                            (509) 381-6035
+                                        <a href={contact.phoneUrl} className="text-lg font-semibold text-foreground hover:text-primary">
+                                            {contact.phone}
                                         </a>
                                     </div>
                                 </div>

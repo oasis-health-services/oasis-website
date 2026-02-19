@@ -15,6 +15,7 @@ import {
     Calendar
 } from "lucide-react"
 import { conditions } from "@/lib/conditions-data"
+import { contact } from "@/lib/contact"
 
 const iconMap = {
     AlertTriangle,
@@ -60,7 +61,7 @@ export default function Conditions() {
                                 </a>
                             </Button>
                             <Button size="lg" variant="outline" asChild className="bg-transparent border-primary text-primary">
-                                <a href="tel:+5093816035">
+                                <a href={contact.phoneUrl}>
                                     <Phone className="mr-2 h-5 w-5" />
                                     Call Us Today
                                 </a>

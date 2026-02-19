@@ -1,5 +1,6 @@
 import { Phone, Mail, MapPin, Linkedin, Facebook, Twitter, Instagram } from "lucide-react"
 import OptimizedImage from "./OptimizedImage"
+import { contact } from '@/lib/contact';
 
 const socialLinks = [
     { name: "Facebook", href: "https://facebook.com/oasishealthservices", icon: Facebook },
@@ -74,9 +75,13 @@ export default function Footer() {
                         </div>
 
                         <div className="space-y-3">
-                            <a href="tel:+15093816035" className="flex items-center gap-2 text-sm opacity-80 hover:opacity-100 transition-opacity">
+                            <a href={contact.phoneUrl} className="flex items-center gap-2 text-sm opacity-80 hover:opacity-100 transition-opacity">
                                 <Phone className="h-4 w-4" />
-                                <span>(509) 381-6035</span>
+                                <span>{contact.phone}</span>
+                            </a>
+                            <a href={contact.secondaryPhoneUrl} className="flex items-center gap-2 text-sm opacity-80 hover:opacity-100 transition-opacity">
+                                <Phone className="h-4 w-4" />
+                                <span>{contact.secondaryPhone}</span>
                             </a>
                             <a href="mailto:support@oasishealthservices.com" className="flex items-center gap-2 text-sm opacity-80 hover:opacity-100 transition-opacity">
                                 <Mail className="h-4 w-4" />

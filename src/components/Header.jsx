@@ -12,6 +12,7 @@ import {
 import { cn } from "@/lib/utils"
 import OptimizedImage from "./OptimizedImage"
 import { Button } from "@/components/ui/button"
+import { contact } from '@/lib/contact';
 
 const navigation = [
     { name: "Home", href: "/" },
@@ -21,7 +22,7 @@ const navigation = [
             { name: "Who We Are", href: "/about" },
             { name: "Meet Our Team", href: "/about/our-team" },
             { name: "Conditions we Treat", href: "/about/conditions" },
-            { name: "Blog", href: "/blog" }
+            //            { name: "Blog", href: "/blog" }
         ]
     },
     { name: "Services", href: "/services" },
@@ -228,9 +229,9 @@ export default function Header({ currentPath }) {
                 </div>
 
                 <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-4 lg:items-center">
-                    <a href="tel:+15093816035" className="text-sm text-muted-foreground hover:text-primary flex items-center gap-1.5">
+                    <a href={contact.phoneUrl} className="text-sm text-muted-foreground hover:text-primary flex items-center gap-1.5">
                         <Phone className="h-4 w-4" />
-                        <span>(509) 381-6035</span>
+                        <span>{contact.phone}</span>
                     </a>
                     <Button asChild>
                         <a href="/start">Start Now</a>

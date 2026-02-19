@@ -15,6 +15,7 @@ import {
     HeartPulse,
     Building2,
 } from "lucide-react"
+import { contact } from "@/lib/contact"
 
 const patientRights = [
     {
@@ -353,7 +354,7 @@ export default function HIPAACompliance() {
                                                 <br />
                                                 Roswell, GA 30076
                                                 <br />
-                                                Phone: (509) 381-6035
+                                                Phone: {contact.phone}
                                                 <br />
                                                 Email: info@oasishealthservices.com
                                             </p>
@@ -401,10 +402,10 @@ export default function HIPAACompliance() {
                                         <div>
                                             <p className="text-sm text-muted-foreground">Phone</p>
                                             <a
-                                                href="tel:+15093816035"
+                                                href={`tel:${contact.phone}`}
                                                 className="font-medium text-foreground hover:text-primary"
                                             >
-                                                (509) 381-6035
+                                                {contact.phone}
                                             </a>
                                         </div>
                                     </div>

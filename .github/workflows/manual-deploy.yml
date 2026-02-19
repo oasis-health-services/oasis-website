@@ -90,9 +90,9 @@ jobs:
           # cp "${ENV_FILE}" .env.local
 
           if [ "${{ inputs.environment }}" = "production" ]; then
-            npm run build-prod
+            npm run build:prod
           else
-            npm run build-staging
+            npm run build:staging
           fi
         env:
           ENV_FILE: ${{ env.ENV_FILE }}

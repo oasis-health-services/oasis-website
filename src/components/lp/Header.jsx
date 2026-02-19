@@ -1,5 +1,6 @@
 import { Phone } from 'lucide-react';
 import OptimizedImage from '@/components/OptimizedImage';
+import { contact } from '@/lib/contact';
 
 export function Header() {
     return (
@@ -18,7 +19,7 @@ export function Header() {
                 </a>
 
                 <a
-                    href="tel:+5093816035"
+                    href={contact.phoneUrl}
                     className="flex items-center gap-2 rounded-full bg-[var(--color-primary)] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-primary-dark)]"
                 >
                     <Phone className="h-4 w-4" />

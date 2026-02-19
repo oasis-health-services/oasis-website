@@ -8,6 +8,7 @@
   # Legacy redirects (root .htaccess)
   RewriteRule ^landing-page/virtual-medication-management(\.html)?/?$ /lp/medication-management [R=301,L,QSA]
   RewriteRule ^landing-page/(.+?)(\.html)?/?$ /lp/$1 [R=301,L,QSA]
+  RewriteRule ^consent-notices-policies /policies [R=301,L,QSA]
 
   # Serve real files/dirs
   RewriteCond %{REQUEST_FILENAME} -f [OR]

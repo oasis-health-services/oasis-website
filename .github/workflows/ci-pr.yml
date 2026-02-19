@@ -87,7 +87,7 @@ jobs:
           set -euo pipefail
 
           if [ "${{ github.base_ref }}" = "main" ]; then
-            npm run build-prod
+            npm run build:prod
           else
-            npm run build-staging
+            npm run build:staging
           fi

@@ -172,7 +172,7 @@ export default function Testimonials() {
                             <p className="text-sm text-muted-foreground">Average Rating</p>
                         </div>
                         <div className="text-center">
-                            <p className="text-3xl font-serif font-semibold text-primary">1,000+</p>
+                            <p className="text-3xl font-serif font-semibold text-primary">10k+</p>
                             <p className="text-sm text-muted-foreground">Patients Served</p>
                         </div>
                         <div className="text-center">

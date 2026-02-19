@@ -26,6 +26,7 @@ import {
     HelpCircle
 } from "lucide-react"
 import { getRelatedConditions } from "@/lib/conditions-data"
+import { contact } from "@/lib/contact"
 
 const iconMap = {
     AlertTriangle,
@@ -103,9 +104,9 @@ export default function ConditionDetail({ condition }) {
                                             </a>
                                         </Button>
                                         <Button variant="outline" className="w-full bg-transparent border-primary text-primary" asChild>
-                                            <a href="tel:+5093816035">
+                                            <a href={contact.phoneUrl}>
                                                 <Phone className="mr-2 h-4 w-4" />
-                                                (509) 381-6035
+                                                {contact.phone}
                                             </a>
                                         </Button>
                                     </div>

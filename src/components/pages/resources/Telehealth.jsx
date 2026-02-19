@@ -17,6 +17,7 @@ import {
     Lightbulb,
     AlertCircle
 } from "lucide-react"
+import { contact } from "@/lib/contact"
 
 const benefits = [
     {
@@ -418,8 +419,8 @@ export default function Telehealth() {
                         <p className="text-muted-foreground mb-4">
                             Still having trouble? Contact our support team for immediate assistance.
                         </p>
-                        <Button variant="outline" asChild className="bg-transparent">
-                            <a href="tel:+15093816035">Call (509) 381-6035</a>
+                        <Button variant="outline" asChild className="bg-transparent border-primary text-primary">
+                            <a href={`tel:${contact.phone}`}>Call {contact.phone}</a>
                         </Button>
                     </div>
                 </div>

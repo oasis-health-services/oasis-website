@@ -1,4 +1,5 @@
 import { Phone, AlertTriangle } from 'lucide-react';
+import { contact } from '@/lib/contact';
 
 export function Footer() {
     return (
@@ -41,11 +42,11 @@ export function Footer() {
                     <div>
                         <h4 className="mb-4 font-semibold text-[var(--color-foreground)]">Contact</h4>
                         <a
-                            href="tel:+15093816035"
+                            href={contact.phoneUrl}
                             className="mb-4 inline-flex items-center gap-2 text-[var(--color-primary)] hover:text-[var(--color-primary-dark)]"
                         >
                             <Phone className="h-4 w-4" />
-                            <span className="font-semibold">509-381-6035</span>
+                            <span className="font-semibold">{contact.phone}</span>
                         </a>
                         <p className="text-sm text-[var(--color-foreground-muted)]">
                             Virtual appointments available.

@@ -21,7 +21,7 @@ export const getOrganizationSchema = () => ({
     },
     contactPoint: {
         '@type': 'ContactPoint',
-        telephone: '+1-509-381-6035',
+        telephone: '+1-470-802-6838',
         contactType: 'customer service',
         availableLanguage: 'English'
     },

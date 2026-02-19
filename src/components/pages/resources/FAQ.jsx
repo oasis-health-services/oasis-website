@@ -22,6 +22,7 @@ import {
     MessageCircle,
     ArrowRight,
 } from "lucide-react"
+import { contact } from "@/lib/contact"
 
 const faqCategories = [
     { id: "appointments", label: "Appointments", icon: Calendar, color: "bg-blue-100 text-blue-700" },
@@ -36,7 +37,7 @@ const faqData = {
     appointments: [
         {
             question: "How do I schedule my first appointment?",
-            answer: "You can schedule your first appointment by calling our office at (509) 381-6035, using our online scheduling system through the Patient Portal, or submitting a request through our website's contact form. Our team will reach out to confirm your appointment and send you intake paperwork to complete before your visit."
+            answer: `You can schedule your first appointment by calling our office at ${contact.phone}, using our online scheduling system through the Patient Portal, or submitting a request through our website's contact form. Our team will reach out to confirm your appointment and send you intake paperwork to complete before your visit.`
         },
         {
             question: "What should I bring to my first appointment?",
@@ -96,7 +97,7 @@ const faqData = {
         },
         {
             question: "What if I have technical difficulties during my appointment?",
-            answer: "If you experience technical issues, first try refreshing your browser or rejoining the call. If problems persist, call our office immediately at (509) 381-6035 and we can troubleshoot or switch to a phone call if needed. We won't count technical difficulties against your appointment time."
+            answer: `If you experience technical issues, first try refreshing your browser or rejoining the call. If problems persist, call our office immediately at ${contact.phone} and we can troubleshoot or switch to a phone call if needed. We won't count technical difficulties against your appointment time.`
         },
         {
             question: "Do I need to download special software for telehealth?",
@@ -192,9 +193,9 @@ const faqData = {
 }
 
 const quickAnswers = [
-    { question: "Phone Number", answer: "(509) 381-6035", icon: Phone },
+    { question: "Phone Number", answer: contact.phone, icon: Phone },
     { question: "Office Hours", answer: "Mon-Fri, 8AM-5:30PM", icon: Clock },
-    { question: "Fax Number", answer: "(209) 290-3019", icon: FileText },
+    { question: "Fax Number", answer: contact.fax, icon: FileText },
     { question: "New Patient Wait", answer: "Usually 1-2 weeks", icon: Calendar },
 ]
 

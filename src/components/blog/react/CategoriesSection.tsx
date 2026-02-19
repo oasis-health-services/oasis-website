@@ -51,7 +51,7 @@ export function CategoriesSection({ categories }: CategoriesSectionProps) {
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
                 className={cn(
-                  "flex items-center gap-2 whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-all shrink-0",
+                  "flex items-center gap-2 whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-all shrink-0 cursor-pointer",
                   activeCategory === category.id
                     ? "bg-primary text-primary-foreground"
                     : "bg-card text-foreground hover:bg-muted border border-border"

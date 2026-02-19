@@ -126,7 +126,7 @@ export const providers: Provider[] = [
       "TRICARE",
       "UnitedHealthcare (UHC)"
     ],
-    paymentMethods: ["Visa", "Mastercard", "American Express", "Discover", "HSA", "ACH Bank Transfer"],
+    paymentMethods: ["Visa", "Mastercard", "American Express", "Discover", "HSA"],
     education: [
       {
         degree: "Doctor of Nursing Practice (DNP)",
@@ -166,7 +166,7 @@ export const providers: Provider[] = [
         zip: "30076"
       }
     ],
-    phone: "(509) 381-6035",
+    phone: "(470) 802-6838",
     availableOnline: true,
     acceptingNewPatients: true,
     consultationOffer: "Free 15-minute consultation to discuss your goals",
@@ -247,7 +247,7 @@ export const providers: Provider[] = [
       "Cigna",
       "UnitedHealthcare"
     ],
-    paymentMethods: ["Visa", "Mastercard", "American Express", "HSA"],
+    paymentMethods: ["Visa", "Mastercard", "American Express", "Discover", "HSA"],
     education: [
       {
         degree: "Master of Arts in Clinical Mental Health Counseling",
@@ -276,7 +276,7 @@ export const providers: Provider[] = [
         isVirtual: true
       }
     ],
-    phone: "(509) 381-6035",
+    phone: "(470) 802-6838",
     availableOnline: true,
     acceptingNewPatients: true,
     consultationOffer: "Free 15-minute phone consultation",

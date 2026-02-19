@@ -563,7 +563,7 @@ function AboutValues() {
                                 <p className="text-sm text-muted-foreground mt-1">Years Experience</p>
                             </div>
                             <div>
-                                <p className="text-3xl font-serif font-semibold text-primary">1000+</p>
+                                <p className="text-3xl font-serif font-semibold text-primary">10k+</p>
                                 <p className="text-sm text-muted-foreground mt-1">Patients Served</p>
                             </div>
                             <div>

@@ -26,6 +26,7 @@ import { ContactSchema } from '@/lib/schema';
 import FormError from '../FormError';
 import FieldError from '../FieldError';
 import { submitContactForm } from '@/api';
+import { contact } from "@/lib/contact"
 
 const Patients = () => {
     // const steps = [
@@ -250,9 +251,9 @@ function PatientsHero() {
                                 </a>
                             </Button>
                             <Button variant="outline" className="bg-transparent border-primary text-primary" size="lg" asChild>
-                                <a href="tel:+15093816035">
+                                <a href={contact.phoneUrl}>
                                     <Phone className="mr-2 h-4 w-4" />
-                                    (509) 381-6035
+                                    {contact.phone}
                                 </a>
                             </Button>
                         </div>
@@ -400,8 +401,8 @@ function IntakeProcess() {
                             support@oasishealthservices.com
                         </a>{" "}
                         or call{" "}
-                        <a href="tel:+15093816035" className="text-primary hover:underline">
-                            (509) 381-6035
+                        <a href={contact.phoneUrl} className="text-primary hover:underline">
+                            {contact.phone}
                         </a>
                     </p>
                 </div>
@@ -578,7 +579,7 @@ export function ReturningPatients() {
                                 </a>
                             </Button>
                             <Button variant="outline" size="lg" className="border-primary text-primary" asChild>
-                                <a href="tel:+15093816035">
+                                <a href={contact.phoneUrl}>
                                     <Phone className='h-4 w-4 mr-2' />  Call Front Desk
                                 </a>
                             </Button>
@@ -817,8 +818,8 @@ function ContactSection() {
                                 </div>
                                 <div>
                                     <p className="text-sm text-muted-foreground">Phone</p>
-                                    <a href="tel:+15093816035" className="text-foreground hover:text-primary font-medium">
-                                        (509) 381-6035
+                                    <a href={contact.phoneUrl} className="text-foreground hover:text-primary font-medium">
+                                        {contact.phone}
                                     </a>
                                 </div>
                             </div>

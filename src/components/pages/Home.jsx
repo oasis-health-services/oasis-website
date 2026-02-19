@@ -16,7 +16,7 @@ import {
     ClipboardList,
     Phone, Calendar
 } from "lucide-react"
-
+import { contact } from '@/lib/contact';
 import Testimonials from '@/components/common/Testimonials';
 import Insurances from '@/components/common/Insurances';
 
@@ -604,9 +604,9 @@ function FooterCTA({ className = "bg-primary" } = {}) {
                                 asChild
                                 className="text-base px-8 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 bg-transparent"
                             >
-                                <a href="tel:+5093816035">
+                                <a href={contact.phoneUrl}>
                                     <Phone className="mr-2 h-5 w-5" />
-                                    (509) 381-6035
+                                    {contact.phone}
                                 </a>
                             </Button>
                         </div>

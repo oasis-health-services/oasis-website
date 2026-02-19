@@ -20,6 +20,8 @@ import {
 } from "lucide-react"
 import { services } from "@/lib/services-data"
 import Insurances from "@/components/common/Insurances"
+import { contact } from "@/lib/contact"
+
 
 const iconMap = {
     ClipboardCheck,
@@ -78,9 +80,9 @@ export default function Services() {
                                     </a>
                                 </Button>
                                 <Button size="lg" variant="outline" asChild className="bg-transparent border-primary text-primary">
-                                    <a href="tel:+15093816035">
+                                    <a href={contact.phoneUrl}>
                                         <Phone className="mr-2 h-5 w-5" />
-                                        (509) 381-6035
+                                        {contact.phone}
                                     </a>
                                 </Button>
                             </div>

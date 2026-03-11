@@ -1,7 +1,6 @@
 import { getToken } from "firebase/app-check";
 import { appCheck } from "@/lib/firebase";
 
-
 const API_URL = import.meta.env.PUBLIC_API_URL || 'http://127.0.0.1:7001/demo-vpm/us-central1/portal/api/v1';
 
 const secureSubmit = async (endpoint: string, data: any) => {
@@ -32,6 +31,33 @@ const secureSubmit = async (endpoint: string, data: any) => {
     }
 }
 
+const secureDelete = async (endpoint: string) => {
+    try {
+        if (!appCheck) {
+            throw new Error("AppCheck is not initialized. This action may only be performed in the browser.");
+        }
+        const appCheckTokenResponse = await getToken(appCheck, false);
+        const response = await fetch(`${API_URL}/${endpoint}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "X-Firebase-AppCheck": appCheckTokenResponse.token,
+            }
+        })
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(errorText);
+        }
+
+        await response.json();
+        return { success: true };
+    } catch (error) {
+        console.error("Error submitting form:", error);
+        return { success: false, error: error instanceof Error ? error.message : "We were unable to process your request at this time. Please try again later or contact us at support@oasishealthservices.com" };
+    }
+}
+
 export const submitContactForm = async (formData: any) => {
     return await secureSubmit("contact-us", formData);
 }
@@ -45,5 +71,48 @@ export const submitPartnershipForm = async (formData: any) => {
 }
 
 export const verifyInsurance = async (formData: any) => {
-    return await secureSubmit("verify-insurance", formData);
+    return await secureSubmit("/request/verify-insurance", formData);
+}
+
+export const submitHelpdeskRequest = async (formData: any) => {
+    return await secureSubmit("/request/helpdesk", formData);
+}
+
+export const removeFile = async (docId: string) => {
+    return await secureDelete(`/document/${docId}`)
+}
+
+export const uploadFile = async (formData: FormData) => {
+    try {
+        if (!appCheck) throw new Error("AppCheck is not initialized. This action may only be performed in the browser");
+        const appCheckTokenResponse = await getToken(appCheck, false);
+        const response = await fetch(`${API_URL}/upload`, {
+            method: "POST",
+            headers: {
+                "X-Firebase-AppCheck": appCheckTokenResponse.token
+            },
+            body: formData
+        });
+
+        if (!response.ok) {
+            // Try JSON first; fall back to text.
+            const contentType = response.headers.get("content-type") ?? "";
+            const payload = contentType.includes("application/json")
+                ? await response.json().catch(() => null)
+                : await response.text().catch(() => "");
+
+            const message =
+                typeof payload === "string"
+                    ? payload
+                    : payload?.message || payload?.error || `Upload failed (${response.status})`;
+
+            throw new Error(message);
+        }
+
+        return await response.json();
+
+    } catch (err) {
+        if (err instanceof Error) throw err;
+        throw new Error(String(err));
+    }
 }

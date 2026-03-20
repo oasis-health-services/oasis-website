@@ -46,10 +46,11 @@ const ogImage = image
 <!doctype html>
 <html lang="en">
 	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>{pageTitle}</title>
+
 		<!-- Google Tag Manager -->
-		<script is:inline type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-8TCL37DQ6W&cx=c&gtm=4e61m0"></script>
-		<script is:inline type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-LRQ33V32XH&cx=c&gtm=4e61m0"></script>
-		<script is:inline async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-MTTSNH5Z"></script>
 		<script is:inline>
 			(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -60,9 +61,6 @@ const ogImage = image
 		<!-- End Google Tag Manager -->
 
 		<!-- Basic Meta Tags -->
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>{pageTitle}</title>
 		<meta name="description" content={formattedDescription} />
 		{keywords && <meta name="keywords" content={keywords} />}
 		<link rel="canonical" href={fullUrl} />

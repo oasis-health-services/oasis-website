@@ -1,5 +1,12 @@
 import { z } from "zod";
 
+const emptyToUndefined = (value: unknown) => {
+    if (typeof value !== "string") return value;
+    const trimmed = value.trim();
+    return trimmed === "" ? undefined : trimmed;
+}
+
+const DobSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in MM-DD-YYYY format");
 
 export const ContactSchema = z.object({
     firstName: z.string({ required_error: "first name is required" }).min(2, { message: "first name must be at least 2 characters" }).max(100, { message: "first name must be at most 100 characters" }),
@@ -17,16 +24,77 @@ export const ContactSchema = z.object({
     consent: z.boolean().refine((value) => value === true, { message: "You must consent to Oasis Health Services contacting you regarding your inquiry." }),
 }).strict()
 
-export const VerifyInsuranceSchema = z.object({
-    firstName: z.string().min(2).max(100),
-    lastName: z.string().min(2).max(100),
-    email: z.string().email(),
-    phone: z.string().regex(/^\d{10}$/, "Invalid phone format"),
+
+export const InsuranceSchema = z.object({
+    name: z.string().min(2, { message: "Select your carrier" }).max(100, { message: "Select your carrier" }),
+    type: z.string().min(2, { message: "Select your insurance type" }).max(50, { message: "Select your insurance type" }),
+    plan: z.string().max(100).optional(),
+    memberId: z.string().min(8, { message: "Enter a valid ID" }).max(20, { message: "Enter a valid ID" }),
+    groupNumber: z.string().max(20).optional(),
+    subscriberRelationship: z.enum(["self", "spouse", "child", "other"]).default("self"),
+    subscriber: z.object({
+        name: z.preprocess(emptyToUndefined, z.string().optional()),
+        dob: z.preprocess(emptyToUndefined, DobSchema.optional()),
+    }).optional(),
+    images: z.array(z.object({ docId: z.string() })).optional()
+}).transform((data) => {
+
+    const subscriber = data.subscriber;
+    const hasSubscriberData = !!subscriber?.name || !!subscriber?.dob;
+
+    return {
+        ...data,
+        subscriber:
+            data.subscriberRelationship === "self" || !hasSubscriberData
+                ? undefined : subscriber
+    }
+}).superRefine((data, ctx) => {
+
+    if (data.subscriberRelationship === "self") {
+        return;
+    }
+
+    if (!data.subscriber) {
+        ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: `Subscriber information is required`,
+            path: ["subscriber"],
+        });
+    }
+
+    if (!data.subscriber?.name) {
+        ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            path: ["subscriber", "name"],
+            message: "Subscriber name is required",
+        });
+    }
+
+    if (!data.subscriber?.dob) {
+        ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            path: ["subscriber", "dob"],
+            message: "Subscriber DOB is required",
+        });
+    }
+})
+
+export const InsuranceContactSchema = z.object({
+    firstName: z.string({ required_error: "first name is required" }).min(2, { message: "first name must be at least 2 characters" }).max(100, { message: "first name must be at most 100 characters" }),
+    lastName: z.string({ required_error: "last name is required" }).min(2, { message: "last name must be at least 2 characters" }).max(100, { message: "last name must be at most 100 characters" }),
+    email: z.string({ required_error: "email is required" }).email({ message: "provide a valid email address" }),
+    phone: z.preprocess(
+        v => (typeof v === "string" && v.trim() === "" ? undefined : v),
+        z.string().regex(/^\d{10}$/, "provide a valid phone number").optional()
+    ),
     dob: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format"),
-    insuranceName: z.string().min(2).max(100),
-    memberId: z.string().min(2).max(10),
-    consent: z.boolean().refine((value) => value === true, { message: "You must consent to Oasis Health Services contacting you regarding your inquiry." }),
 }).strict();
+
+export const VerifyInsuranceSchema = z.object({
+    contact: InsuranceContactSchema,
+    insurance: InsuranceSchema,
+    //    consent: z.boolean().refine((value) => value === true, { message: "You must consent to Oasis Health Services contacting you regarding your inquiry." }),
+}).strict()
 
 export const CollaborationSchema = z.object({
     name: z.string({ required_error: "name is required" }).min(2, "name is required").max(100, "name must be at most 100 characters"),
@@ -41,7 +109,7 @@ export const CollaborationSchema = z.object({
     partnershipInterests: z.array(z.string()).min(1, "Select at least one partnership interest").max(5, "Select at most 5 partnership interests"),
     estimatedReferrals: z.string().optional(),
     message: z.string().max(1000, "Limit your information to 1000 characters"),
-    // consent: z.boolean().refine((value) => value === true, { message: "You must consent to Oasis Health Services contacting you regarding your inquiry." }),
+    consent: z.boolean().refine((value) => value === true, { message: "You must consent to Oasis Health Services contacting you regarding your inquiry." }),
 }).strict()
 
 export const ReferralSchema = z.object({
@@ -51,7 +119,6 @@ export const ReferralSchema = z.object({
         practiceName: z.string({ required_error: "practice name is required" }).min(2, "practice name must be at least 2 characters").max(100, "practice name must be at most 100 characters"),
         email: z.string({ required_error: "email is required" }).email("provide a valid email address"),
         phone: z.string({ required_error: "phone number is required" }).regex(/^\d{10}$/, "provide a valid phone number"),
-        //        fax: z.string().regex(/^\d{10}$/, "provide a valid fax number").optional()
         fax: z.preprocess(
             v => (typeof v === "string" && v.trim() === "" ? undefined : v),
             z.string().regex(/^\d{10}$/, "provide a valid fax number").optional()
@@ -71,7 +138,7 @@ export const ReferralSchema = z.object({
     appointmentPreference: z.enum(["none", "in-person", "telehealth"]),
     clinicalNotes: z.string({ required_error: "Provide some clinical notes about the patient" }).min(5, "Provide some clinical notes about the patient").max(1000, "clinical notes must be at most 1000 characters"),
     currentMedications: z.string().max(1000, "current medications must be at most 1000 characters").optional(),
-    consent: z.boolean().refine((value) => value === true, { message: "You must consent to Oasis Health Services contacting you regarding your inquiry." }),
+    //    consent: z.boolean().refine((value) => value === true, { message: "You must consent to Oasis Health Services contacting you regarding your inquiry." }),
 }).strict();
 
 export const INQUIRY_OPTIONS = [
@@ -87,3 +154,268 @@ export const INQUIRY_OPTIONS = [
     { value: "Insurance", label: "Insurance Questions" },
     { value: "Other", label: "General Inquiries" },
 ];
+
+export type VerifyInsuranceFormData = z.infer<typeof VerifyInsuranceSchema>;
+
+export const LeadSchema = z.object({
+    firstName: z.string({ required_error: "first name is required" }).min(2, { message: "first name must be at least 2 characters" }).max(100, { message: "first name must be at most 100 characters" }),
+    lastName: z.string({ required_error: "last name is required" }).min(2, { message: "last name must be at least 2 characters" }).max(100, { message: "last name must be at most 100 characters" }),
+    preferredName: z.string().max(35, "preferred name must be at most 35 characters").optional(),
+    email: z.string({ required_error: "email is required" }).email({ message: "provide a valid email address" }),
+    phone: z.string().regex(/^\d{10}$/, "provide a valid phone number").optional(),
+    dob: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format"),
+    birthSex: z.enum(["male", "female"], { message: "Select one of male or female" }),
+    genderIdentity: z.enum(["male", "female", "other"], { message: "Select one of male, female, or other" }).optional(),
+    //    address: z.string().max(100, "address must be at most 100 characters").optional(),
+    address: z.object({
+        street: z.string().max(100, "address must be at most 100 characters").optional(),
+        city: z.string().max(100, "city must be at most 100 characters").optional(),
+        state: z.string().max(2, "state must be at most 2 characters").optional(),
+        postalCode: z.string().max(10, "Postal code must be at most 10 characters").optional(),
+        timezone: z.enum(["CST", "EST", "MST", "PST"]).default("EST"),
+    }),
+    source: z.string().optional(),
+    referrer: z.string().optional(),
+}).strict();
+
+export const ClinicalHistorySchema = z.object({
+    currentConditions: z.string().max(1000, "current conditions must be at most 1000 characters").optional(),
+    currentMedications: z.string().max(1000, "current medications must be at most 1000 characters").optional(),
+    allergies: z.string().max(1000, "allergies must be at most 1000 characters").optional(),
+    courtRecommended: z.boolean().optional(),
+}).strict();
+
+export const ServiceInformationSchema = z.object({
+    courtRecommended: z.enum(["yes", "no"]),
+    currentConditions: z.string().max(1000, "current conditions must be at most 1000 characters").optional(),
+    reasons: z.array(z.string()).min(1, "Select at least one reason"),
+    description: z.string().max(1000, "description must be at most 1000 characters").optional(),
+}).strict();
+
+export const AppointmentPreferenceSchema = z.object({
+    mode: z.enum(["in-person", "telehealth", "either"]).default("either"),
+    dayOfWeek: z.array(z.enum(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]), { message: "Select at least one day of the week" }),
+    timeOfDay: z.array(z.enum(["Morning", "Afternoon", "Evening"]), { message: "Select at least one time of the day" }),
+    when: z.enum(["This Week", "1-2 Weeks", "2-4 Weeks", "4 Weeks or More"]).default("This Week"),
+}).strict();
+
+export const PaymentInformationSchema = z.object({
+    method: z.enum(["insurance", "self-pay"]).default("insurance"),
+    source: z.string().optional(),
+    referrer: z.object({
+        name: z.string().min(2, { message: "provide a valid name" }).max(100, { message: "provide a valid name" }),
+        specialty: z.string().max(100, { message: "provide a valid specialty" }),
+        practiceName: z.string().min(2, { message: "provide a valid practice name" }).max(100, { message: "provide a valid practice name" }),
+        phone: z.preprocess(
+            v => (typeof v === "string" && v.trim() === "" ? undefined : v),
+            z.string().regex(/^\d{10}$/, "provide a valid phone number").optional()
+        ),
+        email: z.string().email(),
+    }).optional(),
+    insurance: InsuranceSchema,
+}).strict();
+
+export const GenericContactSchema = z.object({
+    firstName: z.string({ required_error: "first name is required" }).min(2, { message: "provide a valid name" }).max(100, { message: "provide a valid name" }),
+    lastName: z.string({ required_error: "last name is required" }).min(2, { message: "provide a valid name" }).max(100, { message: "provide a valid name" }),
+    email: z.string({ required_error: "email is required" }).email({ message: "provide a valid email address" }),
+    phone: z.preprocess(
+        v => (typeof v === "string" && v.trim() === "" ? undefined : v),
+        z.string().regex(/^\d{10}$/, "provide a valid phone number").optional()
+    ),
+}).strict();
+
+export const DocumentUploadSchema = z.object({
+    contact: GenericContactSchema,
+    documentType: z.enum(["insurance_card", "medical_records", "identity_card", "proof_of_residence", "other"], {
+        message: "Select a document type"
+    }),
+    documentTypeOther: z.string().max(100, "Document type must be at most 100 characters").optional(),
+    message: z.string().max(1000, "Note must be at most 1000 characters").optional(),
+    documents: z.array(z.object({ docId: z.string() })),
+}).strict().superRefine((data, ctx) => {
+    if (data.documentType === "other") {
+
+        if (!data.documentTypeOther) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                path: ["documentTypeOther"],
+                message: "Document type must be specified"
+            });
+        }
+
+        if (!data.message) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                path: ["message"],
+                message: "Let us know how we can help you"
+            });
+        }
+    }
+});
+
+export const HelpdeskInquirySchema = z.object({
+    contact: GenericContactSchema,
+    preferredContactMethod: z.enum(["email", "phone", "sms"]).default("email"),
+    inquiryType: z.enum(["general", "billing", "technical", "pharmacy_issue", "medical_records", "prescription_refill", "appointment_request"]).default("general"),
+    subject: z.string().min(5, { message: "Let us know the reason for your inquiry" }).max(100, "Subject must be at most 100 characters"),
+    message: z.string().min(5, { message: "Let us know how we can help you" }).max(1000, "Note must be at most 1000 characters").optional(),
+    documents: z.array(z.object({ docId: z.string() })).optional(),
+}).strict();
+
+export const EmergencyContactSchema = z.object({
+    firstName: z.string({ required_error: "first name is required" }).min(2, { message: "provide a valid name" }).max(35, { message: "provide a valid name" }),
+    lastName: z.string({ required_error: "last name is required" }).min(2, { message: "provide a valid name" }).max(35, { message: "provide a valid name" }),
+    email: z.string({ required_error: "email is required" }).email({ message: "provide a valid email address" }),
+    phone: z.preprocess(
+        v => (typeof v === "string" && v.trim() === "" ? undefined : v),
+        z.string().regex(/^\d{10}$/, "provide a valid phone number").optional()
+    ),
+    relationship: z.enum(["spouse", "parent", "guardian", "child", "sibling", "relative", "foster", "other"]),
+    // permissions: z.array(z.enum(["discuss_treatment", "make_appointments"]))
+});
+
+export const EmergencyContactInfoSchema = z.object({
+    contact: z.object({
+        firstName: z.string({ required_error: "first name is required" }).min(2, { message: "provide a valid name" }).max(35, { message: "provide a valid name" }),
+        lastName: z.string({ required_error: "last name is required" }).min(2, { message: "provide a valid name" }).max(35, { message: "provide a valid name" }),
+        email: z.string({ required_error: "email is required" }).email({ message: "provide a valid email address" }),
+        phone: z.preprocess(
+            v => (typeof v === "string" && v.trim() === "" ? undefined : v),
+            z.string().regex(/^\d{10}$/, "provide a valid phone number").optional()
+        ),
+    }),
+    emergency: EmergencyContactSchema
+}).strict()
+
+export const GuardianContactSchema = z.object({
+    firstName: z.string({ required_error: "first name is required" }).min(2, { message: "provide a valid name" }).max(35, { message: "provide a valid name" }),
+    lastName: z.string({ required_error: "last name is required" }).min(2, { message: "provide a valid name" }).max(35, { message: "provide a valid name" }),
+    email: z.string({ required_error: "email is required" }).email({ message: "provide a valid email address" }),
+    phone: z.preprocess(
+        v => (typeof v === "string" && v.trim() === "" ? undefined : v),
+        z.string().regex(/^\d{10}$/, "provide a valid phone number").optional()
+    ),
+    relationship: z.preprocess(
+        v => (typeof v === "string" && v.trim() === "" ? undefined : v),
+        z.enum(["father", "mother", "guardian", "sibling", "relative", "foster", "other"]).optional()
+    ),
+    hasLegalDocumentation: z.boolean().default(false)
+});
+
+export const GuardianContactInfoSchema = z.object({
+    contact: z.object({
+        firstName: z.string({ required_error: "first name is required" }).min(2, { message: "provide a valid name" }).max(35, { message: "provide a valid name" }),
+        lastName: z.string({ required_error: "last name is required" }).min(2, { message: "provide a valid name" }).max(35, { message: "provide a valid name" }),
+        email: z.string({ required_error: "email is required" }).email({ message: "provide a valid email address" }),
+        phone: z.preprocess(
+            v => (typeof v === "string" && v.trim() === "" ? undefined : v),
+            z.string().regex(/^\d{10}$/, "provide a valid phone number").optional()
+        ),
+    }),
+    guardians: z.array(
+        GuardianContactSchema
+    ).min(1),
+}).strict();
+
+
+export const AdditionalInformationSchema = z.object({
+    hasEmergencyContact: z.boolean().default(false),
+    emergency: EmergencyContactSchema.optional(),
+    guardians: z.array(GuardianContactSchema).optional(),
+    source: z.string().optional(),
+    referrer: z.object({
+        name: z.string().min(2, { message: "provide a valid name" }).max(100, { message: "provide a valid name" }),
+        specialty: z.string().max(100, { message: "provide a valid specialty" }),
+        practiceName: z.string().min(2, { message: "provide a valid practice name" }).max(100, { message: "provide a valid practice name" }),
+        phone: z.preprocess(
+            v => (typeof v === "string" && v.trim() === "" ? undefined : v),
+            z.string().regex(/^\d{10}$/, "provide a valid phone number").optional()
+        ),
+        email: z.string().email(),
+    }).optional(),
+}).strict();
+
+
+export const IntakeFormSchema = z.object({
+    lead: LeadSchema,
+    additionalInformation: AdditionalInformationSchema.optional(),
+    clinicalHistory: ClinicalHistorySchema,
+    serviceInformation: ServiceInformationSchema,
+    appointmentPreference: AppointmentPreferenceSchema,
+    paymentInformation: PaymentInformationSchema,
+}).strict();
+
+
+
+export const ContactRequestSchema = z.object({
+    contact: z.object({
+        firstName: z.string({ required_error: "first name is required" }).min(2, { message: "provide a valid name" }).max(35, { message: "provide a valid name" }),
+        lastName: z.string({ required_error: "last name is required" }).min(2, { message: "provide a valid name" }).max(35, { message: "provide a valid name" }),
+        email: z.string({ required_error: "email is required" }).email({ message: "provide a valid email address" }),
+        phone: z.preprocess(
+            v => (typeof v === "string" && v.trim() === "" ? undefined : v),
+            z.string().regex(/^\d{10}$/, "provide a valid phone number").optional()
+        ),
+    }),
+    inquiryType: z.enum(["Free Consultation", "Medication Management", "Therapy", "ADHD Treatment", "Genetic Testing",
+        "Vitamins & Supplements", "Autism Spectrum Disorder", "Spravato", "RPM",
+        "Insurance", "Other"],
+        { message: "select an inquiry type" }),
+    message: z.string().min(5, { message: "Let us know how we can help you" }).max(1000, "Note must be at most 1000 characters"),
+}).strict()
+
+
+export const ProviderSchema = z.object({
+    type: z.literal("provider"),
+    firstName: z.string({ required_error: "first name is required" }).min(2, { message: "provide a valid name" }).max(35, { message: "provide a valid name" }),
+    lastName: z.string({ required_error: "last name is required" }).min(2, { message: "provide a valid name" }).max(35, { message: "provide a valid name" }),
+    email: z.string({ required_error: "email is required" }).email({ message: "provide a valid email address" }),
+    phone: z.preprocess(
+        v => (typeof v === "string" && v.trim() === "" ? undefined : v),
+        z.string().regex(/^\d{10}$/, "provide a valid phone number").optional()
+    ),
+    npi: z.string().max(10).optional(),
+    practiceName: z.string().min(5).max(100).optional(),
+    specialty: z.string().min(5).max(100),
+    credentials: z.string().max(100).optional(),
+    fax: z.preprocess(
+        v => (typeof v === "string" && v.trim() === "" ? undefined : v),
+        z.string().regex(/^\d{10}$/, "provide a valid phone number").optional()
+    ),
+}).strict()
+
+export const CollaborationRequestSchema = z.object({
+    provider: ProviderSchema,
+    partnershipInterests: z.array(z.string()).min(1, { message: "select at least one partnership interest" }).max(5, { message: "select at most five partnership interests" }),
+    estimatedReferrals: z.string().optional(),
+    message: z.string().min(5, { message: "Let us know how we can help you" }).max(1000, "Note must be at most 1000 characters"),
+}).strict()
+
+export const ReferralRequestSchema = z.object({
+    provider: ProviderSchema,
+    lead: LeadSchema,
+    insurance: InsuranceSchema,
+    referralReason: z.array(z.string()).min(1, { message: "select at least one referral reason" }).max(5, { message: "select at most five referral reasons" }),
+    urgency: z.enum(["routine", "urgent", "expedited"], { message: "select an urgency level" }),
+    appointmentPreference: z.enum(["none", "in-person", "telehealth"], { message: "select an appointment preference" }),
+    clinicalNotes: z.string().min(5, { message: "Let us know how we can help you" }).max(1000, "Note must be at most 1000 characters"),
+    currentMedications: z.string().max(1000).optional()
+}).strict()
+
+
+
+
+export type LeadFormData = z.infer<typeof LeadSchema>;
+export type ClinicalHistoryFormData = z.infer<typeof ClinicalHistorySchema>;
+export type ServiceInformationFormData = z.infer<typeof ServiceInformationSchema>;
+export type AppointmentPreferenceFormData = z.infer<typeof AppointmentPreferenceSchema>;
+export type InsuranceFormData = z.infer<typeof InsuranceSchema>;
+export type IntakeFormData = z.infer<typeof IntakeFormSchema>;
+export type DocumentUploadFormData = z.infer<typeof DocumentUploadSchema>;
+export type HelpdeskInquiryFormData = z.infer<typeof HelpdeskInquirySchema>;
+
+export type EmergencyContactFormData = z.infer<typeof EmergencyContactInfoSchema>;
+export type GuardianContactFormData = z.infer<typeof GuardianContactInfoSchema>;
+
+export type HelpdeskInquiryType = "general" | "billing" | "technical" | "pharmacy_issue" | "medical_records" | "prescription_refill" | "appointment_request";

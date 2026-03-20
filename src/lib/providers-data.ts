@@ -1,7 +1,7 @@
 export interface Provider {
   slug: string
   name: string
-  credentials: string
+  credentials?: string
   role: string
   image: string
   imageAlt: string
@@ -27,7 +27,7 @@ export interface Provider {
     school: string
     year?: string
   }[]
-  licenses: {
+  licenses?: {
     state: string
     number?: string
   }[]
@@ -48,6 +48,7 @@ export interface Provider {
   phone: string
   email?: string
   availableOnline: boolean
+  availableInPerson: boolean
   acceptingNewPatients: boolean
   consultationOffer?: string
   faqs: {
@@ -168,6 +169,7 @@ export const providers: Provider[] = [
     ],
     phone: "(470) 802-6838",
     availableOnline: true,
+    availableInPerson: true,
     acceptingNewPatients: true,
     consultationOffer: "Free 15-minute consultation to discuss your goals",
     faqs: [
@@ -200,8 +202,7 @@ export const providers: Provider[] = [
   {
     slug: "ann-marie-taylor",
     name: "Ann-Marie Taylor",
-    credentials: "LPC",
-    role: "Licensed Professional Counselor",
+    role: "Clinical Counselor",
     image: "/images/providers/anne-marie-taylor-profile.png",
     imageAlt: "Ann-Marie Taylor",
     tagline: "Equipping you with practical tools and strategies to reach your fullest potential through compassionate, goal-oriented therapy.",
@@ -254,16 +255,9 @@ export const providers: Provider[] = [
         school: "Mercer University"
       },
       {
-        degree: "Licensed Professional Counselor (LPC)",
-        school: "Georgia Composite Board"
-      },
-      {
         degree: "Trauma-Informed Care Certification",
         school: "National Council for Behavioral Health"
       }
-    ],
-    licenses: [
-      { state: "Georgia" }
     ],
     yearsInPractice: 8,
     locations: [
@@ -278,6 +272,7 @@ export const providers: Provider[] = [
     ],
     phone: "(470) 802-6838",
     availableOnline: true,
+    availableInPerson: false,
     acceptingNewPatients: true,
     consultationOffer: "Free 15-minute phone consultation",
     faqs: [

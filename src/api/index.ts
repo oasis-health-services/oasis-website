@@ -78,6 +78,18 @@ export const submitHelpdeskRequest = async (formData: any) => {
     return await secureSubmit("/request/helpdesk", formData);
 }
 
+export const submitDocumentRequest = async (formData: any) => {
+    return await secureSubmit("/info/documents", formData);
+}
+
+export const submitEmergencyContactForm = async (formData: any) => {
+    return await secureSubmit("/info/emergency-contact", formData);
+}
+
+export const submitGuardianContactForm = async (formData: any) => {
+    return await secureSubmit("/info/guardian-contacts", formData);
+}
+
 export const removeFile = async (docId: string) => {
     return await secureDelete(`/document/${docId}`)
 }

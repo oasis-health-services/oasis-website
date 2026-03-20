@@ -20,8 +20,11 @@ let analytics: Analytics | null = null;
 let appCheck: AppCheck | null = null;
 
 if (typeof window !== "undefined") {
-    if (!import.meta.env.PROD) {
+    console.log("PROD", import.meta.env.PROD);
+    console.log("STAGING", import.meta.env.STAGING);
+    if (!import.meta.env.PROD && !import.meta.env.STAGING) {
         // Disable app check in development
+        console.log("setting debug token");
         (self as any).FIREBASE_APPCHECK_DEBUG_TOKEN = true;
     }
 

@@ -1,7 +1,7 @@
 
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Handshake, MapPin, Video } from 'lucide-react';
+import { ArrowRight, Building, Handshake, MapPin, Video } from 'lucide-react';
 import OptimizedImage from '@/components/OptimizedImage';
 import { providers } from "@/lib/providers-data"
 import { Badge } from '@/components/ui/badge';
@@ -67,19 +67,25 @@ export default function Providers() {
                                                 <OptimizedImage
                                                     src={provider.image || "/placeholder.svg"}
                                                     alt={`${provider.name} - ${provider.role}`}
-                                                    fill
                                                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                                                     sizes="(max-width: 1024px) 100vw, 256px"
                                                 />
                                             </div>
-                                            {provider.availableOnline && (
-                                                <div className="absolute bottom-3 left-3 right-3 lg:right-auto">
+
+                                            <div className="absolute bottom-3 left-3 right-3 lg:right-auto flex gap-2">
+                                                {provider.availableOnline && (
                                                     <Badge className="bg-card/90 text-foreground border-0 shadow-sm">
-                                                        <Video className="h-3 w-3 mr-1.5" aria-hidden="true" />
-                                                        In-Person & Online
+                                                        <Video className="h-4 w-4" aria-hidden="true" />
+                                                        <span>Online</span>
                                                     </Badge>
-                                                </div>
-                                            )}
+                                                )}
+                                                {provider.availableInPerson && (
+                                                    <Badge className="bg-card/90 text-foreground border-0 shadow-sm">
+                                                        <Building className="h-4 w-4" aria-hidden="true" />
+                                                        <span>In-Person</span>
+                                                    </Badge>
+                                                )}
+                                            </div>
                                         </div>
 
                                         {/* Provider Info */}

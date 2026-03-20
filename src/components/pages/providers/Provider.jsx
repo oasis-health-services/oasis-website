@@ -1,4 +1,4 @@
-import { Quote } from "lucide-react"
+import { Building, Quote } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -54,7 +54,6 @@ function ProviderHero({ provider }) {
                             <OptimizedImage
                                 src={provider.image || "/placeholder.svg"}
                                 alt={`${provider.name} - ${provider.role}`}
-                                fill
                                 className="object-cover"
                                 priority
                                 sizes="(max-width: 768px) 80vw, 320px"
@@ -62,9 +61,15 @@ function ProviderHero({ provider }) {
                             />
                         </div>
                         {provider.availableOnline && (
-                            <div className="mt-4 flex items-center justify-center lg:justify-start gap-2 text-sm text-primary font-medium">
+                            <div className="mt-2 flex items-center justify-center lg:justify-start gap-2 text-sm text-primary font-medium">
                                 <Video className="h-4 w-4" aria-hidden="true" />
-                                <span>Available in-person and online</span>
+                                <span>Available online</span>
+                            </div>
+                        )}
+                        {provider.availableInPerson && (
+                            <div className="mt-2 flex items-center justify-center lg:justify-start gap-2 text-sm text-primary font-medium">
+                                <Building className="h-4 w-4" aria-hidden="true" />
+                                <span>Available in-person</span>
                             </div>
                         )}
                     </motion.div>
@@ -585,13 +590,13 @@ function ProviderLocations({ provider }) {
                 </div>
 
                 {/* Telehealth States */}
-                {provider.licenses.length > 1 && (
+                {provider.licenses?.length > 1 && (
                     <div className="mt-12 text-center">
                         <p className="text-sm font-semibold text-foreground uppercase tracking-wide mb-4">
                             Telehealth Available In
                         </p>
                         <div className="flex flex-wrap justify-center gap-2">
-                            {provider.licenses.map((license) => (
+                            {provider.licenses?.map((license) => (
                                 <span
                                     key={license.state}
                                     className="inline-flex items-center px-4 py-2 rounded-full bg-card border border-border text-sm text-foreground"
@@ -662,7 +667,7 @@ function ProviderQualifications({ provider }) {
                         </CardHeader>
                         <CardContent>
                             <div className="flex flex-wrap gap-2">
-                                {provider.licenses.map((license) => (
+                                {provider.licenses?.map((license) => (
                                     <Badge
                                         key={license.state}
                                         variant="secondary"
@@ -679,7 +684,9 @@ function ProviderQualifications({ provider }) {
                                 ))}
                             </div>
                             <p className="mt-4 text-sm text-muted-foreground">
-                                Licensed to provide telehealth services across multiple states.
+                                {provider.licenses && provider.licenses.length > 1 && (
+                                    <span>Licensed to provide telehealth services across multiple states.</span>
+                                )}
                                 Contact me to confirm availability in your location.
                             </p>
                         </CardContent>
@@ -694,10 +701,12 @@ function ProviderQualifications({ provider }) {
                             <p className="text-sm text-muted-foreground">Years in Practice</p>
                         </div>
                         <div className="hidden sm:block w-px h-12 bg-border" aria-hidden="true" />
-                        <div>
-                            <p className="text-4xl font-serif font-semibold text-primary">{provider.licenses.length}</p>
-                            <p className="text-sm text-muted-foreground">State Licenses</p>
-                        </div>
+                        {provider.licenses?.length > 0 && (
+                            <div>
+                                <p className="text-4xl font-serif font-semibold text-primary">{provider.licenses?.length}</p>
+                                <p className="text-sm text-muted-foreground">State Licenses</p>
+                            </div>
+                        )}
                         <div className="hidden sm:block w-px h-12 bg-border" aria-hidden="true" />
                         <div>
                             <p className="text-4xl font-serif font-semibold text-primary">{provider.education.length}</p>

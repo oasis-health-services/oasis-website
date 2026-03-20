@@ -1,0 +1,17 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getOrganizationSchema } from '@/utils/schema';
+import { VerifyInsurancePage } from '@/components/pages/patients/VerifyInsurance';
+---
+
+<Layout 
+  title="Insurance Verification"
+  description="Submit your insurance information for benefits verification before your first appointment at Oasis Health Services."
+  keywords="insurance verification, mental health insurance, benefits check, Oasis Health Services, Johns Creek"
+  schema={getOrganizationSchema()}
+>
+
+    <VerifyInsurancePage.HeroSection client:load />
+    <VerifyInsurancePage.MainSection client:visible />
+    <VerifyInsurancePage.FAQSection client:visible />
+</Layout>

@@ -1,0 +1,12 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SorryPage from '@/components/pages/Sorry';
+---
+
+<Layout 
+  title="We're Sorry"
+  description="We're experiencing technical difficulties that are preventing us from processing your request. Our team is working hard to resolve this issue as quickly as possible."
+  noindex={true}
+>
+  <SorryPage client:load />
+</Layout>

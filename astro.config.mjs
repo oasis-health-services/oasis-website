@@ -146,6 +146,10 @@ export default defineConfig({
         server: {
             allowedHosts: [".trycloudflare.com"]
         },
+        define: {
+            'import.meta.env.STAGING': JSON.stringify(env.NODE_ENV?.toLowerCase() === 'staging' || env.PUBLIC_STAGING === 'true'),
+            'import.meta.env.PROD': JSON.stringify(env.NODE_ENV?.toLowerCase() === 'production' || process.env.NODE_ENV === 'production' || env.PUBLIC_PROD === 'true'),
+        },
         plugins: [tailwindcss()], // Add Tailwind as a Vite plugin here
     },
 });

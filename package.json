@@ -75,7 +75,8 @@
     "sharp": "^0.34.5",
     "simple-icons": "^16.8.0",
     "tailwind-merge": "^1.14.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "zustand": "^5.0.11"
   },
   "devDependencies": {
     "@babel/generator": "^7.27.0",

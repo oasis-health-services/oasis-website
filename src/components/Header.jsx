@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Menu, X, Phone, ChevronDown, BookOpen, HelpCircle, Heart, Smartphone, AlertTriangle, Users, ClipboardCheck, ArrowRight } from "lucide-react"
+import { Menu, X, Phone, ChevronDown, BookOpen, HelpCircle, Heart, Smartphone, AlertTriangle, Users, ClipboardCheck, ArrowRight, Shield } from "lucide-react"
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -37,7 +37,9 @@ const navigation = [
                 { name: "FAQ", href: "/resources/faq", icon: HelpCircle, description: "Answers to common questions" },
             ],
             patientTools: [
+                { name: "Help Center", href: "/resources/help-center", icon: HelpCircle, description: "Get help or send us documents" },
                 { name: "Self-Assessments", href: "/assessments", icon: ClipboardCheck, description: "PHQ-9, GAD-7, and more screeners" },
+                { name: "Verify Insurance", href: "/patients/verify-insurance", icon: Shield, description: "Check your coverage before your visit" },
                 { name: "Self-Care Toolkit", href: "/resources/self-care", icon: Heart, description: "Exercises and coping strategies" },
                 { name: "Telehealth Guide", href: "/resources/telehealth", icon: Smartphone, description: "How to prepare for virtual visits" },
             ],
@@ -78,7 +80,7 @@ export default function Header({ currentPath }) {
         if (href === '/') return currentPath === '/';
         // Handle external links or other prefixes if necessary
         if (!href.startsWith('/')) return false;
-        return currentPath === href || currentPath?.startsWith(href + '/');
+        return currentPath === href; // || currentPath?.startsWith(href + '/');
     };
 
 
@@ -321,9 +323,9 @@ export default function Header({ currentPath }) {
                         })}
 
                         <div className="pt-4 border-t border-border mt-4">
-                            <a href="tel:+14049991234" className="flex items-center gap-2 py-2 text-muted-foreground">
+                            <a href={`tel:${contact.phoneUrl}`} className="flex items-center gap-2 py-2 text-muted-foreground">
                                 <Phone className="h-4 w-4" />
-                                <span>(404) 999-1234</span>
+                                <span>{contact.phone}</span>
                             </a>
                             <Button className="w-full mt-3" asChild>
                                 <a href="/patients">Book Appointment</a>

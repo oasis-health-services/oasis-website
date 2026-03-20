@@ -2,6 +2,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import StartNowPage from '@/components/pages/StartNow';
+import IntakePage from '@/components/pages/Intake';
 import { getOrganizationSchema } from '@/utils/schema';
 ---
 
@@ -11,4 +12,9 @@ import { getOrganizationSchema } from '@/utils/schema';
   schema={getOrganizationSchema()}
 >
   <StartNowPage client:load /> 
+
+  <!-- <IntakePage.HeroSection client:load /> 
+  <IntakePage.MainSection client:load /> 
+  <IntakePage.FAQSection client:load /> -->
+
 </Layout>

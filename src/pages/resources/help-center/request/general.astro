@@ -1,0 +1,31 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getOrganizationSchema } from '@/utils/schema';
+import HelpdeskRequest from '@/components/pages/resources/help-center/request/HelpdeskRequest';
+import type { HelpdeskInquiryType } from '@/lib/schema';
+
+const config = {
+    id: "general",
+    title: "General Question",
+    description: "Ask our team about your care, treatment options, policies, or anything else.",
+    icon: "MessageSquare",
+    inquiryType: "general" as HelpdeskInquiryType,
+    subjectPlaceholder: "e.g., Question about my treatment plan",
+    messagePlaceholder: "Tell us what you need help with. Include as much detail as possible so we can assist you quickly.",
+    apiEndpoint: "/api/help-center",
+    thankYouType: "helpdesk",
+    response: { time: "1-2 business days", note: "Most questions are answered within 24 hours." }
+  };
+---
+
+<Layout 
+  title="General Question | Help Center"
+  description="Ask our care team a question about your treatment, services, or anything else related to your care at Oasis Health Services."
+  keywords="help center, patient support, Oasis Health Services, Roswell"
+  schema={getOrganizationSchema()}
+>
+
+    <HelpdeskRequest.HeroSection config={config} client:load />
+    <HelpdeskRequest.MainSection config={config} client:visible />
+
+</Layout>

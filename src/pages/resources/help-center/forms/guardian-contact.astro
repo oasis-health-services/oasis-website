@@ -1,0 +1,15 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getOrganizationSchema } from '@/utils/schema';
+import GuardianContactPage from '@/components/pages/resources/help-center/forms/GuardianContact';
+---
+
+<Layout 
+  title="Guardian Information Form "
+  description="Submit guardian or legal representative information for a patient at Oasis Health Services."
+  keywords="help center, guardian information, Oasis Health Services, Roswell"
+  schema={getOrganizationSchema()}
+>
+    <GuardianContactPage.HeroSection client:load />
+    <GuardianContactPage.MainSection client:load />
+</Layout>

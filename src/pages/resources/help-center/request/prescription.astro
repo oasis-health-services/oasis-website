@@ -1,0 +1,31 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getOrganizationSchema } from '@/utils/schema';
+import HelpdeskRequest from '@/components/pages/resources/help-center/request/HelpdeskRequest';
+import type { HelpdeskInquiryType } from '@/lib/schema';
+
+const config = {
+    id: "prescription",
+    title: "Prescription Refill Request",
+    description: "Request a refill for an existing medication or ask about dosage changes.",
+    icon: "Pill",
+    inquiryType: "prescription_refill" as HelpdeskInquiryType,
+    subjectPlaceholder: "e.g., Refill request for Sertraline 50mg",
+    messagePlaceholder: "Please include:\n- Medication name and dosage\n- Pharmacy name and location\n- Number of refills needed\n- Any side effects or concerns",
+    apiEndpoint: "/api/help-center",
+    thankYouType: "helpdesk",
+    response: { time: "24-48 hours", note: "Refills typically processed by next business day. Controlled substances may require an office visit." }
+  };
+---
+
+<Layout 
+  title="Prescription Refill Request | Help Center"
+  description="Request a prescription refill or ask about medication dosage changes at Oasis Health Services."
+  keywords="help center, prescription refill, Oasis Health Services, Roswell"
+  schema={getOrganizationSchema()}
+>
+
+    <HelpdeskRequest.HeroSection config={config} client:load />
+    <HelpdeskRequest.MainSection config={config} client:visible />
+
+</Layout>

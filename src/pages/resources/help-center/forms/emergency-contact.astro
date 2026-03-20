@@ -1,0 +1,15 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getOrganizationSchema } from '@/utils/schema';
+import EmergencyContactPage from '@/components/pages/resources/help-center/forms/EmergencyContact';
+---
+
+<Layout 
+  title="Emergency Contact Form"
+  description="Provide or update your emergency contact information for Oasis Health Services."
+  keywords="help center, emergency contact, Oasis Health Services, Roswell"
+  schema={getOrganizationSchema()}
+>
+    <EmergencyContactPage.HeroSection client:load />
+    <EmergencyContactPage.MainSection client:visible />
+</Layout>

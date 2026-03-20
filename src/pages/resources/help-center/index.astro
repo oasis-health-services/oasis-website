@@ -1,0 +1,17 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getOrganizationSchema } from '@/utils/schema';
+import HelpCenterPage from '@/components/pages/resources/help-center';
+---
+
+<Layout 
+  title="Help Center"
+  description="Get help from Oasis Health Services. Submit questions, request prescription refills, manage appointments, upload documents, and more."
+  keywords="help center, patient support, prescription refill, medical records, Oasis Health Services, Roswell"
+  schema={getOrganizationSchema()}
+>
+
+    <HelpCenterPage.HeroSection client:load />
+    <HelpCenterPage.CategoriesSection client:visible />
+    <HelpCenterPage.QuickLinksSection client:visible />
+</Layout>

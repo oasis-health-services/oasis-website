@@ -1,0 +1,17 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getOrganizationSchema } from '@/utils/schema';
+import DocumentUpload from '@/components/pages/resources/help-center/DocumentUpload';
+---
+
+<Layout 
+  title="Secure Document Upload | Help Center"
+  description="Securely upload documents requested by Oasis Health Services, such as prior records, completed forms, or insurance documents."
+  keywords="help center, patient support, prescription refill, medical records, Oasis Health Services, Roswell"
+  schema={getOrganizationSchema()}
+>
+
+    <DocumentUpload.HeroSection client:load />
+    <DocumentUpload.MainSection client:visible />
+
+</Layout>

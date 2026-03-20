@@ -1,0 +1,31 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getOrganizationSchema } from '@/utils/schema';
+import HelpdeskRequest from '@/components/pages/resources/help-center/request/HelpdeskRequest';
+import type { HelpdeskInquiryType } from '@/lib/schema';
+
+const config = {
+    id: "records",
+    title: "Medical Records Request",
+    inquiryType: "medical_records" as HelpdeskInquiryType,
+    description: "Request copies of your treatment records, summaries, or documentation.",
+    icon: "FileText",
+    subjectPlaceholder: "e.g., Records request for referral to new provider",
+    messagePlaceholder: "Please include:\n- Type of records needed (visit summary, full records, specific dates)\n- Purpose of request\n- Where records should be sent (if to another provider)\n- Any specific date range",
+    apiEndpoint: "/api/help-center",
+    thankYouType: "helpdesk",
+    response: { time: "1-2 business days", note: "Most questions are answered within 24 hours." }
+  };
+---
+
+<Layout 
+  title="Medical Records | Help Center"
+  description="Request copies of your treatment records, summaries, or documentation from Oasis Health Services."
+  keywords="help center, medical records, Oasis Health Services, Roswell"
+  schema={getOrganizationSchema()}
+>
+
+    <HelpdeskRequest.HeroSection config={config} client:load />
+    <HelpdeskRequest.MainSection config={config} client:visible />
+
+</Layout>

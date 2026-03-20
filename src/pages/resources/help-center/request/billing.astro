@@ -1,0 +1,31 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getOrganizationSchema } from '@/utils/schema';
+import HelpdeskRequest from '@/components/pages/resources/help-center/request/HelpdeskRequest';
+import type { HelpdeskInquiryType } from '@/lib/schema';
+
+const config = {
+    id: "billing",
+    title: "Insurance & Billing Question",
+    inquiryType: "billing" as HelpdeskInquiryType,
+    description: "Questions about your coverage, statements, copays, or payment options.",
+    icon: "CreditCard",
+    subjectPlaceholder: "e.g., Question about my recent statement",
+    messagePlaceholder: "Please include:\n- Your insurance carrier (if applicable)\n- Date(s) of service in question\n- Description of your question or concern\n- Statement or claim number (if available)",
+    apiEndpoint: "/api/help-center",
+    thankYouType: "helpdesk",
+    response: { time: "1-2 business days", note: "Most questions are answered within 24 hours." }
+  };
+---
+
+<Layout 
+  title="Insurance & Billing | Help Center"
+  description="Get help with insurance coverage, statements, copays, or payment options at Oasis Health Services."
+  keywords="help center, insurance, billing, Oasis Health Services, Roswell"
+  schema={getOrganizationSchema()}
+>
+
+    <HelpdeskRequest.HeroSection config={config} client:load />
+    <HelpdeskRequest.MainSection config={config} client:visible />
+
+</Layout>

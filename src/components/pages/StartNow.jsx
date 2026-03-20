@@ -25,20 +25,7 @@ const StartNow = () => {
             <section className="py-20 bg-white">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-6xl mx-auto">
-                        <div className="mb-8 text-center md:hidden">
-                            <p className="text-gray-600 mb-4">Having trouble loading the portal below?</p>
-                            <a
-                                href="https://vpm-portal.web.app"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-block px-6 py-3 bg-[#2D6762] text-white rounded-lg font-medium hover:bg-[#214e4a] transition-colors"
-                            >
-                                Open Portal in New Window
-                            </a>
-                        </div>
-                        <div
-                            className="h-[1200px]"
-                        >
+                        <div className="h-[1100px]">
                             <iframe
                                 src="https://vpm-portal.web.app"
                                 className="w-full h-full rounded-2xl border-0"

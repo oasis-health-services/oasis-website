@@ -87,7 +87,7 @@ export default function Conditions() {
                         {conditions.map((condition, index) => {
                             const Icon = iconMap[condition.icon] || Brain
                             return (
-                                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: index * 0.1 }}>
+                                <motion.div key={condition.slug} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: index * 0.1 }}>
                                     <a key={condition.slug} href={`/about/conditions/${condition.slug}`}>
                                         <Card className="h-full group hover:shadow-lg hover:border-primary/30 transition-all cursor-pointer">
                                             <CardHeader>

@@ -225,11 +225,12 @@ export default function ConditionDetail({ condition }) {
                                 <div className="grid sm:grid-cols-2 gap-4">
                                     {condition.treatments.map((treatment, index) => (
                                         <motion.div
+                                            key={index}
                                             initial={{ opacity: 0, y: 20 }}
                                             whileInView={{ opacity: 1, y: 0 }}
                                             viewport={{ once: true }}
                                             transition={{ duration: 0.6, delay: index * 0.1 }}>
-                                            <Card key={index} className="bg-card border-border">
+                                            <Card className="bg-card border-border">
                                                 <CardContent className="p-4 flex items-center gap-3">
                                                     <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                                                         <span className="text-sm font-semibold text-primary">{index + 1}</span>
@@ -291,6 +292,7 @@ export default function ConditionDetail({ condition }) {
                                 <Accordion type="single" collapsible className="w-full">
                                     {condition.faqs.map((faq, index) => (
                                         <motion.div
+                                            key={index}
                                             initial={{ opacity: 0, y: 20 }}
                                             whileInView={{ opacity: 1, y: 0 }}
                                             viewport={{ once: true }}

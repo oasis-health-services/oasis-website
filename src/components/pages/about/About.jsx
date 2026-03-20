@@ -255,8 +255,7 @@ export function AboutConditions() {
 
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {conditions.map((condition, index) => (
-
-                        <motion.div key={condition.id} initial={{
+                        <motion.div key={index} initial={{
                             opacity: 0,
                             y: 10
                         }} whileInView={{
@@ -379,7 +378,6 @@ function AboutServices() {
                     <div className="lg:col-span-8">
                         <div className="grid sm:grid-cols-2 gap-8">
                             {services.map((service, index) => (
-
                                 <motion.div key={service.title} initial={{
                                     opacity: 0,
                                     y: 30

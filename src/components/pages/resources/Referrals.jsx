@@ -3,12 +3,15 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { useState } from "react"
-import { useForm } from "react-hook-form"
+import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { ReferralSchema } from "@/lib/schema"
 import { submitReferralForm } from "@/api"
 import FormError from "@/components/FormError"
 import FieldError from "@/components/FieldError"
+import { contact } from "@/lib/contact"
+import { formatPhoneNumber } from "@/lib/utils"
+import { Input } from "@/components/ui/input"
 
 const urgencyLevels = [
     { value: "routine", label: "Routine", description: "Non-urgent, standard scheduling (5-7 business days)" },
@@ -35,7 +38,7 @@ export default function Referrals() {
 
     const [error, setError] = useState(null)
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const { register, handleSubmit: formSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit: formSubmit, control, formState: { errors } } = useForm({
         resolver: zodResolver(ReferralSchema),
         defaultValues: {
             provider: {
@@ -153,7 +156,7 @@ export default function Referrals() {
                                 </div>
                                 <div>
                                     <p className="font-semibold text-foreground">Call Us</p>
-                                    <a href="tel:+15093816035" className="text-sm text-primary hover:underline">(509) 381-6035</a>
+                                    <a href={contact.phoneUrl} className="text-sm text-primary hover:underline">{contact.phone}</a>
                                 </div>
                             </CardContent>
                         </Card>
@@ -229,25 +232,49 @@ export default function Referrals() {
                                                     <label htmlFor="practice-phone" className="block text-sm font-medium text-foreground mb-1.5">
                                                         Practice Phone *
                                                     </label>
-                                                    <input
-                                                        type="tel"
-                                                        id="practice-phone"
-                                                        {...register("provider.phone")}
-                                                        className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                                                        placeholder="5551234567"
+                                                    <Controller
+                                                        name="provider.phone"
+                                                        control={control}
+                                                        render={({ field }) => (
+                                                            <Input
+                                                                id="provider_phone"
+                                                                placeholder="Enter phone number"
+                                                                inputMode="tel"
+                                                                value={formatPhoneNumber(field.value || "")}
+                                                                onChange={(e) => {
+                                                                    const digitsOnly = e.target.value.replace(/\D/g, "").slice(0, 10);
+                                                                    field.onChange(digitsOnly);
+                                                                }}
+                                                                onBlur={field.onBlur}
+                                                                ref={field.ref}
+                                                            />
+                                                        )}
                                                     />
+
+
                                                     <FieldError error={errors.provider?.phone} />
                                                 </div>
                                                 <div>
                                                     <label htmlFor="practice-fax" className="block text-sm font-medium text-foreground mb-1.5">
                                                         Practice Fax
                                                     </label>
-                                                    <input
-                                                        type="tel"
-                                                        id="practice-fax"
-                                                        {...register("provider.fax")}
-                                                        className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                                                        placeholder="5551234568"
+                                                    <Controller
+                                                        name="provider.fax"
+                                                        control={control}
+                                                        render={({ field }) => (
+                                                            <Input
+                                                                id="provider_fax"
+                                                                placeholder="Enter fax number"
+                                                                inputMode="tel"
+                                                                value={formatPhoneNumber(field.value || "")}
+                                                                onChange={(e) => {
+                                                                    const digitsOnly = e.target.value.replace(/\D/g, "").slice(0, 10);
+                                                                    field.onChange(digitsOnly);
+                                                                }}
+                                                                onBlur={field.onBlur}
+                                                                ref={field.ref}
+                                                            />
+                                                        )}
                                                     />
                                                     <FieldError error={errors.provider?.fax} />
                                                 </div>
@@ -313,12 +340,23 @@ export default function Referrals() {
                                                     <label htmlFor="patient-phone" className="block text-sm font-medium text-foreground mb-1.5">
                                                         Patient Phone *
                                                     </label>
-                                                    <input
-                                                        type="tel"
-                                                        id="patient-phone"
-                                                        {...register("patient.phone")}
-                                                        className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                                                        placeholder="5551234567"
+                                                    <Controller
+                                                        name="patient.phone"
+                                                        control={control}
+                                                        render={({ field }) => (
+                                                            <Input
+                                                                id="patient_phone"
+                                                                placeholder="Enter phone number"
+                                                                inputMode="tel"
+                                                                value={formatPhoneNumber(field.value || "")}
+                                                                onChange={(e) => {
+                                                                    const digitsOnly = e.target.value.replace(/\D/g, "").slice(0, 10);
+                                                                    field.onChange(digitsOnly);
+                                                                }}
+                                                                onBlur={field.onBlur}
+                                                                ref={field.ref}
+                                                            />
+                                                        )}
                                                     />
                                                     <FieldError error={errors.patient?.phone} />
                                                 </div>
@@ -542,8 +580,8 @@ export default function Referrals() {
                                         <Phone className="h-5 w-5 text-primary" />
                                         <div>
                                             <p className="text-sm text-muted-foreground">Call</p>
-                                            <a href="tel:+15093816035" className="font-medium text-foreground hover:text-primary">
-                                                (509) 381-6035
+                                            <a href={contact.phoneUrl} className="font-medium text-foreground hover:text-primary">
+                                                {contact.phone}
                                             </a>
                                         </div>
                                     </div>
@@ -573,10 +611,9 @@ export default function Referrals() {
                                         <div>
                                             <h4 className="font-semibold text-foreground mb-2">Important Notes</h4>
                                             <ul className="text-sm text-muted-foreground space-y-2">
-                                                <li>We accept patients ages 11 and older</li>
+                                                <li>We accept patients ages 6 and older</li>
                                                 <li>We do not provide court-ordered evaluations</li>
                                                 <li>Emergency/crisis referrals should call 988 or 911</li>
-                                                <li>Patient must reside in Georgia for telehealth</li>
                                             </ul>
                                         </div>
                                     </div>

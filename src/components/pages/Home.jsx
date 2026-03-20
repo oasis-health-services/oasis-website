@@ -217,18 +217,21 @@ function HomeHero() {
                             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
 
                                 <AnimatePresence>
-                                    <motion.div key={currentImageIndex} className="absolute inset-0" initial={{
-                                        opacity: 0
-                                    }} animate={{
-                                        opacity: 1
-                                    }} exit={{
-                                        opacity: 0
-                                    }} transition={{
-                                        opacity: {
-                                            duration: 2,
-                                            ease: "easeInOut"
-                                        }
-                                    }}>
+                                    <motion.div
+                                        key={currentImageIndex}
+                                        className="absolute inset-0"
+                                        initial={{
+                                            opacity: 0
+                                        }} animate={{
+                                            opacity: 1
+                                        }} exit={{
+                                            opacity: 0
+                                        }} transition={{
+                                            opacity: {
+                                                duration: 2,
+                                                ease: "easeInOut"
+                                            }
+                                        }}>
                                         <OptimizedImage
                                             className="rounded-xl shadow-2xl object-cover w-full h-full"
                                             alt={heroImages[currentImageIndex].alt}
@@ -453,7 +456,7 @@ function ConditionsGrid({ className = "py-20 bg-secondary" } = {}) {
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {conditions.map((condition, index) => (
 
-                        <motion.div key={condition.id} initial={{
+                        <motion.div key={condition.title} initial={{
                             opacity: 0,
                             y: 10
                         }} whileInView={{
@@ -467,7 +470,7 @@ function ConditionsGrid({ className = "py-20 bg-secondary" } = {}) {
                             delay: index * 0.03,
                             ease: "easeOut"
                         }}>
-                            <a key={index} href={condition.href}>
+                            <a href={condition.href}>
                                 <Card className="h-full hover:shadow-md hover:border-primary/30 transition-all group cursor-pointer">
                                     <CardContent className="p-6">
                                         <div className="flex items-center gap-4">

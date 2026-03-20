@@ -126,7 +126,7 @@ function QuickContactCards() {
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     {contactMethods.map((method, index) => (
-                        <motion.div initial={{ opacity: 0, y: 50 }}
+                        <motion.div key={index} initial={{ opacity: 0, y: 50 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}>
                             <a
@@ -546,9 +546,9 @@ function InsuranceSection() {
                 </div>
 
                 <div className="mt-12 flex flex-wrap justify-center gap-4">
-                    {insuranceProviders.map((provider) => (
+                    {insuranceProviders.map((provider, index) => (
                         <div
-                            key={provider}
+                            key={index}
                             className="px-6 py-3 bg-card rounded-full border border-border text-sm font-medium text-foreground"
                         >
                             {provider}

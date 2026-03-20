@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import {
     CheckCircle2,
-    Clock,
     Phone,
     Mail,
     Calendar,
@@ -11,119 +10,31 @@ import {
     ArrowRight,
     Home,
     BookOpen,
-    Users,
-    Handshake,
-    Shield,
 } from "lucide-react"
 import { contact } from '@/lib/contact'
 
 const formTypes = {
     contact: {
-        title: "Thank You for Reaching Out!",
-        subtitle: "Your message has been received",
-        description: "Our team will review your inquiry and respond within 1-2 business days. If your matter is urgent, please don't hesitate to call us directly.",
+        title: "We're Sorry!",
+        subtitle: "Unfortunately, we're unable to process your request at this time",
+        description: "We're experiencing technical difficulties that are preventing us from processing your request. Our team is working hard to resolve this issue as quickly as possible.",
         icon: Mail,
-        responseTime: "1-2 business days",
         nextSteps: [
-            { text: "Check your email for a confirmation", icon: Mail },
+            { text: `Please try again later or send us an email at support@oasishealthservices.com`, icon: Mail },
             { text: "Our team reviews your message", icon: FileText },
-            { text: "We'll respond via your preferred method", icon: Phone },
+            { text: `Call our office at {contact.phone}`, icon: Phone },
         ],
         suggestedLinks: [
             { label: "Schedule an Appointment", href: "/patients", icon: Calendar },
             { label: "Explore Our Resources", href: "/resources", icon: BookOpen },
             { label: "Learn About Our Services", href: "/services", icon: FileText },
-        ],
-    },
-    "document-upload": {
-        title: "Thank You for Submitting Your Documents!",
-        subtitle: "Your documents have been received",
-        description: "Our team will review your documents and respond within 1-2 business days. If your matter is urgent, please don't hesitate to call us directly.",
-        icon: Mail,
-        responseTime: "1-2 business days",
-        nextSteps: [
-            { text: "Check your email for a confirmation", icon: Mail },
-            { text: "Our team reviews your documents", icon: FileText },
-            { text: "We'll respond via your preferred method", icon: Phone },
-        ],
-        suggestedLinks: [
-            { label: "Schedule an Appointment", href: "/patients", icon: Calendar },
-            { label: "Explore Our Resources", href: "/resources", icon: BookOpen },
-            { label: "Learn About Our Services", href: "/services", icon: FileText },
-        ],
-    },
-    verifyInsurance: {
-        title: "Thank you for Reaching Out!",
-        subtitle: "Your insurance information has been received",
-        description: "Our team will review your insurance benefits and provide you a cost estimate within 1-2 business days.",
-        icon: Mail,
-        responseTime: "1-2 business days",
-        nextSteps: [
-            { text: "Check your email for a confirmation", icon: Mail },
-            { text: "Our team reviews your insurance information", icon: Shield },
-            { text: "We'll respond via e-mail", icon: Mail }
-        ],
-        suggestedLinks: [
-            { label: "Schedule an Appointment", href: "/patients", icon: Calendar },
-            { label: "Explore Our Resources", href: "/resources", icon: BookOpen },
-            { label: "Learn About Our Services", href: "/services", icon: FileText },
-        ]
-    },
-    referral: {
-        title: "Referral Submitted Successfully!",
-        subtitle: "Thank you for trusting us with your patient's care",
-        description: "We've received your referral and will contact the patient within 24-48 business hours to schedule their appointment. You'll receive a confirmation and updates on their care.",
-        icon: Users,
-        responseTime: "24-48 business hours",
-        nextSteps: [
-            { text: "Patient contacted for scheduling", icon: Phone },
-            { text: "Initial evaluation completed", icon: FileText },
-            { text: "Progress report sent to you", icon: Mail },
-        ],
-        suggestedLinks: [
-            { label: "Submit Another Referral", href: "/for-providers/referrals", icon: FileText },
-            { label: "View Conditions We Treat", href: "/conditions", icon: BookOpen },
-            { label: "Learn About Partnership", href: "/for-providers", icon: Handshake },
-        ],
-    },
-    collaboration: {
-        title: "Partnership Request Received!",
-        subtitle: "We're excited about the opportunity to collaborate",
-        description: "Our provider relations team will review your partnership request and reach out within 2-3 business days to discuss next steps and answer any questions.",
-        icon: Handshake,
-        responseTime: "2-3 business days",
-        nextSteps: [
-            { text: "Team reviews your request", icon: FileText },
-            { text: "We'll schedule a brief call", icon: Phone },
-            { text: "Formal agreement finalized", icon: CheckCircle2 },
-        ],
-        suggestedLinks: [
-            { label: "Submit a Patient Referral", href: "/for-providers/referrals", icon: Users },
-            { label: "Explore Our Services", href: "/services", icon: BookOpen },
-            { label: "Contact Provider Services", href: "/contact", icon: Phone },
-        ],
-    },
-    helpdesk: {
-        title: "Helpdesk Request Received!",
-        subtitle: "We've received your request and will get back to you as soon as possible.",
-        description: "Our team will review your request and reach out within 2-3 business days to discuss next steps and answer any questions.",
-        icon: Handshake,
-        responseTime: "2-3 business days",
-        nextSteps: [
-            { text: "Team reviews your request", icon: FileText },
-            { text: "We'll schedule a brief call", icon: Phone },
-            { text: "Formal agreement finalized", icon: CheckCircle2 },
-        ],
-        suggestedLinks: [
-            { label: "Submit a Patient Referral", href: "/for-providers/referrals", icon: Users },
-            { label: "Explore Our Services", href: "/services", icon: BookOpen },
-            { label: "Contact Provider Services", href: "/contact", icon: Phone },
         ],
     },
 }
 
-function ThankYouContent({ formType, name, referenceId }) {
-    const content = formTypes[formType] || formTypes.contact
+function SorryContent() {
+
+    const content = formTypes.contact
     const IconComponent = content.icon
 
     return (
@@ -141,24 +52,10 @@ function ThankYouContent({ formType, name, referenceId }) {
                         {content.title}
                     </h1>
 
-                    {/* Personalized Greeting */}
-                    {name && (
-                        <p className="mt-4 text-xl text-primary font-medium">
-                            Thank you, {name}!
-                        </p>
-                    )}
-
                     <p className="mt-2 text-lg text-muted-foreground">
                         {content.subtitle}
                     </p>
 
-                    {/* Reference ID if provided */}
-                    {referenceId && (
-                        <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 bg-card rounded-lg border border-border">
-                            <span className="text-sm text-muted-foreground">Reference ID:</span>
-                            <span className="text-sm font-mono font-medium text-foreground">{referenceId}</span>
-                        </div>
-                    )}
                 </div>
             </section>
 
@@ -176,10 +73,10 @@ function ThankYouContent({ formType, name, referenceId }) {
                                     <p className="text-lg text-foreground leading-relaxed">
                                         {content.description}
                                     </p>
-                                    <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
+                                    {/* <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
                                         <Clock className="h-4 w-4 text-primary" />
                                         <span>Expected response time: <strong className="text-foreground">{content.responseTime}</strong></span>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </CardContent>
@@ -270,7 +167,7 @@ function ThankYouContent({ formType, name, referenceId }) {
     )
 }
 
-export default function ThankYouPage() {
+export default function SorryPage() {
     const [params, setParams] = useState({ type: "contact", name: "", ref: "" });
 
     useEffect(() => {
@@ -284,11 +181,7 @@ export default function ThankYouPage() {
 
     return (
         <main className="flex-1">
-            <ThankYouContent
-                formType={params.type}
-                name={params.name}
-                referenceId={params.ref}
-            />
+            <SorryContent />
         </main>
     )
 }

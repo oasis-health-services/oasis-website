@@ -74,6 +74,10 @@ export const verifyInsurance = async (formData: any) => {
     return await secureSubmit("/request/verify-insurance", formData);
 }
 
+export const submitIntakeForm = async (formData: any) => {
+    return await secureSubmit("/request/intake", formData);
+}
+
 export const submitHelpdeskRequest = async (formData: any) => {
     return await secureSubmit("/request/helpdesk", formData);
 }

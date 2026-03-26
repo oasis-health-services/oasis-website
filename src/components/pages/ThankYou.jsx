@@ -14,6 +14,8 @@ import {
     Users,
     Handshake,
     Shield,
+    PillBottle,
+    Brain,
 } from "lucide-react"
 import { contact } from '@/lib/contact'
 
@@ -67,6 +69,23 @@ const formTypes = {
             { label: "Schedule an Appointment", href: "/patients", icon: Calendar },
             { label: "Explore Our Resources", href: "/resources", icon: BookOpen },
             { label: "Learn About Our Services", href: "/services", icon: FileText },
+        ]
+    },
+    intake: {
+        title: "Thank You for Submitting Your Intake Form!",
+        subtitle: "Your intake form has been received",
+        description: "Our team will review your intake form and respond within 1-2 business days. If your matter is urgent, please don't hesitate to call us directly.",
+        icon: Mail,
+        responseTime: "1-2 business days",
+        nextSteps: [
+            { text: "Check your email for a confirmation", icon: Mail },
+            { text: "Our team reviews your intake form", icon: FileText },
+            { text: "We'll respond via your preferred method", icon: Phone },
+        ],
+        suggestedLinks: [
+            { label: "Explore Our Resources", href: "/resources", icon: BookOpen },
+            { label: "Learn About Conditions We Treat", href: "/about/conditions", icon: Brain },
+            { label: "Learn About Our Services", href: "/services", icon: PillBottle },
         ]
     },
     referral: {

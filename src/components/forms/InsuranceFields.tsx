@@ -90,20 +90,21 @@ export function InsuranceContactFieldsComponent<T extends FieldValues>({ form }:
     )
 }
 
-export function InsuranceDetailFieldsComponent<T extends FieldValues>({ form }: FormComponentProps<T>) {
+export function InsuranceDetailFieldsComponent<T extends FieldValues>({ prefix, form }: FormComponentProps<T>) {
 
-    const { register, watch, control, setValue, formState: { errors } } = form;
+    const { register, watch, control, formState: { errors } } = form;
     const setFiles = useFormStore((state) => state.setFiles);
 
-    const subscriberRelationship = watch("insurance.subscriberRelationship" as Path<T>);
-    const showSubscriberFields = subscriberRelationship && subscriberRelationship !== "self";
-    const fileExtraProps = { entityType: "insurance_card" };
+    const _prefix = prefix ? `${prefix}.` : "";
 
-    const insuranceImages = useFormStore((state) => state.files["insurance.images"]) || [];
+    const subscriberRelationship = watch(`${_prefix}insurance.subscriberRelationship` as Path<T>);
+    const showSubscriberFields = subscriberRelationship && subscriberRelationship !== "self";
+
+    const insuranceImages = useFormStore((state) => state.files[`${_prefix}insurance.images`]) || [];
 
     const setInsuranceImages: React.Dispatch<React.SetStateAction<UploadedFile[]>> = (value) => {
         const newFiles = typeof value === "function" ? value(insuranceImages) : value;
-        setFiles("insurance.images", newFiles);
+        setFiles(`${_prefix}insurance.images`, newFiles);
     }
 
     const INSURANCE_TYPE_OPTIONS = [
@@ -149,7 +150,11 @@ export function InsuranceDetailFieldsComponent<T extends FieldValues>({ form }: 
     ];
 
     return (
-        <>
+        <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}>
+
             <div className="space-y-6">
 
                 <h3 className="mt-10 text-md font-semibold text-foreground pb-2 border-b border-border">
@@ -158,13 +163,13 @@ export function InsuranceDetailFieldsComponent<T extends FieldValues>({ form }: 
 
                 <div className="grid sm:grid-cols-2 gap-6">
                     <div className="space-y-2 w-full">
-                        <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="insuranceType">Type *</Label>
+                        <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor={`${prefix}_insuranceType`}>Type *</Label>
                         <Controller
-                            name={`insurance.type` as Path<T>}
+                            name={`${_prefix}insurance.type` as Path<T>}
                             control={control}
                             render={({ field }) => (
                                 <Select onValueChange={field.onChange} defaultValue="" value={field.value}>
-                                    <SelectTrigger id="insuranceType" className="w-full">
+                                    <SelectTrigger id={`${prefix}_insuranceType`} className="w-full">
                                         <SelectValue placeholder="Select insurance type" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -177,16 +182,16 @@ export function InsuranceDetailFieldsComponent<T extends FieldValues>({ form }: 
                                 </Select>
                             )}
                         />
-                        <FieldError error={get(errors, "insurance.type")} />
+                        <FieldError error={get(errors, `${_prefix}insurance.type`)} />
                     </div>
                     <div className="space-y-2 w-full">
-                        <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="insuranceName">Carrier *</Label>
+                        <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor={`${prefix}_insuranceName`}>Carrier *</Label>
                         <Controller
-                            name={`insurance.name` as Path<T>}
+                            name={`${_prefix}insurance.name` as Path<T>}
                             control={control}
                             render={({ field }) => (
                                 <Select onValueChange={field.onChange} defaultValue="" value={field.value}>
-                                    <SelectTrigger id="insuranceName" className="w-full">
+                                    <SelectTrigger id={`${prefix}_insuranceName`} className="w-full">
                                         <SelectValue placeholder="Select insurance" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -199,45 +204,45 @@ export function InsuranceDetailFieldsComponent<T extends FieldValues>({ form }: 
                                 </Select>
                             )}
                         />
-                        <FieldError error={get(errors, "insurance.name")} />
+                        <FieldError error={get(errors, `${_prefix}insurance.name`)} />
                     </div>
 
                     <div className="space-y-2 w-full">
-                        <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="insurancePlan">Plan Name</Label>
+                        <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor={`${prefix}_insurancePlan`}>Plan Name</Label>
                         <Input
-                            id="insurancePlan"
-                            {...register(`insurance.plan` as Path<T>)}
+                            id={`${prefix}_insurancePlan`}
+                            {...register(`${_prefix}insurance.plan` as Path<T>)}
                             placeholder="Plan name"
                         />
-                        <FieldError error={get(errors, "insurance.plan")} />
+                        <FieldError error={get(errors, `${_prefix}insurance.plan`)} />
                     </div>
 
                     <div className="space-y-2 w-full">
-                        <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="insuranceMemberId">Member ID *</Label>
+                        <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor={`${prefix}_insuranceMemberId`}>Member ID *</Label>
                         <Input
-                            id="insuranceMemberId"
-                            {...register(`insurance.memberId` as Path<T>)}
+                            id={`${prefix}_insuranceMemberId`}
+                            {...register(`${_prefix}insurance.memberId` as Path<T>)}
                             placeholder="1234567890"
                         />
-                        <FieldError error={get(errors, "insurance.memberId")} />
+                        <FieldError error={get(errors, `${_prefix}insurance.memberId`)} />
                     </div>
                     <div className="space-y-2 w-full">
-                        <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="insurancePolicyNumber">Policy/Group Number</Label>
+                        <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor={`${prefix}_insuranceGroupNumber`}>Policy/Group Number</Label>
                         <Input
-                            id="insuranceGroupNumberr"
-                            {...register(`insurance.groupNumber` as Path<T>)}
+                            id={`${prefix}_insuranceGroupNumber`}
+                            {...register(`${_prefix}insurance.groupNumber` as Path<T>)}
                             placeholder="1234567890"
                         />
-                        <FieldError error={get(errors, "insurance.groupNumber")} />
+                        <FieldError error={get(errors, `${_prefix}insurance.groupNumber`)} />
                     </div>
                     <div className="space-y-2 w-full">
-                        <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="subscriberRelationship">What is your relationship to the subscriber? *</Label>
+                        <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor={`${prefix}_subscriberRelationship`}>What is your relationship to the subscriber? *</Label>
                         <Controller
-                            name={`insurance.subscriberRelationship` as Path<T>}
+                            name={`${_prefix}insurance.subscriberRelationship` as Path<T>}
                             control={control}
                             render={({ field }) => (
                                 <Select onValueChange={field.onChange} defaultValue="self" value={field.value}>
-                                    <SelectTrigger id="subscriberRelationship" className="w-full align-left">
+                                    <SelectTrigger id={`${prefix}_subscriberRelationship`} className="w-full align-left">
                                         <SelectValue placeholder="Select subscriber relationship" className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
                                     </SelectTrigger>
                                     <SelectContent className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring">
@@ -249,7 +254,7 @@ export function InsuranceDetailFieldsComponent<T extends FieldValues>({ form }: 
                                 </Select>
                             )}
                         />
-                        <FieldError error={get(errors, "insurance.subscriberRelationship")} />
+                        <FieldError error={get(errors, `${_prefix}insurance.subscriberRelationship`)} />
                     </div>
 
                 </div>
@@ -267,23 +272,23 @@ export function InsuranceDetailFieldsComponent<T extends FieldValues>({ form }: 
 
                     <div className="grid sm:grid-cols-2 gap-6">
                         <div className="space-y-2 w-full">
-                            <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="subscriberName">Subscriber Name *</Label>
+                            <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor={`${prefix}_subscriberName`}>Subscriber Name *</Label>
                             <Input
-                                id="subscriberName"
-                                {...register(`insurance.subscriber.name` as Path<T>)}
+                                id={`${prefix}_subscriberName`}
+                                {...register(`${_prefix}insurance.subscriber.name` as Path<T>)}
                                 placeholder="John Doe"
                             />
-                            <FieldError error={get(errors, "insurance.subscriber.name")} />
+                            <FieldError error={get(errors, `${_prefix}insurance.subscriber.name`)} />
                         </div>
                         <div className="space-y-2 w-full">
-                            <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="subscriberDob">Subscriber Date of Birth *</Label>
+                            <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor={`${prefix}_subscriberDob`}>Subscriber Date of Birth *</Label>
                             <Input
-                                id="subscriberDob"
+                                id={`${prefix}_subscriberDob`}
                                 type="date"
-                                {...register(`insurance.subscriber.dob` as Path<T>)}
+                                {...register(`${_prefix}insurance.subscriber.dob` as Path<T>)}
                                 placeholder="MM/DD/YYYY"
                             />
-                            <FieldError error={get(errors, "insurance.subscriber.dob")} />
+                            <FieldError error={get(errors, `${_prefix}insurance.subscriber.dob`)} />
                         </div>
                     </div>
                 </motion.div>
@@ -302,6 +307,6 @@ export function InsuranceDetailFieldsComponent<T extends FieldValues>({ form }: 
                 </div>
 
             </div>
-        </>
+        </motion.div>
     )
 }

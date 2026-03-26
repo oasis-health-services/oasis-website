@@ -398,7 +398,7 @@ export function VerifyInsuranceForm() {
             schema: InsuranceSchema,
             name: "insurance" as const,
             validate: async (form: UseFormReturn<VerifyInsuranceFormData>) => {
-                const { trigger, clearErrors } = form;
+                const { trigger } = form;
                 const fields = getFields(InsuranceSchema);
                 const fieldsToValidate = fields.map(key =>
                     "insurance" + "." + key
@@ -417,7 +417,7 @@ export function VerifyInsuranceForm() {
             label: "Review",
             icon: ClipboardCheck,
             schema: z.object({}),
-            validate: async (form: UseFormReturn<VerifyInsuranceFormData>) => {
+            validate: async (_form: UseFormReturn<VerifyInsuranceFormData>) => {
                 return true;
             },
             component: ReviewInsurance
@@ -433,6 +433,10 @@ export function VerifyInsuranceForm() {
         data.insurance.images = [];
         for (let i = 0; i < insuranceImages.length; i++) {
 
+            if (insuranceImages[i].status === "done" && insuranceImages[i].docId) {
+                data.insurance.images.push({ docId: insuranceImages[i].docId! });
+                continue;
+            }
             const updatedFile: UploadedFile = { ...insuranceImages[i], status: "uploading" };
             setFiles("insurance.images", [updatedFile]);
 
@@ -442,7 +446,7 @@ export function VerifyInsuranceForm() {
                 formData.append("entityType", "insurance_card");
 
                 const response = await uploadFile(formData);
-                const updatedFile: UploadedFile = { ...insuranceImages[i], status: "done", fileId: response.document.docId };
+                const updatedFile: UploadedFile = { ...insuranceImages[i], status: "done", docId: response.document.docId };
                 setFiles("insurance.images", [updatedFile]);
                 data.insurance.images.push({ docId: response.document.docId });
             } catch (error) {

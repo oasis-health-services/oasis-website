@@ -16,7 +16,8 @@ import { submitEmergencyContactForm } from "@/api";
 
 const RELATIONSHIP_OPTIONS = [
     { value: "spouse", label: "Spouse" },
-    { value: "parent", label: "Parent" },
+    { value: "father", label: "Father" },
+    { value: "mother", label: "Mother" },
     { value: "guardian", label: "Guardian" },
     { value: "child", label: "Child" },
     { value: "sibling", label: "Sibling" },

@@ -10,9 +10,20 @@ import { Plus, Trash2, Users } from "lucide-react";
 import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
 
-const RELATIONSHIP_OPTIONS = [
+const GUARDIAN_RELATIONSHIP_OPTIONS = [
+    { value: "father", label: "Father" },
+    { value: "mother", label: "Mother" },
+    { value: "guardian", label: "Guardian" },
+    { value: "sibling", label: "Sibling" },
+    { value: "relative", label: "Relative" },
+    { value: "foster", label: "Foster Parent" },
+    { value: "other", label: "Other" },
+]
+
+const EMERGENCY_RELATIONSHIP_OPTIONS = [
     { value: "spouse", label: "Spouse" },
-    { value: "parent", label: "Parent" },
+    { value: "father", label: "Father" },
+    { value: "mother", label: "Mother" },
     { value: "guardian", label: "Guardian" },
     { value: "child", label: "Child" },
     { value: "sibling", label: "Sibling" },
@@ -28,28 +39,29 @@ const SPECIALTY_OPTIONS = [
     { value: "other", label: "Other" },
 ]
 
-export function EmergencyContactFieldsComponent<T extends FieldValues>({ form }: FormComponentProps<T>) {
+export function EmergencyContactFieldsComponent<T extends FieldValues>({ form, prefix = "additionalInformation" }: FormComponentProps<T>) {
 
     const { register, control, formState: { errors } } = form;
+    const _prefix = prefix ? `${prefix}.` : '';
 
     return (
         <div className="grid sm:grid-cols-2 gap-4">
             <div className="space-y-2">
                 <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="emergency_firstName">First Name *</Label>
-                <Input id="emergency_firstName" {...register("emergency.firstName" as Path<T>)} placeholder="First name" />
-                <FieldError error={get(errors, "emergency.firstName")} />
+                <Input id="emergency_firstName" {...register(`${_prefix}emergency.firstName` as Path<T>)} placeholder="First name" />
+                <FieldError error={get(errors, `${_prefix}emergency.firstName`)} />
             </div>
 
             <div className="space-y-2">
                 <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="emergency_lastName">Last Name *</Label>
-                <Input id="emergency_lastName" {...register("emergency.lastName" as Path<T>)} placeholder="Last name" />
-                <FieldError error={get(errors, "emergency.lastName")} />
+                <Input id="emergency_lastName" {...register(`${_prefix}.emergency.lastName` as Path<T>)} placeholder="Last name" />
+                <FieldError error={get(errors, `${_prefix}emergency.lastName`)} />
             </div>
 
             <div className="space-y-2 sm:col-span-2">
                 <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="emergency_relationship">Relationship to Patient *</Label>
                 <Controller
-                    name={"emergency.relationship" as Path<T>}
+                    name={`${_prefix}emergency.relationship` as Path<T>}
                     control={control}
                     render={({ field }) => (
                         <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
@@ -57,7 +69,7 @@ export function EmergencyContactFieldsComponent<T extends FieldValues>({ form }:
                                 <SelectValue placeholder="Select relationship" />
                             </SelectTrigger>
                             <SelectContent>
-                                {RELATIONSHIP_OPTIONS.map((option) => (
+                                {EMERGENCY_RELATIONSHIP_OPTIONS.map((option) => (
                                     <SelectItem key={option.value} value={option.value}>
                                         {option.label}
                                     </SelectItem>
@@ -66,19 +78,19 @@ export function EmergencyContactFieldsComponent<T extends FieldValues>({ form }:
                         </Select>
                     )}
                 />
-                <FieldError error={get(errors, "emergency.relationship")} />
+                <FieldError error={get(errors, `${_prefix}emergency.relationship`)} />
             </div>
 
             <div className="space-y-2">
                 <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="emergency_email">Email *</Label>
-                <Input type="email" id="emergency_email" {...register("emergency.email" as Path<T>)} placeholder="Email address" />
-                <FieldError error={get(errors, "emergency.email")} />
+                <Input type="email" id="emergency_email" {...register(`${_prefix}emergency.email` as Path<T>)} placeholder="Email address" />
+                <FieldError error={get(errors, `${_prefix}emergency.email`)} />
             </div>
 
             <div className="space-y-2">
                 <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="emergency_phone">Phone</Label>
                 <Controller
-                    name={"emergency.phone" as Path<T>}
+                    name={`${_prefix}emergency.phone` as Path<T>}
                     control={control}
                     render={({ field }) => (
                         <Input
@@ -95,18 +107,19 @@ export function EmergencyContactFieldsComponent<T extends FieldValues>({ form }:
                         />
                     )}
                 />
-                <FieldError error={get(errors, "emergency.phone")} />
+                <FieldError error={get(errors, `${_prefix}emergency.phone`)} />
             </div>
         </div>
     )
 }
 
-export function GuardianContactFieldsComponent<T extends FieldValues>({ form }: FormComponentProps<T>) {
+export function GuardianContactFieldsComponent<T extends FieldValues>({ form, prefix = "additionalInformation" }: FormComponentProps<T>) {
 
+    const _prefix = prefix ? `${prefix}.` : '';
     const { register, watch, control, formState: { errors } } = form;
     const { fields: guardians, append: appendGuardian, remove: removeGuardian } = useFieldArray({
         control,
-        name: "guardians" as ArrayPath<T>
+        name: `${_prefix}guardians` as ArrayPath<T>
     });
 
     const addGuardian = () => {
@@ -149,26 +162,26 @@ export function GuardianContactFieldsComponent<T extends FieldValues>({ form }: 
                                 <div className="grid sm:grid-cols-2 gap-4">
                                     <div className="space-y-2">
                                         <Label htmlFor={`guardians.${index}.firstName`} className="block text-sm font-medium text-foreground mb-1.5">First Name *</Label>
-                                        <Input id={`guardians.${index}.firstName`} {...register(`guardians.${index}.firstName` as Path<T>)} placeholder="First name" />
-                                        <FieldError error={get(errors, `guardians.${index}.firstName`)} />
+                                        <Input id={`guardians.${index}.firstName`} {...register(`${_prefix}guardians.${index}.firstName` as Path<T>)} placeholder="First name" />
+                                        <FieldError error={get(errors, `${_prefix}guardians.${index}.firstName`)} />
                                     </div>
 
                                     <div className="space-y-2">
                                         <Label htmlFor={`guardians.${index}.lastName`} className="block text-sm font-medium text-foreground mb-1.5">Last Name *</Label>
-                                        <Input id={`guardians.${index}.lastName`} {...register(`guardians.${index}.lastName` as Path<T>)} placeholder="Last name" />
-                                        <FieldError error={get(errors, `guardians.${index}.lastName`)} />
+                                        <Input id={`guardians.${index}.lastName`} {...register(`additionalInformation.guardians.${index}.lastName` as Path<T>)} placeholder="Last name" />
+                                        <FieldError error={get(errors, `${_prefix}guardians.${index}.lastName`)} />
                                     </div>
 
                                     <div className="space-y-2">
                                         <Label htmlFor={`guardians.${index}.email`} className="block text-sm font-medium text-foreground mb-1.5">Email *</Label>
-                                        <Input id={`guardians.${index}.email`} {...register(`guardians.${index}.email` as Path<T>)} placeholder="Email" />
-                                        <FieldError error={get(errors, `guardians.${index}.email`)} />
+                                        <Input id={`guardians.${index}.email`} {...register(`additionalInformation.guardians.${index}.email` as Path<T>)} placeholder="Email" />
+                                        <FieldError error={get(errors, `${_prefix}guardians.${index}.email`)} />
                                     </div>
 
                                     <div className="space-y-2">
                                         <Label htmlFor={`guardians.${index}.phone`} className="block text-sm font-medium text-foreground mb-1.5">Phone</Label>
                                         <Controller
-                                            name={`guardians.${index}.phone` as Path<T>}
+                                            name={`${_prefix}guardians.${index}.phone` as Path<T>}
                                             control={control}
                                             render={({ field }) => (
                                                 <Input
@@ -185,13 +198,13 @@ export function GuardianContactFieldsComponent<T extends FieldValues>({ form }: 
                                                 />
                                             )}
                                         />
-                                        <FieldError error={get(errors, `guardians.${index}.phone`)} />
+                                        <FieldError error={get(errors, `${_prefix}guardians.${index}.phone`)} />
                                     </div>
 
                                     <div className="space-y-2">
                                         <Label htmlFor={`guardians.${index}.relationship`} className="block text-sm font-medium text-foreground mb-1.5">Relationship to Patient *</Label>
                                         <Controller
-                                            name={`guardians.${index}.relationship` as Path<T>}
+                                            name={`${_prefix}guardians.${index}.relationship` as Path<T>}
                                             control={control}
                                             render={({ field }) => (
                                                 <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
@@ -199,7 +212,7 @@ export function GuardianContactFieldsComponent<T extends FieldValues>({ form }: 
                                                         <SelectValue placeholder="Select relationship" />
                                                     </SelectTrigger>
                                                     <SelectContent>
-                                                        {RELATIONSHIP_OPTIONS.map((option) => (
+                                                        {GUARDIAN_RELATIONSHIP_OPTIONS.map((option) => (
                                                             <SelectItem key={option.value} value={option.value}>
                                                                 {option.label}
                                                             </SelectItem>
@@ -208,7 +221,7 @@ export function GuardianContactFieldsComponent<T extends FieldValues>({ form }: 
                                                 </Select>
                                             )}
                                         />
-                                        <FieldError error={get(errors, `guardians.${index}.relationship`)} />
+                                        <FieldError error={get(errors, `${_prefix}guardians.${index}.relationship`)} />
                                     </div>
                                 </div>
 
@@ -216,7 +229,7 @@ export function GuardianContactFieldsComponent<T extends FieldValues>({ form }: 
                                     <div className="flex items-start gap-3">
 
                                         <Controller
-                                            name={`guardians.${index}.hasLegalDocumentation` as Path<T>}
+                                            name={`${_prefix}guardians.${index}.hasLegalDocumentation` as Path<T>}
                                             control={control}
                                             render={({ field }) => (
                                                 <Checkbox
@@ -259,64 +272,46 @@ export function GuardianContactFieldsComponent<T extends FieldValues>({ form }: 
     )
 }
 
-export function ReferrerContactFieldsComponent<T extends FieldValues>({ form }: FormComponentProps<T>) {
+export function ReferrerContactFieldsComponent<T extends FieldValues>({ form, prefix = "additionalInformation" }: FormComponentProps<T>) {
 
+    const _prefix = prefix ? `${prefix}.` : '';
     const { register, control, watch, formState: { errors } } = form;
 
-    const referrer = watch("additionalInformation.source" as Path<T>);
+    const referrer = watch(`${_prefix}source` as Path<T>);
 
-    const isTherapist = referrer === "Therapist";
-    const isMedicalDoctor = referrer === "Medical Doctor";
-    const isReferrer = isTherapist || isMedicalDoctor;
+    //    const isReferrer = referrer === "Referrer";
 
     return (
         <div className="grid sm:grid-cols-2 gap-6">
             <div className="space-y-2">
-                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="referrer_name">Name *</Label>
-                <Input id="referrer_name" {...register("referrer.name" as Path<T>)} placeholder="Name" />
-                <FieldError error={get(errors, "referrer.name")} />
-            </div>
-
-            {isMedicalDoctor && (
-                <div className="space-y-2">
-                    <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="referrer_specialty">Specialty *</Label>
-                    <Controller
-                        name={"referrer.specialty" as Path<T>}
-                        control={control}
-                        render={({ field }) => (
-                            <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
-                                <SelectTrigger id="referrer_specialty" className="w-full">
-                                    <SelectValue placeholder="Select specialty" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    {SPECIALTY_OPTIONS.map((option) => (
-                                        <SelectItem key={option.value} value={option.value}>
-                                            {option.label}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                        )}
-                    />
-                    <FieldError error={get(errors, "referrer.specialty")} />
-                </div>
-            )}
-            <div className="space-y-2">
-                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="referrer_organization">Organization *</Label>
-                <Input id="referrer_organization" {...register("referrer.organization" as Path<T>)} placeholder="Organization" />
-                <FieldError error={get(errors, "referrer.organization")} />
+                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor={`${prefix}_referrer_name`}>Name *</Label>
+                <Input id={`${prefix}_referrer_name`} {...register(`${_prefix}referrer.name` as Path<T>)} placeholder="Name" maxLength={35} />
+                <FieldError error={get(errors, `${_prefix}referrer.name`)} />
             </div>
 
             <div className="space-y-2">
-                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="referrer_email">Email *</Label>
-                <Input type="email" id="referrer_email" {...register("referrer.email" as Path<T>)} placeholder="Email address" />
-                <FieldError error={get(errors, "referrer.email")} />
+                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor={`${prefix}_referrer_specialty`}>Specialty *</Label>
+                <Input type="text" id={`${prefix}_referrer_specialty`} {...register(`${_prefix}referrer.specialty` as Path<T>)} placeholder="Specialty" maxLength={35} />
+
+                <FieldError error={get(errors, `${_prefix}referrer.specialty`)} />
             </div>
 
             <div className="space-y-2">
-                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="referrer_phone">Phone</Label>
+                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor={`${prefix}_referrer_practiceName`}>Practice Name *</Label>
+                <Input id={`${prefix}_referrer_practiceName`} {...register(`${_prefix}referrer.practiceName` as Path<T>)} placeholder="Practice Name" maxLength={35} />
+                <FieldError error={get(errors, `${_prefix}referrer.practiceName`)} />
+            </div>
+
+            <div className="space-y-2">
+                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor={`${prefix}_referrer_email`}>Email *</Label>
+                <Input type="email" id={`${prefix}_referrer_email`} {...register(`${_prefix}referrer.email` as Path<T>)} placeholder="Email address" />
+                <FieldError error={get(errors, `${_prefix}referrer.email`)} />
+            </div>
+
+            <div className="space-y-2">
+                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor={`${prefix}_referrer_phone`}>Phone</Label>
                 <Controller
-                    name={"referrer.phone" as Path<T>}
+                    name={`${_prefix}referrer.phone` as Path<T>}
                     control={control}
                     render={({ field }) => (
                         <Input
@@ -333,7 +328,7 @@ export function ReferrerContactFieldsComponent<T extends FieldValues>({ form }: 
                         />
                     )}
                 />
-                <FieldError error={get(errors, "referrer.phone")} />
+                <FieldError error={get(errors, `${_prefix}referrer.phone`)} />
             </div>
         </div>
     )

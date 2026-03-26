@@ -1,12 +1,12 @@
-import { Calendar, ClipboardCheck, CreditCard, PillBottle, PlugIcon, Shield, User, UserPlus, Users } from "lucide-react";
+import { AlertCircle, Calendar, ClipboardCheck, CreditCard, PillBottle, PlugIcon, Shield, User, UserPlus, Users } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
-import { getFields, MultistepForm, type FormComponentProps } from "./MultistepForm";
+import { getFields, LabelValue, MultistepForm, SummarySection, validateFields, type FormComponentProps } from "./MultistepForm";
 import { AdditionalInformationSchema, AppointmentPreferenceSchema, IntakeFormSchema, LeadSchema, PaymentInformationSchema, ServiceInformationSchema, type IntakeFormData } from "@/lib/schema";
 import { Controller, type Path, type UseFormReturn } from "react-hook-form";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import FieldError from "../FieldError";
-import { formatPhoneNumber, isMinor } from "@/lib/utils";
+import { formatAddress, formatPhoneNumber, formatPostalCode, isMinor } from "@/lib/utils";
 import { useFormStore } from "@/store";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { SelectField } from "./SelectField";
@@ -16,23 +16,27 @@ import { CheckboxField } from "./CheckboxField";
 import { EmergencyContactFieldsComponent, GuardianContactFieldsComponent, ReferrerContactFieldsComponent } from "./ContactFields";
 import { InsuranceDetailFieldsComponent } from "./InsuranceFields";
 import { motion } from "framer-motion";
+import { FormattedFieldComponent } from "./FormattedField";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import { z } from "zod";
+import type { UploadedFile } from "./FileUploadZone";
+import { submitIntakeForm, uploadFile } from "@/api";
 
 const REFERRAL_SOURCE_OPTIONS = [
     { value: "ALMA", label: "ALMA" },
     { value: "BetterHelp", label: "Better Help" },
     { value: "Facebook", label: "Facebook" },
+    { value: "Friend", label: "Friend" },
     { value: "Instagram", label: "Instagram" },
     { value: "Insurance", label: "Insurance" },
-    { value: "Friend", label: "Friend" },
     { value: "Google Ad", label: "Google Ad" },
     { value: "Google Search", label: "Google Search" },
     { value: "Linked-In", label: "Linked-In" },
     { value: "Mental Health Match", label: "Mental Health Match" },
-    { value: "Medical Doctor", label: "Medical Doctor" },
     { value: "Psychology Today", label: "Psychology Today" },
+    { value: "Referrer", label: "Doctor/Therapist" },
     { value: "Relative", label: "Relative" },
     { value: "Talkspace", label: "Talkspace" },
-    { value: "Therapist", label: "Therapist" },
     { value: "Twitter", label: "Twitter" },
     { value: "YouTube", label: "YouTube" },
 ];
@@ -66,9 +70,28 @@ const HOW_SOON_OPTIONS = [
     { value: "4 Weeks or More", label: "Four Weeks or More" },
 ]
 
+const TIMEZONE_OPTIONS = [
+    { value: "EST", label: "Eastern Time Zone" },
+    { value: "CST", label: "Central Time Zone" },
+    { value: "MST", label: "Mountain Time Zone" },
+    { value: "PST", label: "Pacific Time Zone" },
+]
+
+const APPOINTMENT_MODE_OPTIONS = [
+    { value: "in-person", label: "In Person" },
+    { value: "telehealth", label: "Telehealth/Virtual" },
+    { value: "either", label: "No Preference" },
+];
+
+const PAYMENT_METHOD_OPTIONS = [
+    { value: "insurance", label: "Insurance" },
+    { value: "self-pay", label: "Self Pay" },
+    // { value: "eap", label: "Employee Assistance Program (EAP)" },
+];
+
 const PAYMENT_METHODS = ["Visa", "Mastercard", "American Express", "Discover", "HSA"];
 
-export function LeadFields({ form }: FormComponentProps<IntakeFormData>) {
+export function LeadFieldsComponent({ form }: FormComponentProps<IntakeFormData>) {
 
     const { register, control, formState: { errors } } = form;
 
@@ -101,7 +124,7 @@ export function LeadFields({ form }: FormComponentProps<IntakeFormData>) {
                 </div>
 
                 <div className="space-y-2">
-                    <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="lead_preferredName">Preferred Name *</Label>
+                    <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="lead_preferredName">Preferred Name</Label>
                     <Input
                         id="lead_preferredName"
                         {...register("lead.preferredName")}
@@ -133,7 +156,7 @@ export function LeadFields({ form }: FormComponentProps<IntakeFormData>) {
                     <FieldError error={errors.lead?.email} />
                 </div>
                 <div className="space-y-2">
-                    <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="lead_phone">Phone Number</Label>
+                    <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="lead_phone">Phone Number *</Label>
                     <Controller
                         name="lead.phone"
                         control={control}
@@ -169,6 +192,18 @@ export function LeadFields({ form }: FormComponentProps<IntakeFormData>) {
                     <FieldError error={errors.lead?.birthSex} />
                 </div>
 
+                <div className="space-y-2">
+                    <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="lead_genderIdentity">Gender Identity (Optional)</Label>
+                    <Input
+                        id="lead_genderIdentity"
+                        type="text"
+                        {...register("lead.genderIdentity")}
+                        placeholder="Enter gender identity"
+                        maxLength={20}
+                    />
+                    <FieldError error={errors.lead?.genderIdentity} />
+                </div>
+
                 <div className="space-y-2 sm:col-span-2">
                     <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="lead_genderIdentity">Address *</Label>
                     <div className="grid sm:grid-cols-2 gap-4">
@@ -178,7 +213,7 @@ export function LeadFields({ form }: FormComponentProps<IntakeFormData>) {
                                 {...register("lead.address.street")}
                                 placeholder="Street address"
                             />
-                            <FieldError error={errors.lead?.address} />
+                            <FieldError error={errors.lead?.address?.street} />
                         </div>
                         <div className="space-y-2">
                             <Input
@@ -210,64 +245,20 @@ export function LeadFields({ form }: FormComponentProps<IntakeFormData>) {
                             <FieldError error={errors.lead?.address?.state} />
                         </div>
                         <div className="space-y-2">
-                            <Input
-                                id="lead_zip"
-                                {...register("lead.address.postalCode")}
+                            <FormattedFieldComponent
+                                form={form}
+                                name="lead.address.postalCode"
+                                type="text"
+                                formatter={formatPostalCode}
                                 placeholder="Postal Code"
+                                parser={(e) => e.target.value.replace(/\D/g, "").slice(0, 10)}
+                                maxLength={10}
                             />
                             <FieldError error={errors.lead?.address?.postalCode} />
                         </div>
                     </div>
                 </div>
-
-                <div className="space-y-2">
-                    <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="lead_source">How did you hear about us? *</Label>
-                    <SelectField
-                        form={form}
-                        name="lead.source"
-                        placeholder="Select an option"
-                        options={REFERRAL_SOURCE_OPTIONS}
-                    />
-                    <FieldError error={errors.lead?.source} />
-                </div>
-
-
             </div>
-        </div>
-    )
-}
-
-function ClinicalHistoryComponent({ form }: FormComponentProps<IntakeFormData>) {
-    const { register, control, getValues, watch, setValue, setError, clearErrors, formState: { errors } } = form;
-    return (
-        <div className="space-y-6">
-
-            <div className="space-y-2">
-                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="clinicalHistory_courtRecommended">Court Recommended *</Label>
-                <RadioGroupField
-                    form={form}
-                    name="clinicalHistory.courtRecommended"
-                    options={[
-                        { value: true, label: "Yes" },
-                        { value: false, label: "No" },
-                    ]}
-                />
-                <FieldError error={errors.clinicalHistory?.courtRecommended} />
-            </div>
-
-            <div className="space-y-2">
-                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="clinicalHistory_currentConditions">Current Diagnosis and Medications *</Label>
-                <Textarea
-                    id="clinicalHistory_currentConditions"
-                    {...register("clinicalHistory.currentConditions")}
-                    placeholder="Current Conditions"
-                    rows={5}
-                    maxLength={1000}
-                />
-                <FieldError error={errors.clinicalHistory?.currentConditions} />
-            </div>
-
-
         </div>
     )
 }
@@ -279,13 +270,13 @@ function AdditionalInformationComponent({ form }: FormComponentProps<IntakeFormD
     const hasEmergencyContact = watch("additionalInformation.hasEmergencyContact");
     const source = watch("additionalInformation.source");
 
-    const isReferrer = source === "Therapist" || source == "Medical Doctor";
+    const isReferrer = source === "Referrer";
     const isMinorPatient = isMinor(dob);
 
     return (
         <div className="space-y-6">
             <div className="space-y-2">
-                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="additionalInformation_source">How did you hear about us? *</Label>
+                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="additionalInformation_source">How did you hear about us?</Label>
                 <SelectField
                     form={form}
                     name="additionalInformation.source"
@@ -307,7 +298,7 @@ function AdditionalInformationComponent({ form }: FormComponentProps<IntakeFormD
                     <h3 className="mt-5 text-md font-semibold text-foreground pb-2 border-b border-border mb-4">
                         Referrer Information
                     </h3>
-                    <ReferrerContactFieldsComponent form={form} />
+                    <ReferrerContactFieldsComponent prefix="additionalInformation" form={form} />
                 </motion.div>
             )}
 
@@ -324,12 +315,13 @@ function AdditionalInformationComponent({ form }: FormComponentProps<IntakeFormD
                 <FieldError error={errors.additionalInformation?.hasEmergencyContact} />
             </div>
 
-            {hasEmergencyContact && (
+            {hasEmergencyContact ? (
                 <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+
                     className="space-y-2"
                 >
                     <h3 className="mt-5 text-md font-semibold text-foreground pb-2 border-b border-border mb-4">
@@ -338,6 +330,21 @@ function AdditionalInformationComponent({ form }: FormComponentProps<IntakeFormD
                     <div className="space-y-2">
                         <EmergencyContactFieldsComponent form={form} />
                     </div>
+                </motion.div>
+            ) : (
+                <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="space-y-2"
+                >
+                    <Alert className="bg-amber-50 border-amber-200 text-amber-800">
+                        <AlertTitle className="flex items-center gap-2"> <AlertCircle className="h-4 w-4" /> Recommended</AlertTitle>
+                        <AlertDescription>
+                            <p>Please note that we recommend that our patients provide the contact information of someone we can reach out to in case of an emergency.</p>
+                        </AlertDescription>
+                    </Alert>
                 </motion.div>
             )}
 
@@ -352,6 +359,13 @@ function AdditionalInformationComponent({ form }: FormComponentProps<IntakeFormD
                     <h3 className="mt-5 text-md font-semibold text-foreground pb-2 border-b border-border mb-4">
                         Parent/Guardian Information
                     </h3>
+                    <Alert className="bg-blue-50 border-blue-200 text-blue-800">
+                        <AlertTitle className="flex items-center gap-2"> <AlertCircle className="h-4 w-4" /> Required</AlertTitle>
+                        <AlertDescription>
+                            <p>If the patient is under 18, please provide the contact information of at least one parent or legal guardian.</p>
+                            <FieldError error={errors.additionalInformation?.guardians} />
+                        </AlertDescription>
+                    </Alert>
                     <div className="space-y-2">
                         <GuardianContactFieldsComponent form={form} />
                     </div>
@@ -363,7 +377,11 @@ function AdditionalInformationComponent({ form }: FormComponentProps<IntakeFormD
 }
 
 function ServiceInformationComponent({ form }: FormComponentProps<IntakeFormData>) {
-    const { register, formState: { errors } } = form;
+    const { register, formState: { errors }, watch } = form;
+    const courtRecommended = watch("serviceInformation.courtRecommended");
+    const reasons = watch("serviceInformation.reasons");
+    const isOther = reasons?.includes("Other");
+
     return (
         <div className="space-y-6">
 
@@ -378,18 +396,47 @@ function ServiceInformationComponent({ form }: FormComponentProps<IntakeFormData
                     ]}
                 />
                 <FieldError error={errors.serviceInformation?.courtRecommended} />
+
+                {courtRecommended === "yes" && (
+                    <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="space-y-2 mt-4"
+                    >
+                        <Alert className="bg-amber-50 border-amber-200 text-amber-800">
+                            <AlertTitle className="flex items-center gap-2"> <AlertCircle className="h-4 w-4" />Caution</AlertTitle>
+                            <AlertDescription>
+                                <p>Please note that we may not be equipped to provide the level of care you need. Especially if you have been ordered to attend an intensive program</p>
+                            </AlertDescription>
+                        </Alert>
+                    </motion.div>
+                )}
             </div>
 
             <div className="space-y-2">
-                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="serviceInformation_currentConditions">Current Diagnosis and Medications</Label>
+                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="serviceInformation_currentConditions">List any diagnosis you may have</Label>
                 <Textarea
                     id="serviceInformation_currentConditions"
                     {...register("serviceInformation.currentConditions")}
-                    placeholder="List your any current diagnosis and medications you currently take"
+                    placeholder="List any diagnosis you may have and when/how it was identified"
                     rows={5}
                     maxLength={1000}
                 />
                 <FieldError error={errors.serviceInformation?.currentConditions} />
+            </div>
+
+            <div className="space-y-2">
+                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="serviceInformation_currentMedications">List current medications</Label>
+                <Textarea
+                    id="serviceInformation_currentMedications"
+                    {...register("serviceInformation.currentMedications")}
+                    placeholder="List your current medications, dosage, and how often you take them"
+                    rows={5}
+                    maxLength={1000}
+                />
+                <FieldError error={errors.serviceInformation?.currentMedications} />
             </div>
 
             <div className="space-y-2">
@@ -404,7 +451,7 @@ function ServiceInformationComponent({ form }: FormComponentProps<IntakeFormData
             </div>
 
             <div className="space-y-2">
-                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="servicesRequested_description">Describe your needs</Label>
+                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="servicesRequested_description">Describe your needs {isOther && "*"}</Label>
                 <Textarea
                     id="servicesRequested_description"
                     {...register("serviceInformation.description")}
@@ -424,52 +471,30 @@ function PaymentInformationComponent({ form }: FormComponentProps<IntakeFormData
     const { register, control, getValues, watch, setValue, setError, clearErrors, formState: { errors } } = form;
 
     const method = watch("paymentInformation.method");
-    const source = watch("paymentInformation.source");
 
     const IsInsurance = method === "insurance";
     const IsSelfPay = method === "self-pay";
-    const isReferrer = source === "Therapist" || source == "Medical Doctor";
+    const IsEAP = method === "eap";
 
     return (
         <div className="space-y-6">
-
-            <div className="space-y-2">
-                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="paymentInformation_source">How did you hear about us? *</Label>
-                <SelectField
-                    form={form}
-                    name="paymentInformation.source"
-                    placeholder="Select an option"
-                    options={REFERRAL_SOURCE_OPTIONS}
-                    className="w-full sm:w-1/2"
-                />
-                <FieldError error={errors.paymentInformation?.source} />
-            </div>
-
-            {isReferrer && (
-                <div>
-                    <h3 className="mt-10 text-md font-semibold text-foreground pb-2 border-b border-border">
-                        Referrer Information
-                    </h3>
-                    <ReferrerContactFieldsComponent form={form} />
-                </div>
-            )}
-
 
             <div className="space-y-2">
                 <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="paymentInformation_method">How do you plan to pay for services? *</Label>
                 <RadioGroupField
                     form={form}
                     name="paymentInformation.method"
-                    options={[
-                        { value: "insurance", label: "Insurance" },
-                        { value: "self-pay", label: "Self Pay" },
-                    ]}
+                    options={PAYMENT_METHOD_OPTIONS}
                 />
                 <FieldError error={errors.paymentInformation?.method} />
             </div>
 
             {IsSelfPay && (
-                <div>
+                <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }} className="space-y-6">
+
                     <h3 className="mt-10 text-md font-semibold text-foreground pb-2 border-b border-border">
                         Self Pay Information
                     </h3>
@@ -501,18 +526,46 @@ function PaymentInformationComponent({ form }: FormComponentProps<IntakeFormData
                             </CardContent>
                         </Card>
                     </div>
-                </div>
+                </motion.div>
             )}
 
-            {IsInsurance && (
-                <>
-                    {/* <h3 className="mt-10 text-md font-semibold text-foreground pb-2 border-b border-border">
-                        Insurance Information
-                    </h3> */}
+            {IsEAP && (
 
-                    <InsuranceDetailFieldsComponent form={form} />
+                <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }} className="space-y-6">
+                    <h3 className="mt-10 text-md font-semibold text-foreground pb-2 border-b border-border mb-4">
+                        EAP Information
+                    </h3>
 
-                </>
+                    <div className="grid sm:grid-cols-2 gap-4">
+
+                        <div className="space-y-2">
+                            <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="paymentInformation_eap_employer">Employer *</Label>
+                            <Input
+                                id="paymentInformation_eap_employer"
+                                {...register("paymentInformation.eap.employer")}
+                                placeholder="Employer"
+                            />
+                            <FieldError error={errors.paymentInformation?.eap?.employer} />
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="paymentInformation_eap_authorizationNumber">Authorization Number *</Label>
+                            <Input
+                                id="paymentInformation_eap_authorizationNumber"
+                                {...register("paymentInformation.eap.authorizationNumber")}
+                                placeholder="Authorization Number"
+                            />
+                            <FieldError error={errors.paymentInformation?.eap?.authorizationNumber} />
+                        </div>
+                    </div>
+                </motion.div>
+            )}
+
+            {(IsInsurance || IsEAP) && (
+                <InsuranceDetailFieldsComponent prefix="paymentInformation" form={form} />
             )}
 
         </div>
@@ -521,72 +574,266 @@ function PaymentInformationComponent({ form }: FormComponentProps<IntakeFormData
 
 export function AppointmentPreferenceComponent({ form }: FormComponentProps<IntakeFormData>) {
 
-    const { register, control, getValues, watch, setValue, setError, clearErrors, formState: { errors } } = form;
+    const { watch, formState: { errors } } = form;
+
+    const mode = watch("appointmentPreference.mode");
+    const inPerson = mode === "in-person";
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 gap-6">
 
             <div className="space-y-2">
                 <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="appointmentPreference_mode">How would you like to be seen? *</Label>
                 <RadioGroupField
                     form={form}
                     name="appointmentPreference.mode"
-                    value="either"
-                    options={[
-                        { value: "in-person", label: "In Person" },
-                        { value: "telehealth", label: "Telehealth/Virtual" },
-                        { value: "either", label: "No Preference" },
-                    ]}
+                    options={APPOINTMENT_MODE_OPTIONS}
                 />
                 <FieldError error={errors.appointmentPreference?.mode} />
             </div>
 
-            <div className="space-y-2">
-                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="appointmentPreference_dayOfWeek">What day of the week is best for you? *</Label>
-                <CheckboxField
-                    form={form}
-                    name="appointmentPreference.dayOfWeek"
-                    options={[
-                        { value: "Monday", label: "Monday" },
-                        { value: "Tuesday", label: "Tuesday" },
-                        { value: "Wednesday", label: "Wednesday" },
-                        { value: "Thursday", label: "Thursday" },
-                        { value: "Friday", label: "Friday" },
-                    ]}
-                    className="flex flex-col gap-2"
-                />
-                <FieldError error={errors.appointmentPreference?.dayOfWeek} />
-            </div>
+            <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="space-y-2 mt-4"
+            >
+                <Alert className="bg-amber-50 border-amber-200 text-amber-800">
+                    <AlertTitle className="flex items-center gap-2"> <AlertCircle className="h-4 w-4" />Caution</AlertTitle>
+                    <AlertDescription>
+                        <p>
+                            {inPerson && (
+                                <span className="font-bold">Please note that we Office visits are only available in Georgia by appointment only.&nbsp;</span>
+                            )}
+                            Although we can't guarantee your first choice of appointment time, we will do our best to accommodate your schedule.</p>
+                    </AlertDescription>
+                </Alert>
+            </motion.div>
 
-            <div className="space-y-2">
-                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="appointmentPreference_timeOfDay">What time of the day is best for you? *</Label>
-                <CheckboxField
-                    form={form}
-                    name="appointmentPreference.timeOfDay"
-                    options={[
-                        { value: "Morning", label: "Morning" },
-                        { value: "Afternoon", label: "Afternoon" },
-                        { value: "Evening", label: "Evening" },
-                    ]}
-                    className="flex flex-col gap-2"
-                />
-                <FieldError error={errors.appointmentPreference?.timeOfDay} />
-            </div>
+            <div className="grid sm:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                    <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="appointmentPreference_when">How soon can you come in? *</Label>
+                    <RadioGroupField
+                        form={form}
+                        name="appointmentPreference.when"
+                        options={HOW_SOON_OPTIONS}
+                        className="flex flex-col gap-2"
+                    />
+                    <FieldError error={errors.appointmentPreference?.when} />
+                </div>
 
-            <div className="space-y-2">
-                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="appointmentPreference_when">How soon can you come in? *</Label>
-                <RadioGroupField
-                    form={form}
-                    name="appointmentPreference.when"
-                    options={HOW_SOON_OPTIONS}
-                    className="flex flex-col gap-2"
-                />
-                <FieldError error={errors.appointmentPreference?.when} />
+                <div className="space-y-2">
+                    <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="appointmentPreference_dayOfWeek">What day of the week is best for you? *</Label>
+                    <CheckboxField
+                        form={form}
+                        name="appointmentPreference.dayOfWeek"
+                        options={[
+                            { value: "Monday", label: "Monday" },
+                            { value: "Tuesday", label: "Tuesday" },
+                            { value: "Wednesday", label: "Wednesday" },
+                            { value: "Thursday", label: "Thursday" },
+                            { value: "Friday", label: "Friday" },
+                        ]}
+                        className="flex flex-col gap-2"
+                    />
+                    <FieldError error={errors.appointmentPreference?.dayOfWeek} />
+                </div>
+
+                <div className="space-y-2">
+                    <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="appointmentPreference_timeOfDay">What time of the day is best for you? *</Label>
+                    <CheckboxField
+                        form={form}
+                        name="appointmentPreference.timeOfDay"
+                        options={[
+                            { value: "Morning", label: "Morning" },
+                            { value: "Afternoon", label: "Afternoon" },
+                            { value: "Evening", label: "Evening" },
+                        ]}
+                        className="flex flex-col sm:flex-row gap-2 sm:justify-between sm:pr-10 sm:items-center"
+                    />
+                    <FieldError error={errors.appointmentPreference?.timeOfDay} />
+                </div>
+
+                <div className="space-y-2">
+                    <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="appointmentPreference_timezone">What is your time zone? *</Label>
+                    <SelectField
+                        form={form}
+                        name="appointmentPreference.timezone"
+                        placeholder="Select your timezone"
+                        options={TIMEZONE_OPTIONS}
+                        className="w-full sm:w-1/2"
+                    />
+                    <FieldError error={errors.appointmentPreference?.timezone} />
+                </div>
             </div>
         </div>
     )
 }
 
+function ReviewIntakeComponent({ form }: FormComponentProps<IntakeFormData>) {
+    const { getValues } = form;
+    const values = getValues();
+    const { setStep } = useFormStore();
+
+    const insuranceImages = useFormStore((state) => state.files["paymentInformation.insurance.images"]) || [];
+
+    return (
+        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
+            <div>
+                <h3 className="text-lg font-semibold border-b pb-2">Review Your Information</h3>
+                <p className="text-sm text-muted-foreground mt-1">
+                    Please confirm all details are correct before submitting your intake.
+                </p>
+            </div>
+
+            <div className="grid gap-6">
+                <SummarySection title="Personal Information" onEdit={() => setStep(0)}>
+                    <LabelValue label="Name" value={`${values.lead.firstName!} ${values.lead.lastName!}`} />
+                    <LabelValue label="Preferred name" value={values.lead.preferredName} />
+                    <LabelValue label="Email" value={values.lead.email!} />
+                    <LabelValue label="Phone" value={formatPhoneNumber(values.lead.phone!)} />
+                    <LabelValue label="Date of Birth" value={values.lead.dob!} />
+                    <LabelValue label="Birth Sex" value={values.lead.birthSex} />
+                    <LabelValue label="Gender Identity" value={values.lead.genderIdentity} />
+                    <LabelValue label="Address" value={formatAddress(values.lead.address)} />
+                </SummarySection>
+
+                <SummarySection title="Additional Information" onEdit={() => setStep(1)}>
+                    <LabelValue label="Source" value={values.additionalInformation.source} />
+
+                    {values.additionalInformation.referrer && (
+                        <>
+                            <LabelValue label="Referrer Name" value={values.additionalInformation.referrer?.name!} />
+                            <LabelValue label="Specialty" value={values.additionalInformation.referrer?.specialty!} />
+                            <LabelValue label="Practice Name" value={values.additionalInformation.referrer?.practiceName!} />
+                            <LabelValue label="Referrer Phone" value={formatPhoneNumber(values.additionalInformation.referrer?.phone!)} />
+                            <LabelValue label="Referrer Email" value={values.additionalInformation.referrer?.email!} />
+                        </>
+                    )}
+                    <LabelValue label="Has Emergency Contact" value={values.additionalInformation.hasEmergencyContact ? "Yes" : "No"} />
+
+                    {values.additionalInformation.hasEmergencyContact && (
+                        <>
+                            <LabelValue label="Emergency Contact Name" value={`${values.additionalInformation.emergency?.firstName!} ${values.additionalInformation.emergency?.lastName!}`} />
+                            <LabelValue label="Emergency Contact Relationship" value={values.additionalInformation.emergency?.relationship!.toUpperCase()} />
+                            <LabelValue label="Emergency Contact Phone" value={formatPhoneNumber(values.additionalInformation.emergency?.phone)} />
+                            <LabelValue label="Emergency Contact Email" value={values.additionalInformation.emergency?.email!} />
+                        </>
+                    )}
+
+                    {values.additionalInformation.guardians?.map((guardian, index) => (
+                        <div key={index}>
+                            <LabelValue label={`Guardian # ${index + 1}`} value={guardian.relationship!.toUpperCase()} />
+                            <LabelValue label="Guardian Name" value={`${guardian.firstName!} ${guardian.lastName!}`} />
+                            <LabelValue label="Guardian Phone" value={formatPhoneNumber(guardian.phone)} />
+                            <LabelValue label="Guardian Email" value={guardian.email!} />
+                        </div>
+                    ))}
+
+                </SummarySection>
+
+                <SummarySection title="Service Information" onEdit={() => setStep(2)}>
+                    <LabelValue label="Court Recommended" value={values.serviceInformation.courtRecommended === "yes" ? "Yes" : "No"} />
+                    <LabelValue label="Current Diagnosis" value={values.serviceInformation.currentConditions} vertical={true} />
+                    <LabelValue label="Current Medications" value={values.serviceInformation.currentMedications} vertical={true} />
+                    <LabelValue label="Reasons" value={values.serviceInformation.reasons.join(", ")} />
+                    <LabelValue label="Describe your needs" value={values.serviceInformation.description} vertical={true} />
+                </SummarySection>
+
+                <SummarySection title="Appointment Preference" onEdit={() => setStep(3)}>
+                    <LabelValue label="Mode" value={APPOINTMENT_MODE_OPTIONS.find((option) => option.value === values.appointmentPreference.mode)?.label} />
+                    <LabelValue label="When" value={values.appointmentPreference.when} />
+                    <LabelValue label="Day of Week" value={values.appointmentPreference.dayOfWeek.join(", ")} />
+                    <LabelValue label="Time of Day" value={values.appointmentPreference.timeOfDay.join(", ")} />
+                    <LabelValue label="Time Zone" value={TIMEZONE_OPTIONS.find((option) => option.value === values.appointmentPreference.timezone)?.label} />
+                </SummarySection>
+
+                <SummarySection title="Payment Information" onEdit={() => setStep(4)}>
+                    <LabelValue label="Method" value={PAYMENT_METHOD_OPTIONS.find((option) => option.value === values.paymentInformation.method)?.label} />
+
+                    {values.paymentInformation.method === "eap" && (
+                        <>
+                            <LabelValue label="Employer" value={values.paymentInformation.eap?.employer} />
+                            <LabelValue label="Authorization Number" value={values.paymentInformation.eap?.authorizationNumber} />
+                        </>
+                    )}
+                    {values.paymentInformation.method === "insurance" && (
+                        <>
+                            <LabelValue label="Type" value={values.paymentInformation.insurance?.type} />
+                            <LabelValue label="Carrier Name" value={values.paymentInformation.insurance?.name} />
+                            <LabelValue label="Plan Name" value={values.paymentInformation.insurance?.plan} />
+                            <LabelValue label="Member ID" value={values.paymentInformation.insurance?.memberId} />
+                            <LabelValue label="Group Number" value={values.paymentInformation.insurance?.groupNumber} />
+                            <LabelValue label="Subscriber Relationship" value={values.paymentInformation.insurance?.subscriberRelationship} />
+                            {values.paymentInformation.insurance?.subscriber && (
+                                <>
+                                    <LabelValue label="Subscriber First Name" value={values.paymentInformation.insurance.subscriber?.name!} />
+                                    <LabelValue label="Subscriber DOB" value={values.paymentInformation.insurance.subscriber.dob!} />
+                                </>
+                            )}
+
+                            {insuranceImages?.map((image, index) => (
+                                <div key={index}>
+                                    <LabelValue label={`${index === 0 ? "Front" : "Back"} of Insurance Card`} value={image.file.name} />
+                                </div>
+                            ))}
+                        </>
+                    )}
+                </SummarySection>
+            </div>
+        </div>
+    )
+}
+
+
+// const DEFAULT_INTAKE_VALUES: IntakeFormData = {
+//     lead: {
+//         firstName: "",
+//         lastName: "",
+//         preferredName: "",
+//         email: "",
+//         phone: "",
+//         dob: "",
+//         birthSex: "male",
+//         genderIdentity: "",
+//         address: {
+//             street: "",
+//             city: "",
+//             state: "GA",
+//             postalCode: "",
+//         },
+//     },
+//     additionalInformation: {
+//         hasEmergencyContact: false,
+//         source: "",
+//     },
+//     serviceInformation: {
+//         courtRecommended: "no",
+//         reasons: [],
+//     },
+//     appointmentPreference: {
+//         mode: "either",
+//         dayOfWeek: [],
+//         timeOfDay: [],
+//         timezone: "EST",
+//         when: "This Week",
+//     },
+//     paymentInformation: {
+//         method: "insurance",
+//         eap: {
+//             employer: "",
+//             authorizationNumber: "",
+//         },
+//         insurance: {
+//             name: "",
+//             type: "primary",
+//             memberId: "",
+//             subscriberRelationship: "self",
+//             subscriber: undefined
+//         }
+//     }
+// }
 
 export function StartNowForm() {
     const STEPS = [
@@ -597,16 +844,29 @@ export function StartNowForm() {
             schema: LeadSchema,
             name: "lead" as const,
             validate: async (form: UseFormReturn<IntakeFormData>) => {
-                const { trigger } = form;
+                const { setValue, trigger } = form;
                 const fields = getFields(LeadSchema);
                 const fieldsToValidate = fields.map(key =>
                     "lead" + "." + key
                 ) as Path<IntakeFormData>[];
 
                 const isValid = await trigger(fieldsToValidate.length > 0 ? fieldsToValidate : undefined);
+
+                const isMinorPatient = isMinor(form.watch("lead.dob"));
+                const guardians = form.watch("additionalInformation.guardians");
+
+                if (isMinorPatient) {
+                    if (!guardians || guardians.length == 0) {
+                        console.log("Adding primary patient ******");
+                        setValue("additionalInformation.guardians", [{
+                            firstName: "", lastName: "", email: "", relationship: undefined, hasLegalDocumentation: true
+                        }])
+                    }
+                }
+
                 return isValid;
             },
-            component: LeadFields
+            component: LeadFieldsComponent
         },
         {
             id: "additionalInformation",
@@ -615,13 +875,35 @@ export function StartNowForm() {
             schema: AdditionalInformationSchema,
             name: "additionalInformation" as const,
             validate: async (form: UseFormReturn<IntakeFormData>) => {
-                const { trigger } = form;
+                const { setValue, trigger } = form;
+
+                const isMinorPatient = isMinor(form.watch("lead.dob"));
+                const guardians = form.watch("additionalInformation.guardians");
+                const hasEmergencyContact = form.watch("additionalInformation.hasEmergencyContact");
+                const source = form.watch("additionalInformation.source");
+
+                const isReferrer = source === "Referrer";
+
+                if (!isReferrer) {
+                    setValue("additionalInformation.referrer", undefined);
+                }
+
+                if (!hasEmergencyContact) setValue("additionalInformation.emergency", undefined);
+                if (!isMinorPatient) {
+                    setValue("additionalInformation.guardians", undefined);
+                }
+
                 const fields = getFields(AdditionalInformationSchema);
                 const fieldsToValidate = fields.map(key =>
                     "additionalInformation" + "." + key
                 ) as Path<IntakeFormData>[];
 
                 const isValid = await trigger(fieldsToValidate.length > 0 ? fieldsToValidate : undefined);
+
+                if (isMinorPatient && (!guardians || guardians?.length === 0)) {
+                    return false;
+                }
+
                 return isValid;
             },
             component: AdditionalInformationComponent
@@ -633,18 +915,19 @@ export function StartNowForm() {
             schema: ServiceInformationSchema,
             name: "serviceInformation" as const,
             validate: async (form: UseFormReturn<IntakeFormData>) => {
-                const { trigger, clearErrors, formState: { errors } } = form;
+                const { setValue, watch, trigger } = form;
                 const fields = getFields(ServiceInformationSchema);
                 const fieldsToValidate = fields.map(key =>
                     "serviceInformation" + "." + key
                 ) as Path<IntakeFormData>[];
 
-                console.log("Fields to validate: ", fieldsToValidate);
                 const isValid = await trigger(fieldsToValidate.length > 0 ? fieldsToValidate : undefined);
-                console.log("IsValid: " + isValid + " " + JSON.stringify(errors));
-                if (!isValid) {
-                    // clearErrors(fieldsToValidate as Path<IntakeFormData>[]);
+
+                const mode = watch("appointmentPreference.mode");
+                if (!mode) {
+                    setValue("appointmentPreference.mode", "either");
                 }
+
                 return isValid;
             },
             component: ServiceInformationComponent
@@ -656,15 +939,13 @@ export function StartNowForm() {
             schema: AppointmentPreferenceSchema,
             name: "appointmentPreference" as const,
             validate: async (form: UseFormReturn<IntakeFormData>) => {
-                const { trigger, clearErrors, formState: { errors } } = form;
+                const { trigger } = form;
                 const fields = getFields(AppointmentPreferenceSchema);
                 const fieldsToValidate = fields.map(key =>
                     "appointmentPreference" + "." + key
                 ) as Path<IntakeFormData>[];
 
-                console.log("Fields to validate: ", fieldsToValidate);
                 const isValid = await trigger(fieldsToValidate.length > 0 ? fieldsToValidate : undefined);
-                console.log("IsValid: " + isValid + " " + JSON.stringify(errors));
                 return isValid;
             },
             component: AppointmentPreferenceComponent
@@ -676,72 +957,78 @@ export function StartNowForm() {
             schema: PaymentInformationSchema,
             name: "paymentInformation" as const,
             validate: async (form: UseFormReturn<IntakeFormData>) => {
+                const { setValue, watch, getValues } = form;
 
-                return true;
+                const values = getValues();
+
+                const method = watch("paymentInformation.method");
+                if (method === "self-pay") {
+                    setValue("paymentInformation.insurance", undefined);
+                    setValue("paymentInformation.eap", undefined);
+                } else {
+                    if (!values.paymentInformation.insurance?.images) {
+                        setValue("paymentInformation.insurance.images", []);
+                    }
+                }
+
+                return await validateFields(form, PaymentInformationSchema, "paymentInformation");
             },
             component: PaymentInformationComponent
+        },
+        {
+            id: "review",
+            label: "Review",
+            icon: ClipboardCheck,
+            schema: z.object({}),
+            validate: async (_form: UseFormReturn<IntakeFormData>) => {
+                return true;
+            },
+            component: ReviewIntakeComponent
         }
-        // {
-        //     id: "insurance",
-        //     label: "Insurance Information",
-        //     icon: Shield,
-        //     schema: InsuranceSchema,
-        //     name: "insurance" as const,
-        //     validate: async (form: UseFormReturn<IntakeFormData>) => {
-        //         const { trigger, clearErrors } = form;
-        //         const fields = getFields(InsuranceSchema);
-        //         const fieldsToValidate = fields.map(key =>
-        //             "insurance" + "." + key
-        //         ) as Path<IntakeFormData>[];
-
-        //         const isValid = await trigger(fieldsToValidate.length > 0 ? fieldsToValidate : undefined);
-        //         if (!isValid) {
-        //             clearErrors(fieldsToValidate as Path<IntakeFormData>[]);
-        //         }
-        //         return isValid;
-        //     },
-        //     component: InsuranceDetailFields
-        // },
-        // {
-        //     id: "review",
-        //     label: "Review",
-        //     icon: ClipboardCheck,
-        //     schema: z.object({}),
-        //     validate: async (form: UseFormReturn<IntakeFormData>) => {
-        //         return true;
-        //     },
-        //     component: ReviewInsurance
-        // }
     ]
 
-    const { files, setFiles } = useFormStore();
+    const { files, setFiles, currentStep } = useFormStore();
 
     const onSubmit = async (data: IntakeFormData) => {
-        const insuranceImages = files["insurance.images"] || [];
-        //        const backFiles = files["insurance.images.back"] || [];
 
-        // data.insurance.images = [];
-        // for (let i = 0; i < insuranceImages.length; i++) {
+        if (currentStep < STEPS.length - 1) {
+            console.log("Not at the last step yet");
+            return;
+        }
 
-        //     const updatedFile: UploadedFile = { ...insuranceImages[i], status: "uploading" };
-        //     setFiles("insurance.images", [updatedFile]);
+        console.log("Submitting Intake form ....");
 
-        //     try {
-        //         const formData = new FormData();
-        //         formData.append("file", insuranceImages[i].file);
-        //         formData.append("entityType", "insurance_card");
+        if (data.paymentInformation.method === "insurance") {
+            const insuranceImages = files["paymentInformation.insurance.images"] || [];
+            for (let i = 0; i < insuranceImages.length; i++) {
 
-        //         const response = await uploadFile(formData);
-        //         const updatedFile: UploadedFile = { ...insuranceImages[i], status: "done", fileId: response.document.docId };
-        //         setFiles("insurance.images", [updatedFile]);
-        //         data.insurance.images.push({ docId: response.document.docId });
-        //     } catch (error) {
-        //         console.log("File upload failed", error);
-        //     }
-        // }
+                if (insuranceImages[i].status === "done" && insuranceImages[i].docId) {
+                    data.paymentInformation.insurance?.images?.push({ docId: insuranceImages[i].docId! });
+                    continue;
+                }
 
-        // return await verifyInsurance(data);
-        return true;
+                const updatedFile: UploadedFile = { ...insuranceImages[i], status: "uploading" };
+                setFiles("paymentInformation.insurance.images", [updatedFile]);
+
+                try {
+                    const formData = new FormData();
+                    formData.append("file", insuranceImages[i].file);
+                    formData.append("entityType", "insurance_card");
+
+                    const response = await uploadFile(formData);
+                    const updatedFile: UploadedFile = { ...insuranceImages[i], status: "done", docId: response.document.docId };
+                    setFiles("paymentInformation.insurance.images", [updatedFile]);
+                    data.paymentInformation.insurance?.images?.push({ docId: response.document.docId });
+                } catch (error) {
+                    console.log("File upload failed", error);
+                }
+            }
+        }
+
+        console.log("Submitting Intake form ....", data);
+        //        return true;
+
+        return await submitIntakeForm(data);
     }
 
     return (
@@ -762,23 +1049,7 @@ export function StartNowForm() {
                 <MultistepForm
                     contactType="verifyInsurance"
                     schema={IntakeFormSchema}
-                    //                    defaultValues={{
-                    // lead: {
-                    //     firstName: "",
-                    //     lastName: "",
-                    //     preferredName: "",
-                    //     email: "",
-                    //     phone: "",
-                    //     dob: "",
-                    // },
-                    // insurance: {
-                    //     name: "",
-                    //     type: "primary",
-                    //     memberId: "",
-                    //     subscriberRelationship: "self",
-                    //     subscriber: undefined,
-                    // },
-                    //                  }}
+                    // defaultValues={DEFAULT_INTAKE_VALUES}
                     steps={STEPS}
                     onSubmit={onSubmit}
                 />

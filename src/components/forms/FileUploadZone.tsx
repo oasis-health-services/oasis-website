@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 export type UploadedFile = {
     file: File
     status: "pending" | "uploading" | "done" | "error"
-    fileId?: string
+    docId?: string
     preview?: string
 }
 
@@ -99,92 +99,92 @@ export function FileUploadZone({ label, description, files, setFiles, maxFiles =
             {(!files || files.length < maxFiles) && (
                 <div
                     onDrag={handleDrop}
-                onDragOver={handleDragOver}
-                onDragLeave={handleDragLeave}
-                className={`relative rounded-lg border-2 border-dashed transition-colors cursor-pointer ${isDragging
-                    ? "border-primary bg/primary/5"
-                    : error
-                        ? "border-destructive/50 bg-destructive/5"
-                        : "border-border hover:border-primary/50 hover:bg-muted/50"
-                    } p-6`}
-                onClick={() => inputRef.current?.click()}
-                onKeyDown={(e) => {
-                    if (e.key == "Enter" || e.key === " ") inputRef.current?.click();
-                }}
-                role="button"
-                tabIndex={0}
-                aria-label={`Upload file`}
-            >
-                {/* Standard file picker*/}
-                <input
-                    ref={inputRef}
-                    type="file"
-                    multiple
-                    accept={ACCEPTED_TYPES.join(",")}
-                    onChange={handleFileChange}
-                    className="hidden"
-                    aria-hidden="true"
-                />
+                    onDragOver={handleDragOver}
+                    onDragLeave={handleDragLeave}
+                    className={`relative rounded-lg border-2 border-dashed transition-colors cursor-pointer ${isDragging
+                        ? "border-primary bg/primary/5"
+                        : error
+                            ? "border-destructive/50 bg-destructive/5"
+                            : "border-border hover:border-primary/50 hover:bg-muted/50"
+                        } p-6`}
+                    onClick={() => inputRef.current?.click()}
+                    onKeyDown={(e) => {
+                        if (e.key == "Enter" || e.key === " ") inputRef.current?.click();
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`Upload file`}
+                >
+                    {/* Standard file picker*/}
+                    <input
+                        ref={inputRef}
+                        type="file"
+                        multiple
+                        accept={ACCEPTED_TYPES.join(",")}
+                        onChange={handleFileChange}
+                        className="hidden"
+                        aria-hidden="true"
+                    />
 
-                {/* Camera capture input (mobile)*/}
-                <input
-                    ref={cameraRef}
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    capture="environment"
-                    onChange={handleFileChange}
-                    className="hidden"
-                    aria-hidden="true"
-                />
+                    {/* Camera capture input (mobile)*/}
+                    <input
+                        ref={cameraRef}
+                        type="file"
+                        multiple
+                        accept="image/*"
+                        capture="environment"
+                        onChange={handleFileChange}
+                        className="hidden"
+                        aria-hidden="true"
+                    />
 
-                <div className="flex flex-col items-center gap-2 text-center">
-                    <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
-                        {isMobile ? (
-                            <Camera className="h-5 w-5 text-muted-foreground" />
-                        ) : (
-                            <Upload className="h-5 w-5 text-muted-foreground" />
-                        )}
-                    </div>
-                    <div>
-                        <p className="text-sm font-medium text-foreground">File</p>
-                        {isMobile ? (
-                            <>
-                                <p className="text-xs text-muted-foreground mt-1">
-                                    Tap to take a photo or choose from gallery
-                                </p>
-                                <div className="flex items-center justify-center gap-2 mt-3" onClick={(e) => e.stopPropagation()}>
-                                    <button
-                                        type="button"
-                                        onClick={() => cameraRef.current?.click()}
-                                        className="inline-flex items-center gap-1.5 px-3 py-1.5 text-primary-foreground rounded-md text-xs font-medium hover:bg-primary/90 transition-colors"
-                                    >
-                                        <Camera className="h-3.5 w-3.5" />
-                                        Take Photo
-                                    </button>
-                                    <button
-                                        type="button"
-                                        onClick={() => inputRef.current?.click()}
-                                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-muted text-foreground rounded-md text-xs font-medium hover:bg-muted/80 transition-colors"
-                                    >
-                                        <Upload className="h-3.5 w-3.5" />
-                                        Browse Files
-                                    </button>
-                                </div>
-                            </>
-                        ) : (
-                            <>
-                                <p className="text-xs text-muted-foreground mt-1">
-                                    Drag and drop or click to browse
-                                </p>
-                                <p className="text-xs text-muted-foreground">
-                                    JPEG, PNG, WebP, HEIC, PDF, or WORD (max {formatFileSize(MAX_SIZE)})
-                                </p>
-                            </>
-                        )}
+                    <div className="flex flex-col items-center gap-2 text-center">
+                        <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
+                            {isMobile ? (
+                                <Camera className="h-5 w-5 text-muted-foreground" />
+                            ) : (
+                                <Upload className="h-5 w-5 text-muted-foreground" />
+                            )}
+                        </div>
+                        <div>
+                            <p className="text-sm font-medium text-foreground">File</p>
+                            {isMobile ? (
+                                <>
+                                    <p className="text-xs text-muted-foreground mt-1">
+                                        Tap to take a photo or choose from gallery
+                                    </p>
+                                    <div className="flex items-center justify-center gap-2 mt-3" onClick={(e) => e.stopPropagation()}>
+                                        <button
+                                            type="button"
+                                            onClick={() => cameraRef.current?.click()}
+                                            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-primary-foreground rounded-md text-xs font-medium hover:bg-primary/90 transition-colors"
+                                        >
+                                            <Camera className="h-3.5 w-3.5" />
+                                            Take Photo
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => inputRef.current?.click()}
+                                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-muted text-foreground rounded-md text-xs font-medium hover:bg-muted/80 transition-colors"
+                                        >
+                                            <Upload className="h-3.5 w-3.5" />
+                                            Browse Files
+                                        </button>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <p className="text-xs text-muted-foreground mt-1">
+                                        Drag and drop or click to browse
+                                    </p>
+                                    <p className="text-xs text-muted-foreground">
+                                        JPEG, PNG, WebP, HEIC, PDF, or WORD (max {formatFileSize(MAX_SIZE)})
+                                    </p>
+                                </>
+                            )}
+                        </div>
                     </div>
                 </div>
-            </div>
             )}
 
             {/* File list */}

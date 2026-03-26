@@ -8,12 +8,14 @@ import { CheckCircle2, ChevronLeft, ChevronRight, ClipboardCheck, Edit2, Loader2
 import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
 import FieldError from "../FieldError";
+import { motion } from "framer-motion";
 
 export interface BaseFormData {
     [key: string]: any;
 }
 
 export interface FormComponentProps<T extends BaseFormData> {
+    prefix?: string;
     form: UseFormReturn<T>;
 }
 
@@ -48,6 +50,18 @@ export function getFields(schema: z.ZodTypeAny): string[] {
     return [];
 }
 
+export async function validateFields<T extends BaseFormData>(form: UseFormReturn<T>, schema: z.ZodTypeAny, prefix: string) {
+
+    const { trigger } = form;
+
+    const fields = getFields(schema);
+    const fieldsToValidate = fields.map(key =>
+        prefix + "." + key
+    ) as Path<T>[];
+
+    return await trigger(fieldsToValidate.length > 0 ? fieldsToValidate : undefined);
+}
+
 export function SummarySection({ title, children, onEdit }: { title: string, children: React.ReactNode, onEdit: () => void }) {
     return (
         <div className="relative p-4 rounded-lg border bg-muted/30 group">
@@ -65,10 +79,13 @@ export function SummarySection({ title, children, onEdit }: { title: string, chi
 }
 
 
-export function LabelValue({ label, value, vertical = false }: { label: string, value: string, vertical?: boolean }) {
+export function LabelValue({ label, value, vertical = false }: { label: string, value: string | undefined | null, vertical?: boolean }) {
+
+    if (!value) return null;
+
     return (
         <div className={vertical ? "flex flex-col gap-1" : "flex justify-between border-b border-border/50 py-1"}>
-            <span className="block text-sm font-medium text-muted-foreground">{label}</span>
+            <span className="block text-sm font-medium text-muted-foreground text-primary">{label}</span>
             <span className="text-sm font-medium text-foreground">{value}</span>
         </div>
     );
@@ -102,19 +119,13 @@ export function MultistepForm<T extends BaseFormData>({
         reValidateMode: "onChange",
     });
 
-    const { trigger, handleSubmit, clearErrors, formState: { errors } } = form;
+    const { handleSubmit, clearErrors, formState: { errors } } = form;
 
     const handleNext = async () => {
         clearErrors();
         console.log("Validating Step: ", currentStep);
         const step = steps[currentStep];
-        // const stepSchema = step.schema;
-        //        const fields = getFields(stepSchema);
-        // const fieldsToValidate = fields.map(key =>
-        //     step.name ? `${step.name}.${key}` : key
-        //  ) as Path<T>[];
 
-        //        const isValid = await trigger(fieldsToValidate.length > 0 ? fieldsToValidate : undefined);
         const isValid = await step.validate(form);
         console.log("Valid: ", isValid, errors);
         if (isValid) {
@@ -123,26 +134,35 @@ export function MultistepForm<T extends BaseFormData>({
     }
 
     const onFormSubmit = async (data: T) => {
+        const REDIRECT_ON_FAILURE = String(import.meta.env.PUBLIC_REDIRECT_ON_FAILURE) !== "false";
+
         setIsSubmitting(true);
         try {
             const response = await onSubmit(data);
             console.log("RESPONSE", response);
 
             if (!response?.success) {
-                // alert("Submission failed" + response.message);
-                window.location.href = "/sorry";
+                console.error("Submission failed" + response.message);
+
+                if (REDIRECT_ON_FAILURE) {
+                    alert("Redirecting to sorry page");
+                    window.location.href = "/sorry";
+                }
                 return;
             }
 
             const params = new URLSearchParams({
                 type: contactType,
-                name: data.contact.firstName
+                name: (data as any).contact?.firstName || (data as any).lead?.firstName || ""
             });
             window.location.href = `/thank-you?${params.toString()}`;
         } catch (error) {
-            // console.error("Form submission failed:", error);
-            // alert("Submission failed" + error);
-            window.location.href = "/sorry";
+            console.error("Form submission failed:", error);
+            alert("Form submission failed");
+            if (REDIRECT_ON_FAILURE) {
+                window.location.href = "/sorry";
+            }
+            return;
         } finally {
             setIsSubmitting(false);
         }
@@ -197,13 +217,18 @@ export function MultistepForm<T extends BaseFormData>({
 
                 {/* Dynamic Step Content */}
                 {/*<div className="min-h-[300px]">*/}
-                <CurrentStepComponent form={form} />
+                <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="space-y-2"
+                >
+                    <CurrentStepComponent form={form} />
+                </motion.div>
                 {/*</div>*/}
 
                 {/* Consent */}
-                <div>
-                    {/* {JSON.stringify(errors)} */}
-                </div>
                 {currentStep === steps.length - 1 && (
                     <div className="space-y-4">
                         <div className="flex items-start space-x-3 p-4 border rounded-lg bg-primary/5 border-primary/20">

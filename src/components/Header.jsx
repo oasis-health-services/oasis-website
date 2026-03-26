@@ -328,7 +328,7 @@ export default function Header({ currentPath }) {
                                 <span>{contact.phone}</span>
                             </a>
                             <Button className="w-full mt-3" asChild>
-                                <a href="/patients">Book Appointment</a>
+                                <a href="/start">Start Now</a>
                             </Button>
                         </div>
                     </div>

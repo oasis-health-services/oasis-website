@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import {
@@ -168,16 +168,7 @@ function SorryContent() {
 }
 
 export default function SorryPage() {
-    const [params, setParams] = useState({ type: "contact", name: "", ref: "" });
 
-    useEffect(() => {
-        const searchParams = new URLSearchParams(window.location.search);
-        setParams({
-            type: searchParams.get("type") || "contact",
-            name: searchParams.get("name") || "",
-            ref: searchParams.get("ref") || ""
-        });
-    }, []);
 
     return (
         <main className="flex-1">

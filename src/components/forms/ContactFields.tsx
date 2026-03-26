@@ -20,24 +20,15 @@ const GUARDIAN_RELATIONSHIP_OPTIONS = [
     { value: "other", label: "Other" },
 ]
 
-const EMERGENCY_RELATIONSHIP_OPTIONS = [
-    { value: "spouse", label: "Spouse" },
-    { value: "father", label: "Father" },
-    { value: "mother", label: "Mother" },
-    { value: "guardian", label: "Guardian" },
-    { value: "child", label: "Child" },
-    { value: "sibling", label: "Sibling" },
-    { value: "relative", label: "Relative" },
-    { value: "foster", label: "Foster Parent" },
-    { value: "other", label: "Other" },
-]
-
-const SPECIALTY_OPTIONS = [
-    { value: "ent", label: "Ear, Nose & Throat" },
-    { value: "primary_care_physician", label: "Primary Care Physician" },
-    { value: "psychiatrist", label: "Psychiatrist" },
-    { value: "other", label: "Other" },
-]
+const RELATIONSHIP_OPTIONS = [
+    { value: "Self", label: "Self" },
+    { value: "Spouse", label: "Spouse" },
+    { value: "Child", label: "Child" },
+    { value: "Parent", label: "Parent" },
+    { value: "Sibling", label: "Sibling" },
+    { value: "Friend", label: "Friend" },
+    { value: "Other", label: "Other" },
+];
 
 export function EmergencyContactFieldsComponent<T extends FieldValues>({ form, prefix = "additionalInformation" }: FormComponentProps<T>) {
 
@@ -58,7 +49,7 @@ export function EmergencyContactFieldsComponent<T extends FieldValues>({ form, p
                                 <SelectValue placeholder="Select relationship" />
                             </SelectTrigger>
                             <SelectContent>
-                                {EMERGENCY_RELATIONSHIP_OPTIONS.map((option) => (
+                                {RELATIONSHIP_OPTIONS.map((option) => (
                                     <SelectItem key={option.value} value={option.value}>
                                         {option.label}
                                     </SelectItem>
@@ -117,7 +108,7 @@ export function EmergencyContactFieldsComponent<T extends FieldValues>({ form, p
 export function GuardianContactFieldsComponent<T extends FieldValues>({ form, prefix = "additionalInformation" }: FormComponentProps<T>) {
 
     const _prefix = prefix ? `${prefix}.` : '';
-    const { register, watch, control, formState: { errors } } = form;
+    const { register, control, formState: { errors } } = form;
     const { fields: guardians, append: appendGuardian, remove: removeGuardian } = useFieldArray({
         control,
         name: `${_prefix}guardians` as ArrayPath<T>
@@ -277,9 +268,7 @@ export function GuardianContactFieldsComponent<T extends FieldValues>({ form, pr
 export function ReferrerContactFieldsComponent<T extends FieldValues>({ form, prefix = "additionalInformation" }: FormComponentProps<T>) {
 
     const _prefix = prefix ? `${prefix}.` : '';
-    const { register, control, watch, formState: { errors } } = form;
-
-    const referrer = watch(`${_prefix}source` as Path<T>);
+    const { register, control, formState: { errors } } = form;
 
     //    const isReferrer = referrer === "Referrer";
 

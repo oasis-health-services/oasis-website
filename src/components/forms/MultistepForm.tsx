@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useForm, FormProvider, Controller, type UseFormReturn, type DefaultValues, type Path } from "react-hook-form";
+import { useForm, FormProvider, type UseFormReturn, type DefaultValues, type Path } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useFormStore } from "@/store";
 import { Button } from "../ui/button";
-import { CheckCircle2, ChevronLeft, ChevronRight, ClipboardCheck, Edit2, Loader2 } from "lucide-react";
+import { CheckCircle2, ChevronLeft, ChevronRight, Edit2, Loader2 } from "lucide-react";
 import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
 import FieldError from "../FieldError";

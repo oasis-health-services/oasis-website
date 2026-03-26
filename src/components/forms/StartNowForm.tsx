@@ -1,4 +1,4 @@
-import { AlertCircle, Calendar, ClipboardCheck, CreditCard, PillBottle, PlugIcon, Shield, User, UserPlus, Users } from "lucide-react";
+import { AlertCircle, Calendar, ClipboardCheck, CreditCard, PillBottle, PlugIcon, Shield, User, Users } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { getFields, LabelValue, MultistepForm, SummarySection, validateFields, type FormComponentProps } from "./MultistepForm";
 import { AdditionalInformationSchema, AppointmentPreferenceSchema, IntakeFormSchema, LeadSchema, PaymentInformationSchema, ServiceInformationSchema, type IntakeFormData } from "@/lib/schema";
@@ -469,7 +469,7 @@ function ServiceInformationComponent({ form }: FormComponentProps<IntakeFormData
 
 function PaymentInformationComponent({ form }: FormComponentProps<IntakeFormData>) {
 
-    const { register, control, getValues, watch, setValue, setError, clearErrors, formState: { errors } } = form;
+    const { register, watch, formState: { errors } } = form;
 
     const method = watch("paymentInformation.method");
 

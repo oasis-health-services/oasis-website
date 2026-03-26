@@ -1,6 +1,5 @@
-import { getFields, LabelValue, MultistepForm, SummarySection, type FormComponentProps } from "./MultistepForm";
+import { getFields, MultistepForm, type FormComponentProps } from "./MultistepForm";
 import { InsuranceContactSchema, InsuranceSchema, VerifyInsuranceSchema, type VerifyInsuranceFormData } from "@/lib/schema";
-import { ReviewTable } from "./ReviewTable";
 import { ReviewSummaryCard } from "./ReviewSummaryCard";
 import { Label } from "@radix-ui/react-label";
 import { User, Shield, ClipboardCheck } from "lucide-react";
@@ -374,7 +373,7 @@ export function VerifyInsuranceForm() {
             schema: InsuranceContactSchema,
             name: "contact" as const,
             validate: async (form: UseFormReturn<VerifyInsuranceFormData>) => {
-                const { trigger, clearErrors } = form;
+                const { trigger } = form;
                 const fields = getFields(InsuranceContactSchema);
                 const fieldsToValidate = fields.map(key =>
                     "contact" + "." + key

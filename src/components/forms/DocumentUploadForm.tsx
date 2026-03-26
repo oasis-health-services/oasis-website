@@ -5,7 +5,7 @@ import {
     Loader2,
     AlertCircle,
 } from "lucide-react"
-import { useRef, useState } from "react"
+import { useState } from "react"
 import { DocumentUploadSchema, type DocumentUploadFormData } from "@/lib/schema"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"

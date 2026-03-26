@@ -1,7 +1,7 @@
 import React from "react";
 import { Edit2 } from "lucide-react";
 import { Button } from "../ui/button";
-import { SummarySection, LabelValue } from "./MultistepForm";
+import { SummarySection } from "./MultistepForm";
 import { motion } from "framer-motion";
 
 interface Column<T> {

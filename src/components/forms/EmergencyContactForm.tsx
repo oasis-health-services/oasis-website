@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { Loader2, Phone, User, UserPlus } from "lucide-react";
+import { Loader2, User, UserPlus } from "lucide-react";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
@@ -26,10 +26,7 @@ const RELATIONSHIP_OPTIONS = [
     { value: "other", label: "Other" },
 ]
 
-const PERMISSION_OPTIONS = [
-    { value: "discuss_treatment", label: "May discuss treatment and progress", description: "We can share general treatment updates with this person" },
-    { value: "make_appointments", label: "May make schedule or reschedule appointments", description: "We can schedule or reschedule appointments with this person" },
-]
+
 
 export function EmergencyContactForm() {
 

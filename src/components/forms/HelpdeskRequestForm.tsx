@@ -1,6 +1,6 @@
 import { HelpdeskInquirySchema, type HelpdeskInquiryFormData, type HelpdeskInquiryType } from "@/lib/schema"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useRef, useState } from "react"
+import { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card"
 import { DynamicIcon } from "../DynamicIcon"

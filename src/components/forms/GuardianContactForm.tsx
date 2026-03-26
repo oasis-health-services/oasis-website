@@ -52,7 +52,7 @@ export function GuardianContactForm() {
         reValidateMode: "onChange"
     });
 
-    const { control, setValue, register, handleSubmit, watch, formState: { errors } } = form;
+    const { control, register, handleSubmit, formState: { errors } } = form;
     const { fields: guardians, append: appendGuardian, remove: removeGuardian } = useFieldArray({
         control,
         name: "guardians"
@@ -159,8 +159,7 @@ export function GuardianContactForm() {
                 {/* Guardians */}
                 {guardians.map((field, index) => {
 
-                    const guardianRelationship = watch(`guardians.${index}.relationship`);
-                    const hasLegalDocumentation = watch(`guardians.${index}.hasLegalDocumentation`);
+
 
                     return (
                         <Card key={field.id}>

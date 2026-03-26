@@ -94,7 +94,7 @@ function FileUploadZone({ file, onUpload, onRemove }: {
     }
 
     if (file) {
-        const isImage = file.fileName.match(/\.(jpg|jpeg|png|webp|heic)/i);
+
         return (
             <div className="relative rounded-log border-2 border-primary/30 bg-primary/5 p-4">
                 <div className="flex items-start gap-3">

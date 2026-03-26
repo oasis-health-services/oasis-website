@@ -1,12 +1,13 @@
-import { Phone, Mail, MapPin, Linkedin, Facebook, Twitter, Instagram } from "lucide-react"
+import { Phone, Mail, MapPin } from "lucide-react"
+import { FacebookIcon, InstagramIcon, LinkedinIcon, XIcon } from "./SocialIcons"
 import OptimizedImage from "./OptimizedImage"
 import { contact } from '@/lib/contact';
 
 const socialLinks = [
-    { name: "Facebook", href: "https://facebook.com/oasishealthservices", icon: Facebook },
-    { name: "Instagram", href: "https://instagram.com/oasishealthservices", icon: Instagram },
-    { name: "LinkedIn", href: "https://linkedin.com/company/oasishealthservices", icon: Linkedin },
-    { name: "X", href: "https://x.com/OasisHealthSer1", icon: Twitter }
+    { name: "Facebook", href: "https://facebook.com/oasishealthservices", icon: FacebookIcon },
+    { name: "Instagram", href: "https://instagram.com/oasishealthservices", icon: InstagramIcon },
+    { name: "LinkedIn", href: "https://linkedin.com/company/oasishealthservices", icon: LinkedinIcon },
+    { name: "X", href: "https://x.com/OasisHealthSer1", icon: XIcon }
 ]
 
 const footerNavigation = {

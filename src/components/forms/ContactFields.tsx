@@ -46,17 +46,6 @@ export function EmergencyContactFieldsComponent<T extends FieldValues>({ form, p
 
     return (
         <div className="grid sm:grid-cols-2 gap-4">
-            <div className="space-y-2">
-                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="emergency_firstName">First Name *</Label>
-                <Input id="emergency_firstName" {...register(`${_prefix}emergency.firstName` as Path<T>)} placeholder="First name" />
-                <FieldError error={get(errors, `${_prefix}emergency.firstName`)} />
-            </div>
-
-            <div className="space-y-2">
-                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="emergency_lastName">Last Name *</Label>
-                <Input id="emergency_lastName" {...register(`${_prefix}.emergency.lastName` as Path<T>)} placeholder="Last name" />
-                <FieldError error={get(errors, `${_prefix}emergency.lastName`)} />
-            </div>
 
             <div className="space-y-2 sm:col-span-2">
                 <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="emergency_relationship">Relationship to Patient *</Label>
@@ -79,6 +68,18 @@ export function EmergencyContactFieldsComponent<T extends FieldValues>({ form, p
                     )}
                 />
                 <FieldError error={get(errors, `${_prefix}emergency.relationship`)} />
+            </div>
+
+            <div className="space-y-2">
+                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="emergency_firstName">First Name *</Label>
+                <Input id="emergency_firstName" {...register(`${_prefix}emergency.firstName` as Path<T>)} placeholder="First name" />
+                <FieldError error={get(errors, `${_prefix}emergency.firstName`)} />
+            </div>
+
+            <div className="space-y-2">
+                <Label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="emergency_lastName">Last Name *</Label>
+                <Input id="emergency_lastName" {...register(`${_prefix}.emergency.lastName` as Path<T>)} placeholder="Last name" />
+                <FieldError error={get(errors, `${_prefix}emergency.lastName`)} />
             </div>
 
             <div className="space-y-2">
@@ -160,6 +161,30 @@ export function GuardianContactFieldsComponent<T extends FieldValues>({ form, pr
                             </CardHeader>
                             <CardContent className="space-y-4">
                                 <div className="grid sm:grid-cols-2 gap-4">
+
+                                    <div className="space-y-2 sm:col-span-2">
+                                        <Label htmlFor={`guardians.${index}.relationship`} className="block text-sm font-medium text-foreground mb-1.5">Relationship to Patient *</Label>
+                                        <Controller
+                                            name={`${_prefix}guardians.${index}.relationship` as Path<T>}
+                                            control={control}
+                                            render={({ field }) => (
+                                                <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
+                                                    <SelectTrigger id="relationship" className="w-full sm:w-1/2">
+                                                        <SelectValue placeholder="Select relationship" />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        {GUARDIAN_RELATIONSHIP_OPTIONS.map((option) => (
+                                                            <SelectItem key={option.value} value={option.value}>
+                                                                {option.label}
+                                                            </SelectItem>
+                                                        ))}
+                                                    </SelectContent>
+                                                </Select>
+                                            )}
+                                        />
+                                        <FieldError error={get(errors, `${_prefix}guardians.${index}.relationship`)} />
+                                    </div>
+
                                     <div className="space-y-2">
                                         <Label htmlFor={`guardians.${index}.firstName`} className="block text-sm font-medium text-foreground mb-1.5">First Name *</Label>
                                         <Input id={`guardians.${index}.firstName`} {...register(`${_prefix}guardians.${index}.firstName` as Path<T>)} placeholder="First name" />
@@ -199,29 +224,6 @@ export function GuardianContactFieldsComponent<T extends FieldValues>({ form, pr
                                             )}
                                         />
                                         <FieldError error={get(errors, `${_prefix}guardians.${index}.phone`)} />
-                                    </div>
-
-                                    <div className="space-y-2">
-                                        <Label htmlFor={`guardians.${index}.relationship`} className="block text-sm font-medium text-foreground mb-1.5">Relationship to Patient *</Label>
-                                        <Controller
-                                            name={`${_prefix}guardians.${index}.relationship` as Path<T>}
-                                            control={control}
-                                            render={({ field }) => (
-                                                <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
-                                                    <SelectTrigger id="relationship" className="w-full">
-                                                        <SelectValue placeholder="Select relationship" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        {GUARDIAN_RELATIONSHIP_OPTIONS.map((option) => (
-                                                            <SelectItem key={option.value} value={option.value}>
-                                                                {option.label}
-                                                            </SelectItem>
-                                                        ))}
-                                                    </SelectContent>
-                                                </Select>
-                                            )}
-                                        />
-                                        <FieldError error={get(errors, `${_prefix}guardians.${index}.relationship`)} />
                                     </div>
                                 </div>
 

@@ -64,12 +64,23 @@ export async function validateFields<T extends BaseFormData>(form: UseFormReturn
 
 export function SummarySection({ title, children, onEdit }: { title: string, children: React.ReactNode, onEdit: () => void }) {
     return (
-        <div className="relative p-4 rounded-lg border bg-muted/30 group">
-            <div className="flex justify-between items-center mb-3">
-                <h4 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">{title}</h4>
-                <Button variant="ghost" size="sm" onClick={onEdit} className="h-8 px-2 text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Edit2 className="w-3 h-3 mr-1" /> Edit
+        <div className="relative p-4 border border-border rounded-lg w-full">
+            <div className="flex mb-3 w-full">
+                <h4 className="text-sm font-bold uppercase tracking-wider text-muted-foreground w-full">{title}</h4>
+
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={onEdit}
+                    className="h-8 gap-1 px-2 text-xs font-medium text-muted-foreground hover:text-secondary"
+                >
+                    <Edit2 className="h-3 w-3 mr-1" />
+                    Edit
                 </Button>
+
+                {/* <Button variant="ghost" size="sm" onClick={onEdit} className="h-8 px-2 text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Edit2 className="w-3 h-3 mr-1" /> Edit
+                </Button> */}
             </div>
             <div className="space-y-2">
                 {children}
@@ -84,7 +95,7 @@ export function LabelValue({ label, value, vertical = false }: { label: string, 
     if (!value) return null;
 
     return (
-        <div className={vertical ? "flex flex-col gap-1" : "flex justify-between border-b border-border/50 py-1"}>
+        <div className={vertical ? "flex flex-col gap-1" : "flex justify-between py-1 w-[200px]"}>
             <span className="block text-sm font-medium text-muted-foreground text-primary">{label}</span>
             <span className="text-sm font-medium text-foreground">{value}</span>
         </div>

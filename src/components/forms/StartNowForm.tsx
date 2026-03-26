@@ -21,6 +21,7 @@ import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { z } from "zod";
 import type { UploadedFile } from "./FileUploadZone";
 import { submitIntakeForm, uploadFile } from "@/api";
+import { ReviewSummaryCard } from "./ReviewSummaryCard";
 
 const REFERRAL_SOURCE_OPTIONS = [
     { value: "ALMA", label: "ALMA" },
@@ -688,152 +689,137 @@ function ReviewIntakeComponent({ form }: FormComponentProps<IntakeFormData>) {
             </div>
 
             <div className="grid gap-6">
+
                 <SummarySection title="Personal Information" onEdit={() => setStep(0)}>
-                    <LabelValue label="Name" value={`${values.lead.firstName!} ${values.lead.lastName!}`} />
-                    <LabelValue label="Preferred name" value={values.lead.preferredName} />
-                    <LabelValue label="Email" value={values.lead.email!} />
-                    <LabelValue label="Phone" value={formatPhoneNumber(values.lead.phone!)} />
-                    <LabelValue label="Date of Birth" value={values.lead.dob!} />
-                    <LabelValue label="Birth Sex" value={values.lead.birthSex} />
-                    <LabelValue label="Gender Identity" value={values.lead.genderIdentity} />
-                    <LabelValue label="Address" value={formatAddress(values.lead.address)} />
+                    <ReviewSummaryCard
+                        title=""
+                        items={[
+                            { label: "Name", value: `${values.lead.firstName!} ${values.lead.lastName!}` },
+                            { label: "Preferred Name", value: values.lead.preferredName },
+                            { label: "Email", value: values.lead.email },
+                            { label: "Phone", value: formatPhoneNumber(values.lead.phone!) },
+                            { label: "Date of Birth", value: values.lead.dob },
+                            { label: "Birth Sex", value: values.lead.birthSex.toUpperCase() },
+                            { label: "Gender Identity", value: values.lead.genderIdentity },
+                            { label: "Address", value: formatAddress(values.lead.address) },
+                        ].filter(item => item.value)}
+                    />
                 </SummarySection>
 
                 <SummarySection title="Additional Information" onEdit={() => setStep(1)}>
                     <LabelValue label="Source" value={values.additionalInformation.source} />
 
-                    {values.additionalInformation.referrer && (
-                        <>
-                            <LabelValue label="Referrer Name" value={values.additionalInformation.referrer?.name!} />
-                            <LabelValue label="Specialty" value={values.additionalInformation.referrer?.specialty!} />
-                            <LabelValue label="Practice Name" value={values.additionalInformation.referrer?.practiceName!} />
-                            <LabelValue label="Referrer Phone" value={formatPhoneNumber(values.additionalInformation.referrer?.phone!)} />
-                            <LabelValue label="Referrer Email" value={values.additionalInformation.referrer?.email!} />
-                        </>
-                    )}
-                    <LabelValue label="Has Emergency Contact" value={values.additionalInformation.hasEmergencyContact ? "Yes" : "No"} />
+                    <div className="mt-4 space-y-6">
+                        {values.additionalInformation.referrer && (
+                            <ReviewSummaryCard
+                                title="REFERRER INFORMATION"
+                                items={[
+                                    { label: "Name", value: `${values.additionalInformation?.referrer?.name}` },
+                                    { label: "Preferred Name", value: values.additionalInformation?.referrer?.specialty },
+                                    { label: "Email", value: values.additionalInformation?.referrer?.practiceName },
+                                    { label: "Phone", value: formatPhoneNumber(values.additionalInformation?.referrer?.phone!) },
+                                    { label: "Date of Birth", value: values.additionalInformation?.referrer?.email },
+                                    { label: "Birth Sex", value: values.additionalInformation?.referrer?.phone },
+                                    { label: "Gender Identity", value: values.additionalInformation?.referrer?.phone },
+                                ].filter(item => item.value)}
+                            />
+                        )}
 
-                    {values.additionalInformation.hasEmergencyContact && (
-                        <>
-                            <LabelValue label="Emergency Contact Name" value={`${values.additionalInformation.emergency?.firstName!} ${values.additionalInformation.emergency?.lastName!}`} />
-                            <LabelValue label="Emergency Contact Relationship" value={values.additionalInformation.emergency?.relationship!.toUpperCase()} />
-                            <LabelValue label="Emergency Contact Phone" value={formatPhoneNumber(values.additionalInformation.emergency?.phone)} />
-                            <LabelValue label="Emergency Contact Email" value={values.additionalInformation.emergency?.email!} />
-                        </>
-                    )}
+                        {values.additionalInformation.emergency && (
+                            <ReviewSummaryCard
+                                title="Emergency Contact"
+                                items={[
+                                    { label: "Name", value: `${values.additionalInformation?.emergency?.firstName} ${values.additionalInformation?.emergency?.lastName}` },
+                                    { label: "Relationship", value: values.additionalInformation?.emergency?.relationship?.toUpperCase() },
+                                    { label: "Phone", value: formatPhoneNumber(values.additionalInformation?.emergency?.phone!) },
+                                    { label: "Email", value: values.additionalInformation?.emergency?.email },
+                                ].filter(item => item.value)}
+                            />
+                        )}
 
-                    {values.additionalInformation.guardians?.map((guardian, index) => (
-                        <div key={index}>
-                            <LabelValue label={`Guardian # ${index + 1}`} value={guardian.relationship!.toUpperCase()} />
-                            <LabelValue label="Guardian Name" value={`${guardian.firstName!} ${guardian.lastName!}`} />
-                            <LabelValue label="Guardian Phone" value={formatPhoneNumber(guardian.phone)} />
-                            <LabelValue label="Guardian Email" value={guardian.email!} />
-                        </div>
-                    ))}
+                        {values.additionalInformation.guardians?.map((guardian, index) => (
+                            <ReviewSummaryCard
+                                key={index}
+                                title={`Guardian ${index + 1}`}
+                                items={[
+                                    { label: "Name", value: `${guardian.firstName} ${guardian.lastName}` },
+                                    { label: "Relationship", value: guardian.relationship?.toUpperCase() },
+                                    { label: "Phone", value: formatPhoneNumber(guardian.phone!) },
+                                    { label: "Email", value: guardian.email },
+                                ]}
+                            />
+                        ))}
 
+
+                    </div>
                 </SummarySection>
 
                 <SummarySection title="Service Information" onEdit={() => setStep(2)}>
-                    <LabelValue label="Court Recommended" value={values.serviceInformation.courtRecommended === "yes" ? "Yes" : "No"} />
-                    <LabelValue label="Current Diagnosis" value={values.serviceInformation.currentConditions} vertical={true} />
-                    <LabelValue label="Current Medications" value={values.serviceInformation.currentMedications} vertical={true} />
-                    <LabelValue label="Reasons" value={values.serviceInformation.reasons.join(", ")} />
-                    <LabelValue label="Describe your needs" value={values.serviceInformation.description} vertical={true} />
+                    <ReviewSummaryCard
+                        title=""
+                        items={[
+                            { label: "Court Recommended", value: values.serviceInformation.courtRecommended === "yes" ? "Yes" : "No" },
+                            { label: "Current Diagnosis", value: values.serviceInformation.currentConditions },
+                            { label: "Current Medications", value: values.serviceInformation.currentMedications },
+                            { label: "Reasons", value: values.serviceInformation.reasons.join(", ") },
+                            { label: "Describe your needs", value: values.serviceInformation.description },
+                        ].filter(item => item.value)}
+                    />
                 </SummarySection>
 
                 <SummarySection title="Appointment Preference" onEdit={() => setStep(3)}>
-                    <LabelValue label="Mode" value={APPOINTMENT_MODE_OPTIONS.find((option) => option.value === values.appointmentPreference.mode)?.label} />
-                    <LabelValue label="When" value={values.appointmentPreference.when} />
-                    <LabelValue label="Day of Week" value={values.appointmentPreference.dayOfWeek.join(", ")} />
-                    <LabelValue label="Time of Day" value={values.appointmentPreference.timeOfDay.join(", ")} />
-                    <LabelValue label="Time Zone" value={TIMEZONE_OPTIONS.find((option) => option.value === values.appointmentPreference.timezone)?.label} />
+                    <ReviewSummaryCard
+                        title=""
+                        items={[
+                            { label: "Mode", value: APPOINTMENT_MODE_OPTIONS.find((option) => option.value === values.appointmentPreference.mode)?.label },
+                            { label: "When", value: values.appointmentPreference.when },
+                            { label: "Day of Week", value: values.appointmentPreference.dayOfWeek.join(", ") },
+                            { label: "Time of Day", value: values.appointmentPreference.timeOfDay.join(", ") },
+                            { label: "Time Zone", value: TIMEZONE_OPTIONS.find((option) => option.value === values.appointmentPreference.timezone)?.label },
+                        ].filter(item => item.value)}
+                    />
                 </SummarySection>
 
                 <SummarySection title="Payment Information" onEdit={() => setStep(4)}>
                     <LabelValue label="Method" value={PAYMENT_METHOD_OPTIONS.find((option) => option.value === values.paymentInformation.method)?.label} />
 
                     {values.paymentInformation.method === "eap" && (
-                        <>
-                            <LabelValue label="Employer" value={values.paymentInformation.eap?.employer} />
-                            <LabelValue label="Authorization Number" value={values.paymentInformation.eap?.authorizationNumber} />
-                        </>
+                        <div className="mt-4 space-y-6">
+                            <ReviewSummaryCard
+                                title="EAP Information"
+                                items={[
+                                    { label: "Employer", value: values.paymentInformation.eap?.employer },
+                                    { label: "Authorization #", value: values.paymentInformation.eap?.authorizationNumber },
+                                ]}
+                            />
+                        </div>
                     )}
-                    {values.paymentInformation.method === "insurance" && (
-                        <>
-                            <LabelValue label="Type" value={values.paymentInformation.insurance?.type} />
-                            <LabelValue label="Carrier Name" value={values.paymentInformation.insurance?.name} />
-                            <LabelValue label="Plan Name" value={values.paymentInformation.insurance?.plan} />
-                            <LabelValue label="Member ID" value={values.paymentInformation.insurance?.memberId} />
-                            <LabelValue label="Group Number" value={values.paymentInformation.insurance?.groupNumber} />
-                            <LabelValue label="Subscriber Relationship" value={values.paymentInformation.insurance?.subscriberRelationship} />
-                            {values.paymentInformation.insurance?.subscriber && (
-                                <>
-                                    <LabelValue label="Subscriber First Name" value={values.paymentInformation.insurance.subscriber?.name!} />
-                                    <LabelValue label="Subscriber DOB" value={values.paymentInformation.insurance.subscriber.dob!} />
-                                </>
-                            )}
 
-                            {insuranceImages?.map((image, index) => (
-                                <div key={index}>
-                                    <LabelValue label={`${index === 0 ? "Front" : "Back"} of Insurance Card`} value={image.file.name} />
-                                </div>
-                            ))}
-                        </>
+                    {(values.paymentInformation.method === "insurance" || values.paymentInformation.method === "eap") && (
+                        <div className="mt-4 space-y-6">
+
+                            <ReviewSummaryCard
+                                title="Insurance Information"
+                                items={[
+                                    { label: "Type", value: values.paymentInformation.insurance?.type },
+                                    { label: "Carrier", value: values.paymentInformation.insurance?.name },
+                                    { label: "Plan", value: values.paymentInformation.insurance?.plan },
+                                    { label: "Member ID", value: values.paymentInformation.insurance?.memberId },
+                                    { label: "Group #", value: values.paymentInformation.insurance?.groupNumber },
+                                    { label: "Subscriber Relationship", value: values.paymentInformation.insurance?.subscriberRelationship.toUpperCase() },
+                                    { label: "Subscriber Name", value: values.paymentInformation.insurance?.subscriber?.name },
+                                    { label: "Subscriber DOB", value: values.paymentInformation.insurance?.subscriber?.dob },
+                                    { label: "Insurance Card (Front)", value: insuranceImages?.length > 0 ? insuranceImages[0].file.name : undefined },
+                                    { label: "Insurance Card (Back)", value: insuranceImages?.length > 1 ? insuranceImages[1].file.name : undefined },
+                                ].filter(item => item.value)}
+                            />
+                        </div>
                     )}
                 </SummarySection>
             </div>
         </div>
     )
 }
-
-
-// const DEFAULT_INTAKE_VALUES: IntakeFormData = {
-//     lead: {
-//         firstName: "",
-//         lastName: "",
-//         preferredName: "",
-//         email: "",
-//         phone: "",
-//         dob: "",
-//         birthSex: "male",
-//         genderIdentity: "",
-//         address: {
-//             street: "",
-//             city: "",
-//             state: "GA",
-//             postalCode: "",
-//         },
-//     },
-//     additionalInformation: {
-//         hasEmergencyContact: false,
-//         source: "",
-//     },
-//     serviceInformation: {
-//         courtRecommended: "no",
-//         reasons: [],
-//     },
-//     appointmentPreference: {
-//         mode: "either",
-//         dayOfWeek: [],
-//         timeOfDay: [],
-//         timezone: "EST",
-//         when: "This Week",
-//     },
-//     paymentInformation: {
-//         method: "insurance",
-//         eap: {
-//             employer: "",
-//             authorizationNumber: "",
-//         },
-//         insurance: {
-//             name: "",
-//             type: "primary",
-//             memberId: "",
-//             subscriberRelationship: "self",
-//             subscriber: undefined
-//         }
-//     }
-// }
 
 export function StartNowForm() {
     const STEPS = [
@@ -992,11 +978,8 @@ export function StartNowForm() {
     const onSubmit = async (data: IntakeFormData) => {
 
         if (currentStep < STEPS.length - 1) {
-            console.log("Not at the last step yet");
             return;
         }
-
-        console.log("Submitting Intake form ....");
 
         if (data.paymentInformation.method === "insurance") {
             const insuranceImages = files["paymentInformation.insurance.images"] || [];
@@ -1025,9 +1008,6 @@ export function StartNowForm() {
             }
         }
 
-        console.log("Submitting Intake form ....", data);
-        //        return true;
-
         return await submitIntakeForm(data);
     }
 
@@ -1047,9 +1027,8 @@ export function StartNowForm() {
             <CardContent>
 
                 <MultistepForm
-                    contactType="verifyInsurance"
+                    contactType="intake"
                     schema={IntakeFormSchema}
-                    // defaultValues={DEFAULT_INTAKE_VALUES}
                     steps={STEPS}
                     onSubmit={onSubmit}
                 />

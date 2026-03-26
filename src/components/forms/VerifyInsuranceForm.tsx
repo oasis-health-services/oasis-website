@@ -1,5 +1,7 @@
 import { getFields, LabelValue, MultistepForm, SummarySection, type FormComponentProps } from "./MultistepForm";
 import { InsuranceContactSchema, InsuranceSchema, VerifyInsuranceSchema, type VerifyInsuranceFormData } from "@/lib/schema";
+import { ReviewTable } from "./ReviewTable";
+import { ReviewSummaryCard } from "./ReviewSummaryCard";
 import { Label } from "@radix-ui/react-label";
 import { User, Shield, ClipboardCheck } from "lucide-react";
 import { Input } from "../ui/input";
@@ -329,38 +331,33 @@ function ReviewInsurance({ form }: FormComponentProps<VerifyInsuranceFormData>) 
             </div>
 
             <div className="grid gap-6">
-                <SummarySection title="Personal Information" onEdit={() => setStep(0)}>
-                    <LabelValue label="First Name" value={values.contact.firstName} />
-                    <LabelValue label="Last Name" value={values.contact.lastName} />
-                    <LabelValue label="Email" value={values.contact.email} />
-                    {values.contact.phone && <LabelValue label="Phone" value={values.contact.phone} />}
-                    <LabelValue label="Date of Birth" value={values.contact.dob} />
-                </SummarySection>
+                <ReviewSummaryCard
+                    title="PERSONAL INFORMATION"
+                    onEdit={() => setStep(0)}
+                    items={[
+                        { label: "Name", value: `${values.contact.firstName} ${values.contact.lastName}` },
+                        { label: "Email", value: values.contact.email },
+                        { label: "Phone", value: values.contact.phone ? formatPhoneNumber(values.contact.phone) : undefined },
+                        { label: "Date of Birth", value: values.contact.dob },
+                    ].filter(item => item.value)}
+                />
 
-                <SummarySection title="Insurance Information" onEdit={() => setStep(1)}>
-                    <LabelValue label="Type" value={values.insurance.type} />
-                    <LabelValue label="Name" value={values.insurance.name} />
-                    {values.insurance.plan && <LabelValue label="Plan" value={values.insurance.plan} />}
-                    <LabelValue label="Member ID" value={values.insurance.memberId} />
-
-                    {values.insurance.groupNumber && (
-                        <LabelValue label="Group Number" value={values.insurance.groupNumber} />)}
-                    <LabelValue label="Subscriber Relationship" value={values.insurance.subscriberRelationship} />
-
-                    {values.insurance.subscriberRelationship !== "self" && (
-                        <>
-                            <LabelValue label="Subscriber Name" value={values.insurance.subscriber?.name!} />
-                            <LabelValue label="Subscriber Date of Birth" value={values.insurance.subscriber?.dob!} />
-                        </>
-                    )}
-
-                    {insuranceImages?.map((image, index) => (
-                        <div key={index}>
-                            <LabelValue label={`${index === 0 ? "Front" : "Back"} of Insurance Card`} value={image.file.name} />
-                        </div>
-                    ))}
-
-                </SummarySection>
+                <ReviewSummaryCard
+                    title="INSURANCE INFORMATION"
+                    onEdit={() => setStep(1)}
+                    items={[
+                        { label: "Type", value: values.insurance.type },
+                        { label: "Carrier", value: values.insurance.name },
+                        { label: "Plan", value: values.insurance.plan },
+                        { label: "Member ID", value: values.insurance.memberId },
+                        { label: "Group #", value: values.insurance.groupNumber },
+                        { label: "Relationship", value: values.insurance.subscriberRelationship.toUpperCase() },
+                        { label: "Subscriber Name", value: values.insurance.subscriber?.name },
+                        { label: "Subscriber DOB", value: values.insurance.subscriber?.dob },
+                        { label: "Insurance Card (Front)", value: insuranceImages?.length > 0 ? insuranceImages[0].file.name : undefined },
+                        { label: "Insurance Card (Back)", value: insuranceImages?.length > 1 ? insuranceImages[1].file.name : undefined },
+                    ].filter(item => item.value)}
+                />
             </div>
         </div>
     )

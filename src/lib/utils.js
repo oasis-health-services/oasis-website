@@ -6,6 +6,7 @@ export function cn(...inputs) {
 }
 
 export function formatPhoneNumber(value) {
+	if (!value) return value;
 	const numbers = value.replace(/\D/g, "").slice(0, 10);
 
 	if (numbers.length === 0) return "";
@@ -15,6 +16,18 @@ export function formatPhoneNumber(value) {
 	return `(${numbers.slice(0, 3)}) ${numbers.slice(3, 6)}-${numbers.slice(6)}`;
 }
 
+export function formatPostalCode(value) {
+	const numbers = value.replace(/\D/g, "").slice(0, 10);
+
+	if (numbers.length === 0) return "";
+	if (numbers.length < 5) return `${numbers}`;
+
+	return `${numbers.slice(0, 5)}-${numbers.slice(5, 10)}`;
+}
+
+export function formatAddress(address) {
+	return `${address.street}, ${address.city}, ${address.state}. ${formatPostalCode(address.postalCode)}`;
+}
 
 export function calculateAge(dob) {
 	const today = new Date();

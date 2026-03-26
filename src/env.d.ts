@@ -1,6 +1,7 @@
 interface ImportMetaEnv {
     readonly STAGING: boolean;
     readonly PROD: boolean;
+    readonly PUBLIC_REDIRECT_ON_FAILURE: string;
 }
 
 interface ImportMeta {

@@ -27,6 +27,8 @@ import FormError from '../FormError';
 import FieldError from '../FieldError';
 import { submitContactForm } from '@/api';
 import { contact } from "@/lib/contact"
+import { FormattedFieldComponent } from '../forms/FormattedField';
+import { formatPhoneNumber } from '@/lib/utils';
 
 const Patients = () => {
     // const steps = [
@@ -742,7 +744,7 @@ function ContactSection() {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isSubmitted, setIsSubmitted] = useState(false)
 
-    const { register, handleSubmit: formSubmit, formState: { errors } } = useForm({
+    const form = useForm({
         resolver: zodResolver(ContactSchema),
         defaultValues: {
             firstName: "",
@@ -750,9 +752,11 @@ function ContactSection() {
             email: "",
             phone: "",
             inquiryType: "Other",
+            source: "website",
             message: "",
         },
     });
+    const { register, handleSubmit: formSubmit, formState: { errors } } = form;
 
     const onSubmit = async (formData) => {
         try {
@@ -865,7 +869,8 @@ function ContactSection() {
                             ) : (
                                 <form onSubmit={formSubmit(onSubmit)} className="space-y-5">
                                     <FormError error={error} />
-                                    <Input type="hidden" {...register("inquiryType")} value="Other" />
+                                    <Input type="hidden" {...register("inquiryType")} />
+                                    <Input type="hidden" {...register("source")} />
 
                                     <div className="grid sm:grid-cols-2 gap-4">
                                         <div className="space-y-2">
@@ -886,28 +891,30 @@ function ContactSection() {
                                             />
                                             <FieldError error={errors.lastName} />
                                         </div>
-                                    </div>
 
-                                    <div className="space-y-2">
-                                        <Label htmlFor="email">Email *</Label>
-                                        <Input
-                                            id="email"
-                                            {...register("email")}
-                                            type="email"
-                                            placeholder="john.doe@example.com"
-                                        />
-                                        <FieldError error={errors.email} />
-                                    </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="email">Email *</Label>
+                                            <Input
+                                                id="email"
+                                                {...register("email")}
+                                                type="email"
+                                                placeholder="john.doe@example.com"
+                                            />
+                                            <FieldError error={errors.email} />
+                                        </div>
 
-                                    <div className="space-y-2">
-                                        <Label htmlFor="phone">Phone (Optional)</Label>
-                                        <Input
-                                            id="phone"
-                                            {...register("phone")}
-                                            type="tel"
-                                            placeholder="1234567890"
-                                        />
-                                        <FieldError error={errors.phone} />
+                                        <div className="space-y-2">
+                                            <Label htmlFor="phone">Phone (Optional)</Label>
+                                            <FormattedFieldComponent
+                                                form={form}
+                                                name="phone"
+                                                type="tel"
+                                                formatter={formatPhoneNumber}
+                                                placeholder="(123) 456-7890"
+                                                parser={(e) => e.target.value.replace(/\D/g, "").slice(0, 10)}
+                                            />
+                                            <FieldError error={errors.phone} />
+                                        </div>
                                     </div>
 
                                     <div className="space-y-2">
@@ -937,7 +944,7 @@ function ContactSection() {
                                     <FieldError error={errors.consent} />
 
 
-                                    <Button type="submit" className="w-full" disabled={isSubmitting}>
+                                    <Button type="submit" className="w-full cursor-pointer" disabled={isSubmitting}>
                                         {isSubmitting ? (
                                             <>
                                                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />

@@ -700,7 +700,7 @@ function ReviewIntakeComponent({ form }: FormComponentProps<IntakeFormData>) {
                             { label: "Email", value: values.lead.email },
                             { label: "Phone", value: formatPhoneNumber(values.lead.phone!) },
                             { label: "Date of Birth", value: values.lead.dob },
-                            { label: "Birth Sex", value: values.lead.birthSex.toUpperCase() },
+                            { label: "Birth Sex", value: values.lead.birthSex?.toUpperCase() },
                             { label: "Gender Identity", value: values.lead.genderIdentity },
                             { label: "Address", value: formatAddress(values.lead.address) },
                         ].filter(item => item.value)}
@@ -807,7 +807,7 @@ function ReviewIntakeComponent({ form }: FormComponentProps<IntakeFormData>) {
                                     { label: "Plan", value: values.paymentInformation.insurance?.plan },
                                     { label: "Member ID", value: values.paymentInformation.insurance?.memberId },
                                     { label: "Group #", value: values.paymentInformation.insurance?.groupNumber },
-                                    { label: "Subscriber Relationship", value: values.paymentInformation.insurance?.subscriberRelationship.toUpperCase() },
+                                    { label: "Subscriber Relationship", value: values.paymentInformation.insurance?.subscriberRelationship?.toUpperCase() },
                                     { label: "Subscriber Name", value: values.paymentInformation.insurance?.subscriber?.name },
                                     { label: "Subscriber DOB", value: values.paymentInformation.insurance?.subscriber?.dob },
                                     { label: "Insurance Card (Front)", value: insuranceImages?.length > 0 ? insuranceImages[0].file.name : undefined },

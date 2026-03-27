@@ -70,10 +70,12 @@ const ActiveIndicator = () => (
     />
 );
 
-export default function Header({ currentPath }) {
+export default function Header({ currentPath, variant = "default" }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [mobileSubMenuItemOpen, setMobileSubMenuItemOpen] = useState(null)
     const [mobileSubMenuOpen, setMobileSubMenuOpen] = useState(null)
+
+    const isGlass = variant === "glass";
 
     const isActive = (href) => {
         if (!href) return false;
@@ -85,7 +87,12 @@ export default function Header({ currentPath }) {
 
 
     return (
-        <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border">
+        <header className={cn(
+            "sticky top-0 z-50 transition-all duration-300",
+            isGlass 
+                ? "bg-white/10 backdrop-blur-md border-b border-white/10" 
+                : "bg-card/95 backdrop-blur-sm border-b border-border"
+        )}>
             <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
                 <div className="flex lg:flex-1">
                     <a href="/" className="flex items-center">

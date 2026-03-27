@@ -302,7 +302,7 @@ function ProviderCTA({ provider }) {
                         className="bg-primary-foreground text-primary hover:bg-primary-foreground/90"
                         asChild
                     >
-                        <a href="https://oasishealthservices.com" target="_blank">
+                        <a href="/contact">
                             <Calendar className="h-5 w-5 mr-2" aria-hidden="true" />
                             Book Online Now
                         </a>

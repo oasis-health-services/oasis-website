@@ -144,6 +144,7 @@ export const providers: Provider[] = [
       }
     ],
     licenses: [
+      { state: "Arizona" },
       { state: "Georgia" },
       { state: "Florida" },
       { state: "Washington" },

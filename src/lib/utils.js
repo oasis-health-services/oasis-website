@@ -20,7 +20,7 @@ export function formatPostalCode(value) {
 	const numbers = value.replace(/\D/g, "").slice(0, 10);
 
 	if (numbers.length === 0) return "";
-	if (numbers.length < 5) return `${numbers}`;
+	if (numbers.length <= 5) return `${numbers}`;
 
 	return `${numbers.slice(0, 5)}-${numbers.slice(5, 10)}`;
 }

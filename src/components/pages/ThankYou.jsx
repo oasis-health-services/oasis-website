@@ -79,7 +79,7 @@ const formTypes = {
         responseTime: "1-2 business days",
         nextSteps: [
             { text: "Check your email for a confirmation", icon: Mail },
-            { text: "Our team reviews your intake form", icon: FileText },
+            { text: "Our team reviews your intake form. We may contact you for additional information", icon: FileText },
             { text: "We'll respond via your preferred method", icon: Phone },
         ],
         suggestedLinks: [

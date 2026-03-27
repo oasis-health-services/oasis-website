@@ -26,4 +26,45 @@ export const insurancePartners = [{
     logo: '/images/insurances/umr.png'
 }];
 
-export const allInsuranceProviders = ['Aetna', 'Anthem', 'Beacon', 'Blue Cross Blue Shield', 'CareSource', 'Cigna Health Plans', 'Compsych', 'Coordinated Care', 'Humana', 'Magellan Health', 'Meritain Health', 'Optum', 'Oscar', 'Premera', 'Regence', 'TriCare', 'UMR', 'United Healthcare'];
+export const allInsuranceProviders = [
+    // 'Aetna', 
+    // 'Anthem', 
+    // 'Beacon', 
+    // 'Blue Cross Blue Shield', 
+    // 'CareSource', 
+    // 'Cigna Health Plans', 
+    // 'Compsych', 
+    // 'Coordinated Care', 
+    // 'Humana', 
+    // 'Magellan Health', 
+    // 'Meritain Health', 
+    // 'Optum', 
+    // 'Oscar', 
+    // 'Premera', 
+    // 'Regence', 
+    // 'TriCare', 
+    // 'UMR', 
+    // 'United Healthcare'
+
+    "Aetna",
+    "Ambetter",
+    "Amerigroup",
+    "Anthem",
+    "Beacon",
+    "BCBS",
+    "Caresource",
+    "Cigna",
+    "ComPsych",
+    "Humana",
+    "OSCAR",
+    "Medicaid",
+    "Medicare",
+    "Meritain Health",
+    "OPTUM",
+    "Premera",
+    "Regence",
+    "Surest",
+    "Tricare",
+    "United Health Care",
+    "UMR",
+];

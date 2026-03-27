@@ -23,23 +23,23 @@ export default function Insurances({ showConsultationCTA = true, className = "py
                         </p>
 
                         <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                            {/* <Button asChild>
-                                <a href="/contact">
+                            <Button asChild>
+                                <a href="/patients/verify-insurance">
                                     Verify Insurance
                                     <ArrowRight className="ml-2 h-4 w-4" />
                                 </a>
-                            </Button> */}
+                            </Button>
 
                             <Sheet>
                                 <SheetTrigger asChild>
-                                    <Button variant="outline" className="bg-transparent border-primary text-primary">
+                                    <Button variant="outline" className="bg-transparent border-primary text-primary cursor-pointer">
                                         <span className="animated-underline">View More Plans</span>
                                         <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                                     </Button>
                                 </SheetTrigger>
-                                <SheetContent side="right" className="bg-white">
+                                <SheetContent side="right" className="bg-white overflow-y-auto">
                                     <SheetHeader>
-                                        <SheetTitle className="text-2xl font-bold text-[#2D6762]">Insurance Providers We Work With</SheetTitle>
+                                        <SheetTitle className="text-2xl font-bold text-primary">Insurance Partners</SheetTitle>
                                     </SheetHeader>
                                     <div className="py-4">
                                         <ul className="space-y-3 text-lg text-[#4A5455]">

@@ -8,17 +8,26 @@ import { StartNowForm } from "../forms/StartNowForm";
 
 const acceptedInsurance = [
     "Aetna",
+    "Ambetter",
+    "Amerigroup",
     "Anthem",
-    "BlueCross BlueShield",
+    "Beacon",
+    "BCBS",
+    "Caresource",
     "Cigna",
+    "ComPsych",
     "Humana",
-    "Optum",
-    "UnitedHealthcare",
-    "UMR",
-    "Medicare",
+    "OSCAR",
     "Medicaid",
+    "Medicare",
+    "Meritain Health",
+    "OPTUM",
     "Premera",
+    "Regence",
+    "Surest",
     "Tricare",
+    "United Health Care",
+    "UMR",
 ]
 
 const processSteps = [

@@ -1,64 +1,273 @@
-import { motion } from 'framer-motion';
-
-const Section = ({ title, children }) => (
-    <div className="mb-8">
-        <h2 className="text-2xl font-bold text-[#1a3a37] mb-4">{title}</h2>
-        <div className="space-y-4 text-gray-700">{children}</div>
-    </div>
-);
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+    Scale,
+    Building2,
+    Calendar,
+    Lock,
+    ShieldAlert,
+    Gavel,
+    ShieldCheck,
+    Phone,
+    Mail
+} from "lucide-react";
+import { contact } from "@/lib/contact";
 
 const TermsAndConditions = () => {
     return (
         <>
-            <div className="bg-white">
-                <header className="bg-gradient-to-br from-[#e0f2f1] to-[#b2dfdb] py-20">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="container mx-auto px-4 text-center"
-                    >
-                        <h1 className="text-4xl md:text-5xl font-bold text-[#1a3a37]">Terms and Conditions</h1>
-                        <p className="mt-4 text-lg text-[#2D6762]">Please review our terms of service carefully.</p>
-                    </motion.div>
-                </header>
+            {/* Hero Section */}
+            <section className="bg-secondary py-16 lg:py-20">
+                <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                    <div className="max-w-3xl">
+                        <Badge variant="secondary" className="mb-4">
+                            <Scale className="w-3 h-3 mr-1" />
+                            Legal Terms
+                        </Badge>
+                        <h1 className="font-serif text-4xl sm:text-5xl font-semibold text-foreground mb-6 text-balance">
+                            Terms and Conditions
+                        </h1>
+                        <p className="text-xl text-muted-foreground leading-relaxed mb-4">
+                            Please review our terms of service carefully to understand your rights and responsibilities when using our services.
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                            <strong>Last Updated:</strong> January 1, 2026
+                        </p>
+                    </div>
+                </div>
+            </section>
 
-                <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.2, duration: 0.8 }}
-                        className="max-w-4xl mx-auto"
-                    >
-                        <Section title="Office Operations">
-                            <p>The physical office location of Oasis Health Services is open by appointment only. If you do not have an appointment and show up to the office, you will not be seen. No walk-ins are permitted under any circumstances. You can call or email the office anytime, and an office staff member will return your telephone call or email within 48 business hours unless circumstances beyond Oasis’s control make it impossible or impracticable to do so. In that event, a staff member will get back to you as soon as possible and practicable. A clinician or staff may contact you via telephone, email, or SMS and leave a message containing appointment or medical information if you are unavailable.</p>
-                        </Section>
+            {/* Office Operations */}
+            <section className="py-16 lg:py-20">
+                <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                    <div className="max-w-3xl mx-auto">
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                                <Building2 className="w-6 h-6 text-primary" />
+                            </div>
+                            <h2 className="font-serif text-3xl font-semibold text-foreground">
+                                Office Operations
+                            </h2>
+                        </div>
+                        <div className="prose prose-lg max-w-none text-muted-foreground space-y-6">
+                            <p>
+                                The physical office location of Oasis Health Services is open by appointment only. If you do not have an appointment and show up to the office, you will not be seen. No walk-ins are permitted under any circumstances.
+                            </p>
+                            <p>
+                                You can call or email the office anytime, and an office staff member will return your telephone call or email within 48 business hours unless circumstances beyond Oasis’s control make it impossible or impracticable to do so. In that event, a staff member will get back to you as soon as possible and practicable.
+                            </p>
+                            <Card className="bg-muted/50 border-none">
+                                <CardContent className="p-6">
+                                    <p className="text-sm italic">
+                                        A clinician or staff may contact you via telephone, email, or SMS and leave a message containing appointment or medical information if you are unavailable.
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                        <Section title="Appointments">
-                            <p>Appointments are available by video conference (telehealth) and each appointment is generally allotted up to 45-60 minutes for initial psychiatric evaluations, and 60 minutes for therapy consultations. Follow-up visits for psychiatric consultations are 25-30 minutes and 60 minutes for therapy consultations. You acknowledge such limitations and knowingly and voluntarily accept the additional risks accompanying video visits.</p>
-                        </Section>
+            {/* Appointments */}
+            <section className="py-16 lg:py-20 bg-muted">
+                <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                    <div className="max-w-3xl mx-auto">
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                                <Calendar className="w-6 h-6 text-primary" />
+                            </div>
+                            <h2 className="font-serif text-3xl font-semibold text-foreground">
+                                Appointments
+                            </h2>
+                        </div>
+                        <div className="prose prose-lg max-w-none text-muted-foreground space-y-6">
+                            <p>
+                                Appointments are available by video conference (telehealth) and each appointment is generally allotted up to 45-60 minutes for initial psychiatric evaluations, and 60 minutes for therapy consultations.
+                            </p>
+                            <p>
+                                Follow-up visits for psychiatric consultations are 25-30 minutes and 60 minutes for therapy consultations. You acknowledge such limitations and knowingly and voluntarily accept the additional risks accompanying video visits.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                        <Section title="Confidentiality and Intellectual Property">
-                            <p>In connection with the services performed by and through Oasis Health Services, each patient might receive, and Oasis might provide, certain confidential and proprietary information concerning psychiatric services provided by and through Oasis Health Services (collectively, the “Oasis Proprietary Items”). “Oasis Confidential Information” shall include all information, whether written or oral, that is prepared, uniquely known and/or provided by Oasis or any Oasis Party, of commercial value that is not readily available to the public, plus any Oasis Intellectual Property, all non-public information related to any Oasis Proprietary Items developed, performed or generated by or for the benefit of Oasis or any of the Oasis Parties, and proprietary information related to the business, operations, methodologies, technologies, personnel, treatments and procedures of Oasis or any of the Oasis Parties that is not generally known to the public and that, under all circumstances, ought reasonably to be treated as confidential and/or proprietary.</p>
-                            <p>All Oasis Intellectual Property in any way related to any Oasis Proprietary Items or Oasis Confidential Information provided by Oasis to any patient, is hereby acknowledged to remain in the exclusive possession of Oasis, the applicable Oasis Party or the applicable licensor thereof (each “Oasis Licensor”), as appropriate, and any rights to or interests in such Oasis Intellectual Property, or any permutation or derivation thereof, are hereby fully disclaimed, waived and renounced by each patient in favor of Oasis, the applicable Oasis Party and/or the applicable Oasis Licensor, as appropriate. “Oasis Intellectual Property” means all intellectual property owned, licensed (as licensee) or otherwise used by Oasis and/or any of the Oasis Parties, arising from or in respect of, or that might arise from or relate to, any of the following, whether protected, created or arising under the laws of the United States or any other jurisdiction, whether or not registered with any governmental authority: (i) all patents and applications therefor, including continuations, divisionals, continuations-in-part, reexaminations, or reissues of patent applications and patents issuing thereon (collectively, “Patents”); (ii) all trademarks (registered or common law marks), service marks, trade names, service names, brand names, trade dress rights, logos, domain names, Internet URL addresses, corporate names and general intangibles of a like nature, together with the goodwill associated with any of the foregoing, and all applications, registrations and renewals thereof (collectively, “Marks”); (iii) all copyrights and registrations and applications therefor, works of authorship and mask work rights (collectively, “Copyrights”); (iv) all discoveries, concepts, ideas, research and development, know-how, formulae, inventions, compositions, manufacturing and production processes and techniques, technical data, procedures, designs, drawings, specifications, databases, and other proprietary and confidential information, including patient lists, practitioner lists, staff lists, provider lists, insurer lists, supplier lists, pricing and cost information, and business and marketing plans and proposals of Oasis and/or any of the Oasis Parties, in each case excluding any rights in respect of any of the foregoing that comprise or are protected by Marks, Copyrights or Patents; (v) all software, including all source code and open source code, and all related documentation; (vi) all artwork, designs, images or other content displayed, illustrated or otherwise used on or in connection with Oasis websites or any websites of any of the Oasis Parties or otherwise used in connection with Oasis or any Oasis Proprietary Items or services or treatments performed by or through Oasis; and (vii) all other technology and know-how uniquely in the possession of Oasis and/or any of the Oasis Parties.</p>
-                            <p>The Patient shall, and shall cause each Patient Party to, hold Oasis Confidential Information, whether delivered before or after the date hereof, in strict confidence and shall refrain from, and shall cause each Patient Party to refrain from: (i) providing, copying, disclosing, divulging or otherwise making available Oasis Confidential Information to any other person or entity without the prior written consent of Oasis, which consent shall be in the sole discretion thereof; and (ii) removing or permitting to be removed from such Oasis Confidential Information any notice indicating the confidential nature of, or Oasis proprietary right in and to the Oasis Confidential Information. The Patient shall, and shall cause each Patient Party to, exercise at least the same degree of care and protection with respect to the Oasis Confidential Information that such patient and each of the Patient Parties would exercise with respect to their own confidential, sensitive, privileged and/or proprietary information, which in no event shall be less than the highest level of care for the industry.</p>
-                        </Section>
+            {/* Confidentiality and Intellectual Property */}
+            <section className="py-16 lg:py-20">
+                <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                    <div className="max-w-4xl mx-auto">
+                        <div className="flex items-center gap-3 mb-8">
+                            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                                <Lock className="w-6 h-6 text-primary" />
+                            </div>
+                            <h2 className="font-serif text-3xl font-semibold text-foreground">
+                                Confidentiality and Intellectual Property
+                            </h2>
+                        </div>
+                        <div className="prose prose-lg max-w-none text-muted-foreground space-y-8">
+                            <div className="bg-card p-6 rounded-xl border">
+                                <h4 className="font-semibold text-foreground mb-3">Oasis Confidential Information</h4>
+                                <p className="text-sm">
+                                    Includes all information, whether written or oral, that is prepared, uniquely known and/or provided by Oasis or any Oasis Party, of commercial value that is not readily available to the public, plus any Oasis Intellectual Property.
+                                </p>
+                            </div>
+                            <p>
+                                All Oasis Intellectual Property in any way related to any Oasis Proprietary Items or Oasis Confidential Information provided by Oasis to any patient, is hereby acknowledged to remain in the exclusive possession of Oasis.
+                            </p>
+                            <p>
+                                The Patient shall, and shall cause each Patient Party to, hold Oasis Confidential Information in strict confidence and shall refrain from providing, copying, disclosing, divulging or otherwise making available Oasis Confidential Information to any other person or entity without the prior written consent of Oasis.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                        <Section title="Non-Disparagement">
-                            <p>The Patient shall not at any time, directly or indirectly through third parties, actively or passively, disparage, question, criticize or otherwise make reference to any services performed by or through Oasis, or any products made available by and through Oasis, or to Oasis or any Oasis Party, or to any actions or failures to act of Oasis or any Oasis Party, or cause others to do so, if the effect of such action(s) reasonably could be anticipated to result in any harm to or adverse impact upon the reputation, business, interests or relations of Oasis or any Oasis Party, or to the morale among the workforce of Oasis or any Oasis Party.</p>
-                        </Section>
+            {/* Non-Disparagement */}
+            <section className="py-16 lg:py-20 bg-muted">
+                <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                    <div className="max-w-3xl mx-auto text-center">
+                        <div className="inline-flex w-16 h-16 rounded-full bg-primary/10 items-center justify-center mb-6">
+                            <ShieldAlert className="w-8 h-8 text-primary" />
+                        </div>
+                        <h2 className="font-serif text-3xl font-semibold text-foreground mb-6">
+                            Non-Disparagement
+                        </h2>
+                        <div className="prose prose-lg max-w-none text-muted-foreground">
+                            <p>
+                                The Patient shall not at any time, directly or indirectly through third parties, actively or passively, disparage, question, criticize or otherwise make reference to any services performed by or through Oasis, if the effect of such action(s) reasonably could be anticipated to result in any harm to or adverse impact upon the reputation or business of Oasis.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                        <Section title="Limited Warranties and Disclaimers">
-                            <p>Oasis warrants that all services performed and provided by and through Oasis shall conform to current guidelines and modalities for psychiatric treatment. EXCEPT AS EXPRESSLY SET FORTH HEREIN, OASIS DOES NOT MAKE ANY OTHER REPRESENTATIONS OR WARRANTIES WITH RESPECT TO ANY SERVICES PERFORMED BY OR THROUGH OASIS, ANY RELATED SITES, PORTALS, NETWORKS, PLATFORMS, TOOLS OR APPLICATIONS, OR ANY PRODUCTS OFFERED THROUGH OASIS, OR ANY OF THEM, OR ANY OTHER PROGRAMS, FEATURES OR DATA PROVIDED BY OR THROUGH OASIS. THE LIMITED WARRANTIES SET FORTH HEREIN ARE EXCLUSIVE AND IN LIEU OF, AND THE PATIENT HEREBY DISCLAIMS AND WAIVES, ALL OTHER REPRESENTATIONS AND WARRANTIES OF OASIS AND ALL OASIS PARTIES, EXPRESS AND IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED WARRANTIES OF WORKMANSHIP, MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT OF ANY THIRD PARTY RIGHTS OR ANY RIGHTS OF ANY PATIENT. THE SERVICES, THE RELATED SITES, PORTALS, NETWORKS, PLATFORMS, TOOLS AND APPLICATIONS, AND ALL OTHER PRODUCTS, PROGRAMS, FEATURES AND DATA PROVIDED BY OR THROUGH OASIS ARE OTHERWISE DONE SO TO THE PATIENT STRICTLY ON AN “AS IS, WHERE IS” BASIS.</p>
-                        </Section>
+            {/* Limited Warranties */}
+            <section className="py-16 lg:py-20">
+                <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                    <div className="max-w-3xl mx-auto">
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                                <ShieldCheck className="w-6 h-6 text-primary" />
+                            </div>
+                            <h2 className="font-serif text-3xl font-semibold text-foreground">
+                                Limited Warranties and Disclaimers
+                            </h2>
+                        </div>
+                        <div className="prose prose-lg max-w-none text-muted-foreground space-y-6">
+                            <p>
+                                Oasis warrants that all services performed and provided by and through Oasis shall conform to current guidelines and modalities for psychiatric treatment.
+                            </p>
+                            <div className="bg-muted p-6 rounded-xl border-l-4 border-primary">
+                                <p className="text-sm font-semibold uppercase tracking-wider mb-2 text-foreground">Disclaimer</p>
+                                <p className="text-sm">
+                                    THE SERVICES, THE RELATED SITES, PORTALS, NETWORKS, PLATFORMS, TOOLS AND APPLICATIONS, AND ALL OTHER PRODUCTS, PROGRAMS, FEATURES AND DATA PROVIDED BY OR THROUGH OASIS ARE OTHERWISE DONE SO TO THE PATIENT STRICTLY ON AN “AS IS, WHERE IS” BASIS.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                        <Section title="Limitation of Liability">
-                            <p>IN NO EVENT SHALL OASIS BE LIABLE TO THE PATIENT OR ANY OTHER PARTY FOR LOST PROFITS, LOST BUSINESS, LOST DATA, OR ANY OTHER INDIRECT, SPECIAL, INCIDENTAL, EXEMPLARY, PUNITIVE, OR CONSEQUENTIAL DAMAGES (INCLUDING WITHOUT LIMITATION BUSINESS INTERRUPTION OR LOSS OF PRODUCTION) FOR ANY CLAIM IN ANY MANNER ARISING OUT OF OR IN CONNECTION WITH OR IN ANY MANNER RELATED TO THESE AGREEMENTS OR ANY SERVICES OR PRODUCTS PROVIDED BY OR THROUGH OASIS, WHETHER BASED ON CONTRACT (INCLUDING BUT NOT LIMITED TO BREACH OF WARRANTY) OR TORT (INCLUDING BUT NOT LIMITED TO NEGLIGENCE), EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES, EXCEPT WHERE OASIS ACTS AND OMISSIONS HAVE CONSTITUTED RECKLESSNESS, WILLFUL MISCONDUCT OR INTENTIONAL WRONGDOING. EXCEPT AS OTHERWISE EXPRESSLY PROVIDED IN THESE AGREEMENTS, IN NO EVENT SHALL OASIS BE RESPONSIBLE OR LIABLE FOR (i) ANY CORRUPTION, DAMAGE, LOSS, OR MISTRANSMISSION OF DATA; (ii) THE SECURITY OF DATA DURING TRANSMISSION VIA ANY INTERNAL NETWORKS OR EQUIPMENT OF THE PATIENT OR VIA PUBLIC TELECOMMUNICATIONS MEDIA OR FACILITIES; (iii) HARDWARE, SOFTWARE, OR OTHER ITEMS OWNED BY THE PATIENT OR THAT ARE THE PROPERTY OF A THIRD PARTY THAT IS NOT A OASIS PARTY; OR (iv) ANY OTHER MATTERS OR ITEMS FOR WHICH THE PATIENT IS EXPRESSLY MADE RESPONSIBLE, OR FOR WHICH OASIS IS DECLARED NOT TO BE RESPONSIBLE, UNDER THESE AGREEMENTS.</p>
-                            <p>EXCEPT WHERE OASIS ACTS AND OMISSIONS HAVE CONSTITUTED RECKLESSNESS, WILLFUL MISCONDUCT, OR INTENTIONAL WRONGDOING, THE TOTAL AGGREGATE LIABILITY OF OASIS HEALTH SERVICES UNDER OR IN RELATION TO THESE AGREEMENTS, THE SERVICES PERFORMED BY OR THROUGH OASIS HEALTH SERVICES, ANY RELATED SITES, PORTALS, NETWORKS, PLATFORMS, TOOLS AND APPLICATIONS, AND ANY OTHER PRODUCTS, ITEMS AND FEATURES OFFERED OR PROVIDED BY OR THROUGH OASIS, AND ANY OTHER MATTER COVERED BY THESE AGREEMENTS, REGARDLESS OF THE FORM OF ACTION, WHETHER ARISING OUT OF BREACH OF CONTRACT (INCLUDING BUT NOT LIMITED TO BREACH OF WARRANTY) OR TORT (INCLUDING BUT NOT LIMITED TO NEGLIGENCE, STRICT LIABILITY OR OTHERWISE), SHALL IN NO EVENT EXCEED THE TOTAL AMOUNTS ACTUALLY PAID TO DATE BY THE PATIENT UNDER AND IN RELATION TO THESE AGREEMENTS AND THE SERVICES AND PRODUCTS OFFERED AND PROVIDED TO THE PATIENT BY AND THROUGH OASIS, EACH AS THEY RELATE SOLELY TO SUCH SERVICES AND/OR PRODUCTS AT ISSUE. THE LIMITATIONS OF LIABILITY HEREUNDER SHALL APPLY IN ALL EVENTS AND UNDER ALL CIRCUMSTANCES, WITH THE ONLY EXCEPTION BEING TO THE EXTENT SUCH LIABILITY CANNOT BE SO LIMITED OR EXCLUDED BY APPLICABLE LAW.</p>
-                        </Section>
-                    </motion.div>
-                </main>
-            </div>
+            {/* Limitation of Liability */}
+            <section className="py-16 lg:py-20 bg-muted">
+                <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                    <div className="max-w-4xl mx-auto">
+                        <div className="flex items-center gap-3 mb-8">
+                            <div className="w-12 h-12 rounded-full bg-destructive/10 flex items-center justify-center">
+                                <Gavel className="w-6 h-6 text-destructive" />
+                            </div>
+                            <h2 className="font-serif text-3xl font-semibold text-foreground">
+                                Limitation of Liability
+                            </h2>
+                        </div>
+                        <div className="prose prose-lg max-w-none text-muted-foreground space-y-6">
+                            <p className="font-medium text-foreground">
+                                IN NO EVENT SHALL OASIS BE LIABLE TO THE PATIENT OR ANY OTHER PARTY FOR LOST PROFITS, LOST BUSINESS, LOST DATA, OR ANY OTHER INDIRECT, SPECIAL, INCIDENTAL, EXEMPLARY, PUNITIVE, OR CONSEQUENTIAL DAMAGES.
+                            </p>
+                            <p>
+                                The total aggregate liability of Oasis Health Services under or in relation to these agreements shall in no event exceed the total amounts actually paid to date by the patient.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Contact Information */}
+            <section className="py-16 lg:py-20">
+                <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                    <div className="grid lg:grid-cols-2 gap-12">
+                        <div>
+                            <h2 className="font-serif text-3xl font-semibold text-foreground mb-6">
+                                Questions or Concerns
+                            </h2>
+                            <div className="space-y-4 text-muted-foreground">
+                                <p>
+                                    If you have any questions regarding these terms, please contact our office. We are committed to transparency and clarity in our patient relationships.
+                                </p>
+                                <Card>
+                                    <CardContent className="p-4">
+                                        <h4 className="font-semibold text-foreground mb-2">Our Office</h4>
+                                        <p className="text-sm">
+                                            Oasis Health Services<br />
+                                            11285 Elkins Road, Unit J-6, Roswell, GA 30076<br />
+                                            Phone: {contact.phone}<br />
+                                            Email: info@oasishealthservices.com
+                                        </p>
+                                    </CardContent>
+                                </Card>
+                            </div>
+                        </div>
+                        <div>
+                            <h2 className="font-serif text-3xl font-semibold text-foreground mb-6">Contact Us</h2>
+                            <Card className="bg-card">
+                                <CardContent className="p-6 space-y-4">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                                            <Phone className="w-5 h-5 text-primary" />
+                                        </div>
+                                        <div>
+                                            <p className="text-sm text-muted-foreground">Phone</p>
+                                            <a href={`tel:${contact.phone}`} className="font-medium hover:text-primary">{contact.phone}</a>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                                            <Mail className="w-5 h-5 text-primary" />
+                                        </div>
+                                        <div>
+                                            <p className="text-sm text-muted-foreground">Email</p>
+                                            <a href="mailto:info@oasishealthservices.com" className="font-medium hover:text-primary">info@oasishealthservices.com</a>
+                                        </div>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Final CTA */}
+            <section className="py-16 lg:py-20 bg-muted">
+                <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                    <div className="bg-primary rounded-2xl p-8 lg:p-12 text-center text-primary-foreground">
+                        <h2 className="font-serif text-2xl lg:text-3xl font-semibold mb-4">
+                            Ready to Begin?
+                        </h2>
+                        <p className="opacity-90 max-w-2xl mx-auto mb-8">
+                            Your journey towards better mental health is just a few steps away. Our team is here to support you every step of the way.
+                        </p>
+                        <div className="flex flex-col sm:flex-row justify-center gap-4">
+                            <Button size="lg" variant="secondary" asChild className="text-base font-semibold">
+                                <a href="/appointment">Schedule Appointment</a>
+                            </Button>
+                            <Button size="lg" variant="outline" asChild className="text-base bg-transparent border-white/30 hover:bg-white/10">
+                                <a href="/contact">Ask a Question</a>
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </>
     );
 };

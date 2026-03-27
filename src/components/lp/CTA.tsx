@@ -15,7 +15,7 @@ export function CTA({
     primaryText = "Book an Appointment",
     primaryHref = "https://oasishealthservices.com/start",
     secondaryText = "Call Us",
-    secondaryHref = "tel:+5093816035"
+    secondaryHref = "tel:+14708026838"
 }: CTAProps) {
     return (
         <section className="bg-[var(--color-primary)] py-16 md:py-20">

@@ -5,6 +5,7 @@ import '../styles/global.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CrisisNotice from '@/components/common/CrisisNotice';
+import CookieConsent from '@/components/common/CookieConsent';
 import GoogleTagManager from '@/components/common/GoogleTagManager.astro';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://oasishealthservices.com';
@@ -110,6 +111,7 @@ const ogImage = image
 				<slot />
 			</main>
 			<CrisisNotice />
+			<CookieConsent client:load />
 			<Footer />
 		</div>
 	</body>

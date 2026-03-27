@@ -208,7 +208,7 @@ export const AppointmentPreferenceSchema = z.object({
     mode: z.enum(["in-person", "telehealth", "either"]),
     dayOfWeek: z.array(z.enum(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]), { required_error: "Select at least one day" }).min(1, "Select at least one day"),
     timeOfDay: z.array(z.enum(["Morning", "Afternoon", "Evening"]), { required_error: "Select at least one time" }).min(1, "Select at least one time"),
-    timezone: z.enum(["CST", "EST", "MST", "PST"]).default("EST"),
+    timezone: z.enum(["CST", "EST", "MST", "PST"]),
     when: z.enum(["This Week", "1-2 Weeks", "2-4 Weeks", "4 Weeks or More"], { required_error: "Select when you would like to be seen" }),
 }).strict();
 
@@ -218,7 +218,7 @@ export const EAPSchema = z.object({
 }).strict();
 
 export const PaymentInformationSchema = z.object({
-    method: z.enum(["insurance", "self-pay", "eap"]).default("insurance"),
+    method: z.enum(["insurance", "self-pay", "eap"]),
     insurance: InsuranceSchema.optional(),
     eap: EAPSchema.optional(),
 }).strict().superRefine((data, ctx) => {
@@ -286,8 +286,8 @@ export const DocumentUploadSchema = z.object({
 
 export const HelpdeskInquirySchema = z.object({
     contact: GenericContactSchema,
-    preferredContactMethod: z.enum(["email", "phone", "sms"]).default("email"),
-    inquiryType: z.enum(["general", "billing", "technical", "pharmacy_issue", "medical_records", "prescription_refill", "appointment_request"]).default("general"),
+    preferredContactMethod: z.enum(["email", "phone", "sms"]),
+    inquiryType: z.enum(["general", "billing", "technical", "pharmacy_issue", "medical_records", "prescription_refill", "appointment_request"]),
     subject: z.string().min(5, { message: "Let us know the reason for your inquiry" }).max(100, "Subject must be at most 100 characters"),
     message: z.string().min(5, { message: "Let us know how we can help you" }).max(1000, "Note must be at most 1000 characters").optional(),
     documents: z.array(z.object({ docId: z.string() })).optional(),

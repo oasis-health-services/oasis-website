@@ -20,7 +20,7 @@ const acceptedInsurance = [
   "Medicaid",
   "Medicare",
   "Meritain Health",
-  "Optum",
+  "OPTUM",
   "Premera",
   "Regence",
   "Surest",

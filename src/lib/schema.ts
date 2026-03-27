@@ -33,7 +33,7 @@ export const InsuranceSchema = z.object({
     plan: z.string().max(100).optional(),
     memberId: z.string().min(8, { message: "Enter a valid ID" }).max(20, { message: "Enter a valid ID" }),
     groupNumber: z.string().max(20).optional(),
-    subscriberRelationship: z.enum(["self", "spouse", "child", "other"]).default("self"),
+    subscriberRelationship: z.enum(["self", "spouse", "child", "other"]),
     subscriber: z.object({
         name: z.preprocess(emptyToUndefined, z.string().optional()),
         dob: z.preprocess(emptyToUndefined, DobSchema.optional()),

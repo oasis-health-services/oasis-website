@@ -20,14 +20,16 @@ const GUARDIAN_RELATIONSHIP_OPTIONS = [
     { value: "other", label: "Other" },
 ]
 
-const RELATIONSHIP_OPTIONS = [
-    { value: "Self", label: "Self" },
-    { value: "Spouse", label: "Spouse" },
-    { value: "Child", label: "Child" },
-    { value: "Parent", label: "Parent" },
-    { value: "Sibling", label: "Sibling" },
-    { value: "Friend", label: "Friend" },
-    { value: "Other", label: "Other" },
+const EMERGENCY_RELATIONSHIP_OPTIONS = [
+    { value: "spouse", label: "Spouse" },
+    { value: "father", label: "Father" },
+    { value: "mother", label: "Mother" },
+    { value: "guardian", label: "Guardian" },
+    { value: "child", label: "Child" },
+    { value: "sibling", label: "Sibling" },
+    { value: "relative", label: "Relative" },
+    { value: "foster", label: "Foster Parent" },
+    { value: "other", label: "Other" },
 ];
 
 export function EmergencyContactFieldsComponent<T extends FieldValues>({ form, prefix = "additionalInformation" }: FormComponentProps<T>) {
@@ -49,7 +51,7 @@ export function EmergencyContactFieldsComponent<T extends FieldValues>({ form, p
                                 <SelectValue placeholder="Select relationship" />
                             </SelectTrigger>
                             <SelectContent>
-                                {RELATIONSHIP_OPTIONS.map((option) => (
+                                {EMERGENCY_RELATIONSHIP_OPTIONS.map((option) => (
                                     <SelectItem key={option.value} value={option.value}>
                                         {option.label}
                                     </SelectItem>

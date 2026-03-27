@@ -824,11 +824,11 @@ function ReviewIntakeComponent({ form }: FormComponentProps<IntakeFormData>) {
 
 export function StartNowForm() {
 
-    const [source, setSource] = useState("website");
+    const [source, setSource] = useState("Website");
 
     useEffect(() => {
         const searchParams = new URLSearchParams(window.location.search);
-        const source = searchParams.get("source") || "website";
+        const source = searchParams.get("source") || "Website";
         setSource(source);
     }, []);
 

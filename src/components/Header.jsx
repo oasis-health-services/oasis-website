@@ -26,7 +26,7 @@ const navigation = [
         ]
     },
     { name: "Services", href: "/services" },
-    { name: "Providers", href: "/providers" },
+    { name: "Partners", href: "/providers" },
     { name: "Patients", href: "/patients" },
     {
         name: "Resources",
@@ -89,8 +89,8 @@ export default function Header({ currentPath, variant = "default" }) {
     return (
         <header className={cn(
             "sticky top-0 z-50 transition-all duration-300",
-            isGlass 
-                ? "bg-white/10 backdrop-blur-md border-b border-white/10" 
+            isGlass
+                ? "bg-white/10 backdrop-blur-md border-b border-white/10"
                 : "bg-card/95 backdrop-blur-sm border-b border-border"
         )}>
             <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">

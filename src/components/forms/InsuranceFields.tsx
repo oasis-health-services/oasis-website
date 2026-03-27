@@ -241,7 +241,7 @@ export function InsuranceDetailFieldsComponent<T extends FieldValues>({ prefix, 
                             name={`${_prefix}insurance.subscriberRelationship` as Path<T>}
                             control={control}
                             render={({ field }) => (
-                                <Select onValueChange={field.onChange} defaultValue="self" value={field.value}>
+                                <Select onValueChange={field.onChange} defaultValue="" value={field.value}>
                                     <SelectTrigger id={`${prefix}_subscriberRelationship`} className="w-full align-left">
                                         <SelectValue placeholder="Select subscriber relationship" className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
                                     </SelectTrigger>

@@ -22,6 +22,7 @@ import { z } from "zod";
 import type { UploadedFile } from "./FileUploadZone";
 import { submitIntakeForm, uploadFile } from "@/api";
 import { ReviewSummaryCard } from "./ReviewSummaryCard";
+import { useEffect, useState } from "react";
 
 const REFERRAL_SOURCE_OPTIONS = [
     { value: "ALMA", label: "ALMA" },
@@ -39,6 +40,7 @@ const REFERRAL_SOURCE_OPTIONS = [
     { value: "Relative", label: "Relative" },
     { value: "Talkspace", label: "Talkspace" },
     { value: "Twitter", label: "Twitter" },
+    { value: "Website", label: "Website" },
     { value: "YouTube", label: "YouTube" },
 ];
 
@@ -253,7 +255,6 @@ export function LeadFieldsComponent({ form }: FormComponentProps<IntakeFormData>
                                 formatter={formatPostalCode}
                                 placeholder="Postal Code"
                                 parser={(e) => e.target.value.replace(/\D/g, "").slice(0, 10)}
-                                maxLength={10}
                             />
                             <FieldError error={errors.lead?.address?.postalCode} />
                         </div>
@@ -822,6 +823,16 @@ function ReviewIntakeComponent({ form }: FormComponentProps<IntakeFormData>) {
 }
 
 export function StartNowForm() {
+
+    const [source, setSource] = useState("website");
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams(window.location.search);
+        const source = searchParams.get("source") || "website";
+        setSource(source);
+    }, []);
+
+
     const STEPS = [
         {
             id: "personal",
@@ -841,6 +852,7 @@ export function StartNowForm() {
                 const isMinorPatient = isMinor(form.watch("lead.dob"));
                 const guardians = form.watch("additionalInformation.guardians");
 
+                setValue("additionalInformation.source", source);
                 if (isMinorPatient) {
                     if (!guardians || guardians.length == 0) {
                         console.log("Adding primary patient ******");

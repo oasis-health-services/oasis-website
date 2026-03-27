@@ -22,6 +22,7 @@ export const ContactSchema = z.object({
         "Insurance", "Other"],
         { message: "select an inquiry type" }),
     message: z.string({ required_error: "message is required" }).min(5, { message: "Let us know how we can help" }).max(1000, { message: "Let us know your request in 1000 characters or less" }),
+    source: z.string().optional(),
     consent: z.boolean().refine((value) => value === true, { message: "You must consent to Oasis Health Services contacting you regarding your inquiry." }),
 }).strict()
 

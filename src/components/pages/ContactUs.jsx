@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -36,6 +36,8 @@ import { submitContactForm } from "@/api"
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert"
 import { ContactSchema, INQUIRY_OPTIONS } from "@/lib/schema"
 import FieldError from "../FieldError"
+import { FormattedFieldComponent } from "../forms/FormattedField"
+import { formatPhoneNumber } from "@/lib/utils"
 
 export default function ContactUs() {
 
@@ -162,10 +164,12 @@ function QuickContactCards() {
 }
 
 function ContactFormSection() {
+
     const [error, setError] = useState(null)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isSubmitted, setIsSubmitted] = useState(false)
-    const { register, handleSubmit: formSubmit, control, formState: { errors } } = useForm({
+
+    const form = useForm({
         resolver: zodResolver(ContactSchema),
         defaultValues: {
             firstName: "",
@@ -174,8 +178,11 @@ function ContactFormSection() {
             phone: "",
             inquiryType: "",
             message: "",
+            source: "",
         },
     });
+
+    const { register, setValue, handleSubmit: formSubmit, control, formState: { errors } } = form;
 
     const onSubmit = async (formData) => {
         try {
@@ -202,6 +209,15 @@ function ContactFormSection() {
             setIsSubmitting(false);
         }
     };
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams(window.location.search);
+        const source = searchParams.get("source") || "website";
+        const service = searchParams.get("service") || "";
+
+        setValue("source", source);
+        setValue("inquiryType", service);
+    }, []);
 
     return (
         <section className="py-16 lg:py-24" aria-labelledby="contact-form-heading">
@@ -323,12 +339,15 @@ function ContactFormSection() {
                                             </div>
                                             <div className="space-y-2">
                                                 <Label htmlFor="phone">Phone Number</Label>
-                                                <Input
-                                                    id="phone"
+                                                <FormattedFieldComponent
+                                                    form={form}
+                                                    name="phone"
                                                     type="tel"
-                                                    {...register("phone")}
-                                                    placeholder="1234567890"
+                                                    formatter={formatPhoneNumber}
+                                                    placeholder="(123) 456-7890"
+                                                    parser={(e) => e.target.value.replace(/\D/g, "").slice(0, 10)}
                                                 />
+
                                                 {errors.phone && <p className="text-xs text-destructive">{errors.phone.message}</p>}
                                             </div>
                                         </div>
@@ -340,7 +359,7 @@ function ContactFormSection() {
                                                 control={control}
                                                 render={({ field }) => (
                                                     <Select onValueChange={field.onChange} defaultValue="" value={field.value}>
-                                                        <SelectTrigger id="inquiryType">
+                                                        <SelectTrigger id="inquiryType" className="w-full sm:w-1/2">
                                                             <SelectValue placeholder="Select inquiry type" />
                                                         </SelectTrigger>
                                                         <SelectContent>
@@ -352,6 +371,11 @@ function ContactFormSection() {
                                                         </SelectContent>
                                                     </Select>
                                                 )}
+                                            />
+                                            <Input
+                                                id="source"
+                                                type="hidden"
+                                                {...register("source")}
                                             />
                                             {errors.inquiryType && <p className="text-xs text-destructive">{errors.inquiryType.message}</p>}
                                         </div>

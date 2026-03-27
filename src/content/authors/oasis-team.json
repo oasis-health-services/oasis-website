@@ -1,5 +1,6 @@
 {
     "name": "Oasis Team",
     "role": "Oasis Support & Resource Center",
-    "slug": "oasis-team"
+    "slug": "oasis-team",
+    "avatar": "/images/oasis-favicon.webp"
 }

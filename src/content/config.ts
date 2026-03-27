@@ -47,7 +47,7 @@ const authors = defineCollection({
         name: z.string(),
         role: z.string(),
         slug: z.string(),
-        avator: z.string().optional(),
+        avatar: z.string().optional(),
     }),
 });
 

@@ -1,10 +1,12 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
 import BlogLayout from "@/layouts/BlogLayout.astro";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BreadcrumbNav from "@/components/blog/BreadcrumbNav.astro";
 import ArticleCard from "@/components/blog/ArticleCard.astro";
+import ProgressBar from "@/components/blog/ProgressBar";
+import BlogSidebar from "@/components/blog/BlogSidebar";
 import { 
   getRelatedArticles, 
   getCategoryBySlug, 
@@ -42,8 +44,8 @@ if(!article) {
 const { Content } = await article.render();
 
 const currentPath = Astro.url.pathname;
-
 const category = await getCategoryBySlug(article.data.categorySlug);
+const author = await getEntry('authors', article.data.authorSlug);
 const relatedArticles = await getRelatedArticles(article, 3);
 
 function formatDate(date: Date) {
@@ -56,90 +58,130 @@ function formatDate(date: Date) {
 ---
 
 <BlogLayout title={`${article.data.title}`} description={article.data.excerpt}>
-  <Header currentPath={currentPath} client:load />
-  <main class="flex-1">
-    <!-- Article header -->
-    <section class={cn("py-12 md:py-16 border-b border-border", category?.data.bgColor || "bg-muted/30")}>
-      <div class="mx-auto max-w-4xl px-4 lg:px-8">
-        <BreadcrumbNav
-          items={[
-            { label: category?.data.title.split(" ").slice(0, 2).join(" ") || "Articles", href: `/blog/category/${article.data.categorySlug}` },
-            { label: article.data.subCategorySlug, href: `/blog/category/${article.data.categorySlug}/${article.data.subCategorySlug}` },
-            { label: article.data.title.split(" ").slice(0, 4).join(" ") + "..." },
-          ]}
-        />
-        
-        <div class="flex items-center gap-3 mb-6">
-          <span class="inline-flex rounded-full border border-border bg-white/50 px-3 py-1 text-xs font-medium text-foreground">
-            {article.data.subCategorySlug}
-          </span>
-          <span class="flex items-center gap-1.5 text-sm text-muted-foreground">
-            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10" />
-              <path d="M12 6v6l4 2" />
-            </svg>
-            {article.data.readTime}
-          </span>
+  <ProgressBar client:load />
+  <div class="relative min-h-screen flex flex-col">
+    <Header currentPath={currentPath} variant="glass" client:load />
+    
+    <main class="flex-1">
+      <!-- Immersive Hero -->
+      <section class={cn("relative pt-12 pb-20 md:pt-20 md:pb-32 overflow-hidden", category?.data.bgColor || "bg-muted/30")}>
+        <!-- Background Decoration -->
+        <div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
+            <div class={cn("absolute -top-24 -right-24 w-96 h-96 rounded-full blur-3xl", category?.data.color || "bg-primary")}></div>
+            <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-background to-transparent"></div>
         </div>
-        
-        <h1 class="font-serif text-3xl font-semibold text-foreground sm:text-4xl lg:text-5xl text-balance leading-tight">
-          {article.data.title}
-        </h1>
-        
-        <p class="mt-6 text-xl text-muted-foreground text-pretty leading-relaxed">
-          {article.data.excerpt}
-        </p>
-        
-        <div class="mt-8 flex flex-wrap items-center gap-6">
-          <!-- Author -->
-          <div class="flex items-center gap-3">
-            <div class="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-semibold">
-              {article.data.authorSlug.charAt(0).toUpperCase()}
-            </div>
-            <div>
-              <p class="font-medium text-foreground text-sm">{article.data.authorSlug}</p>
-            </div>
-          </div>
-          
-          <div class="h-8 w-px bg-border hidden sm:block"></div>
-          
-          <!-- Date -->
-          <div class="flex items-center gap-1.5 text-sm text-muted-foreground">
-            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="4" width="18" height="18" rx="2" />
-              <path d="M16 2v4M8 2v4M3 10h18" />
-            </svg>
-            {formatDate(article.data.publishedAt)}
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- Article content -->
-    <section class="py-12 md:py-16">
-      <div class="mx-auto max-w-4xl px-4 lg:px-8">
-        <div class="grid gap-12 lg:grid-cols-[1fr_200px]">
-          <article class="blog-content">
-            <Content />
-            
-            <!-- Tags -->
-            <div class="mt-12 pt-8 border-t border-border">
-              <h3 class="text-sm font-medium text-muted-foreground mb-4">Tagged with</h3>
-              <div class="flex flex-wrap gap-2">
-                {article.data.tags.map((tag) => (
-                  <a
-                    href={`/blog/tag/${tag}`}
-                    class="flex items-center gap-1.5 rounded-full bg-muted px-3 py-1.5 text-sm text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
-                  >
-                    <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M4 9h16M4 15h16M10 3v18M14 3v18" />
-                    </svg>
-                    {tag}
-                  </a>
-                ))}
+        <div class="relative z-10 mx-auto max-w-4xl px-4 lg:px-8">
+          <BreadcrumbNav
+            items={[
+              { label: category?.data.title.split(" ").slice(0, 2).join(" ") || "Articles", href: `/blog/category/${article.data.categorySlug}` },
+              { label: article.data.subCategorySlug, href: `/blog/category/${article.data.categorySlug}/${article.data.subCategorySlug}` },
+              { label: article.data.title.split(" ").slice(0, 4).join(" ") + "..." },
+            ]}
+          />
+          
+          <div class="flex items-center gap-3 mt-8 mb-6">
+            <span class="inline-flex rounded-full border border-border/50 bg-white/40 backdrop-blur-sm px-3 py-1 text-xs font-bold uppercase tracking-wider text-foreground/80">
+              {article.data.subCategorySlug}
+            </span>
+            <span class="flex items-center gap-1.5 text-sm font-medium text-muted-foreground">
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 6v6l4 2" />
+              </svg>
+              {article.data.readTime}
+            </span>
+          </div>
+          
+          <h1 class="font-serif text-4xl font-bold text-foreground sm:text-5xl lg:text-6xl text-balance leading-[1.15] tracking-tight">
+            {article.data.title}
+          </h1>
+          
+          <p class="mt-8 text-xl md:text-2xl text-muted-foreground/90 text-pretty leading-relaxed max-w-3xl">
+            {article.data.excerpt}
+          </p>
+          
+          <div class="mt-12 flex flex-wrap items-center gap-8">
+            <!-- Author -->
+            <div class="flex items-center gap-4">
+              {author?.data.avatar ? (
+                <img 
+                    src={author.data.avatar} 
+                    alt={author.data.name} 
+                    class="h-14 w-14 rounded-full object-cover border-2 border-white shadow-md"
+                />
+              ) : (
+                <div class="h-14 w-14 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xl border-2 border-white shadow-md">
+                  {article.data.authorSlug.charAt(0).toUpperCase()}
+                </div>
+              )}
+              <div>
+                <p class="font-bold text-foreground text-base tracking-tight">{author?.data.name || article.data.authorSlug}</p>
+                <p class="text-xs text-muted-foreground font-medium uppercase tracking-widest mt-0.5">{author?.data.role || 'Oasis Team'}</p>
               </div>
             </div>
-          </article>
+            
+            <div class="hidden sm:block h-10 w-px bg-border/40"></div>
+            
+            <!-- Date -->
+            <div class="flex flex-col gap-0.5">
+                <span class="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Published</span>
+                <div class="flex items-center gap-1.5 text-sm font-semibold text-muted-foreground">
+                    <svg class="h-4 w-4 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <rect x="3" y="4" width="18" height="18" rx="2" />
+                        <path d="M16 2v4M8 2v4M3 10h18" />
+                    </svg>
+                    {formatDate(article.data.publishedAt)}
+                </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Article content -->
+      <section class="py-12 md:py-20 bg-background relative z-10 -mt-8 rounded-t-[32px] md:rounded-t-[48px] shadow-2xl shadow-black/5">
+        <div class="mx-auto max-w-7xl px-4 lg:px-8">
+          <div class="grid gap-12 lg:grid-cols-[200px_1fr_200px] relative">
+            <BlogSidebar 
+                title={article.data.title} 
+                url={Astro.url.href} 
+                slug={article.id} 
+                client:load 
+            />
+
+            <div class="max-w-3xl mx-auto lg:mx-0 w-full">
+                {article.data.image && (
+                    <div class="mb-12 rounded-3xl overflow-hidden shadow-xl">
+                        <img 
+                            src={article.data.image} 
+                            alt={article.data.title} 
+                            class="w-full h-[300px] md:h-[500px] object-cover"
+                        />
+                    </div>
+                )}
+                
+                <article class="blog-content">
+                  <Content />
+                
+                  <!-- Tags -->
+                  <div class="mt-12 pt-8 border-t border-border">
+                    <h3 class="text-sm font-medium text-muted-foreground mb-4">Tagged with</h3>
+                    <div class="flex flex-wrap gap-2">
+                      {article.data.tags.map((tag) => (
+                        <a
+                          href={`/blog/tag/${tag}`}
+                          class="flex items-center gap-1.5 rounded-full bg-muted px-3 py-1.5 text-sm text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
+                        >
+                          <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 9h16M4 15h16M10 3v18M14 3v18" />
+                          </svg>
+                          {tag}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </article>
+            </div>
           
           <!-- Sidebar -->
           <!-- TODO: Implement share and Save features -->
@@ -207,6 +249,32 @@ function formatDate(date: Date) {
         </div>
       </div>
     </section>
+    
+    <script is:inline>
+      (function() {
+        function setupExternalLinks() {
+          console.log("Setting up external links...");
+          const article = document.querySelector('.blog-content');
+          if (!article) return;
+          
+          const links = article.querySelectorAll('a[href^="http"]');
+          links.forEach(link => {
+            if (!link.href.includes(window.location.host)) {
+              link.setAttribute('target', '_blank');
+              link.setAttribute('rel', 'noopener noreferrer nofollow');
+            }
+          });
+        }
+
+        // Run multiple times to catch any hydration/rendering delays
+        setupExternalLinks();
+        setTimeout(setupExternalLinks, 200);
+        setTimeout(setupExternalLinks, 1000);
+        
+        window.addEventListener('load', setupExternalLinks);
+        document.addEventListener('astro:after-swap', setupExternalLinks); // For view transitions if added later
+      })();
+    </script>
   </main>
   <Footer />
 </BlogLayout>

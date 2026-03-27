@@ -1,12 +1,26 @@
 export function InsuranceLogos() {
     const insurers = [
         "Aetna",
-        "BlueCross BlueShield",
+        "Ambetter",
+        "Amerigroup",
+        "Anthem",
+        "Beacon",
+        "BCBS",
+        "Caresource",
         "Cigna",
-        "UnitedHealthcare",
-        "Optum",
-        "UMR",
+        "ComPsych",
+        "Humana",
         "OSCAR",
+        "Medicaid",
+        "Medicare",
+        "Meritain Health",
+        "OPTUM",
+        "Premera",
+        "Regence",
+        "Surest",
+        "Tricare",
+        "United Health Care",
+        "UMR",
     ];
 
     return (

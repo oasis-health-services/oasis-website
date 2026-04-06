@@ -1,6 +1,6 @@
 import { Heart, HandHelping, Sparkles, Users, FileText, Megaphone } from "lucide-react";
 import { defineCollection, z, getCollection, type CollectionEntry } from 'astro:content';
-
+import { glob } from 'astro/loaders';
 
 export interface SubCategory {
     name: string;
@@ -8,10 +8,10 @@ export interface SubCategory {
     description: string;
 }
 
-// export interface Tag {
-//     name: string;
-//     slug: string;
-// }
+export interface Tag {
+    name: string;
+    slug: string;
+}
 
 // Icon mapping for use in Astro components
 export const iconComponents = {
@@ -23,26 +23,32 @@ export const iconComponents = {
     Megaphone,
 };
 
-// export const tags: Tag[] = [
-//     { name: "Feeling Anxious", slug: "feeling-anxious" },
-//     { name: "First Appointment", slug: "first-appointment" },
-//     { name: "Coping Skills", slug: "coping-skills" },
-//     { name: "Families", slug: "families" },
-//     { name: "Routines", slug: "routines" },
-//     { name: "Self-Care", slug: "self-care" },
-//     { name: "Mindfulness", slug: "mindfulness" },
-//     { name: "Sleep", slug: "sleep" },
-//     { name: "Relationships", slug: "relationships" },
-//     { name: "Parenting", slug: "parenting" },
-//     { name: "Work-Life Balance", slug: "work-life-balance" },
-//     { name: "Recovery", slug: "recovery" },
-//     { name: "Medication", slug: "medication" },
-//     { name: "Therapy", slug: "therapy" },
-//     { name: "Crisis Support", slug: "crisis-support" },
-// ];
+export const tags: Tag[] = [
+    { name: "Burnout", slug: "burnout" },
+    { name: "Coping Skills", slug: "coping-skills" },
+    { name: "Crisis Support", slug: "crisis-support" },
+    { name: "Digital Wellness", slug: "digital-wellness" },
+    { name: "Families", slug: "families" },
+    { name: "Feeling Anxious", slug: "feeling-anxious" },
+    { name: "First Appointment", slug: "first-appointment" },
+    { name: "Medication", slug: "medication" },
+    { name: "Mental Health", slug: "mental-health"},
+    { name: "Mindfulness", slug: "mindfulness" },
+    { name: "Parenting", slug: "parenting" },
+    { name: "Personalized Medicine", slug: "personalized-medicine"},
+    { name: "Pharmacogenomics", slug: "pharmacogenomics"},
+    { name: "Precision Psychiatry", slug: "precision-psychiatry"},
+    { name: "Recovery", slug: "recovery" },
+    { name: "Relationships", slug: "relationships" },
+    { name: "Routines", slug: "routines" },
+    { name: "Self-Care", slug: "self-care" },
+    { name: "Sleep", slug: "sleep" },
+    { name: "Therapy", slug: "therapy" },
+    { name: "Work-Life Balance", slug: "work-life-balance" }
+];
 
 const authors = defineCollection({
-    type: 'data',
+    loader: glob({ pattern: "**/*.json", base: "./src/content/authors" }),
     schema: z.object({
         name: z.string(),
         role: z.string(),
@@ -51,16 +57,8 @@ const authors = defineCollection({
     }),
 });
 
-const tags = defineCollection({
-    type: 'data',
-    schema: z.object({
-        name: z.string(),
-        slug: z.string(),
-    }),
-});
-
 const categories = defineCollection({
-    type: 'data',
+    loader: glob({ pattern: "**/*.json", base: "./src/content/categories" }),
     schema: z.object({
         id: z.string(),
         slug: z.string(),
@@ -78,7 +76,7 @@ const categories = defineCollection({
 });
 
 const blog = defineCollection({
-    type: 'content',
+    loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
     schema: z.object({
         title: z.string(),
         excerpt: z.string(),
@@ -87,19 +85,18 @@ const blog = defineCollection({
         subCategorySlug: z.string(),
         readTime: z.string(),
         tags: z.array(z.string()),
-        publishedAt: z.date(),
+        publishedAt: z.coerce.date(), // Using coerce for safer date parsing in Astro 5
         authorSlug: z.string(),
         featured: z.boolean().optional(),
     }),
 });
 
 
-export const collections = { categories, authors, blog, tags };
+export const collections = { categories, authors, blog };
 
 export type Article = CollectionEntry<'blog'>;
 export type Category = CollectionEntry<'categories'>;
 export type Author = CollectionEntry<'authors'>;
-export type Tag = CollectionEntry<'tags'>;
 
 // Helper functions
 
@@ -126,7 +123,7 @@ export async function getArticleBySlug(slug: string): Promise<Article | undefine
     const allArticles = await getCollection('blog');
     return allArticles.find((a) => {
         const flatSlug = a.id.split('/').pop()?.replace(/\.[^/.]+$/, "") || a.id;
-        return flatSlug === slug || a.id === slug || a.slug === slug;
+        return flatSlug === slug || a.id === slug;
     });
 }
 
@@ -147,8 +144,7 @@ export async function getArticlesByTag(tagSlug: string): Promise<Article[]> {
 }
 
 export async function getTagBySlug(slug: string): Promise<Tag | undefined> {
-    const allTags = await getCollection('tags');
-    return allTags.find((t) => t.data.slug === slug);
+    return tags.find((t) => t.slug === slug);
 }
 
 export async function getRelatedArticles(article: Article, limit: number = 3): Promise<Article[]> {
@@ -166,6 +162,7 @@ export async function getFeaturedArticle(): Promise<Article | undefined> {
 
 
 export interface SearchResult {
+    id?: string;
     type: "article" | "category" | "subcategory" | "tag";
     title: string;
     description: string;
@@ -179,24 +176,30 @@ export async function searchContent(query: string, limit = 10): Promise<SearchRe
     const q = query.toLowerCase().trim();
     const results: SearchResult[] = [];
     const allArticles = await getCollection('blog');
-    const allTags = await getCollection('tags');
 
     // Search articles
     for (const article of allArticles) {
         const titleMatch = article.data.title.toLowerCase().includes(q);
         const excerptMatch = article.data.excerpt.toLowerCase().includes(q);
-        const contentMatch = article.body?.toLowerCase().includes(q);
+        // Note: In Astro 5 with glob loader, body might not be directly on the entry for search
+        // If search is critical, we might need a rendering step or use article.rendered?.html if available
+        // For now, keeping excerpt and title search
         const tagMatch = article.data.tags?.some(t => t.toLowerCase().includes(q));
 
 
-        if (titleMatch || excerptMatch || contentMatch || tagMatch) {
+        if (titleMatch || excerptMatch || tagMatch) {
+            const date = new Date(article.data.publishedAt);
+            const year = date.getUTCFullYear().toString();
+            const month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
             const flatSlug = article.id.split('/').pop()?.replace(/\.[^/.]+$/, "") || article.id;
+            
             results.push({
+                id: article.id,
                 type: "article",
                 title: article.data.title,
                 description: article.data.excerpt,
-                url: `/blog/${flatSlug}`,
-                category: article.data.categorySlug, // Fixed property name
+                url: `/blog/${year}/${month}/${flatSlug}`,
+                category: article.data.categorySlug,
             });
         }
     }
@@ -235,17 +238,17 @@ export async function searchContent(query: string, limit = 10): Promise<SearchRe
     }
 
     // Search tags
-    for (const tag of allTags) {
-        if (tag.data.name.toLowerCase().includes(q)) {
+    for (const tag of tags) {
+        if (tag.name.toLowerCase().includes(q)) {
             const articleCount = allArticles.filter(a =>
-                a.data.tags?.some(t => t === tag.data.slug)
+                a.data.tags?.some(t => t === tag.slug)
             ).length;
 
             results.push({
                 type: "tag",
-                title: tag.data.name,
+                title: tag.name,
                 description: `${articleCount} article${articleCount !== 1 ? "s" : ""} with this tag`,
-                url: `/blog/tag/${tag.data.slug}`,
+                url: `/blog/tag/${tag.slug}`,
             });
         }
     }

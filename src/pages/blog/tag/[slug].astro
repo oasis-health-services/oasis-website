@@ -1,5 +1,4 @@
 ---
-import { getCollection } from 'astro:content';
 import BlogLayout from "@/layouts/BlogLayout.astro";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -7,13 +6,13 @@ import BreadcrumbNav from "@/components/blog/BreadcrumbNav.astro";
 import ArticleCard from "@/components/blog/ArticleCard.astro";
 import { 
   getArticlesByTag, 
-} from "@/content/config";
+  tags
+} from "@/content.config";
 import { Hash } from "lucide-react";
 
 export async function getStaticPaths() {
-  const allTags = await getCollection('tags');
-  return allTags.map((tag) => ({
-    params: { slug: tag.data.slug },
+  return tags.map((tag) => ({
+    params: { slug: tag.slug },
     props: { tag },
   }));
 }
@@ -25,12 +24,11 @@ if(!tag) {
 }
 
 const currentPath = Astro.url.pathname;
-const articles = await getArticlesByTag(tag.id);
-const allTagsEntries = await getCollection('tags');
-const allTags = allTagsEntries.map(t => t.data);
+const articles = await getArticlesByTag(tag.slug);
+const allTags = tags;
 ---
 
-<BlogLayout title={`#${tag.data.name} | Oasis Support & Resource Center`} description={`Articles tagged with "${tag.data.name}" - helpful resources and guidance from Oasis Support & Resource Center.`}>
+<BlogLayout title={`#${tag.name} | Oasis Support & Resource Center`} description={`Articles tagged with "${tag.name}" - helpful resources and guidance from Oasis Support & Resource Center.`}>
   <Header currentPath={currentPath} client:load />
   <main class="flex-1">
     <!-- Hero section -->
@@ -39,7 +37,7 @@ const allTags = allTagsEntries.map(t => t.data);
         <BreadcrumbNav
           items={[
             { label: "Tags", href: "/blog/tags" },
-            { label: tag.data.name },
+            { label: tag.name },
           ]}
         />
         
@@ -54,7 +52,7 @@ const allTags = allTagsEntries.map(t => t.data);
               Tagged with
             </p>
             <h1 class="font-serif text-3xl font-semibold text-foreground sm:text-4xl lg:text-5xl">
-              #{tag.data.name}
+              #{tag.name}
             </h1>
             <p class="mt-4 text-lg text-muted-foreground">
               {articles.length} {articles.length === 1 ? "article" : "articles"} with this tag
@@ -99,7 +97,7 @@ const allTags = allTagsEntries.map(t => t.data);
         </h2>
         <div class="flex flex-wrap gap-3">
           {allTags
-            .filter((t) => t.slug !== tag.data.slug)
+            .filter((t) => t.slug !== tag.slug)
             .map((t) => (
               <a
                 href={`/blog/tag/${t.slug}`}

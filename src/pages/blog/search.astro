@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BreadcrumbNav from "../../components/blog/BreadcrumbNav.astro";
 import ArticleCard from "../../components/blog/ArticleCard.astro";
-import { searchContent } from "../../content/config";
+import { searchContent } from "@/content.config";
 import { Search as SearchIcon, FolderOpen, Tag, FileText } from "lucide-react";
 
 const query = Astro.url.searchParams.get("q")?.trim() || "";
@@ -18,7 +18,7 @@ const subcategoryResults = results.filter(r => r.type === "subcategory");
 const tagResults = results.filter(r => r.type === "tag");
 
 // Get matching articles for display
-const matchingArticleIds = articleResults.map(r => r.url.replace("/blog/", ""));
+const matchingArticleIds = articleResults.map(r => r.id).filter(Boolean) as string[];
 const allArticles = await getCollection('blog');
 const matchingArticles = allArticles.filter(a => matchingArticleIds.includes(a.id));
 

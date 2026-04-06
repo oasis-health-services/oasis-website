@@ -7,8 +7,8 @@ import ArticleCard from "../../../components/blog/ArticleCard.astro";
 import { 
   getCategories, 
   getArticlesByCategory 
-} from "../../../content/config";
-import { cn } from "../../../lib/utils";
+} from "@/content.config";
+import { cn } from "@/lib/utils";
 
 export async function getStaticPaths() {
   const categories = await getCategories();

@@ -4,16 +4,14 @@ import BlogLayout from "@/layouts/BlogLayout.astro";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BreadcrumbNav from "@/components/blog/BreadcrumbNav.astro";
-import { getArticlesByTag } from "@/content/config";
+import { getArticlesByTag, tags } from "@/content.config";
 import { Hash } from "lucide-react";
-
-const allTagsEntries = await getCollection('tags');
 
 // Sort tags by article count
 const tagsWithCounts = await Promise.all(
-  allTagsEntries.map(async (tag) => ({
-    ...tag.data,
-    count: (await getArticlesByTag(tag.id)).length,
+  tags.map(async (tag) => ({
+    ...tag,
+    count: (await getArticlesByTag(tag.slug)).length,
   }))
 );
 

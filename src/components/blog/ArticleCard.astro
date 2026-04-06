@@ -11,15 +11,13 @@ const { article, variant = "default" } = Astro.props;
 const { data } = article;
 /*const slug = article.id.split('/').pop()?.replace(/\.[^/.]+$/, "") || article.id;*/
 
-// Split the ID (e.g., "2025/01/my-post.md") into parts
-const pathParts = article.id.split('/');
+// Derive year and month from the publishedAt date
+const date = new Date(data.publishedAt);
+const year = date.getUTCFullYear().toString();
+const month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
 
-// Extract year and month
-const year = pathParts[0];
-const month = pathParts[1];
-
-// Extract filename and strip extension
-const fileName = pathParts[pathParts.length - 1].replace(/\.[^/.]+$/, "");
+// The slug is either provided in data or derived from the last part of ID
+const fileName = article.id.split('/').pop()?.replace(/\.[^/.]+$/, "") || article.id;
 
 // Construct the full URL-friendly slug
 const slug = `${year}/${month}/${fileName}`;

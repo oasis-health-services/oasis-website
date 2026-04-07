@@ -44,7 +44,11 @@ export const tags: Tag[] = [
     { name: "Self-Care", slug: "self-care" },
     { name: "Sleep", slug: "sleep" },
     { name: "Therapy", slug: "therapy" },
-    { name: "Work-Life Balance", slug: "work-life-balance" }
+    { name: "Work-Life Balance", slug: "work-life-balance" },
+    { name: "Spravato® Treatment", slug: "spravato-treatment" },
+    { name: "Esketamine", slug: "esketamine" },
+    { name: "Treatment-Resistant Depression", slug: "treatment-resistant-depression" },
+    { name: "Rapid-Acting Antidepressants", slug: "rapid-acting-antidepressants" }
 ];
 
 const authors = defineCollection({

@@ -201,8 +201,8 @@ export const providers: Provider[] = [
     ]
   },
   {
-    slug: "ann-marie-taylor",
-    name: "Ann-Marie Taylor",
+    slug: "anne-marie-taylor",
+    name: "Anne-Marie Taylor",
     role: "Clinical Counselor",
     image: "/images/providers/anne-marie-taylor-profile.png",
     imageAlt: "Ann-Marie Taylor",

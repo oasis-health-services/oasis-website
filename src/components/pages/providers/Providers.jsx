@@ -6,6 +6,7 @@ import OptimizedImage from '@/components/OptimizedImage';
 import { providers } from "@/lib/providers-data"
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
+import BookingButton from './BookingButton';
 
 export default function Providers() {
     return <>
@@ -136,6 +137,7 @@ export default function Providers() {
 
                                             {/* CTA */}
                                             <div className="mt-6 pt-4 border-t border-border">
+                                                <BookingButton provider={provider} className="w-full mb-2" />
                                                 <Button className="w-full" asChild>
                                                     <a href={`/about/our-team/${provider.slug}`}>
                                                         View Full Profile

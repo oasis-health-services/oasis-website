@@ -12,6 +12,7 @@ import OptimizedImage from "@/components/OptimizedImage"
 
 
 import Insurances from '@/components/common/Insurances';
+import BookingButton from "../providers/BookingButton";
 
 export default function About() {
 
@@ -491,6 +492,8 @@ function AboutMeetProviders() {
                                                 ))}
                                             </ul>
                                         </div>
+
+                                        <BookingButton provider={provider} className="w-full mb-2" />
 
                                         <Button variant="outline" size="sm" className="w-full mt-auto bg-transparent" asChild>
                                             <a href={`/about/our-team/${provider.slug}`}>

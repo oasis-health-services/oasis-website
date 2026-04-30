@@ -9,8 +9,10 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
-import { Phone, Calendar, ArrowRight, Mail, Video, MapPin, CheckCircle2, Building2, GraduationCap, Award, Sparkles, Star, CreditCard, ShieldCheck, DollarSign } from "lucide-react"
+import { Phone, ArrowRight, Mail, Video, MapPin, CheckCircle2, Building2, GraduationCap, Award, Sparkles, Star, CreditCard, ShieldCheck, DollarSign } from "lucide-react"
 import OptimizedImage from "../../OptimizedImage"
+import BookingButton from "./BookingButton"
+import PsychologyToday from "@/components/common/PsychologyToday"
 
 export default function Provider({ provider }) {
     return (
@@ -154,18 +156,21 @@ function ProviderHero({ provider }) {
 
                         {/* CTAs */}
                         <div className="mt-8 flex flex-wrap gap-4">
-                            <Button size="lg" asChild>
-                                <a href="#contact">
-                                    <Phone className="h-4 w-4 mr-2" aria-hidden="true" />
-                                    Book Appointment
-                                </a>
-                            </Button>
+
+                            <BookingButton provider={provider} />
+
                             <Button size="lg" variant="outline" asChild className="bg-transparent border-primary text-primary">
                                 <a href={`tel:${provider.phone.replace(/[^0-9]/g, "")}`}>
                                     <Mail className="h-4 w-4 mr-2" aria-hidden="true" />
                                     Free Consultation
                                 </a>
                             </Button>
+
+                            {provider.platforms?.psychologyToday && (
+                                <PsychologyToday
+                                    profile_id={provider.platforms.psychologyToday.profile_id}
+                                />
+                            )}
                         </div>
 
                         {/* Fees Summary */}
@@ -297,16 +302,10 @@ function ProviderCTA({ provider }) {
                 </p>
 
                 <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-                    <Button
-                        size="lg"
-                        className="bg-primary-foreground text-primary hover:bg-primary-foreground/90"
-                        asChild
-                    >
-                        <a href="/contact">
-                            <Calendar className="h-5 w-5 mr-2" aria-hidden="true" />
-                            Book Online Now
-                        </a>
-                    </Button>
+                    <BookingButton 
+                        provider={provider} 
+                        className="bg-primary-foreground text-primary hover:bg-primary-foreground/90" 
+                    />
                     <Button
                         size="lg"
                         variant="outline"

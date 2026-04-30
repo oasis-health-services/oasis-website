@@ -51,6 +51,17 @@ export interface Provider {
   availableInPerson: boolean
   acceptingNewPatients: boolean
   consultationOffer?: string
+  platforms?: {
+    zocdoc?: {
+      provider_id: string
+      practice_id: string
+    },
+    alma?: string,
+    headway?: string,
+    psychologyToday?: {
+      profile_id: string
+    },
+  }
   faqs: {
     question: string
     answer: string
@@ -173,6 +184,17 @@ export const providers: Provider[] = [
     availableInPerson: true,
     acceptingNewPatients: true,
     consultationOffer: "Free 15-minute consultation to discuss your goals",
+    platforms: {
+      zocdoc: {
+        provider_id: "72216",
+        practice_id: "pt_9gZHwykZV0q5d62LL-FzNB"
+      },
+      alma: "https://secure.helloalma.com/providers/olajumoke-akinyele",
+      headway: "https://care.headway.co/providers/olajumoke-akinyele-2",
+      psychologyToday: {
+        profile_id: "760797"
+      }
+    },
     faqs: [
       {
         question: "What should I expect during my first appointment?",

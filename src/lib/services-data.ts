@@ -425,10 +425,6 @@ export const services: Service[] = [
                 {
                     title: "Spravato® Treatment",
                     icon: "Brain"
-                },
-                {
-                    title: "Remote Patient Monitoring",
-                    icon: "Activity"
                 }
             ]
         },
@@ -453,7 +449,7 @@ export const services: Service[] = [
                 answer: "This requires careful consideration of risks and benefits. Some medications are safer than others during pregnancy. We work with you and your OB to make informed decisions."
             }
         ],
-        relatedServices: ["psychiatric-evaluation", "pharmacogenomic-testing", "telehealth", "spravato", "adhd-testing-and-management", "remote-patient-monitoring"]
+        relatedServices: ["psychiatric-evaluation", "pharmacogenomic-testing", "telehealth", "spravato", "adhd-testing-and-management"]
     },
     {
         slug: "substance-use-disorder-treatment",
@@ -598,85 +594,6 @@ export const services: Service[] = [
             }
         ],
         relatedServices: ["psychiatric-evaluation", "medication-management", "therapy"]
-    },
-    {
-        slug: "remote-patient-monitoring",
-        title: "Remote Patient Monitoring",
-        shortDescription: "Secure digital tools to track your blood pressure between appointments, allowing for proactive care adjustments.",
-        fullDescription: "Our remote patient monitoring program uses connected devices to track vital health metrics between appointments. For patients on certain psychiatric medications, monitoring blood pressure and other vitals helps us catch potential issues early and make proactive adjustments to your treatment. This technology enables more responsive, data-driven care.",
-        icon: "Activity",
-        benefits: [
-            "Continuous monitoring between appointments",
-            "Early detection of medication side effects",
-            "Data-driven treatment adjustments",
-            "Reduced need for extra office visits",
-            "Peace of mind with proactive monitoring",
-            "Better communication with your provider"
-        ],
-        whatToExpect: [
-            "Provision of connected monitoring devices",
-            "Training on how to use the equipment",
-            "Regular readings submitted automatically",
-            "Review of data by clinical team",
-            "Proactive outreach if readings are concerning",
-            "Integration with your treatment plan"
-        ],
-        whoIsItFor: [
-            "Patients on medications that affect blood pressure",
-            "Those with cardiovascular risk factors",
-            "Individuals starting new medications",
-            "Anyone wanting more engaged care between visits"
-        ],
-        duration: "Daily readings (takes minutes)",
-        frequency: "Ongoing between appointments",
-        insurance: "Covered by Medicare and many commercial plans",
-        serviceDetails: {
-            title: "Workflow",
-            icon: "Activity",
-            sections: [
-                {
-                    title: "Device Provisioning",
-                    icon: "Brain",
-                    description: "We provide you with cellular-enabled devices (like a blood pressure cuff) and help you get set up.",
-                    style: "bg-gradient-to-br from-[#90AB98] to-[#69A08B]",
-                    iconStyle: "text-white"
-                },
-                {
-                    title: "Automated Data Uploads",
-                    icon: "MessageCircle",
-                    description: "Your data is automatically and securely uploaded to our HIPAA-compliant platform.",
-                    style: "bg-gradient-to-br from-[#90AB98] to-[#69A08B]",
-                    iconStyle: "text-white"
-                },
-                {
-                    title: "Clinical Review",
-                    icon: "UserCheck",
-                    description: "Our clinicians review your data, respond to alerts, and integrate a summary into your regular visits.",
-                    style: "bg-gradient-to-br from-[#90AB98] to-[#69A08B]",
-                    iconStyle: "text-white"
-                }
-            ]
-        },
-        highlight: {
-            title: "Your Privacy is Protected",
-            description: "We use a fully HIPAA-compliant platform, and only authorized clinical staff can view your data. Your privacy and security are paramount.",
-            style: "bg-green-50 border-green-500 text-green-800",
-        },
-        faqs: [
-            {
-                question: "Why would my blood pressure matter for psychiatric care?",
-                answer: "Some psychiatric medications can affect blood pressure. Monitoring helps us catch changes early and adjust treatment before problems develop."
-            },
-            {
-                question: "Is my health data secure?",
-                answer: "Yes. All data is transmitted and stored securely in compliance with HIPAA regulations. Only your healthcare team has access to your information."
-            },
-            {
-                question: "What if I have an abnormal reading?",
-                answer: "Our team reviews readings regularly. If something concerning appears, we'll contact you promptly to assess the situation and adjust care if needed."
-            }
-        ],
-        relatedServices: ["medication-management", "telehealth"]
     },
     {
         slug: "telehealth",

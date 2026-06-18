@@ -48,6 +48,10 @@ const fullUrl = `${SITE_URL}${currentPath}`;
 const ogImage = image
     ? (image.startsWith('http') ? image : `${SITE_URL}${image}`)
     : DEFAULT_IMAGE;
+
+// Never let the staging site be indexed (belt-and-suspenders alongside its
+// basic-auth and robots.txt Disallow).
+const blockIndexing = noindex || import.meta.env.STAGING === true;
 ---
 
 <meta charset="UTF-8" />
@@ -79,11 +83,14 @@ const ogImage = image
 <meta name="twitter:image" content={ogImage} />
 
 <!-- Robots -->
-{noindex ? (
+{blockIndexing ? (
     <meta name="robots" content="noindex,nofollow" />
 ) : (
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
 )}
+
+<!-- RSS feed autodiscovery -->
+<link rel="alternate" type="application/rss+xml" title="Oasis Health Services Blog" href="/rss.xml" />
 
 <!-- Schema.org JSON-LD -->
 {schema && (

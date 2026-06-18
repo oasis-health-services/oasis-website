@@ -160,9 +160,13 @@ async function generateRobotsTxt() {
   console.log('🗺️  Generating robots.txt...');
 
   const siteUrl = SITE_URL; // || "https://oasishealthservices.com";
-  const isProd = process.env.NODE_ENV === 'production';
+  // Case-insensitive so a stray NODE_ENV=PRODUCTION can't make prod emit the
+  // "Disallow: /" test robots and de-index the live site.
+  const isProd = (process.env.NODE_ENV || '').toLowerCase() === 'production';
 
-  const privatePaths = ['/thank-you*', '/privacy-policy*', '/terms-and-conditions*'];
+  // Block crawling of non-indexable pages (these are also noindex + excluded
+  // from the sitemap). Legal pages stay crawlable.
+  const privatePaths = ['/thank-you*', '/sorry*'];
 
   const disallowRules = privatePaths.map(path => `Disallow: ${path}`).join('\n');
 

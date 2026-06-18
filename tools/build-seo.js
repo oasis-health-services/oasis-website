@@ -170,17 +170,13 @@ async function generateRobotsTxt() {
 
   const disallowRules = privatePaths.map(path => `Disallow: ${path}`).join('\n');
 
+  // AI crawlers are intentionally allowed: the public site is educational
+  // marketing content (no PHI), and we publish /llms.txt to help AI agents
+  // surface and cite it (answer-engine visibility).
   const robots = isProd ? `# Production Environment
 User-agent: *
 ${disallowRules}
-Sitemap: ${new URL('sitemap-index.xml', siteUrl).href}
-
-# Block AI scrapers
-User-agent: GPTBot
-Disallow: /
-
-User-agent: CCBot
-Disallow: /` : `# Test Environment
+Sitemap: ${new URL('sitemap-index.xml', siteUrl).href}` : `# Test Environment
 User-agent: *
 Disallow: /`;
 

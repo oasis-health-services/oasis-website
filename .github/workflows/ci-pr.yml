@@ -65,7 +65,10 @@ jobs:
           cache: npm
 
       - name: Install
-        run: npm ci
+        # --include=dev is required because NODE_ENV=production (set at the job
+        # level for the build) would otherwise make npm omit devDependencies,
+        # which include the lint/test toolchain (eslint, vitest, ...).
+        run: npm ci --include=dev
 
       - name: Typecheck (Astro)
         run: npm run typecheck

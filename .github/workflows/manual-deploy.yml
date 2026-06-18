@@ -72,7 +72,8 @@ jobs:
           cache: npm
 
       - name: Install
-        run: npm ci
+        # Force devDependencies (lint/test toolchain) regardless of NODE_ENV.
+        run: npm ci --include=dev
 
       - name: Typecheck (Astro)
         run: npm run typecheck

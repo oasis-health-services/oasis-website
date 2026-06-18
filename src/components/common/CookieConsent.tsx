@@ -28,11 +28,24 @@ const CookieConsent = () => {
     }
   }, []);
 
+  const updateConsentMode = (preferences: Preferences) => {
+    // Reflect the choice in Google Consent Mode immediately (no reload).
+    // gtag is defined by the GTM head snippet; absent in dev (no container).
+    const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
+    gtag?.('consent', 'update', {
+      analytics_storage: preferences.analytics ? 'granted' : 'denied',
+      ad_storage: preferences.marketing ? 'granted' : 'denied',
+      ad_user_data: preferences.marketing ? 'granted' : 'denied',
+      ad_personalization: preferences.marketing ? 'granted' : 'denied',
+    });
+  };
+
   const saveConsent = (preferences: Preferences) => {
     localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify({
       preferences,
       date: new Date().toISOString()
     }));
+    updateConsentMode(preferences);
     setIsVisible(false);
   };
 

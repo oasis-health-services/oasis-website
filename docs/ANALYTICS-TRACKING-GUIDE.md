@@ -167,30 +167,10 @@ useEffect(() => { trackEvent("generate_lead", { form_type: "intake" }); }, []);
 This is a behavioral-health site; treat analytics as privacy-sensitive.
 
 - **No PHI/PII in events.** Never put names, emails, phone numbers, DOB, insurance/member IDs, or health details into event names or parameters. Track *that* a form was submitted (`generate_lead`), not *what* was entered.
-- **Respect the cookie banner with Google Consent Mode v2.** [CookieConsent.tsx](../src/components/common/CookieConsent.tsx) stores `{ preferences: { essential, analytics, marketing } }` under `localStorage["oasis-cookie-consent"]`, but it does **not** currently gate tag firing. To fix:
-  1. Set **default consent = denied** *before* GTM loads (add to the GTM head snippet in [GoogleTagManager.astro](../src/components/common/GoogleTagManager.astro)):
-     ```html
-     <script>
-       window.dataLayer = window.dataLayer || [];
-       function gtag(){dataLayer.push(arguments);}
-       gtag('consent', 'default', {
-         analytics_storage: 'denied',
-         ad_storage: 'denied',
-         ad_user_data: 'denied',
-         ad_personalization: 'denied',
-       });
-     </script>
-     ```
-  2. **Update consent** when the user chooses, by mapping the banner's preferences (in `saveConsent`):
-     ```ts
-     (window as any).gtag?.('consent', 'update', {
-       analytics_storage: preferences.analytics ? 'granted' : 'denied',
-       ad_storage: preferences.marketing ? 'granted' : 'denied',
-       ad_user_data: preferences.marketing ? 'granted' : 'denied',
-       ad_personalization: preferences.marketing ? 'granted' : 'denied',
-     });
-     ```
-  3. Optionally enable **Consent Mode** awareness in GA4/GTM tag settings. With Consent Mode v2, GA4 tags respect these signals automatically.
+- **Google Consent Mode v2 is wired up.** [CookieConsent.tsx](../src/components/common/CookieConsent.tsx) stores `{ preferences: { essential, analytics, marketing } }` under `localStorage["oasis-cookie-consent"]`, and tag firing now honors that choice:
+  1. **Default = denied** is set *before* GTM loads, and any stored choice is re-applied immediately, in the head snippet of [GoogleTagManager.astro](../src/components/common/GoogleTagManager.astro) (`analytics_storage`/`ad_storage`/`ad_user_data`/`ad_personalization`).
+  2. **On choice**, `saveConsent()` calls `gtag('consent','update', …)` mapping `analytics → analytics_storage` and `marketing → ad_*`, so the live page updates without a reload.
+  3. In GTM, leave the default **Consent Mode** behavior on; GA4 tags respect these signals automatically. Use **Tag Assistant** to confirm tags are blocked before consent and fire after.
 - Link your **Privacy Policy / cookie notice** to what GA4 collects. Consider enabling **IP anonymization**-equivalent settings (GA4 anonymizes IPs by default) and a sensible **data-retention** period (GA4 → Admin → Data Settings → Data Retention).
 
 ---
@@ -204,6 +184,6 @@ This is a behavioral-health site; treat analytics as privacy-sensitive.
 | Event missing | dataLayer push name ≠ Custom Event trigger name | Match names exactly; check DebugView |
 | Events fire but no params | Data Layer Variable not created/mapped | Add `dlv.*` variables and map them on the GA4 Event tag |
 | Nothing fires on localhost | Intended — `PUBLIC_GTM_ID` is empty in dev | Use staging to validate end-to-end |
-| Tags fire despite "reject" | Consent Mode not wired | Implement §10 |
+| Tags fire despite "reject" | GA4 tag set to ignore consent, or stored consent stale | Confirm Consent Mode is on for the tag; clear `localStorage["oasis-cookie-consent"]` and retry |
 
 **Ownership:** keep a short note of who administers the GA4 properties and GTM containers, and review the tag list quarterly to prune unused tags and confirm conversions are still marked.

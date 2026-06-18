@@ -99,6 +99,8 @@ The site currently pushes **no custom events** (only the container loads). Below
 
 ## 7. Two ways to instrument events (use both)
 
+> For an exact, click-by-click container build (every variable, trigger, and tag to create), follow [GTM-SETUP-CHECKLIST.md](GTM-SETUP-CHECKLIST.md). This section explains the concepts.
+
 ### 7a. GTM-only (no code) — for simple clicks
 Best for `tel_click`, `email_click`, and generic outbound links.
 1. **Variables → Configure** → enable the built-in **Click** variables (Click URL, Click Element, Click Text).

@@ -25,18 +25,13 @@ jobs:
 
     steps:
 
-      - name: Ensure PR has merge commit
-        shell: bash
-        run: |
-          if [ -z "${{ github.event.pull_request.merge_commit_sha }}" ]; then
-            echo "No merge commit SHA available (likely merge conflicts or merge ref not generated)."
-            exit 1
-          fi
-
+      # For pull_request events, checkout defaults to the auto-generated merge
+      # ref (refs/pull/N/merge), resolved at checkout time. This is more reliable
+      # than reading merge_commit_sha from the webhook payload, which is often
+      # null at event-creation time and caused spurious failures.
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.event.pull_request.merge_commit_sha }}
 
       - name: Write env file for build
         shell: bash

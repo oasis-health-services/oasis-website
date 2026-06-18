@@ -9,14 +9,18 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu"
 import { Zocdoc } from "../../common/Zocdoc"
+import { trackEvent } from "@/lib/analytics"
 
 export default function BookingButton({ provider, className, variant = "default", size = "lg" }) {
   const hasPlatforms = provider.platforms && Object.keys(provider.platforms).length > 0
 
+  const trackBooking = (platform) =>
+    trackEvent("booking_click", { platform, provider: provider.slug })
+
   if (!hasPlatforms) {
     return (
       <Button size={size} asChild className={className} variant={variant}>
-        <a href="/contact">
+        <a href="/contact" onClick={() => trackBooking("contact")}>
           <Calendar className="h-4 w-4 mr-2" aria-hidden="true" />
           Book Appointment
         </a>
@@ -50,10 +54,11 @@ export default function BookingButton({ provider, className, variant = "default"
 
         {provider.platforms?.alma && (
           <DropdownMenuItem asChild className="cursor-pointer">
-            <a 
-              href={provider.platforms.alma} 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href={provider.platforms.alma}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackBooking("alma")}
               className="flex items-center justify-between w-full py-2 px-3 hover:bg-accent rounded-md transition-colors"
             >
               <div className="flex items-center gap-2">
@@ -67,10 +72,11 @@ export default function BookingButton({ provider, className, variant = "default"
 
         {provider.platforms?.headway && (
           <DropdownMenuItem asChild className="cursor-pointer">
-            <a 
-              href={provider.platforms.headway} 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href={provider.platforms.headway}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackBooking("headway")}
               className="flex items-center justify-between w-full py-2 px-3 hover:bg-accent rounded-md transition-colors"
             >
               <div className="flex items-center gap-2">
@@ -83,7 +89,7 @@ export default function BookingButton({ provider, className, variant = "default"
         )}
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild className="cursor-pointer">
-          <a href="/contact" className="flex items-center gap-2 w-full py-2 px-3">
+          <a href="/contact" onClick={() => trackBooking("contact")} className="flex items-center gap-2 w-full py-2 px-3">
              <Calendar className="h-4 w-4" />
              <span>General Inquiry</span>
           </a>

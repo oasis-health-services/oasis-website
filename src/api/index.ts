@@ -1,9 +1,14 @@
 import { getToken } from "firebase/app-check";
 import { appCheck } from "@/lib/firebase";
+import { trackEvent } from "@/lib/analytics";
 
 const API_URL = import.meta.env.PUBLIC_API_URL || 'http://127.0.0.1:7001/demo-vpm/us-central1/portal/api/v1';
 
-const secureSubmit = async (endpoint: string, data: any) => {
+// Optional analytics event fired once a submission succeeds. Params must never
+// contain PHI/PII — only describe which form was submitted.
+type SubmitTracking = { event: string; params?: Record<string, unknown> };
+
+const secureSubmit = async (endpoint: string, data: any, tracking?: SubmitTracking) => {
     try {
         if (!appCheck) {
             throw new Error("AppCheck is not initialized. This action may only be performed in the browser.");
@@ -24,6 +29,7 @@ const secureSubmit = async (endpoint: string, data: any) => {
         }
 
         await response.json();
+        if (tracking) trackEvent(tracking.event, tracking.params);
         return { success: true };
     } catch (error) {
         console.error("Error submitting form:", error);
@@ -59,39 +65,39 @@ const secureDelete = async (endpoint: string) => {
 }
 
 export const submitContactForm = async (formData: any) => {
-    return await secureSubmit("contact-us", formData);
+    return await secureSubmit("contact-us", formData, { event: "generate_lead", params: { form_type: "contact" } });
 }
 
 export const submitReferralForm = async (formData: any) => {
-    return await secureSubmit("referral", formData);
+    return await secureSubmit("referral", formData, { event: "generate_lead", params: { form_type: "referral" } });
 }
 
 export const submitPartnershipForm = async (formData: any) => {
-    return await secureSubmit("collaboration", formData);
+    return await secureSubmit("collaboration", formData, { event: "generate_lead", params: { form_type: "partnership" } });
 }
 
 export const verifyInsurance = async (formData: any) => {
-    return await secureSubmit("/request/verify-insurance", formData);
+    return await secureSubmit("/request/verify-insurance", formData, { event: "verify_insurance" });
 }
 
 export const submitIntakeForm = async (formData: any) => {
-    return await secureSubmit("/request/intake", formData);
+    return await secureSubmit("/request/intake", formData, { event: "generate_lead", params: { form_type: "intake" } });
 }
 
 export const submitHelpdeskRequest = async (formData: any) => {
-    return await secureSubmit("/request/helpdesk", formData);
+    return await secureSubmit("/request/helpdesk", formData, { event: "helpdesk_request" });
 }
 
 export const submitDocumentRequest = async (formData: any) => {
-    return await secureSubmit("/info/documents", formData);
+    return await secureSubmit("/info/documents", formData, { event: "form_submit", params: { form_type: "document_request" } });
 }
 
 export const submitEmergencyContactForm = async (formData: any) => {
-    return await secureSubmit("/info/emergency-contact", formData);
+    return await secureSubmit("/info/emergency-contact", formData, { event: "form_submit", params: { form_type: "emergency_contact" } });
 }
 
 export const submitGuardianContactForm = async (formData: any) => {
-    return await secureSubmit("/info/guardian-contacts", formData);
+    return await secureSubmit("/info/guardian-contacts", formData, { event: "form_submit", params: { form_type: "guardian_contact" } });
 }
 
 export const removeFile = async (docId: string) => {

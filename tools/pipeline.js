@@ -1,6 +1,8 @@
 import { spawnSync } from 'node:child_process';
 // If you don't have chalk installed, you can use console.log
-const env = process.env.NODE_ENV || 'local';
+// Normalize case so a stray `NODE_ENV=PRODUCTION` still enables the prod path
+// (the SEO/robots/sitemap step is gated on these flags).
+const env = (process.env.NODE_ENV || 'local').toLowerCase();
 const isProd = env === 'production';
 const isStaging = env === 'staging';
 

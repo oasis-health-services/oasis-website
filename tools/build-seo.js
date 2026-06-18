@@ -19,7 +19,11 @@ async function generateSitemap() {
   console.log('🗺️  Generating post-build sitemap...');
 
   const files = await globby(`${DIST_DIR}/**/*.html`, {
-    ignore: [`${DIST_DIR}/404.html`]
+    ignore: [
+      `${DIST_DIR}/404.html`,
+      `${DIST_DIR}/thank-you/**`,
+      `${DIST_DIR}/sorry/**`,
+    ]
   });
 
   // 1. Create Sitemap Entries
@@ -86,7 +90,13 @@ ${urls.join('\n')}
 async function generateLLMs() {
   console.log('🗺️  Generating LLMs.txt...');
 
-  const files = await globby(`${DIST_DIR}/**/*.html`, { ignore: [`${DIST_DIR}/404.html`] })
+  const files = await globby(`${DIST_DIR}/**/*.html`, {
+    ignore: [
+      `${DIST_DIR}/404.html`,
+      `${DIST_DIR}/thank-you/**`,
+      `${DIST_DIR}/sorry/**`,
+    ]
+  })
 
   // 1. Initialize our Category Buckets
   const categories = {

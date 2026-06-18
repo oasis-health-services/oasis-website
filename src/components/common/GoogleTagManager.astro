@@ -21,15 +21,41 @@ const { part, id = import.meta.env.PUBLIC_GTM_ID } = Astro.props;
 ---
 
 {id && part === 'head' && (
-    <!-- Google Tag Manager -->
-    <script is:inline define:vars={{ id }}>
-        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer',id);
-    </script>
-    <!-- End Google Tag Manager -->
+    <Fragment>
+        <!-- Google Consent Mode v2 (must run BEFORE GTM loads) -->
+        <script is:inline>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){ dataLayer.push(arguments); }
+            // Default everything to denied until the user chooses (see CookieConsent).
+            gtag('consent', 'default', {
+                ad_storage: 'denied',
+                ad_user_data: 'denied',
+                ad_personalization: 'denied',
+                analytics_storage: 'denied',
+            });
+            // Honor a previously stored choice immediately (no flash of denied).
+            try {
+                var stored = JSON.parse(localStorage.getItem('oasis-cookie-consent') || 'null');
+                if (stored && stored.preferences) {
+                    gtag('consent', 'update', {
+                        analytics_storage: stored.preferences.analytics ? 'granted' : 'denied',
+                        ad_storage: stored.preferences.marketing ? 'granted' : 'denied',
+                        ad_user_data: stored.preferences.marketing ? 'granted' : 'denied',
+                        ad_personalization: stored.preferences.marketing ? 'granted' : 'denied',
+                    });
+                }
+            } catch (e) { /* ignore malformed/blocked storage */ }
+        </script>
+        <!-- Google Tag Manager -->
+        <script is:inline define:vars={{ id }}>
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer',id);
+        </script>
+        <!-- End Google Tag Manager -->
+    </Fragment>
 )}
 
 {id && part === 'body' && (

@@ -11,6 +11,7 @@ import {
   getRelatedArticles, 
   getCategoryBySlug, 
 } from "@/content.config";
+import { getArticleSchema, getBreadcrumbSchema } from "@/utils/schema";
 import { cn } from "@/lib/utils";
 
 export async function getStaticPaths() {
@@ -48,6 +49,22 @@ const category = await getCategoryBySlug(article.data.categorySlug);
 const author = await getEntry('authors', article.data.authorSlug);
 const relatedArticles = await getRelatedArticles(article, 3);
 
+const schema = [
+  getArticleSchema({
+    title: article.data.title,
+    description: article.data.excerpt,
+    image: article.data.image,
+    publishedAt: article.data.publishedAt,
+    author: author?.data?.name,
+  }),
+  getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Blog", url: "/blog" },
+    ...(category ? [{ name: category.data.title, url: `/blog/category/${category.data.slug}` }] : []),
+    { name: article.data.title, url: currentPath },
+  ]),
+];
+
 function formatDate(date: Date) {
   return date.toLocaleDateString("en-US", {
     year: "numeric",
@@ -57,7 +74,7 @@ function formatDate(date: Date) {
 }
 ---
 
-<BlogLayout title={`${article.data.title}`} description={article.data.excerpt}>
+<BlogLayout title={`${article.data.title}`} description={article.data.excerpt} image={article.data.image} type="article" schema={schema}>
   <ProgressBar client:load />
   <div class="relative min-h-screen flex flex-col">
     <Header currentPath={currentPath} variant="glass" client:load />

@@ -1,7 +1,7 @@
 
 ---
 import Layout from '@/layouts/Layout.astro';
-import { getProviderSchema } from '@/utils/schema';
+import { getProviderSchema, getFaqSchema } from '@/utils/schema';
 import { providers } from "@/lib/providers-data";
 import Provider from "@/components/pages/providers/Provider";
 
@@ -18,6 +18,11 @@ if (!provider) {
   // Return a proper 404 instead of rendering a blank page
   return new Response("Provider not found", { status: 404 });
 }
+
+const schema = [
+  getProviderSchema(provider),
+  ...(provider.faqs?.length ? [getFaqSchema(provider.faqs)] : []),
+];
 ---
 
 <Layout 
@@ -33,7 +38,7 @@ if (!provider) {
     "mental health",
     "telehealth"
   ].join(", ")}
-  schema={getProviderSchema(provider)}
+  schema={schema}
 >
   <Provider client:load provider={provider} />
 </Layout>

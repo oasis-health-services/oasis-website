@@ -24,7 +24,7 @@ import {
 } from "lucide-react"
 import { contact } from "@/lib/contact"
 
-const faqCategories = [
+export const faqCategories = [
     { id: "appointments", label: "Appointments", icon: Calendar, color: "bg-blue-100 text-blue-700" },
     { id: "insurance", label: "Insurance & Billing", icon: CreditCard, color: "bg-green-100 text-green-700" },
     { id: "telehealth", label: "Telehealth", icon: Video, color: "bg-purple-100 text-purple-700" },
@@ -33,7 +33,7 @@ const faqCategories = [
     { id: "general", label: "General", icon: HelpCircle, color: "bg-teal-100 text-teal-700" },
 ]
 
-const faqData = {
+export const faqData = {
     appointments: [
         {
             question: "How do I schedule my first appointment?",

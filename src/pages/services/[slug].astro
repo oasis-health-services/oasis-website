@@ -6,6 +6,7 @@
 import Layout from '@/layouts/Layout.astro';
 import { services } from "../../lib/services-data";
 import ServiceDetail from "../../components/pages/services/ServiceDetail";
+import { getServiceSchema, getFaqSchema } from '@/utils/schema';
 
 export function getStaticPaths() {
   return services.map((s) => ({
@@ -20,12 +21,18 @@ if (!service) {
   // Return a proper 404 instead of rendering a blank page
   return new Response("Service not found", { status: 404 });
 }
+
+const schema = [
+  getServiceSchema(service.title, service.shortDescription),
+  ...(service.faqs?.length ? [getFaqSchema(service.faqs)] : []),
+];
 ---
 
-<Layout 
+<Layout
   title={service.title}
   description={service.shortDescription}
   keywords="mental health services, psychiatric assessments, therapy, medication management, Spravato, ADHD testing"
+  schema={schema}
 >
   <ServiceDetail client:load service={service} />
 </Layout>

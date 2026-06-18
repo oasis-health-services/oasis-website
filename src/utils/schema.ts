@@ -56,32 +56,47 @@ export const getBreadcrumbSchema = (items: Array<{ name: string; url: string }>)
     }))
 });
 
+const toAbsolute = (path: string) => (path.startsWith('http') ? path : `${SITE_URL}${path}`);
+
 export const getArticleSchema = (post: {
     title: string;
     description: string;
     image?: string;
     publishedAt: string | Date;
     updatedAt?: string | Date;
+    author?: string;
 }) => ({
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: post.title,
     description: post.description,
-    image: post.image || DEFAULT_IMAGE,
+    image: toAbsolute(post.image || DEFAULT_IMAGE),
     datePublished: post.publishedAt,
     dateModified: post.updatedAt || post.publishedAt,
-    author: {
-        '@type': 'Organization',
-        name: SITE_NAME
-    },
+    author: post.author
+        ? { '@type': 'Person', name: post.author }
+        : { '@type': 'Organization', name: SITE_NAME },
     publisher: {
         '@type': 'Organization',
         name: SITE_NAME,
         logo: {
             '@type': 'ImageObject',
-            url: DEFAULT_IMAGE
+            url: toAbsolute(DEFAULT_IMAGE)
         }
     }
+});
+
+export const getFaqSchema = (faqs: Array<{ question: string; answer: string }>) => ({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.answer
+        }
+    }))
 });
 
 export const getProviderSchema = (provider: Provider) => {

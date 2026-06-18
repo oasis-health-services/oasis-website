@@ -6,7 +6,7 @@
 import Layout from '@/layouts/Layout.astro';
 import { conditions } from "@/lib/conditions-data";
 import ConditionDetail from "@/components/pages/about/conditions/ConditionDetail";
-import { getOrganizationSchema } from '@/utils/schema';
+import { getOrganizationSchema, getFaqSchema } from '@/utils/schema';
 
 export function getStaticPaths() {
   return conditions.map((c) => ({
@@ -21,13 +21,18 @@ if (!condition) {
   // Return a proper 404 instead of rendering a blank page
   return new Response("Condition not found", { status: 404 });
 }
+
+const schema = [
+  getOrganizationSchema(),
+  ...(condition.faqs?.length ? [getFaqSchema(condition.faqs)] : []),
+];
 ---
 
-<Layout 
+<Layout
   title={condition.title}
   description={condition.shortDescription}
   keywords="mental health conditions we treat, psychiatric conditions"
-  schema={getOrganizationSchema()}
+  schema={schema}
 >
   <ConditionDetail client:load condition={condition}/>
 </Layout>

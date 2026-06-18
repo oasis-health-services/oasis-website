@@ -1,13 +1,16 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import FAQPage from '@/components/pages/resources/FAQ';
-import { getOrganizationSchema } from '@/utils/schema';
+import FAQPage, { faqData } from '@/components/pages/resources/FAQ';
+import { getOrganizationSchema, getFaqSchema } from '@/utils/schema';
+
+const allFaqs = Object.values(faqData).flat();
+const schema = [getOrganizationSchema(), getFaqSchema(allFaqs)];
 ---
 
-<Layout 
+<Layout
   title="FAQ Resources"
   description="FAQ Resources for mental health care and psychiatric services."
-  schema={getOrganizationSchema()}
+  schema={schema}
 >
   <FAQPage client:load /> 
 </Layout>

@@ -1,76 +1,80 @@
-# Git Workflow: Dev -> QA -> Main
+# Git Workflow: Feature Branch → PR → Main
 
-To maintain a clean history and avoid conflicts, follow this structured workflow using the GitHub CLI (`gh`).
+This project uses a single long-lived branch, **`main`**, as the source of truth. All work happens on short-lived feature branches that are merged into `main` via pull request. Use the GitHub CLI (`gh`).
 
 ## Prerequisites
-- Ensure GitHub CLI is installed: `brew install gh`
+- Install GitHub CLI: `brew install gh`
 - Authenticate: `gh auth login`
 
-## 1. Feature Development
-- **Source:** Always branch off `dev`.
+## 1. Start a feature branch
+- **Source:** always branch off `main`.
 - **Naming:** `feat/feature-name` or `fix/bug-name`.
-- **Process:**
-  ```bash
-  git checkout dev
-  git pull origin dev
-  git checkout -b feat/my-new-feature
-  # ... make changes ...
-  git add .
-  git commit -m "feat: description of changes"
-  git push origin feat/my-new-feature
-  ```
-- **Create PR (Feature -> Dev):**
-  ```bash
-  gh pr create --base dev --head feat/my-new-feature --title "feat: My New Feature" --body "Description of changes"
-  ```
 
-## 2. Promotion to QA (Staging)
-- **Source:** `dev`
-- **Target:** `qa`
-- **Process:**
-  1. Ensure `dev` is up to date and stable.
-  2. **Create PR (Dev -> QA):**
-     ```bash
-     gh pr create --base qa --head dev --title "Promote Dev to QA" --body "Includes recent features and fixes."
-     ```
-  3. **Handling Conflicts:** If `qa` is ahead (hotfixes), sync locally first:
-     ```bash
-     git checkout dev
-     git pull origin dev
-     git pull origin qa  # Merge QA into Dev locally
-     # Resolve conflicts if any
-     git push origin dev
-     # Now the PR above will be clean
-     ```
+```bash
+git checkout main
+git pull origin main
+git checkout -b feat/my-new-feature
+# ... make changes ...
+git add .
+git commit -m "feat: description of changes"
+git push origin feat/my-new-feature
+```
 
-## 3. Promotion to Main (Production)
-- **Source:** `qa`
-- **Target:** `main`
-- **Process:**
-  1. Ensure `qa` has been tested and verification is complete.
-  2. **Create PR (QA -> Main):**
-     ```bash
-     gh pr create --base main --head qa --title "Release v1.x.x" --body "Production release."
-     ```
-  3. **Release Tagging:** After merging, create a release tag:
-     ```bash
-     git checkout main
-     git pull origin main
-     git tag v1.0.0
-     git push origin v1.0.0
-     gh release create v1.0.0 --title "v1.0.0" --notes "Release notes here"
-     ```
+## 2. Open a pull request into `main`
 
-## Resolving Conflicts (The "Right" Way)
-If `qa` -> `main` has conflicts:
-1. **Never** force push unless `main` is known to be corrupted.
-2. Checkout source branch (e.g., `qa`).
-3. Merge target branch (e.g., `main`) into source.
-   ```bash
-   git checkout qa
-   git pull origin main
-   # Resolve conflicts in VS Code
-   git commit -am "chore: resolve conflicts with main"
-   git push origin qa
-   ```
-4. The PR will automatically update and be conflict-free.
+```bash
+gh pr create --base main --head feat/my-new-feature \
+  --title "feat: My New Feature" \
+  --body "Description of changes"
+```
+
+Opening (or updating) the PR runs the CI workflow in
+[.github/workflows/ci-pr.yml](.github/workflows/ci-pr.yml): typecheck, lint, and a
+production build. Keep the PR in draft until it's ready for those checks.
+
+## 3. Merge
+
+Once CI is green, merge the PR (squash recommended to keep `main` history clean):
+
+```bash
+gh pr merge --squash --delete-branch
+```
+
+Then refresh your local `main`:
+
+```bash
+git checkout main
+git pull origin main
+```
+
+## 4. Tag a release (optional)
+
+After a meaningful set of changes lands on `main`:
+
+```bash
+git checkout main
+git pull origin main
+git tag v1.0.0
+git push origin v1.0.0
+gh release create v1.0.0 --title "v1.0.0" --notes "Release notes here"
+```
+
+## Deployment
+
+Deploys are triggered manually via the **Manual Deploy** workflow
+([.github/workflows/manual-deploy.yml](.github/workflows/manual-deploy.yml)),
+which always builds from `main`. The `staging` / `production` choice selects the
+environment config and target server, so you can preview `main` on staging before
+deploying it to production.
+
+## Keeping a feature branch up to date
+
+If `main` moves ahead while you work, rebase (or merge) `main` into your branch:
+
+```bash
+git checkout feat/my-new-feature
+git fetch origin
+git rebase origin/main      # or: git merge origin/main
+# resolve any conflicts, then:
+git push --force-with-lease  # only needed after a rebase
+```

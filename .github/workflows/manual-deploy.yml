@@ -22,7 +22,9 @@ jobs:
     environment: ${{ inputs.environment }}
 
     env:
-      TARGET_BRANCH: ${{ inputs.environment == 'production' && 'main' || 'qa' }}
+      # Single-trunk model: both staging and production deploy from main.
+      # The environment choice still selects env/config and the target server.
+      TARGET_BRANCH: main
 
     steps:
       - name: Checkout code

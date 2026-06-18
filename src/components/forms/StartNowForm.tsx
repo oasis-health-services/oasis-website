@@ -718,7 +718,7 @@ function ReviewIntakeComponent({ form }: FormComponentProps<IntakeFormData>) {
                                     { label: "Name", value: `${values.additionalInformation?.referrer?.name}` },
                                     { label: "Preferred Name", value: values.additionalInformation?.referrer?.specialty },
                                     { label: "Email", value: values.additionalInformation?.referrer?.practiceName },
-                                    { label: "Phone", value: formatPhoneNumber(values.additionalInformation?.referrer?.phone!) },
+                                    { label: "Phone", value: formatPhoneNumber(values.additionalInformation?.referrer?.phone) },
                                     { label: "Date of Birth", value: values.additionalInformation?.referrer?.email },
                                     { label: "Birth Sex", value: values.additionalInformation?.referrer?.phone },
                                     { label: "Gender Identity", value: values.additionalInformation?.referrer?.phone },
@@ -732,7 +732,7 @@ function ReviewIntakeComponent({ form }: FormComponentProps<IntakeFormData>) {
                                 items={[
                                     { label: "Name", value: `${values.additionalInformation?.emergency?.firstName} ${values.additionalInformation?.emergency?.lastName}` },
                                     { label: "Relationship", value: values.additionalInformation?.emergency?.relationship?.toUpperCase() },
-                                    { label: "Phone", value: formatPhoneNumber(values.additionalInformation?.emergency?.phone!) },
+                                    { label: "Phone", value: formatPhoneNumber(values.additionalInformation?.emergency?.phone) },
                                     { label: "Email", value: values.additionalInformation?.emergency?.email },
                                 ].filter(item => item.value)}
                             />

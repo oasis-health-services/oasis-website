@@ -76,10 +76,10 @@ jobs:
         run: npm run typecheck
 
       - name: Lint
-        run: npm run lint --if-present
+        run: npm run lint
 
       - name: Test
-        run: npm test --if-present
+        run: npm test
 
       - name: Build
         shell: bash

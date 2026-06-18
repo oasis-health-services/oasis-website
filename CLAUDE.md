@@ -25,7 +25,8 @@ npm run dev          # generate WebP, then astro dev on http://localhost:3000
 npm run build        # full pipeline using .env.local (tools/pipeline.js)
 npm run build:staging / build:prod   # same pipeline with staging/production env
 npm run typecheck    # astro check (TypeScript + Astro diagnostics)
-npm run lint         # eslint
+npm run lint         # eslint (flat config; errors block, warnings surface)
+npm test             # vitest run (unit tests for src/lib logic)
 npm run deploy:staging / deploy:prod # build, then rsync dist/ to the server
 ```
 

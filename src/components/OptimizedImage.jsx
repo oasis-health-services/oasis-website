@@ -95,7 +95,7 @@ const OptimizedImage = ({
     <picture className={className}>
       {/* try the webP version */}
       {!error && webpSrc && (
-        <source srcSet={webpSrc} type="image/webp" onError={setError(true)} />
+        <source srcSet={webpSrc} type="image/webp" onError={() => setError(true)} />
       )}
 
       <img
@@ -128,6 +128,8 @@ export const ResponsiveImage = ({
   priority = false,
   ...props
 }) => {
+  const [error, setError] = useState(false);
+
   if (!src) return null;
 
   // Generate responsive srcSet
@@ -156,7 +158,7 @@ export const ResponsiveImage = ({
     <picture className={className}>
 
       {!error && webpSrc && (
-        <source srcSet={generateSrcSet(webpSrc)} type="image/webp" sizes={sizes} onError={setError(true)} />
+        <source srcSet={generateSrcSet(webpSrc)} type="image/webp" sizes={sizes} onError={() => setError(true)} />
       )}
 
       <img

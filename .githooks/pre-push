@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
-set -env
+set -eo pipefail
 
+npm test
 npm run build

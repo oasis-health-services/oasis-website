@@ -2,7 +2,11 @@
 /**
  * Google Tag Manager component
  * Centralizes the GTM script and noscript tags to avoid duplication and simplify maintenance.
- * 
+ *
+ * The container ID is environment-driven via PUBLIC_GTM_ID (set per environment).
+ * When it is empty/undefined (e.g. local development), nothing is emitted, so dev
+ * traffic never reaches a production or staging container.
+ *
  * Usage:
  * <GoogleTagManager part="head" />  - Place in the <head> section
  * <GoogleTagManager part="body" />  - Place at the start of the <body> section
@@ -13,10 +17,10 @@ export interface Props {
     id?: string;
 }
 
-const { part, id = "GTM-MTTSNH5Z" } = Astro.props;
+const { part, id = import.meta.env.PUBLIC_GTM_ID } = Astro.props;
 ---
 
-{part === 'head' && (
+{id && part === 'head' && (
     <!-- Google Tag Manager -->
     <script is:inline define:vars={{ id }}>
         (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -28,7 +32,7 @@ const { part, id = "GTM-MTTSNH5Z" } = Astro.props;
     <!-- End Google Tag Manager -->
 )}
 
-{part === 'body' && (
+{id && part === 'body' && (
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${id}`}
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

@@ -59,6 +59,7 @@ npm run deploy:staging / deploy:prod # build, then rsync dist/ to the server
 
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — rendering model, directory map, data/forms/build details.
 - [docs/CONVENTIONS.md](docs/CONVENTIONS.md) — naming, components, styling, forms, TS/lint conventions.
+- [docs/ENVIRONMENTS.md](docs/ENVIRONMENTS.md) — step-by-step DEV/STAGING/PROD setup: env vars, GitHub Environments, analytics separation, deploys.
 - [README.md](README.md) — project overview & setup.
 - [SEO-IMPLEMENTATION.md](SEO-IMPLEMENTATION.md) — SEO pipeline, sitemaps, schema markup.
 - [PULL_REQUEST_PROCESS.md](PULL_REQUEST_PROCESS.md) — branch/PR/release workflow.

@@ -47,8 +47,6 @@ async function generateSitemap() {
       changefreq = 'weekly';
     } else if (relativePath.startsWith('services')) {
       priority = 0.8;
-    } else if (relativePath.startsWith('about/our-team')) {
-      priority = 0.8;
     } else if (relativePath.startsWith('resources')) {
       priority = 0.8;
     } else if (relativePath.startsWith('policies') || relativePath.startsWith('terms-and-conditions') || relativePath.startsWith('hipaa')) {

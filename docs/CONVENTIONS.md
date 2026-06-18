@@ -48,12 +48,13 @@ Reuse helpers in [src/lib/utils.js](../src/lib/utils.js) before adding new ones:
 - `formatAddress(address)` — full address string.
 - `calculateAge(dob)` / `isMinor(dob)` — age helpers (e.g. for guardian-contact logic).
 
-## TypeScript, linting & tooling
+## TypeScript, linting, tests & tooling
 
 - TS config extends **`astro/tsconfigs/strict`** with `@/*` → `src/*`, `jsx: react-jsx`, `jsxImportSource: react` ([tsconfig.json](../tsconfig.json)).
 - Type-check with `npm run typecheck` (`astro check`).
-- **ESLint** uses `eslint-config-react-app`; there is **no custom `.eslintrc`** and **no Prettier or `.editorconfig`**. Match surrounding code formatting.
-- Git hooks live in `.githooks/`; enable them once with `npm run hooks:install`.
+- **ESLint** uses a flat config ([eslint.config.js](../eslint.config.js)): `@eslint/js` + `typescript-eslint` recommended + `react-hooks`, over `.js/.jsx/.ts/.tsx` (`.astro` is covered by `astro check`). Run `npm run lint` (or `npm run lint:fix`). Errors block; warnings (e.g. unused vars, `exhaustive-deps`) are surfaced but non-blocking — fix them as you touch code. There is no Prettier or `.editorconfig` yet; match surrounding formatting.
+- **Tests** use **Vitest** ([vitest.config.js](../vitest.config.js)). Co-locate as `*.test.ts`/`*.test.js` next to the code; the `@/` alias works in tests. Run `npm test` (or `npm run test:watch`). Pure logic in `src/lib/` (utils, Zod schemas, assessment data) is the priority for coverage — see [src/lib/utils.test.js](../src/lib/utils.test.js), [src/lib/schema.test.ts](../src/lib/schema.test.ts), [src/lib/assessments/assessments.test.ts](../src/lib/assessments/assessments.test.ts).
+- Git hooks live in `.githooks/`; enable them once with `npm run hooks:install`. **pre-commit** runs lint + typecheck; **pre-push** runs tests + build. CI ([.github/workflows/ci-pr.yml](../.github/workflows/ci-pr.yml)) runs all four on PRs into `main`.
 
 ## Quick "do / don't"
 

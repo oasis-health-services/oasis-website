@@ -9,5 +9,12 @@
         },
         "jsx": "react-jsx",
         "jsxImportSource": "react"
-    }
+    },
+    "exclude": [
+        "dist",
+        "**/*.test.ts",
+        "**/*.test.js",
+        "**/*.spec.ts",
+        "**/*.spec.js"
+    ]
 }

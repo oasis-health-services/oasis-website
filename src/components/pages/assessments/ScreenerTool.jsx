@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { trackEvent } from "@/lib/analytics"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -44,6 +45,8 @@ export function ScreenerTool({ config }) {
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion((prev) => prev + 1)
     } else {
+      // Completion only — no answers or result level (PHI-safe).
+      trackEvent("assessment_complete", { screener: config.id })
       setShowResults(true)
     }
   }
@@ -63,6 +66,7 @@ export function ScreenerTool({ config }) {
   }
 
   const handleStart = () => {
+    trackEvent("assessment_start", { screener: config.id })
     setShowInstructions(false)
   }
 

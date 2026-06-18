@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* Self-hosted brand fonts (consolidated sitewide: DM Sans + Playfair). */
+@import '@fontsource-variable/dm-sans';
+@import '@fontsource/playfair-display/latin-400.css';
+@import '@fontsource/playfair-display/latin-600.css';
+@import '@fontsource/playfair-display/latin-700.css';
+@import '@fontsource/playfair-display/latin-900.css';
+@import '@fontsource/playfair-display/latin-400-italic.css';
+@import '@fontsource/playfair-display/latin-700-italic.css';
+
 /* Custom utility classes */
 @layer utilities {
     .text-shadow-lg {
@@ -8,8 +17,8 @@
 }
 
 @theme {
-    --font-sans: "Inter", "Inter Fallback", system-ui, sans-serif;
-    --font-serif: "Merriweather", "Georgia", serif;
+    --font-sans: 'DM Sans Variable', 'DM Sans', system-ui, sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif;
 
     /* Colors - Healthcare focused palette */
     --color-primary: #0d9488;

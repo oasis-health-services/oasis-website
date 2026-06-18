@@ -100,6 +100,8 @@ export default function Header({ currentPath, variant = "default" }) {
                             src="/images/oasis-logo.png"
                             alt="Oasis Health Services Logo"
                             className="h-12 w-auto"
+                            width={778}
+                            height={226}
                             priority={true}
                             loading="eager"
                         />

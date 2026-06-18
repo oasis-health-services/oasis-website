@@ -52,6 +52,8 @@ export default function Footer() {
                                 src="/images/oasis-logo-white.png"
                                 alt="Oasis Health Services Logo"
                                 className="h-12 w-auto"
+                                width={778}
+                                height={225}
                                 priority={true}
                             />
                         </a>

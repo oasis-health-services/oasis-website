@@ -60,6 +60,7 @@ npm run deploy:staging / deploy:prod # build, then rsync dist/ to the server
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — rendering model, directory map, data/forms/build details.
 - [docs/CONVENTIONS.md](docs/CONVENTIONS.md) — naming, components, styling, forms, TS/lint conventions.
 - [docs/ENVIRONMENTS.md](docs/ENVIRONMENTS.md) — step-by-step DEV/STAGING/PROD setup: env vars, GitHub Environments, analytics separation, deploys.
+- [docs/ANALYTICS-TRACKING-GUIDE.md](docs/ANALYTICS-TRACKING-GUIDE.md) — create GA4 properties + GTM containers (staging/prod), wire `PUBLIC_GTM_ID`, and instrument site events (with Consent Mode v2).
 - [README.md](README.md) — project overview & setup.
 - [SEO-IMPLEMENTATION.md](SEO-IMPLEMENTATION.md) — SEO pipeline, sitemaps, schema markup.
 - [PULL_REQUEST_PROCESS.md](PULL_REQUEST_PROCESS.md) — branch/PR/release workflow.

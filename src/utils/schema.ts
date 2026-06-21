@@ -21,6 +21,11 @@ export const getOrganizationSchema = () => ({
         postalCode: '30076',
         addressCountry: 'US'
     },
+    geo: {
+        '@type': 'GeoCoordinates',
+        latitude: 34.0553924052091,
+        longitude: -84.33358617422402
+    },
     contactPoint: {
         '@type': 'ContactPoint',
         telephone: '+1-470-802-6838',

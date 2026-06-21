@@ -8,6 +8,7 @@ import { FAQ } from '../../components/lp/FAQ';
 import { CTA } from '../../components/lp/CTA';
 import { Footer } from '../../components/lp/Footer';
 import { InsuranceLogos } from '../../components/lp/InsuranceLogos';
+import { getServiceSchema, getFaqSchema } from '@/utils/schema';
 import { Brain, ClipboardList, Target, Pill, Heart, GraduationCap } from 'lucide-react';
 
 const features = [
@@ -88,11 +89,19 @@ const faqs = [
     answer: "When clinically appropriate, we do prescribe stimulant medications as they are highly effective for many people with ADHD. We also offer non-stimulant alternatives. All prescriptions follow strict safety protocols with regular monitoring."
   }
 ];
+
+const pageTitle = "ADHD Testing & Treatment";
+const pageDescription = "Comprehensive ADHD testing and treatment for adults. Expert diagnosis, personalized medication management, and therapy support. Virtual appointments, insurance accepted.";
+const schema = [
+  getServiceSchema(pageTitle, pageDescription),
+  getFaqSchema(faqs),
+];
 ---
 
-<LandingLayout 
-  title="ADHD Testing & Treatment" 
-  description="Comprehensive ADHD testing and treatment for adults. Expert diagnosis, personalized medication management, and therapy support. Virtual appointments, insurance accepted."
+<LandingLayout
+  title={pageTitle}
+  description={pageDescription}
+  schema={schema}
 >
   <Header client:load />
   <Hero

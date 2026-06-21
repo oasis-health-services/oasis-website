@@ -4,10 +4,12 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BreadcrumbNav from "../../../components/blog/BreadcrumbNav.astro";
 import ArticleCard from "../../../components/blog/ArticleCard.astro";
-import { 
-  getCategories, 
-  getArticlesByCategory 
+import {
+  getCategories,
+  getArticlesByCategory,
+  getArticleUrl
 } from "@/content.config";
+import { getBreadcrumbSchema, getCollectionPageSchema } from "@/utils/schema";
 import { cn } from "@/lib/utils";
 
 export async function getStaticPaths() {
@@ -33,9 +35,24 @@ const iconPaths = {
 } as const;
 
 const iconPath = iconPaths[category.data.iconName as keyof typeof iconPaths] || iconPaths.Heart;
+
+const categoryUrl = `/blog/category/${category.data.slug}`;
+const schema = [
+  getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Blog", url: "/blog" },
+    { name: category.data.title, url: categoryUrl },
+  ]),
+  getCollectionPageSchema({
+    name: category.data.title,
+    description: category.data.description,
+    url: categoryUrl,
+    items: articles.map((a) => ({ name: a.data.title, url: getArticleUrl(a) })),
+  }),
+];
 ---
 
-<BlogLayout title={`${category.data.title}`} description={category.data.description}>
+<BlogLayout title={`${category.data.title}`} description={category.data.description} schema={schema}>
   <Header currentPath={currentPath} client:load />
   <main class="flex-1">
     <!-- Hero section -->

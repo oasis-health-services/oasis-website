@@ -104,6 +104,15 @@ export type Author = CollectionEntry<'authors'>;
 
 // Helper functions
 
+/** Canonical public URL for a blog article: /blog/<year>/<month>/<file-slug>. */
+export function getArticleUrl(article: Article): string {
+    const date = new Date(article.data.publishedAt);
+    const year = date.getUTCFullYear().toString();
+    const month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
+    const fileName = article.id.split('/').pop()?.replace(/\.[^/.]+$/, "") || article.id;
+    return `/blog/${year}/${month}/${fileName}`;
+}
+
 export async function getCategories(): Promise<Category[]> {
     return await getCollection('categories');
 }

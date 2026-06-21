@@ -3,6 +3,7 @@
 import Layout from '../../../layouts/Layout.astro';
 import AssessmentDetail from '../../../components/pages/assessments/AssessmentDetail';
 import { screenersList } from "../../../lib/assessments";
+import { getBreadcrumbSchema, getMedicalWebPageSchema } from '@/utils/schema';
 
 export function getStaticPaths() {
   return screenersList.map((s) => ({
@@ -18,12 +19,34 @@ if (!assessment) {
   return new Response("Assessment not found", { status: 404 });
 }
 
+const CONDITION_NAMES: Record<string, string> = {
+  depression: 'Depression',
+  anxiety: 'Generalized Anxiety Disorder',
+  adhd: 'Attention-Deficit/Hyperactivity Disorder',
+  ptsd: 'Post-Traumatic Stress Disorder',
+};
+
+const assessmentUrl = `/assessments/${assessment.category}/${assessment.id}`;
+const schema = [
+  getBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Self-Assessments', url: '/assessments' },
+    { name: assessment.name, url: assessmentUrl },
+  ]),
+  getMedicalWebPageSchema({
+    name: `${assessment.name}: ${assessment.fullName}`,
+    description: assessment.description,
+    url: assessmentUrl,
+    about: CONDITION_NAMES[assessment.category],
+  }),
+];
 ---
 
-<Layout 
+<Layout
   title={`${assessment.name}: ${assessment.fullName}`}
   description="Free, confidential mental health screening tools for depression (PHQ-9), anxiety (GAD-7), PTSD, ADHD, and more. Take validated assessments and get personalized recommendations."
   keywords="mental health assessment, depression test, anxiety screening, PHQ-9, GAD-7, PTSD screener, ADHD test, mental health quiz, free mental health screening"
+  schema={schema}
 >
   <AssessmentDetail client:load assessment={assessment} /> 
 </Layout>

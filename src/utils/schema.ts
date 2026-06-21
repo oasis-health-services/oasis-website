@@ -6,11 +6,13 @@ const DEFAULT_IMAGE = import.meta.env.PUBLIC_SITE_IMAGE || '/images/home/home-ba
 
 export const getOrganizationSchema = () => ({
     '@context': 'https://schema.org',
-    '@type': 'MedicalOrganization',
+    '@type': 'MedicalClinic',
     name: SITE_NAME,
     url: SITE_URL,
     logo: DEFAULT_IMAGE,
+    image: toAbsolute(DEFAULT_IMAGE),
     description: 'Comprehensive mental health services including psychiatric assessments, therapy, medication management, and specialized treatments.',
+    medicalSpecialty: 'Psychiatric',
     address: {
         '@type': 'PostalAddress',
         streetAddress: '11285 Elkins Road Unit J-6',
@@ -25,6 +27,14 @@ export const getOrganizationSchema = () => ({
         contactType: 'customer service',
         availableLanguage: 'English'
     },
+    openingHoursSpecification: [
+        {
+            '@type': 'OpeningHoursSpecification',
+            dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+            opens: '08:00',
+            closes: '17:30'
+        }
+    ],
     sameAs: [
         'https://www.facebook.com/oasishealthserv',
         'https://www.instagram.com/oasishealthserv/',
@@ -97,6 +107,71 @@ export const getFaqSchema = (faqs: Array<{ question: string; answer: string }>) 
             text: faq.answer
         }
     }))
+});
+
+export const getMedicalWebPageSchema = (page: {
+    name: string;
+    description: string;
+    url: string;
+    about?: string;
+}) => ({
+    '@context': 'https://schema.org',
+    '@type': 'MedicalWebPage',
+    name: page.name,
+    description: page.description,
+    url: toAbsolute(page.url),
+    medicalAudience: { '@type': 'MedicalAudience', audienceType: 'Patient' },
+    publisher: {
+        '@type': 'MedicalOrganization',
+        name: SITE_NAME,
+        url: SITE_URL
+    },
+    ...(page.about
+        ? { about: { '@type': 'MedicalCondition', name: page.about } }
+        : {})
+});
+
+export const getItemListSchema = (items: Array<{ name: string; url: string; description?: string }>) => ({
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: items.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.name,
+        url: toAbsolute(item.url),
+        ...(item.description ? { description: item.description } : {})
+    }))
+});
+
+export const getCollectionPageSchema = (page: {
+    name: string;
+    description: string;
+    url: string;
+    items?: Array<{ name: string; url: string }>;
+}) => ({
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: page.name,
+    description: page.description,
+    url: toAbsolute(page.url),
+    isPartOf: {
+        '@type': 'WebSite',
+        name: SITE_NAME,
+        url: SITE_URL
+    },
+    ...(page.items?.length
+        ? {
+            mainEntity: {
+                '@type': 'ItemList',
+                itemListElement: page.items.map((item, index) => ({
+                    '@type': 'ListItem',
+                    position: index + 1,
+                    name: item.name,
+                    url: toAbsolute(item.url)
+                }))
+            }
+        }
+        : {})
 });
 
 export const getProviderSchema = (provider: Provider) => {

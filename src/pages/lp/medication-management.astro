@@ -8,6 +8,7 @@ import { FAQ } from '../../components/lp/FAQ';
 import { CTA } from '../../components/lp/CTA';
 import { Footer } from '../../components/lp/Footer';
 import { InsuranceLogos } from '../../components/lp/InsuranceLogos';
+import { getServiceSchema, getFaqSchema } from '@/utils/schema';
 import { ClipboardCheck, LineChart, Users, Shield, Calendar, Stethoscope } from 'lucide-react';
 
 const features = [
@@ -88,11 +89,19 @@ const faqs = [
     answer: "Absolutely. We believe in coordinated care and will collaborate with your therapist, primary care provider, and other specialists with your permission to ensure comprehensive treatment."
   }
 ];
+
+const pageTitle = "Medication Management";
+const pageDescription = "Expert psychiatric medication management for depression, anxiety, ADHD, and mood disorders. Virtual appointments, insurance accepted. Start your journey to wellness today.";
+const schema = [
+  getServiceSchema(pageTitle, pageDescription),
+  getFaqSchema(faqs),
+];
 ---
 
-<LandingLayout 
-  title="Medication Management" 
-  description="Expert psychiatric medication management for depression, anxiety, ADHD, and mood disorders. Virtual appointments, insurance accepted. Start your journey to wellness today."
+<LandingLayout
+  title={pageTitle}
+  description={pageDescription}
+  schema={schema}
 >
   <Header client:load />
   <Hero

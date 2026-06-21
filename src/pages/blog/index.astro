@@ -10,14 +10,29 @@ import SupportCTA from "../../components/blog/SupportCTA.astro";
 //import NewsletterSection from "../../components/blog/react/NewsletterSection";
 import Footer from "../../components/Footer";
 import CrisisNotice from "@/components/common/CrisisNotice";
+import { getBreadcrumbSchema, getCollectionPageSchema } from "@/utils/schema";
 
 const categoriesEntries = await getCollection('categories');
 const categories = categoriesEntries.map(c => c.data);
 
 const currentPath = Astro.url.pathname;
+
+const blogDescription = "Mental health articles, guidance, and resources from Oasis Health Services — understanding feelings, getting help, building skills, and supporting loved ones.";
+const schema = [
+  getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Blog", url: "/blog" },
+  ]),
+  getCollectionPageSchema({
+    name: "Oasis Mental Health Blog",
+    description: blogDescription,
+    url: "/blog",
+    items: categories.map((c) => ({ name: c.title, url: `/blog/category/${c.slug}` })),
+  }),
+];
 ---
 
-<BlogLayout title="Oasis Mental Health Blog">
+<BlogLayout title="Oasis Mental Health Blog" description={blogDescription} schema={schema}>
   <Header currentPath={currentPath} client:load />
   <main class="flex-1">
     <HeroSection>

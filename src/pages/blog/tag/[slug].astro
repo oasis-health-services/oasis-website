@@ -4,10 +4,12 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BreadcrumbNav from "@/components/blog/BreadcrumbNav.astro";
 import ArticleCard from "@/components/blog/ArticleCard.astro";
-import { 
-  getArticlesByTag, 
+import {
+  getArticlesByTag,
+  getArticleUrl,
   tags
 } from "@/content.config";
+import { getBreadcrumbSchema, getCollectionPageSchema } from "@/utils/schema";
 import { Hash } from "lucide-react";
 
 export async function getStaticPaths() {
@@ -26,9 +28,26 @@ if(!tag) {
 const currentPath = Astro.url.pathname;
 const articles = await getArticlesByTag(tag.slug);
 const allTags = tags;
+
+const tagUrl = `/blog/tag/${tag.slug}`;
+const tagDescription = `Articles tagged with "${tag.name}" - helpful resources and guidance from Oasis Support & Resource Center.`;
+const schema = [
+  getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Blog", url: "/blog" },
+    { name: "Tags", url: "/blog/tags" },
+    { name: `#${tag.name}`, url: tagUrl },
+  ]),
+  getCollectionPageSchema({
+    name: `#${tag.name}`,
+    description: tagDescription,
+    url: tagUrl,
+    items: articles.map((a) => ({ name: a.data.title, url: getArticleUrl(a) })),
+  }),
+];
 ---
 
-<BlogLayout title={`#${tag.name} | Oasis Support & Resource Center`} description={`Articles tagged with "${tag.name}" - helpful resources and guidance from Oasis Support & Resource Center.`}>
+<BlogLayout title={`#${tag.name} | Oasis Support & Resource Center`} description={tagDescription} schema={schema}>
   <Header currentPath={currentPath} client:load />
   <main class="flex-1">
     <!-- Hero section -->

@@ -4,11 +4,13 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BreadcrumbNav from "@/components/blog/BreadcrumbNav.astro";
 import ArticleCard from "@/components/blog/ArticleCard.astro";
-import { 
-  getCategories, 
-  getSubcategoryBySlug, 
-  getArticlesBySubcategory 
+import {
+  getCategories,
+  getSubcategoryBySlug,
+  getArticlesBySubcategory,
+  getArticleUrl
 } from "@/content.config";
+import { getBreadcrumbSchema, getCollectionPageSchema } from "@/utils/schema";
 import { cn } from "@/lib/utils";
 
 export async function getStaticPaths() {
@@ -49,9 +51,25 @@ const iconPaths = {
 } as const;
 
 const iconPath = iconPaths[category.data.iconName as keyof typeof iconPaths] || iconPaths.Heart;
+
+const subcategoryUrl = `/blog/category/${category.data.slug}/${subcat.slug}`;
+const schema = [
+  getBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Blog", url: "/blog" },
+    { name: category.data.title, url: `/blog/category/${category.data.slug}` },
+    { name: subcat.name, url: subcategoryUrl },
+  ]),
+  getCollectionPageSchema({
+    name: `${subcat.name} | ${category.data.title}`,
+    description: subcat.description,
+    url: subcategoryUrl,
+    items: articles.map((a) => ({ name: a.data.title, url: getArticleUrl(a) })),
+  }),
+];
 ---
 
-<BlogLayout title={`${subcat.name} | ${category.data.title}`} description={subcat.description}>
+<BlogLayout title={`${subcat.name} | ${category.data.title}`} description={subcat.description} schema={schema}>
   <Header currentPath={currentPath} client:load />
   <main class="flex-1">
     <!-- Hero section -->

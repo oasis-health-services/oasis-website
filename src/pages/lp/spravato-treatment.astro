@@ -8,6 +8,7 @@ import { FAQ } from '../../components/lp/FAQ';
 import { CTA } from '../../components/lp/CTA';
 import { Footer } from '../../components/lp/Footer';
 import { InsuranceLogos } from '../../components/lp/InsuranceLogos';
+import { getServiceSchema, getFaqSchema } from '@/utils/schema';
 import { Sparkles, ShieldCheck, Activity, Clock, Users, LineChart } from 'lucide-react';
 
 const features = [
@@ -88,11 +89,19 @@ const faqs = [
     answer: "Many insurance plans cover Spravato for treatment-resistant depression. Our team will work with your insurance to determine coverage and obtain any necessary prior authorizations before starting treatment."
   }
 ];
+
+const pageTitle = "Spravato (Esketamine) Treatment";
+const pageDescription = "FDA-approved Spravato therapy for treatment-resistant depression. REMS-certified clinic with experienced providers. Find hope when other treatments haven't worked.";
+const schema = [
+  getServiceSchema(pageTitle, pageDescription),
+  getFaqSchema(faqs),
+];
 ---
 
-<LandingLayout 
-  title="Spravato (Esketamine) Treatment" 
-  description="FDA-approved Spravato therapy for treatment-resistant depression. REMS-certified clinic with experienced providers. Find hope when other treatments haven't worked."
+<LandingLayout
+  title={pageTitle}
+  description={pageDescription}
+  schema={schema}
 >
   <Header client:load />
   <Hero

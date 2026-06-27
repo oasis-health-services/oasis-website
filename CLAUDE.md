@@ -65,4 +65,4 @@ npm run deploy:staging / deploy:prod # build, then rsync dist/ to the server
 - [README.md](README.md) — project overview & setup.
 - [SEO-IMPLEMENTATION.md](SEO-IMPLEMENTATION.md) — SEO pipeline, sitemaps, schema markup.
 - [PULL_REQUEST_PROCESS.md](PULL_REQUEST_PROCESS.md) — branch/PR/release workflow.
-- `.agents/` — AI skills & workflows (blog production, React specialist).
+- [.claude/skills/](.claude/skills/) & [.claude/commands/](.claude/commands/) — AI skills & commands (blog production, React specialist).

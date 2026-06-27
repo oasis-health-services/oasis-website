@@ -3,3 +3,6 @@ dist
 .DS_Store
 .env*
 .astro/
+
+# Claude Code machine-local settings (skills/commands ARE tracked)
+.claude/settings.local.json
